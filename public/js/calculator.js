@@ -251,3 +251,58 @@ function recalculoTotalCotizacion() {
 document.addEventListener("DOMContentLoaded", () => {
   selectServiceTab('Alfombras');
 });
+
+// ==========================================
+// AUTO-ROTACIÓN DEL CARRUSEL PRINCIPAL
+// ==========================================
+let currentSlide = 0;
+const totalSlides = 4;
+let autoSlideInterval = null;
+
+function updateCarouselUI() {
+  const container = document.getElementById('carouselSlides');
+  if (container) {
+    container.style.transform = `translateX(-${currentSlide * 100}%)`;
+  }
+
+  // Actualizar botones de estado (1, 2, 3, 4)
+  const dots = document.querySelectorAll('.dot-btn');
+  dots.forEach((dot, index) => {
+    if (index === currentSlide) {
+      dot.classList.remove('bg-gray-600');
+      dot.classList.add('bg-emerald-600');
+    } else {
+      dot.classList.remove('bg-emerald-600');
+      dot.classList.add('bg-gray-600');
+    }
+  });
+}
+
+function moveSlide(direction) {
+  currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+  updateCarouselUI();
+  resetAutoSlide();
+}
+
+function setSlide(index) {
+  currentSlide = index;
+  updateCarouselUI();
+  resetAutoSlide();
+}
+
+function startAutoSlide() {
+  autoSlideInterval = setInterval(() => {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    updateCarouselUI();
+  }, 4000); // Cambia de imagen cada 4 segundos
+}
+
+function resetAutoSlide() {
+  clearInterval(autoSlideInterval);
+  startAutoSlide();
+}
+
+// Iniciar carrusel al cargar la página
+document.addEventListener("DOMContentLoaded", () => {
+  startAutoSlide();
+});
