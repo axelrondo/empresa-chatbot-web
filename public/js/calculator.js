@@ -397,3 +397,68 @@ document.addEventListener('DOMContentLoaded', () => {
   calculateTotal();
   updateSlideUI();
 });
+
+// Mostrar/Ocultar paneles desplegables de extras
+function toggleExtraPanel(panelId) {
+  const panel = document.getElementById(panelId);
+  if (panel) {
+    panel.classList.toggle('d-none');
+  }
+}
+
+// Actualizar texto del slider de sofás
+function actualizarLabelSofas(val) {
+  const precios = { '1': '1 Cuerpo (Bs 40)', '2': '2 Cuerpos (Bs 80)', '3': '3 Cuerpos (Bs 120)' };
+  document.getElementById('cant-sofas-label').innerText = precios[val] || '';
+}
+
+// Estructura global para acumular extras seleccionados
+let extrasCotizados = [];
+
+// Función para añadir extras al resumen detallado
+function agregarExtraCotizacion(tipo) {
+  let item = {};
+
+  if (tipo === 'vidrios') {
+    const cant = parseInt(document.getElementById('range-vidrios').value);
+    const precioUnit = parseInt(document.getElementById('tipo-vidrios').value);
+    item = { name: `Lavado de Vidrios (${cant} ventanas)`, total: cant * precioUnit };
+  } else if (tipo === 'sillas') {
+    const cant = parseInt(document.getElementById('range-sillas').value);
+    item = { name: `Lavado de Sillas (${cant} unidades)`, total: cant * 7 };
+  } else if (tipo === 'sofas') {
+    const cuerpos = parseInt(document.getElementById('range-sofas').value);
+    const preciosSofas = { 1: 40, 2: 80, 3: 120 };
+    item = { name: `Lavado de Sofá (${cuerpos} cuerpos)`, total: preciosSofas[cuerpos] };
+  } else if (tipo === 'piso') {
+    const m2 = parseInt(document.getElementById('range-piso').value);
+    item = { name: `Lustrado de Piso de Madera (${m2} m²)`, total: m2 * 14 };
+  }
+
+  extrasCotizados.push(item);
+  renderizarResumenCotizacion();
+}
+
+// Toggle para la opción fija de Cocina
+function toggleExtraCocina(checkbox) {
+  if (checkbox.checked) {
+    extrasCotizados.push({ name: 'Limpieza Profunda de Cocina', total: 150, key: 'cocina' });
+  } else {
+    extrasCotizados = extrasCotizados.filter(e => e.key !== 'cocina');
+  }
+  renderizarResumenCotizacion();
+}
+
+// Lógica de cálculo principal respetando el mínimo de 80 Bs para alfombras
+function calcularTotalAlfombra(m2) {
+  const precioM2 = 15;
+  const minimoCobrable = 80;
+  
+  let subtotalM2 = m2 * precioM2;
+  
+  // Si la multiplicación no llega al mínimo, se aplican los 80 Bs directos
+  if (subtotalM2 < minimoCobrable) {
+    return { cobro: minimoCobrable, esMinimo: true };
+  }
+  return { cobro: subtotalM2, esMinimo: false };
+}

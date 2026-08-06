@@ -31,22 +31,20 @@
     </nav>
   </header>
 
-  <!-- SLIDER PRINCIPAL CON BANNERS (banner1.png a banner4.png) -->
+  <!-- SLIDER PRINCIPAL CON BANNERS -->
   <section id="inicio" class="relative max-w-7xl mx-auto overflow-hidden bg-slate-200">
     <div class="relative w-full h-[280px] sm:h-[380px] md:h-[450px]">
       <img id="mainSliderImg" src="/img/banner2.png" alt="Servicios LIMBOLIVIA" class="w-full h-full object-cover transition-all duration-500">
       
-      <!-- Flecha Izquierda -->
+      <!-- Flechas -->
       <button onclick="prevSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition shadow-lg">
         <i class="fa-solid fa-chevron-left text-xl"></i>
       </button>
-
-      <!-- Flecha Derecha -->
       <button onclick="nextSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition shadow-lg">
         <i class="fa-solid fa-chevron-right text-xl"></i>
       </button>
 
-      <!-- Botones Numéricos (1, 2, 3, 4) -->
+      <!-- Botones Numéricos -->
       <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 bg-black/50 p-1.5 rounded-md">
         <button onclick="setSlide(0)" id="slideBtn-0" class="w-6 h-6 text-xs font-bold rounded text-white bg-slate-800 hover:bg-slate-700">1</button>
         <button onclick="setSlide(1)" id="slideBtn-1" class="w-6 h-6 text-xs font-bold rounded text-white bg-blue-600">2</button>
@@ -56,7 +54,7 @@
     </div>
   </section>
 
-  <!-- BARRA AZUL "¡ESTAMOS ATENTOS A SU LLAMADA!" -->
+  <!-- BARRA "¡ESTAMOS ATENTOS A SU LLAMADA!" -->
   <div class="bg-[#001845] text-white py-3.5 px-4 shadow-md">
     <div class="max-w-7xl mx-auto flex items-center gap-3">
       <div class="bg-red-600 text-white w-9 h-9 rounded-full flex items-center justify-center text-lg shadow shrink-0">
@@ -83,24 +81,24 @@
           <div>
             <label class="block font-semibold text-gray-700 mb-2">1. Selecciona un Servicio para Configurar:</label>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <button onclick="selectServiceTab('Alfombras')" id="btn-Alfombras">
-                <i class="fa-solid fa-rug text-xl"></i>
-                <span>Lavado de Alfombras</span>
+              <button onclick="selectServiceTab('Alfombras')" id="btn-Alfombras" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+                <i class="fa-solid fa-rug text-xl text-emerald-600"></i>
+                <span class="text-xs font-bold">Alfombra Fija</span>
+              </button>
+
+              <button onclick="selectServiceTab('AlfombraSuelta')" id="btn-AlfombraSuelta" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+                <i class="fa-solid fa-scroll text-xl text-emerald-600"></i>
+                <span class="text-xs font-bold">Alfombra Suelta</span>
               </button>
               
-              <button onclick="selectServiceTab('Oficinas')" id="btn-Oficinas">
-                <i class="fa-solid fa-building text-xl"></i>
-                <span>Limpieza de Oficinas</span>
+              <button onclick="selectServiceTab('Oficinas')" id="btn-Oficinas" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+                <i class="fa-solid fa-building text-xl text-emerald-600"></i>
+                <span class="text-xs font-bold">Limpieza Oficinas</span>
               </button>
               
-              <button onclick="selectServiceTab('Casas')" id="btn-Casas">
-                <i class="fa-solid fa-house-chimney text-xl"></i>
-                <span>Limpieza de Casas</span>
-              </button>
-              
-              <button onclick="selectServiceTab('Post-Obra')" id="btn-Post-Obra">
-                <i class="fa-solid fa-helmet-safety text-xl"></i>
-                <span>Limpieza Post-Obra</span>
+              <button onclick="selectServiceTab('Casas')" id="btn-Casas" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+                <i class="fa-solid fa-house-chimney text-xl text-emerald-600"></i>
+                <span class="text-xs font-bold">Limpieza Casas</span>
               </button>
             </div>
           </div>
@@ -122,22 +120,117 @@
             </div>
             
             <div class="flex items-center gap-3">
-              <button onclick="changeM2Step(-1)" class="bg-slate-200 hover:bg-slate-300 active:bg-slate-400 text-slate-800 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition shadow-sm border border-slate-300 shrink-0" title="Restar 1 m²">
+              <button onclick="changeM2Step(-1)" class="bg-slate-200 hover:bg-slate-300 active:bg-slate-400 text-slate-800 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition shadow-sm border border-slate-300 shrink-0">
                 <i class="fa-solid fa-minus"></i>
               </button>
               
               <input type="range" id="m2Slider" min="5" max="300" step="5" value="15" class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="onSliderChange()">
               
-              <button onclick="changeM2Step(1)" class="bg-slate-200 hover:bg-slate-300 active:bg-slate-400 text-slate-800 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition shadow-sm border border-slate-300 shrink-0" title="Sumar 1 m²">
+              <button onclick="changeM2Step(1)" class="bg-slate-200 hover:bg-slate-300 active:bg-slate-400 text-slate-800 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition shadow-sm border border-slate-300 shrink-0">
                 <i class="fa-solid fa-plus"></i>
               </button>
             </div>
           </div>
 
-          <!-- 3. Extras Opcionales -->
-          <div>
-            <label class="block font-semibold text-gray-700 mb-2">3. Extras Opcionales para este Servicio:</label>
-            <div id="extrasContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs"></div>
+          <!-- 3. EXTRAS OPCIONALES DINÁMICOS (ADAPTADOS A TAILWIND CSS) -->
+          <div class="mt-6 space-y-4">
+            <h4 class="font-bold text-gray-800 text-base">3. Extras Opcionales para este Servicio:</h4>
+            
+            <!-- EXTRA: Vidrios -->
+            <div class="border rounded-xl p-4 bg-gray-50/50">
+              <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
+                <input type="checkbox" id="check-vidrios" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtraPanel('panel-vidrios')">
+                <span>🧼 Lavado de Vidrios y Ventanas</span>
+              </label>
+
+              <div id="panel-vidrios" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-3">
+                <div class="grid md:grid-cols-12 gap-3 items-end">
+                  <div class="md:col-span-5">
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Tipo de Limpieza:</label>
+                    <select id="tipo-vidrios" class="w-full text-xs p-2 border border-gray-300 rounded-lg bg-white">
+                      <option value="7">Una Cara (Interior o Exterior) - Bs 7/ventana</option>
+                      <option value="12" selected>Ambas Caras (Interior y Exterior) - Bs 12/ventana</option>
+                    </select>
+                  </div>
+                  <div class="md:col-span-4">
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Cantidad: <b id="cant-vidrios-label" class="text-emerald-600">1</b></label>
+                    <input type="range" id="range-vidrios" min="1" max="30" value="1" class="w-full accent-emerald-600" oninput="document.getElementById('cant-vidrios-label').innerText = this.value">
+                  </div>
+                  <div class="md:col-span-3">
+                    <button onclick="agregarExtraCotizacion('vidrios')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-lg text-xs transition">➕ Añadir</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- EXTRA: Sillas -->
+            <div class="border rounded-xl p-4 bg-gray-50/50">
+              <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
+                <input type="checkbox" id="check-sillas" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtraPanel('panel-sillas')">
+                <span>🪑 Lavado de Sillas (Bs 7 / unidad)</span>
+              </label>
+
+              <div id="panel-sillas" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-3">
+                <div class="grid md:grid-cols-12 gap-3 items-end">
+                  <div class="md:col-span-8">
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Cantidad de Sillas: <b id="cant-sillas-label" class="text-emerald-600">1</b></label>
+                    <input type="range" id="range-sillas" min="1" max="50" value="1" class="w-full accent-emerald-600" oninput="document.getElementById('cant-sillas-label').innerText = this.value">
+                  </div>
+                  <div class="md:col-span-4">
+                    <button onclick="agregarExtraCotizacion('sillas')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-lg text-xs transition">➕ Añadir</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- EXTRA: Sofás -->
+            <div class="border rounded-xl p-4 bg-gray-50/50">
+              <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
+                <input type="checkbox" id="check-sofas" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtraPanel('panel-sofas')">
+                <span>🛋️ Lavado de Sofás y Muebles</span>
+              </label>
+
+              <div id="panel-sofas" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-3">
+                <div class="grid md:grid-cols-12 gap-3 items-end">
+                  <div class="md:col-span-8">
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Piezas: <b id="cant-sofas-label" class="text-emerald-600">1 Cuerpo (Bs 40)</b></label>
+                    <input type="range" id="range-sofas" min="1" max="3" value="1" class="w-full accent-emerald-600" oninput="actualizarLabelSofas(this.value)">
+                  </div>
+                  <div class="md:col-span-4">
+                    <button onclick="agregarExtraCotizacion('sofas')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-lg text-xs transition">➕ Añadir</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- EXTRA: Lustrado de Piso -->
+            <div class="border rounded-xl p-4 bg-gray-50/50">
+              <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
+                <input type="checkbox" id="check-piso" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtraPanel('panel-piso')">
+                <span>🪵 Lustrado de Piso de Madera + Brillo (Bs 14 / m²)</span>
+              </label>
+
+              <div id="panel-piso" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-3">
+                <div class="grid md:grid-cols-12 gap-3 items-end">
+                  <div class="md:col-span-8">
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Superficie: <b id="cant-piso-label" class="text-emerald-600">5 m²</b></label>
+                    <input type="range" id="range-piso" min="5" max="100" value="5" class="w-full accent-emerald-600" oninput="document.getElementById('cant-piso-label').innerText = this.value + ' m²'">
+                  </div>
+                  <div class="md:col-span-4">
+                    <button onclick="agregarExtraCotizacion('piso')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-lg text-xs transition">➕ Añadir</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- EXTRA: Cocina -->
+            <div class="border rounded-xl p-4 bg-gray-50/50 flex items-center justify-between">
+              <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
+                <input type="checkbox" id="check-cocina" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtraCocina(this)">
+                <span>🍳 Limpieza Profunda de Cocina (Bs 150)</span>
+              </label>
+              <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Precio negociable</span>
+            </div>
           </div>
 
           <!-- BOTÓN AGREGAR -->
@@ -214,7 +307,7 @@
     </button>
   </div>
 
-  <!-- JS SCRIPTS CON RUTAS ABSOLUTAS -->
+  <!-- JS SCRIPTS -->
   <script src="/js/calculator.js"></script>
   <script src="/js/chatbot.js"></script>
 </body>
