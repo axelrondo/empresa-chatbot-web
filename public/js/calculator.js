@@ -48,13 +48,11 @@ const PRECIOS_EXTRAS = {
 // CONTROL DE PESTAÑAS Y SLIDER BASE (1 Y 2)
 // ==========================================
 
-// Cambiar servicio activo al hacer clic en las pestañas
 function selectServiceTab(tipo) {
   if (!SERVICIOS_DATA[tipo]) return;
   
   servicioSeleccionado = tipo;
 
-  // Actualizar estilos de los botones
   const listaServicios = ['Alfombras', 'AlfombraSuelta', 'Oficinas', 'Casas'];
   listaServicios.forEach(s => {
     const btn = document.getElementById(`btn-${s}`);
@@ -69,7 +67,6 @@ function selectServiceTab(tipo) {
     }
   });
 
-  // Actualizar tarjeta de información (Imagen, Título y Descripción)
   const data = SERVICIOS_DATA[tipo];
   const imgEl = document.getElementById('serviceImage');
   const titleEl = document.getElementById('serviceTitle');
@@ -82,12 +79,11 @@ function selectServiceTab(tipo) {
   recalculoTotalCotizacion();
 }
 
-// Botones + y - para el slider principal de m²
 function changeM2Step(delta) {
   const slider = document.getElementById('m2Slider');
   if (!slider) return;
 
-  let val = parseInt(slider.value) + (delta * 5); // Aumenta o disminuye de 5 en 5
+  let val = parseInt(slider.value) + (delta * 5);
   let min = parseInt(slider.min);
   let max = parseInt(slider.max);
 
@@ -97,7 +93,6 @@ function changeM2Step(delta) {
   }
 }
 
-// Mover la barra de metros cuadrados
 function onSliderChange() {
   const slider = document.getElementById('m2Slider');
   const label = document.getElementById('m2Value');
@@ -173,7 +168,6 @@ function recalculoTotalCotizacion() {
   const datosServicio = SERVICIOS_DATA[servicioSeleccionado];
   let subtotalServicio = m2 * datosServicio.precioM2;
 
-  // Aplicar tarifa mínima si corresponde
   if (subtotalServicio < datosServicio.minimo) {
     subtotalServicio = datosServicio.minimo;
   }
@@ -189,7 +183,6 @@ function recalculoTotalCotizacion() {
     </div>
   `;
 
-  // Sumar Extras seleccionados
   if (document.getElementById('check-vidrios')?.checked) {
     const cant = parseInt(document.getElementById('range-vidrios').value);
     const costo = cant * PRECIOS_EXTRAS.vidrios;
@@ -238,7 +231,6 @@ function recalculoTotalCotizacion() {
     </div>`;
   }
 
-  // Renderizar Total y Detalles
   const granTotal = subtotalServicio + totalExtras;
   const breakdownEl = document.getElementById('servicesBreakdown');
   const summaryTotalEl = document.getElementById('summaryTotal');
@@ -246,11 +238,6 @@ function recalculoTotalCotizacion() {
   if (breakdownEl) breakdownEl.innerHTML = listaResumenHTML;
   if (summaryTotalEl) summaryTotalEl.innerText = `Bs ${granTotal}`;
 }
-
-// Inicializar la primera pestaña al cargar la página
-document.addEventListener("DOMContentLoaded", () => {
-  selectServiceTab('Alfombras');
-});
 
 // ==========================================
 // AUTO-ROTACIÓN DEL CARRUSEL PRINCIPAL
@@ -265,7 +252,6 @@ function updateCarouselUI() {
     container.style.transform = `translateX(-${currentSlide * 100}%)`;
   }
 
-  // Actualizar botones de estado (1, 2, 3, 4)
   const dots = document.querySelectorAll('.dot-btn');
   dots.forEach((dot, index) => {
     if (index === currentSlide) {
@@ -291,10 +277,11 @@ function setSlide(index) {
 }
 
 function startAutoSlide() {
+  if (autoSlideInterval) clearInterval(autoSlideInterval);
   autoSlideInterval = setInterval(() => {
     currentSlide = (currentSlide + 1) % totalSlides;
     updateCarouselUI();
-  }, 4000); // Cambia de imagen cada 4 segundos
+  }, 4000); // Cambia cada 4 segundos
 }
 
 function resetAutoSlide() {
@@ -302,7 +289,11 @@ function resetAutoSlide() {
   startAutoSlide();
 }
 
-// Iniciar carrusel al cargar la página
+// ==========================================
+// INICIALIZACIÓN ÚNICA DE LA PÁGINA
+// ==========================================
 document.addEventListener("DOMContentLoaded", () => {
+  selectServiceTab('Alfombras');
+  updateCarouselUI();
   startAutoSlide();
 });
