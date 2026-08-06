@@ -1,0 +1,37 @@
+.bg-lim-header { background-color: #004b87; }
+.bg-lim-nav { background-color: #004173; }
+.bg-lim-call { background-color: #001254; }
+.bg-lim-emerald { background-color: #00875a; }
+
+.group:hover .dropdown-menu { display: block; }
+
+.swiper-button-next, .swiper-button-prev {
+  color: #ffffff;
+  text-shadow: 0px 0px 5px rgba(0,0,0,0.8);
+}
+
+.swiper-pagination-bullet {
+  width: 24px; 
+  height: 24px; 
+  text-align: center;
+  line-height: 24px; 
+  font-size: 12px; 
+  color: #fff;
+  opacity: 0.7; 
+  background: #000; 
+  border-radius: 4px;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1; 
+  background: #004b87; 
+  font-weight: bold;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 135, 90, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(0, 135, 90, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 135, 90, 0); }
+}
+
+.pulse-btn { animation: pulse-ring 2s infinite; }
