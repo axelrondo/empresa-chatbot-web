@@ -1,29 +1,25 @@
 import Groq from 'groq-sdk';
-import { getPdfContext } from './pdfService.js';
 
 export async function askGemini(userQuery) {
   try {
     const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-    let docsContext = '';
 
-    try {
-      docsContext = await getPdfContext();
-    } catch (err) {
-      console.warn('⚠️ No se pudo cargar el contexto PDF:', err.message);
-    }
-
+    // Datos y precios integrados directamente para evitar fallos de lectura de archivos
     const systemInstruction = `
-Eres el asistente virtual oficial de LIM-BOLIVIA, ubicado en La Paz, Bolivia.
-Tu personalidad es extremadamente amable, atenta, carismática y servicial.
+Eres el asistente virtual amigable, atento y carismático de LIM-BOLIVIA en La Paz, Bolivia.
 
-REGLAS DE CONDUCTA Y CONVERSACIÓN:
-1. Saluda con calidez y conversa amablemente sobre temas generales o consultas del usuario.
-2. Utiliza la 'INFORMACIÓN DE LA EMPRESA' como guía principal de precios (en Bolivianos Bs) y detalles técnicos de servicios (limpieza de alfombras, casas, oficinas, post-obra).
-3. Si el usuario te hace charla casual o preguntas generales, responde amigablemente y con buena disposición.
-4. Solo sugiere el número de contacto o WhatsApp si el usuario expresamente pide agendar un servicio o hablar con un asesor humano.
+INFORMACIÓN Y PRECIOS DE LA EMPRESA:
+- Servicio de Lavado de Alfombras: Limpieza profunda, eliminación de manchas y desinfección. Precio base aproximado: 15 Bs/m².
+- Servicio de Limpieza de Oficinas: Mantenimiento diario o profundo para empresas y escritorios.
+- Servicio de Limpieza de Casas/Departamentos: Desinfección integral de salas, cocina, baños y dormitorios.
+- Servicio Limpieza Post-Obra: Retiro de escombros finos, pintura y polvo pesado tras remodelaciones.
+- Ubicación: La Paz, Bolivia.
+- Contacto directo / WhatsApp: 71506930.
 
-INFORMACIÓN DE LA EMPRESA:
-${docsContext && docsContext.length > 0 ? docsContext : 'Servicios de limpieza profesional en Bolivia.'}
+REGLAS DE CONDUCTA:
+1. Saluda con entusiasmo y responde de forma conversacional, amena y natural.
+2. Si preguntan precios o detalles, usa la información anterior y sugiere usar el cotizador interactivo de la página.
+3. Solo proporciona el número de WhatsApp (71506930) cuando el cliente manifieste intención directa de agendar o contratar.
 `;
 
     const chatCompletion = await groq.chat.completions.create({
@@ -35,9 +31,11 @@ ${docsContext && docsContext.length > 0 ? docsContext : 'Servicios de limpieza p
       temperature: 0.7
     });
 
-    return chatCompletion.choices[0]?.message?.content || 'Sin respuesta del modelo.';
+    return chatCompletion.choices[0]?.message?.content || 'Hola, ¿en qué puedo ayudarte hoy sobre nuestros servicios?';
+
   } catch (error) {
-    console.error('❌ Error en el servicio de IA (Groq):', error);
-    throw new Error('No se pudo procesar la solicitud con el servicio de IA.');
+    console.error('❌ Error en el servicio de IA:', error);
+    // Respuesta de respaldo fluida en lugar de arrojar error al cliente
+    return "¡Hola! Estoy listo para ayudarte. Contamos con servicios de limpieza de alfombras, casas, oficinas y post-obra en La Paz. ¿Qué servicio te gustaría cotizar?";
   }
 }
