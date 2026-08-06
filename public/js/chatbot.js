@@ -28,7 +28,6 @@ async function sendMessage() {
   const loadingId = appendLoading();
 
   try {
-    // Petición a tu backend Node.js (/api/chat)
     const response = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -53,7 +52,6 @@ async function sendMessage() {
   } catch (error) {
     console.error("Error en Chatbot:", error);
     removeLoading(loadingId);
-    // Respuesta amigable en lugar del bot rígido de WhatsApp
     appendMessage('bot', "¡Hola! Disculpa, tuve un pequeño parpadeo en mi conexión. ¿Me podrías repetir tu consulta? Con gusto te doy todos los detalles de nuestros precios y servicios de limpieza.");
   }
 }
@@ -71,6 +69,9 @@ function appendMessage(sender, text) {
     // Convertir saltos de línea simples
     let formattedText = text.replace(/\n/g, '<br>');
     msgDiv.innerHTML = `<div>${formattedText}</div>`;
+
+    // Reproducir la respuesta con voz
+    speak(text);
   }
 
   chatMessages.appendChild(msgDiv);
@@ -112,12 +113,16 @@ function startListening() {
   };
 }
 
-// Función para reproducir voz
+// Función para reproducir voz sin HTML
 function speak(text) {
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel(); // Detener audios anteriores
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'es-ES'; // O 'es-MX' / 'es-BO'
+    
+    // Eliminar etiquetas HTML antes de leer el texto
+    const cleanText = text.replace(/<[^>]*>?/gm, '');
+    
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.lang = 'es-ES';
     utterance.rate = 1.0;
     window.speechSynthesis.speak(utterance);
   }

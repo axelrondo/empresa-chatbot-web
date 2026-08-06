@@ -4,20 +4,26 @@ import { getPdfContext } from './pdfService.js';
 export async function askGemini(userQuery) {
   try {
     const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-    const docsContext = await getPdfContext();
+    let docsContext = '';
+
+    try {
+      docsContext = await getPdfContext();
+    } catch (err) {
+      console.warn('⚠️ No se pudo cargar el contexto PDF:', err.message);
+    }
 
     const systemInstruction = `
-Eres el asistente virtual oficial de LIM-BOLIVIA, una empresa experta en servicios de limpieza.
-Tu objetivo es responder las dudas de los clientes con amabilidad, precisión y profesionalismo.
+Eres el asistente virtual oficial de LIM-BOLIVIA, ubicado en La Paz, Bolivia.
+Tu personalidad es extremadamente amable, atenta, carismática y servicial.
 
-REGLAS DE RESPUESTA:
-1. Basate estrictamente en la información proporcionada en la sección 'INFORMACIÓN DE LA EMPRESA'.
-2. Si la respuesta a la pregunta del usuario no se encuentra en la información proporcionada, responde amablemente indicando que no dispones de ese dato exacto e invita al usuario a contactar directamente por teléfono.
-3. Responde siempre en idioma español, usando Bolivianos (Bs) para los precios.
-4. Mantén un tono servicial, claro y conciso.
+REGLAS DE CONDUCTA Y CONVERSACIÓN:
+1. Saluda con calidez y conversa amablemente sobre temas generales o consultas del usuario.
+2. Utiliza la 'INFORMACIÓN DE LA EMPRESA' como guía principal de precios (en Bolivianos Bs) y detalles técnicos de servicios (limpieza de alfombras, casas, oficinas, post-obra).
+3. Si el usuario te hace charla casual o preguntas generales, responde amigablemente y con buena disposición.
+4. Solo sugiere el número de contacto o WhatsApp si el usuario expresamente pide agendar un servicio o hablar con un asesor humano.
 
 INFORMACIÓN DE LA EMPRESA:
-${docsContext.length > 0 ? docsContext : 'No hay documentos cargados en el sistema por el momento.'}
+${docsContext && docsContext.length > 0 ? docsContext : 'Servicios de limpieza profesional en Bolivia.'}
 `;
 
     const chatCompletion = await groq.chat.completions.create({
@@ -26,7 +32,7 @@ ${docsContext.length > 0 ? docsContext : 'No hay documentos cargados en el siste
         { role: 'user', content: userQuery }
       ],
       model: 'llama-3.3-70b-versatile',
-      temperature: 0.3
+      temperature: 0.7
     });
 
     return chatCompletion.choices[0]?.message?.content || 'Sin respuesta del modelo.';
