@@ -240,47 +240,60 @@ function recalculoTotalCotizacion() {
 }
 
 // ==========================================
-// AUTO-ROTACIÓN DEL CARRUSEL PRINCIPAL
+// AUTO-ROTACIÓN DEL CARRUSEL (HTML ACTUAL)
 // ==========================================
+const BANNER_IMAGES = [
+  "/img/banner1.png",
+  "/img/banner2.png",
+  "/img/banner3.png",
+  "/img/banner4.png"
+];
+
 let currentSlide = 0;
-const totalSlides = 4;
 let autoSlideInterval = null;
 
-function updateCarouselUI() {
-  const container = document.getElementById('carouselSlides');
-  if (container) {
-    container.style.transform = `translateX(-${currentSlide * 100}%)`;
+function updateSliderUI() {
+  const imgEl = document.getElementById('mainSliderImg');
+  if (imgEl) {
+    imgEl.src = BANNER_IMAGES[currentSlide];
   }
 
-  const dots = document.querySelectorAll('.dot-btn');
-  dots.forEach((dot, index) => {
-    if (index === currentSlide) {
-      dot.classList.remove('bg-gray-600');
-      dot.classList.add('bg-emerald-600');
-    } else {
-      dot.classList.remove('bg-emerald-600');
-      dot.classList.add('bg-gray-600');
+  // Actualizar el color de los botones 1, 2, 3, 4
+  BANNER_IMAGES.forEach((_, idx) => {
+    const btn = document.getElementById(`slideBtn-${idx}`);
+    if (btn) {
+      if (idx === currentSlide) {
+        btn.className = "w-6 h-6 text-xs font-bold rounded text-white bg-blue-600";
+      } else {
+        btn.className = "w-6 h-6 text-xs font-bold rounded text-white bg-slate-800 hover:bg-slate-700";
+      }
     }
   });
 }
 
-function moveSlide(direction) {
-  currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-  updateCarouselUI();
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % BANNER_IMAGES.length;
+  updateSliderUI();
+  resetAutoSlide();
+}
+
+function prevSlide() {
+  currentSlide = (currentSlide - 1 + BANNER_IMAGES.length) % BANNER_IMAGES.length;
+  updateSliderUI();
   resetAutoSlide();
 }
 
 function setSlide(index) {
   currentSlide = index;
-  updateCarouselUI();
+  updateSliderUI();
   resetAutoSlide();
 }
 
 function startAutoSlide() {
   if (autoSlideInterval) clearInterval(autoSlideInterval);
   autoSlideInterval = setInterval(() => {
-    currentSlide = (currentSlide + 1) % totalSlides;
-    updateCarouselUI();
+    currentSlide = (currentSlide + 1) % BANNER_IMAGES.length;
+    updateSliderUI();
   }, 4000); // Cambia cada 4 segundos
 }
 
@@ -288,6 +301,13 @@ function resetAutoSlide() {
   clearInterval(autoSlideInterval);
   startAutoSlide();
 }
+
+// Inicializar carrusel y cotizador al cargar
+document.addEventListener("DOMContentLoaded", () => {
+  selectServiceTab('Alfombras');
+  updateSliderUI();
+  startAutoSlide();
+});
 
 // ==========================================
 // INICIALIZACIÓN ÚNICA DE LA PÁGINA
