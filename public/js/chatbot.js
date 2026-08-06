@@ -111,3 +111,14 @@ function startListening() {
     sendMessage();
   };
 }
+
+// Función para reproducir voz
+function speak(text) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel(); // Detener audios anteriores
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'es-ES'; // O 'es-MX' / 'es-BO'
+    utterance.rate = 1.0;
+    window.speechSynthesis.speak(utterance);
+  }
+}
