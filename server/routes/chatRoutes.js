@@ -3,7 +3,8 @@ import { askGemini } from '../services/aiService.js';
 
 const router = express.Router();
 
-router.post('/message', async (req, res) => {
+// Escuchar directamente en la raíz '/' para coincidir con /api/chat
+router.post('/', async (req, res) => {
   try {
     const { message } = req.body;
 
@@ -14,7 +15,8 @@ router.post('/message', async (req, res) => {
     const reply = await askGemini(message);
     res.json({ reply });
   } catch (error) {
-    res.status(500).json({ error: 'Error interno del servidor al procesar la respuesta.' });
+    console.error('❌ Error interno en la ruta de chat:', error);
+    res.status(500).json({ reply: '¡Hola! Disculpa la demora, ¿en qué servicio de limpieza puedo ayudarte hoy?' });
   }
 });
 
