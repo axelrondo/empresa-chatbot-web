@@ -10,27 +10,36 @@ export async function askGemini(userQuery) {
   try {
     const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-    // Leer el archivo .txt de forma segura y liviana
+    // Intenta buscar informacion.txt o variantes de doble punto
     let infoEmpresa = '';
-    const txtPath = path.join(__dirname, '../data/informacion.txt');
+    const possiblePaths = [
+      path.join(__dirname, '../data/informacion.txt'),
+      path.join(__dirname, '../data/informacion..txt'),
+      path.join(__dirname, '../data/informacion..txt.txt')
+    ];
 
-    if (fs.existsSync(txtPath)) {
-      infoEmpresa = fs.readFileSync(txtPath, 'utf-8');
-    } else {
-      infoEmpresa = 'LIM-BOLIVIA: Empresa de limpieza profesional en La Paz, Bolivia. WhatsApp: 71506930.';
+    for (const txtPath of possiblePaths) {
+      if (fs.existsSync(txtPath)) {
+        infoEmpresa = fs.readFileSync(txtPath, 'utf-8');
+        break;
+      }
+    }
+
+    if (!infoEmpresa) {
+      infoEmpresa = 'LIM-BOLIVIA: Empresa de limpieza profesional en La Paz, Bolivia. Servicios de alfombras, oficinas y casas. WhatsApp: 71506930.';
     }
 
     const systemInstruction = `
-Eres el asistente virtual amable, atento y carismático de LIM-BOLIVIA.
+Eres el asistente virtual amable, atento y carismático de LIM-BOLIVIA en La Paz, Bolivia.
 
 INFORMACIÓN DE LA EMPRESA:
 ${infoEmpresa}
 
 REGLAS DE CONDUCTA:
-1. Saluda con buena actitud y mantén una conversación fluida y natural.
-2. Usa la información brindada para orientar al cliente sobre precios y servicios.
-3. Sugiere usar el cotizador web que está en la pantalla si el usuario desea un monto según sus metros cuadrados.
-4. Solo da el número de WhatsApp si el cliente muestra interés claro en agendar una cita o contratar.
+1. Saluda con entusiasmo y conversa con amabilidad.
+2. Orienta con los precios y detalles que están en la información de la empresa.
+3. Si el usuario pregunta precios, invítalo amablemente a probar el cotizador que está arriba.
+4. Entrega el WhatsApp (71506930) solo si piden agendar un servicio.
 `;
 
     const chatCompletion = await groq.chat.completions.create({
@@ -42,10 +51,11 @@ REGLAS DE CONDUCTA:
       temperature: 0.7
     });
 
-    return chatCompletion.choices[0]?.message?.content || '¡Hola! ¿En qué puedo colaborarte hoy?';
+    return chatCompletion.choices[0]?.message?.content || '¡Hola! ¿En qué puedo ayudarte hoy?';
 
   } catch (error) {
     console.error('❌ Error en el servicio de IA:', error);
-    return "¡Hola! Estoy listo para darte información de nuestros servicios de limpieza en La Paz. ¿Qué te gustaría consultar?";
+    // Respuesta fluida en lugar de lanzar excepción que rompa el fetch
+    return "¡Hola! Estoy listo para ayudarte con información sobre nuestros servicios de limpieza en La Paz. ¿Qué te gustaría consultar?";
   }
 }
