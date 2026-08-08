@@ -34,7 +34,8 @@
       border-radius: 50%;
       border: 2px solid #10b981;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-      margin-bottom: -12px; /* Superpone la imagen al botón */
+      margin-bottom: -12px;
+      /* Superpone la imagen al botón */
       z-index: 10;
       transition: transform 0.3s ease;
     }
@@ -51,7 +52,8 @@
       justify-content: center;
       padding: 12px 24px;
       border-radius: 9999px;
-      background: #064e3b; /* Verde oscuro base */
+      background: #064e3b;
+      /* Verde oscuro base */
       color: #ffffff;
       font-weight: 700;
       border: none;
@@ -94,8 +96,13 @@
     }
 
     @keyframes rotateGlow {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
   </style>
 </head>
@@ -215,8 +222,10 @@
             <img id="serviceImage" src="/img/banner1.png" alt="Servicio"
               class="w-full sm:w-40 h-28 object-cover rounded-lg shadow shrink-0">
             <div>
-              <h4 id="serviceTitle" class="font-bold text-slate-800 text-base mb-1">Lavado Profesional de Alfombra Fija</h4>
-              <p id="serviceDescription" class="text-xs text-gray-600 leading-relaxed">Seleccione la superficie en metros cuadrados y adicione extras si lo requiere.</p>
+              <h4 id="serviceTitle" class="font-bold text-slate-800 text-base mb-1">Lavado Profesional de Alfombra Fija
+              </h4>
+              <p id="serviceDescription" class="text-xs text-gray-600 leading-relaxed">Seleccione la superficie en
+                metros cuadrados y adicione extras si lo requiere.</p>
             </div>
           </div>
 
@@ -226,7 +235,8 @@
               <label class="font-semibold text-gray-700">2. Cantidad en Metros Cuadrados (m²):</label>
               <div class="flex items-center gap-2">
                 <span id="m2Value"
-                  class="font-black text-emerald-600 text-xl bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200">15 m²</span>
+                  class="font-black text-emerald-600 text-xl bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200">15
+                  m²</span>
                 <span id="m2Subtotal" class="font-bold text-slate-600 text-sm">(Bs 225)</span>
               </div>
             </div>
@@ -263,7 +273,8 @@
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-gray-600">Cantidad de Ventanas:</span>
                   <span id="label-vidrios"
-                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 vent. (Bs 12)</span>
+                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1
+                    vent. (Bs 12)</span>
                 </div>
 
                 <div class="flex items-center gap-2">
@@ -294,7 +305,8 @@
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-gray-600">Cantidad de Sillas:</span>
                   <span id="label-sillas"
-                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 vent. (Bs 7)</span>
+                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1
+                    vent. (Bs 7)</span>
                 </div>
 
                 <div class="flex items-center gap-2">
@@ -325,7 +337,8 @@
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-gray-600">Número de Cuerpos/Piezas:</span>
                   <span id="label-sofas"
-                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 Cuerpo (Bs 40)</span>
+                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1
+                    Cuerpo (Bs 40)</span>
                 </div>
 
                 <div class="flex items-center gap-2">
@@ -356,7 +369,8 @@
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-gray-600">Superficie a Lustrar:</span>
                   <span id="label-piso"
-                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">5 m² (Bs 70)</span>
+                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">5
+                    m² (Bs 70)</span>
                 </div>
 
                 <div class="flex items-center gap-2">
@@ -381,7 +395,8 @@
                 <input type="checkbox" id="check-cocina" class="w-4 h-4 accent-emerald-600 rounded">
                 <span>🍳 Limpieza Profunda de Cocina (Bs 150)</span>
               </label>
-              <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Precio Fijo Base</span>
+              <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Precio Fijo
+                Base</span>
             </div>
           </div>
 
@@ -429,23 +444,281 @@
       </div>
     </section>
 
+    <!-- ==========================================
+     SECCIÓN CATÁLOGO DE PRODUCTOS / EQUIPOS (ESTILO ALIBABA)
+     ========================================== -->
+    <section id="catalogo-alibaba" class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden my-8">
+
+      <!-- Encabezado de la Sección -->
+      <div class="bg-slate-900 text-white p-5 flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-bold flex items-center gap-2">
+            <i class="fa-solid fa-boxes-packing text-emerald-400"></i> Catálogo de Equipos y Productos de Limpieza
+          </h2>
+          <p class="text-xs text-gray-300 mt-0.5">Explora nuestras categorías a la izquierda para ver el catálogo
+            disponible.</p>
+        </div>
+        <span
+          class="hidden sm:inline-block bg-emerald-600/30 text-emerald-300 text-xs px-3 py-1 rounded-full border border-emerald-500/30 font-semibold">
+          Catálogo Interactivo
+        </span>
+      </div>
+
+      <!-- Estructura Principal 2 Columnas -->
+      <div class="flex flex-col md:flex-row min-h-[500px]">
+
+        <!-- ==========================================
+         COLUMNA IZQUIERDA: MENÚ DE CATEGORÍAS
+         ========================================== -->
+        <aside class="w-full md:w-64 bg-slate-50 border-r border-gray-200 p-3 space-y-1 shrink-0">
+          <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider px-3 py-2">Categorías</p>
+
+          <!-- Botón Categoría 1 -->
+          <button onclick="showCategory('aspiradoras')" id="catBtn-aspiradoras"
+            class="cat-btn w-full text-left px-3.5 py-3 rounded-xl font-medium text-xs flex items-center justify-between transition-all bg-emerald-600 text-white shadow-sm">
+            <span class="flex items-center gap-2.5">
+              <i class="fa-solid fa-wind text-sm"></i> Aspiradoras e Hidrolavadoras
+            </span>
+            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+          </button>
+
+          <!-- Botón Categoría 2 -->
+          <button onclick="showCategory('quimicos')" id="catBtn-quimicos"
+            class="cat-btn w-full text-left px-3.5 py-3 rounded-xl font-medium text-xs flex items-center justify-between transition-all text-gray-700 hover:bg-slate-200">
+            <span class="flex items-center gap-2.5">
+              <i class="fa-solid fa-flask text-sm"></i> Químicos y Detergentes
+            </span>
+            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+          </button>
+
+          <!-- Botón Categoría 3 -->
+          <button onclick="showCategory('accesorios')" id="catBtn-accesorios"
+            class="cat-btn w-full text-left px-3.5 py-3 rounded-xl font-medium text-xs flex items-center justify-between transition-all text-gray-700 hover:bg-slate-200">
+            <span class="flex items-center gap-2.5">
+              <i class="fa-solid fa-broom text-sm"></i> Utensilios y Mops
+            </span>
+            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+          </button>
+
+          <!-- Botón Categoría 4 (Puedes agregar más copias de este botón) -->
+          <button onclick="showCategory('desinfeccion')" id="catBtn-desinfeccion"
+            class="cat-btn w-full text-left px-3.5 py-3 rounded-xl font-medium text-xs flex items-center justify-between transition-all text-gray-700 hover:bg-slate-200">
+            <span class="flex items-center gap-2.5">
+              <i class="fa-solid fa-spray-can-sparkles text-sm"></i> Equipos de Desinfección
+            </span>
+            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+          </button>
+        </aside>
+
+        <!-- ==========================================
+         COLUMNA DERECHA: GRILLA DE PRODUCTOS
+         ========================================== -->
+        <main class="flex-1 p-6 bg-white">
+
+          <!-- CATEGORÍA 1: ASPIRADORAS E HIDROLAVADORAS -->
+          <div id="catContent-aspiradoras" class="cat-content space-y-4">
+            <h3 class="font-bold text-gray-800 text-lg border-b pb-2 flex items-center gap-2">
+              <i class="fa-solid fa-wind text-emerald-600"></i> Aspiradoras e Hidrolavadoras Industriales
+            </h3>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+
+              <!-- PRODUCTO 1 -->
+              <div
+                class="group border rounded-xl p-3 hover:shadow-md transition bg-slate-50/50 flex flex-col justify-between">
+                <div>
+                  <div class="aspect-square bg-slate-200 rounded-lg overflow-hidden mb-2 relative">
+                    <!-- EDITAR AQUÍ: RUTA DE TU IMAGEN 1 -->
+                    <img src="/img/banner1.png" alt="Aspiradora Industrial"
+                      class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                  </div>
+                  <!-- EDITAR AQUÍ: TÍTULO Y DESCRIPCIÓN 1 -->
+                  <h4 class="font-bold text-xs text-gray-800 line-clamp-1">Aspiradora Industrial 30L</h4>
+                  <p class="text-[11px] text-gray-500 mt-1 line-clamp-2">Para polvo y agua con motor reforzado de doble
+                    turbina.</p>
+                </div>
+                <div class="mt-3 pt-2 border-t flex items-center justify-between">
+                  <span class="font-black text-emerald-600 text-xs">Bs 1,200</span>
+                  <button onclick="alert('Detalles: Aspiradora Industrial 30L')"
+                    class="bg-slate-900 hover:bg-emerald-600 text-white text-[10px] font-bold px-2 py-1 rounded transition">
+                    Ver detalle
+                  </button>
+                </div>
+              </div>
+
+              <!-- PRODUCTO 2 -->
+              <div
+                class="group border rounded-xl p-3 hover:shadow-md transition bg-slate-50/50 flex flex-col justify-between">
+                <div>
+                  <div class="aspect-square bg-slate-200 rounded-lg overflow-hidden mb-2">
+                    <!-- EDITAR AQUÍ: RUTA DE TU IMAGEN 2 -->
+                    <img src="/img/banner2.png" alt="Hidrolavadora"
+                      class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                  </div>
+                  <!-- EDITAR AQUÍ: TÍTULO Y DESCRIPCIÓN 2 -->
+                  <h4 class="font-bold text-xs text-gray-800 line-clamp-1">Hidrolavadora Alta Presión</h4>
+                  <p class="text-[11px] text-gray-500 mt-1 line-clamp-2">Ideal para lavado de fachadas, pisos y
+                    vehículos heavy-duty.</p>
+                </div>
+                <div class="mt-3 pt-2 border-t flex items-center justify-between">
+                  <span class="font-black text-emerald-600 text-xs">Bs 2,450</span>
+                  <button onclick="alert('Detalles: Hidrolavadora Alta Presión')"
+                    class="bg-slate-900 hover:bg-emerald-600 text-white text-[10px] font-bold px-2 py-1 rounded transition">
+                    Ver detalle
+                  </button>
+                </div>
+              </div>
+
+              <!-- PRODUCTO 3 -->
+              <div
+                class="group border rounded-xl p-3 hover:shadow-md transition bg-slate-50/50 flex flex-col justify-between">
+                <div>
+                  <div class="aspect-square bg-slate-200 rounded-lg overflow-hidden mb-2">
+                    <!-- EDITAR AQUÍ: RUTA DE TU IMAGEN 3 -->
+                    <img src="/img/asistente.png" alt="Lustradora"
+                      class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                  </div>
+                  <!-- EDITAR AQUÍ: TÍTULO Y DESCRIPCIÓN 3 -->
+                  <h4 class="font-bold text-xs text-gray-800 line-clamp-1">Lustradora de Pisos</h4>
+                  <p class="text-[11px] text-gray-500 mt-1 line-clamp-2">Máquina profesional para abrillantado de
+                    parquet y granito.</p>
+                </div>
+                <div class="mt-3 pt-2 border-t flex items-center justify-between">
+                  <span class="font-black text-emerald-600 text-xs">Bs 1,800</span>
+                  <button onclick="alert('Detalles: Lustradora de Pisos')"
+                    class="bg-slate-900 hover:bg-emerald-600 text-white text-[10px] font-bold px-2 py-1 rounded transition">
+                    Ver detalle
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- CATEGORÍA 2: QUÍMICOS Y DETERGENTES -->
+          <div id="catContent-quimicos" class="cat-content hidden space-y-4">
+            <h3 class="font-bold text-gray-800 text-lg border-b pb-2 flex items-center gap-2">
+              <i class="fa-solid fa-flask text-emerald-600"></i> Químicos y Detergentes Especializados
+            </h3>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+
+              <!-- PRODUCTO 1 DE QUÍMICOS -->
+              <div
+                class="group border rounded-xl p-3 hover:shadow-md transition bg-slate-50/50 flex flex-col justify-between">
+                <div>
+                  <div class="aspect-square bg-slate-200 rounded-lg overflow-hidden mb-2">
+                    <!-- EDITAR AQUÍ: IMAGEN QUÍMICO 1 -->
+                    <img src="/img/banner1.png" alt="Detergente Tapices"
+                      class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                  </div>
+                  <!-- EDITAR AQUÍ: TÍTULO Y DESCRIPCIÓN -->
+                  <h4 class="font-bold text-xs text-gray-800 line-clamp-1">Shampoo para Alfombras 5L</h4>
+                  <p class="text-[11px] text-gray-500 mt-1 line-clamp-2">Fórmula espumosa de secado rápido y eliminación
+                    de manchas difíciles.</p>
+                </div>
+                <div class="mt-3 pt-2 border-t flex items-center justify-between">
+                  <span class="font-black text-emerald-600 text-xs">Bs 85</span>
+                  <button
+                    class="bg-slate-900 hover:bg-emerald-600 text-white text-[10px] font-bold px-2 py-1 rounded transition">Ver
+                    detalle</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- CATEGORÍA 3: ACCESORIOS -->
+          <div id="catContent-accesorios" class="cat-content hidden space-y-4">
+            <h3 class="font-bold text-gray-800 text-lg border-b pb-2 flex items-center gap-2">
+              <i class="fa-solid fa-broom text-emerald-600"></i> Utensilios, Mops y Mopas
+            </h3>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              <!-- PRODUCTO ACCESORIO 1 -->
+              <div
+                class="group border rounded-xl p-3 hover:shadow-md transition bg-slate-50/50 flex flex-col justify-between">
+                <div>
+                  <div class="aspect-square bg-slate-200 rounded-lg overflow-hidden mb-2">
+                    <!-- EDITAR AQUÍ: IMAGEN ACCESORIO -->
+                    <img src="/img/banner2.png" alt="Kit de Mopas"
+                      class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                  </div>
+                  <h4 class="font-bold text-xs text-gray-800 line-clamp-1">Kit Mopa Microfibra Pro</h4>
+                  <p class="text-[11px] text-gray-500 mt-1 line-clamp-2">Incluye balde exprimidor y 2 repuestos
+                    lavables.</p>
+                </div>
+                <div class="mt-3 pt-2 border-t flex items-center justify-between">
+                  <span class="font-black text-emerald-600 text-xs">Bs 110</span>
+                  <button
+                    class="bg-slate-900 hover:bg-emerald-600 text-white text-[10px] font-bold px-2 py-1 rounded transition">Ver
+                    detalle</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CATEGORÍA 4: DESINFECCIÓN -->
+          <div id="catContent-desinfeccion" class="cat-content hidden space-y-4">
+            <h3 class="font-bold text-gray-800 text-lg border-b pb-2 flex items-center gap-2">
+              <i class="fa-solid fa-spray-can-sparkles text-emerald-600"></i> Equipos de Desinfección
+            </h3>
+            <p class="text-xs text-gray-500 italic">Espacio preparado para agregar nebulizadores y termonebulizadores a
+              futuro.</p>
+          </div>
+
+        </main>
+      </div>
+    </section>
+
+    <!-- LÓGICA JAVASCRIPT PARA CAMBIAR DE CATEGORÍA -->
+    <script>
+      function showCategory(categoryId) {
+        // 1. Ocultar todos los contenidos de categorías
+        const contents = document.querySelectorAll('.cat-content');
+        contents.forEach(content => content.classList.add('hidden'));
+
+        // 2. Desmarcar todos los botones
+        const buttons = document.querySelectorAll('.cat-btn');
+        buttons.forEach(btn => {
+          btn.classList.remove('bg-emerald-600', 'text-white', 'shadow-sm');
+          btn.classList.add('text-gray-700', 'hover:bg-slate-200');
+        });
+
+        // 3. Mostrar la categoría seleccionada
+        const selectedContent = document.getElementById('catContent-' + categoryId);
+        if (selectedContent) {
+          selectedContent.classList.remove('hidden');
+        }
+
+        // 4. Activar el botón seleccionado
+        const selectedBtn = document.getElementById('catBtn-' + categoryId);
+        if (selectedBtn) {
+          selectedBtn.classList.remove('text-gray-700', 'hover:bg-slate-200');
+          selectedBtn.classList.add('bg-emerald-600', 'text-white', 'shadow-sm');
+        }
+      }
+    </script>
+
   </main>
 
   <!-- ==========================================
        ASISTENTE FLOTANTE Y CHATBOT CON IA
        ========================================== -->
   <div class="ai-widget-container">
-    
+
     <!-- MODAL VENTANA DE CHAT -->
     <div id="chatBox"
       class="hidden mb-4 w-80 sm:w-96 bg-slate-900 text-white rounded-2xl shadow-2xl border border-slate-800 overflow-hidden flex flex-col h-[450px] transition-all">
-      
+
       <!-- Encabezado con Avatar -->
       <div class="bg-slate-800 p-3 flex justify-between items-center border-b border-slate-700">
         <div class="flex items-center gap-3">
           <div class="relative">
-            <img src="/img/asistente.png" class="w-9 h-9 rounded-full border border-emerald-500 object-cover" alt="Asistente">
-            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-slate-900"></span>
+            <img src="/img/asistente.png" class="w-9 h-9 rounded-full border border-emerald-500 object-cover"
+              alt="Asistente">
+            <span
+              class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-slate-900"></span>
           </div>
           <div>
             <h3 class="text-sm font-bold text-white leading-tight">Asistente LIM-BOLIVIA</h3>
