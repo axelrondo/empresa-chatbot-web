@@ -850,19 +850,38 @@
   </div>
 
   <!-- ==========================================
-     LÓGICA DE PROGRAMACIÓN Y SÍNTESIS DE VOZ
+     LÓGICA DE PROGRAMACIÓN Y SÍNTESIS DE VOZ (CORREGIDA)
      ========================================== -->
   <script>
     // ESTADO GLOBAL DEL CHAT
     let saludoInicialDado = false;
+    let vozSeleccionada = null;
 
-    // 1. REPRODUCCIÓN DE VOZ MEJORADA (TTS)
+    // Cargar y seleccionar una voz en español válida apenas el navegador esté listo
+    function cargarVoces() {
+      if ('speechSynthesis' in window) {
+        const voces = window.speechSynthesis.getVoices();
+        // Buscar voz en español (preferencia MX, ES o cualquier 'es')
+        vozSeleccionada = voces.find(v => v.lang.includes('es-MX') || v.lang.includes('es-ES') || v.lang.startsWith('es')) || voces[0];
+      }
+    }
+
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = cargarVoces;
+      cargarVoces();
+    }
+
+    // 1. REPRODUCCIÓN DE VOZ MEJORADA Y FLUIDA (TTS)
     function hablarTexto(texto) {
       if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel(); // Cancela cualquier voz anterior
+        window.speechSynthesis.cancel(); // Detener cualquier reproducción activa
 
-        // A) Limpieza de asteriscos y formatos Markdown
-        let textoLimpio = texto.replace(/\*/g, '');
+        // A) Limpieza profunda de asteriscos, numerales y sintaxis Markdown
+        let textoLimpio = texto
+          .replace(/\*\*/g, '')  // Elimina doble asterisco
+          .replace(/\*/g, '')    // Elimina asterisco simple
+          .replace(/#/g, '')     // Elimina hashtags/encabezados
+          .replace(/`/g, '');    // Elimina comillas de código
 
         // B) Corrección de pronunciación: evita que deletree "E-L-E-I-E-M-E"
         textoLimpio = textoLimpio
@@ -871,44 +890,62 @@
           .replace(/LIM/gi, "Lim");
 
         const utterance = new SpeechSynthesisUtterance(textoLimpio);
-        utterance.lang = 'es-ES'; // O 'es-MX'
-        utterance.rate = 1.0;
 
+        if (vozSeleccionada) {
+          utterance.voice = vozSeleccionada;
+        }
+
+        utterance.lang = 'es-ES';
+        utterance.rate = 1.0;
+        utterance.pitch = 1.0;
+
+        // Forzar reproducción
         window.speechSynthesis.speak(utterance);
       }
     }
 
-    // 2. TOGGLE Y SALUDO DE BIENVENIDA
+    // 2. TOGGLE Y SALUDO DE BIENVENIDA AUTOMÁTICO
     function toggleChat() {
       const chatBox = document.getElementById('chatBox');
       if (!chatBox) return;
 
-      chatBox.classList.toggle('hidden');
+      const estaOculto = chatBox.classList.contains('hidden');
 
-      // Si la ventana se abre
-      if (!chatBox.classList.contains('hidden')) {
+      if (estaOculto) {
+        chatBox.classList.remove('hidden');
+
         const chatMessages = document.getElementById('chatMessages');
 
-        // Si no hay mensajes guardados en el historial visual
+        // Si no hay mensajes previos en pantalla, agregar bienvenida
         if (chatMessages && chatMessages.children.length === 0) {
           appendMessage('bot', "¡Hola! Bienvenido a Lim Bolivia. ¿En qué te puedo ayudar hoy?");
         }
 
-        // Reproducir audio la primera vez que hace clic en "Hablar con IA"
+        // Reproducir voz al abrir por primera vez
         if (!saludoInicialDado) {
-          hablarTexto("¡Hola! Bienvenido a Lim Bolivia. ¿En qué te puedo ayudar hoy?");
+          // Un pequeño timeout de 100ms asegura que el DOM y el contexto de audio se sincronicen con el clic
+          setTimeout(() => {
+            hablarTexto("¡Hola! Bienvenido a Lim Bolivia. ¿En qué te puedo ayudar hoy?");
+          }, 100);
           saludoInicialDado = true;
+        }
+      } else {
+        chatBox.classList.add('hidden');
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel(); // Cancelar audio si el usuario cierra el chat
         }
       }
     }
 
-    // 3. AÑADIR MENSAJES AL CHAT (SISTEMA DE TEXTO LIMPIO)
+    // 3. AÑADIR MENSAJES AL CHAT (TEXTO LIMPIO EN PANTALLA)
     function appendMessage(sender, text) {
       const chatMessages = document.getElementById('chatMessages');
       if (!chatMessages) return;
 
-      // Elimina asteriscos visuales en pantalla
-      const textLimpio = text.replace(/\*/g, '');
+      // Eliminar asteriscos visuales para la interfaz de usuario
+      const textLimpio = text
+        .replace(/\*\*/g, '')
+        .replace(/\*/g, '');
 
       const msgDiv = document.createElement('div');
       if (sender === 'user') {
@@ -917,7 +954,7 @@
         msgDiv.className = "bg-slate-800 text-gray-200 p-2.5 rounded-xl border border-slate-700 max-w-[85%] animate-fade-in";
       }
 
-      msgDiv.innerText = textLimpio;
+      msgDiv.textContent = textLimpio;
       chatMessages.appendChild(msgDiv);
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
@@ -930,12 +967,10 @@
       const message = input.value.trim();
       if (!message) return;
 
-      // Mostrar mensaje del usuario
       appendMessage('user', message);
       input.value = '';
 
       try {
-        // Ajusta la URL de la API según tu configuración de backend local o servidor
         const response = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -947,7 +982,7 @@
           const reply = data.reply || data.message || "Entendido.";
 
           appendMessage('bot', reply);
-          hablarTexto(reply); // La voz lee la respuesta procesada de la IA
+          hablarTexto(reply);
         } else {
           const errorMsg = "En este momento no puedo conectarme con el servidor. Inténtalo de nuevo.";
           appendMessage('bot', errorMsg);
@@ -995,7 +1030,6 @@
       recognition.start();
     }
   </script>
-
   <!-- JS SCRIPTS -->
   <script src="/js/calculator.js"></script>
   <script src="/js/chatbot.js"></script>
