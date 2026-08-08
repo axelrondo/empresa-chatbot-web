@@ -937,7 +937,7 @@
       }
     }
 
-    // 3. AÑADIR MENSAJES AL CHAT (TEXTO LIMPIO EN PANTALLA)
+    // 3. AÑADIR MENSAJES AL CHAT (TEXTO LIMPIO EN PANTALLA Y CON FORMATO LEGIBLE)
     function appendMessage(sender, text) {
       const chatMessages = document.getElementById('chatMessages');
       if (!chatMessages) return;
@@ -948,10 +948,12 @@
         .replace(/\*/g, '');
 
       const msgDiv = document.createElement('div');
+
+      // Agregamos 'whitespace-pre-line' a las clases para que los saltos de línea se respeten en pantalla
       if (sender === 'user') {
-        msgDiv.className = "bg-emerald-600 text-white p-2.5 rounded-xl ml-auto max-w-[85%] animate-fade-in";
+        msgDiv.className = "bg-emerald-600 text-white p-2.5 rounded-xl ml-auto max-w-[85%] animate-fade-in whitespace-pre-line";
       } else {
-        msgDiv.className = "bg-slate-800 text-gray-200 p-2.5 rounded-xl border border-slate-700 max-w-[85%] animate-fade-in";
+        msgDiv.className = "bg-slate-800 text-gray-200 p-2.5 rounded-xl border border-slate-700 max-w-[85%] animate-fade-in whitespace-pre-line";
       }
 
       msgDiv.textContent = textLimpio;
