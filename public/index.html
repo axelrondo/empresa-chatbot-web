@@ -445,7 +445,7 @@
     </section>
 
     <!-- ==========================================
-     SECCIÓN CATÁLOGO DE PRODUCTOS / EQUIPOS (ESTILO ALIBABA)
+     SECCIÓN CATÁLOGO DE PRODUCTOS (ESTILO ALIBABA)
      ========================================== -->
     <section id="catalogo-alibaba" class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden my-8">
 
@@ -455,8 +455,7 @@
           <h2 class="text-xl font-bold flex items-center gap-2">
             <i class="fa-solid fa-boxes-packing text-emerald-400"></i> Catálogo de Equipos y Productos
           </h2>
-          <p class="text-xs text-gray-300 mt-0.5">Explora las categorías a la izquierda para ver los productos
-            disponibles.</p>
+          <p class="text-xs text-gray-300 mt-0.5">Explora nuestras categorías para ver los productos disponibles.</p>
         </div>
         <span
           class="hidden sm:inline-block bg-emerald-600/30 text-emerald-300 text-xs px-3 py-1 rounded-full border border-emerald-500/30 font-semibold">
@@ -471,14 +470,12 @@
         <aside class="w-full md:w-64 bg-slate-50 border-r border-gray-200 p-3 space-y-1 shrink-0">
           <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider px-3 py-2">Categorías</p>
 
-          <!-- Botón Cat 1 -->
           <button onclick="showCategory('aspiradoras')" id="catBtn-aspiradoras"
             class="cat-btn w-full text-left px-3.5 py-3 rounded-xl font-medium text-xs flex items-center justify-between transition-all bg-emerald-600 text-white shadow-sm">
             <span class="flex items-center gap-2.5"><i class="fa-solid fa-wind text-sm"></i> Aspiradoras e Hidros</span>
             <i class="fa-solid fa-chevron-right text-[10px]"></i>
           </button>
 
-          <!-- Botón Cat 2 -->
           <button onclick="showCategory('quimicos')" id="catBtn-quimicos"
             class="cat-btn w-full text-left px-3.5 py-3 rounded-xl font-medium text-xs flex items-center justify-between transition-all text-gray-700 hover:bg-slate-200">
             <span class="flex items-center gap-2.5"><i class="fa-solid fa-flask text-sm"></i> Químicos y
@@ -486,14 +483,12 @@
             <i class="fa-solid fa-chevron-right text-[10px]"></i>
           </button>
 
-          <!-- Botón Cat 3 -->
           <button onclick="showCategory('accesorios')" id="catBtn-accesorios"
             class="cat-btn w-full text-left px-3.5 py-3 rounded-xl font-medium text-xs flex items-center justify-between transition-all text-gray-700 hover:bg-slate-200">
             <span class="flex items-center gap-2.5"><i class="fa-solid fa-broom text-sm"></i> Utensilios y Mops</span>
             <i class="fa-solid fa-chevron-right text-[10px]"></i>
           </button>
 
-          <!-- Botón Cat 4 -->
           <button onclick="showCategory('desinfeccion')" id="catBtn-desinfeccion"
             class="cat-btn w-full text-left px-3.5 py-3 rounded-xl font-medium text-xs flex items-center justify-between transition-all text-gray-700 hover:bg-slate-200">
             <span class="flex items-center gap-2.5"><i class="fa-solid fa-spray-can-sparkles text-sm"></i>
@@ -513,14 +508,17 @@
 
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
 
-              <!-- PRODUCTO 1 -->
+              <!-- ==========================================
+               SECTOR 1 - ARTÍCULO 1
+               ========================================== -->
               <div
                 class="group border rounded-xl p-3 hover:shadow-md transition bg-slate-50/50 flex flex-col justify-between">
                 <div>
                   <div class="aspect-square bg-slate-200 rounded-lg overflow-hidden mb-2">
-                    <!-- EDITAR AQUÍ: RUTA DE TU IMAGEN -->
-                    <img src="/img/banner1.png" alt="Aspiradora Industrial 30L"
-                      class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                    <!-- RUTA DE IMAGEN PRINCIPAL EN CARPETA img -->
+                    <img src="img/sector1_articulo1_foto1.png" alt="Aspiradora Industrial 30L"
+                      class="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                      onerror="this.src='/img/banner1.png'">
                   </div>
                   <h4 class="font-bold text-xs text-gray-800 line-clamp-1">Aspiradora Industrial 30L</h4>
                   <p class="text-[11px] text-gray-500 mt-1 line-clamp-2">Para polvo y agua con motor reforzado de doble
@@ -529,63 +527,45 @@
                 <div class="mt-3 pt-2 border-t flex items-center justify-between">
                   <span class="font-black text-emerald-600 text-xs">Bs 1,200</span>
 
-                  <!-- BOTÓN CON DATOS DEL PRODUCTO (EDITAR DATOS AQUÍ) -->
-                  <button onclick="openProductModal(this)" data-nombre="Aspiradora Industrial 30L"
-                    data-precio="Bs 1,200" data-img="/img/banner1.png"
-                    data-desc="Aspiradora de alto rendimiento ideal para uso comercial e industrial. Capacidad de 30 litros en tanque de acero inoxidable, potente motor de doble turbina apto para aspirado de polvo y líquidos."
-                    data-garantia="12 Meses de Garantía Oficial"
+                  <!-- ATRIBUTOS Y RUTA DE FOTOS PARA EL MODAL -->
+                  <button onclick="openExtendedProductModal(this)" data-nombre="Aspiradora Industrial 30L"
+                    data-precio="Bs 1,200" data-garantia="12 Meses de Garantía Oficial" /* RUTA DE LAS 5 IMÁGENES DE
+                    ESTE ARTÍCULO */ data-img1="img/sector1_articulo1_foto1.png"
+                    data-img2="img/sector1_articulo1_foto2.png" data-img3="img/sector1_articulo1_foto3.png"
+                    data-img4="img/sector1_articulo1_foto4.png" data-img5="img/sector1_articulo1_foto5.png"
+                    data-desc="Aspiradora de alto rendimiento ideal para uso comercial e industrial pesado. Diseñada para trabajar continuamente en grandes extensiones."
+                    data-specs="• Capacidad: Tanque de 30 Litros en acero inoxidable|• Motor: Doble turbina 1200W de alta succión|• Funcionalidad: Aspirado en seco (polvo) y húmedo (líquidos)|• Incluye: Filtro HEPA lavable, manguera flexible y mops de succión"
                     class="bg-slate-900 hover:bg-emerald-600 text-white text-[10px] font-bold px-2.5 py-1.5 rounded transition">
                     Ver detalle
                   </button>
                 </div>
               </div>
 
-              <!-- PRODUCTO 2 -->
+              <!-- ==========================================
+               SECTOR 1 - ARTÍCULO 2
+               ========================================== -->
               <div
                 class="group border rounded-xl p-3 hover:shadow-md transition bg-slate-50/50 flex flex-col justify-between">
                 <div>
                   <div class="aspect-square bg-slate-200 rounded-lg overflow-hidden mb-2">
-                    <!-- EDITAR AQUÍ: RUTA DE TU IMAGEN -->
-                    <img src="/img/banner2.png" alt="Hidrolavadora Alta Presión"
-                      class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                    <img src="img/sector1_articulo2_foto1.png" alt="Hidrolavadora Alta Presión"
+                      class="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                      onerror="this.src='/img/banner2.png'">
                   </div>
                   <h4 class="font-bold text-xs text-gray-800 line-clamp-1">Hidrolavadora Alta Presión</h4>
                   <p class="text-[11px] text-gray-500 mt-1 line-clamp-2">Ideal para lavado de fachadas, pisos y
-                    vehículos heavy-duty.</p>
+                    vehículos.</p>
                 </div>
                 <div class="mt-3 pt-2 border-t flex items-center justify-between">
                   <span class="font-black text-emerald-600 text-xs">Bs 2,450</span>
 
-                  <button onclick="openProductModal(this)" data-nombre="Hidrolavadora Alta Presión"
-                    data-precio="Bs 2,450" data-img="/img/banner2.png"
-                    data-desc="Hidrolavadora profesional de 180 Bar de presión continua. Incluye manguera de alta presión de 10 metros, boquilla regulable y sistema de paro automático para mayor durabilidad."
-                    data-garantia="6 Meses de Garantía"
-                    class="bg-slate-900 hover:bg-emerald-600 text-white text-[10px] font-bold px-2.5 py-1.5 rounded transition">
-                    Ver detalle
-                  </button>
-                </div>
-              </div>
-
-              <!-- PRODUCTO 3 -->
-              <div
-                class="group border rounded-xl p-3 hover:shadow-md transition bg-slate-50/50 flex flex-col justify-between">
-                <div>
-                  <div class="aspect-square bg-slate-200 rounded-lg overflow-hidden mb-2">
-                    <!-- EDITAR AQUÍ: RUTA DE TU IMAGEN -->
-                    <img src="/img/asistente.png" alt="Lustradora de Pisos"
-                      class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                  </div>
-                  <h4 class="font-bold text-xs text-gray-800 line-clamp-1">Lustradora de Pisos</h4>
-                  <p class="text-[11px] text-gray-500 mt-1 line-clamp-2">Máquina profesional para abrillantado de
-                    parquet y granito.</p>
-                </div>
-                <div class="mt-3 pt-2 border-t flex items-center justify-between">
-                  <span class="font-black text-emerald-600 text-xs">Bs 1,800</span>
-
-                  <button onclick="openProductModal(this)" data-nombre="Lustradora de Pisos" data-precio="Bs 1,800"
-                    data-img="/img/asistente.png"
-                    data-desc="Máquina rotativa para pulido, encerado y mantenimiento de suelos de madera, granito, mampostería y mármol. Motor silencioso y plato ergonómico."
-                    data-garantia="12 Meses de Garantía"
+                  <button onclick="openExtendedProductModal(this)" data-nombre="Hidrolavadora Alta Presión 180 Bar"
+                    data-precio="Bs 2,450" data-garantia="6 Meses de Garantía Directa" /* RUTA DE LAS 5 IMÁGENES DE ESTE
+                    ARTÍCULO */ data-img1="img/sector1_articulo2_foto1.png" data-img2="img/sector1_articulo2_foto2.png"
+                    data-img3="img/sector1_articulo2_foto3.png" data-img4="img/sector1_articulo2_foto4.png"
+                    data-img5="img/sector1_articulo2_foto5.png"
+                    data-desc="Hidrolavadora profesional de agua fría con sistema de apagado automático al soltar el gatillo para proteger la bomba."
+                    data-specs="• Presión máxima: 180 Bar / 2600 PSI|• Caudal de agua: 8 Litros por minuto|• Accesorios: Manguera blindada 10m y boquilla regulable|• Motor: Inducción de alta durabilidad"
                     class="bg-slate-900 hover:bg-emerald-600 text-white text-[10px] font-bold px-2.5 py-1.5 rounded transition">
                     Ver detalle
                   </button>
@@ -602,22 +582,26 @@
             </h3>
 
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-              <!-- PRODUCTO QUÍMICO 1 -->
+              <!-- SECTOR 2 - ARTÍCULO 1 -->
               <div
                 class="group border rounded-xl p-3 hover:shadow-md transition bg-slate-50/50 flex flex-col justify-between">
                 <div>
                   <div class="aspect-square bg-slate-200 rounded-lg overflow-hidden mb-2">
-                    <img src="/img/banner1.png" alt="Shampoo Alfombras" class="w-full h-full object-cover">
+                    <img src="img/sector2_articulo1_foto1.png" alt="Shampoo Alfombras"
+                      class="w-full h-full object-cover" onerror="this.src='/img/banner1.png'">
                   </div>
-                  <h4 class="font-bold text-xs text-gray-800 line-clamp-1">Shampoo para Alfombras 5L</h4>
+                  <h4 class="font-bold text-xs text-gray-800 line-clamp-1">Shampoo Alfombras 5L</h4>
                   <p class="text-[11px] text-gray-500 mt-1 line-clamp-2">Fórmula espumosa de secado rápido.</p>
                 </div>
                 <div class="mt-3 pt-2 border-t flex items-center justify-between">
                   <span class="font-black text-emerald-600 text-xs">Bs 85</span>
-                  <button onclick="openProductModal(this)" data-nombre="Shampoo para Alfombras 5L" data-precio="Bs 85"
-                    data-img="/img/banner1.png"
-                    data-desc="Detergente concentrado de baja espuma formulado para lavadoras de inyección/extracción. Biodegradable y con neutralizador de olores."
-                    data-garantia="Garantía de Calidad LIM-BOLIVIA"
+                  <button onclick="openExtendedProductModal(this)" data-nombre="Shampoo para Alfombras y Tapices 5L"
+                    data-precio="Bs 85" data-garantia="Garantía de Calidad LIM-BOLIVIA"
+                    data-img1="img/sector2_articulo1_foto1.png" data-img2="img/sector2_articulo1_foto2.png"
+                    data-img3="img/sector2_articulo1_foto3.png" data-img4="img/sector2_articulo1_foto4.png"
+                    data-img5="img/sector2_articulo1_foto5.png"
+                    data-desc="Limpiador concentrado de baja espuma con neutralizador de malos olores incorporado."
+                    data-specs="• Rendimiento: Rinde hasta 50 Litros preparados|• Biodegradable: Seguro para textiles sensibles|• Aplicación: Manual o máquina inyección/extracción"
                     class="bg-slate-900 hover:bg-emerald-600 text-white text-[10px] font-bold px-2.5 py-1.5 rounded transition">
                     Ver detalle
                   </button>
@@ -626,7 +610,7 @@
             </div>
           </div>
 
-          <!-- CATEGORÍAS ADICIONALES (OTRAS SECCIONES) -->
+          <!-- MÁS CATEGORÍAS RESERVADAS -->
           <div id="catContent-accesorios" class="cat-content hidden p-4 text-xs text-gray-500">Próximamente más
             productos...</div>
           <div id="catContent-desinfeccion" class="cat-content hidden p-4 text-xs text-gray-500">Próximamente más
@@ -637,122 +621,175 @@
     </section>
 
     <!-- ==========================================
-     VENTANA MODAL DE DETALLE DE PRODUCTO
+     VENTANA MODAL AMPLIADA (ESTILO ALIBABA - TIPO FICHA TÉCNICA)
      ========================================== -->
-    <div id="productModal"
-      class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-[10000] hidden flex items-center justify-center p-4 transition-all">
+    <div id="extendedProductModal"
+      class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[10000] hidden flex items-center justify-center p-3 sm:p-6 transition-all overflow-y-auto">
       <div
-        class="bg-white rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl border border-slate-200 relative animate-fade-in">
+        class="bg-white rounded-2xl max-w-5xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-slate-200 relative my-auto animate-fade-in">
 
         <!-- Botón Cerrar (X) -->
-        <button onclick="closeProductModal()"
-          class="absolute top-3 right-3 bg-slate-100 hover:bg-slate-200 text-slate-600 w-8 h-8 rounded-full flex items-center justify-center z-10 transition">
-          <i class="fa-solid fa-xmark"></i>
+        <button onclick="closeExtendedProductModal()"
+          class="absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 text-slate-600 w-9 h-9 rounded-full flex items-center justify-center z-20 transition shadow">
+          <i class="fa-solid fa-xmark text-lg"></i>
         </button>
 
-        <div class="p-6 space-y-4">
-          <!-- Imagen Ampliada -->
-          <div class="w-full h-52 bg-slate-100 rounded-xl overflow-hidden border">
-            <img id="modalProductImg" src="" alt="Producto" class="w-full h-full object-cover">
-          </div>
+        <div class="p-5 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
 
-          <!-- Encabezado y Precio -->
-          <div class="flex justify-between items-start gap-2 border-b pb-3">
-            <div>
-              <h3 id="modalProductName" class="font-black text-gray-800 text-lg leading-snug"></h3>
-              <span id="modalProductGuarantee"
-                class="inline-block mt-1 text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-md"></span>
+          <!-- COLUMNA IZQUIERDA: GALERÍA DE 5 FOTOS (5 Cols) -->
+          <div class="lg:col-span-5 flex flex-col-reverse sm:flex-row gap-3">
+
+            <!-- Lista Vertical de Miniaturas (Thumbnails) -->
+            <div class="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto shrink-0 justify-center">
+              <img id="thumb1" onclick="changeModalMainImage(this.src)" src=""
+                class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg border-2 border-emerald-500 object-cover cursor-pointer hover:opacity-80 transition"
+                onerror="this.src='/img/banner1.png'">
+              <img id="thumb2" onclick="changeModalMainImage(this.src)" src=""
+                class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg border border-gray-200 object-cover cursor-pointer hover:opacity-80 transition"
+                onerror="this.src='/img/banner2.png'">
+              <img id="thumb3" onclick="changeModalMainImage(this.src)" src=""
+                class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg border border-gray-200 object-cover cursor-pointer hover:opacity-80 transition"
+                onerror="this.src='/img/asistente.png'">
+              <img id="thumb4" onclick="changeModalMainImage(this.src)" src=""
+                class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg border border-gray-200 object-cover cursor-pointer hover:opacity-80 transition"
+                onerror="this.src='/img/banner1.png'">
+              <img id="thumb5" onclick="changeModalMainImage(this.src)" src=""
+                class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg border border-gray-200 object-cover cursor-pointer hover:opacity-80 transition"
+                onerror="this.src='/img/banner2.png'">
             </div>
-            <span id="modalProductPrice" class="text-xl font-black text-emerald-600 shrink-0"></span>
+
+            <!-- Imagen Grande Principal -->
+            <div class="flex-1 bg-slate-100 rounded-xl overflow-hidden border border-slate-200 aspect-square relative">
+              <img id="extModalMainImg" src="" alt="Vista previa producto" class="w-full h-full object-cover">
+            </div>
           </div>
 
-          <!-- Descripción Completa -->
-          <div>
-            <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Descripción y Características</h4>
-            <p id="modalProductDesc" class="text-xs text-gray-600 leading-relaxed"></p>
+          <!-- COLUMNA DERECHA: DETALLES Y ESPECIFICACIONES (7 Cols) -->
+          <div class="lg:col-span-7 flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+
+              <div class="border-b pb-3">
+                <span id="extModalGuarantee"
+                  class="inline-block text-[11px] font-bold bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-md mb-1"></span>
+                <h3 id="extModalName" class="font-black text-slate-900 text-xl sm:text-2xl leading-tight"></h3>
+                <div class="mt-2 flex items-baseline gap-3">
+                  <span id="extModalPrice" class="text-2xl sm:text-3xl font-black text-emerald-600"></span>
+                  <span class="text-xs text-gray-400">Impuestos y factura incluidos</span>
+                </div>
+              </div>
+
+              <!-- Descripción Extendida -->
+              <div>
+                <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Descripción del Equipo</h4>
+                <p id="extModalDesc" class="text-xs sm:text-sm text-gray-600 leading-relaxed"></p>
+              </div>
+
+              <!-- Especificaciones Técnicas (Generadas dinámicamente) -->
+              <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <i class="fa-solid fa-list-check text-emerald-600"></i> Especificaciones Principales
+                </h4>
+                <ul id="extModalSpecs" class="text-xs text-gray-600 space-y-1"></ul>
+              </div>
+
+            </div>
+
+            <!-- 2 BOTONES VITALES DE ACCIÓN -->
+            <div class="pt-4 border-t grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+              <!-- Botón 1: Reservar / Comprar por WhatsApp -->
+              <a id="extModalWspLink" href="#" target="_blank"
+                class="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs sm:text-sm transition shadow-md">
+                <i class="fa-brands fa-whatsapp text-lg"></i> Reservar Equipo
+              </a>
+
+              <!-- Botón 2: Chatear con la IA -->
+              <button id="extModalAiBtn" onclick=""
+                class="bg-slate-900 hover:bg-emerald-600 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs sm:text-sm transition shadow-md">
+                <i class="fa-solid fa-robot text-emerald-400 text-base"></i> Consultar a la IA
+              </button>
+
+            </div>
           </div>
 
-          <!-- 2 BOTONES DE ACCIÓN PRINCIPALES -->
-          <div class="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
-
-            <!-- Botón 1: Reservar por WhatsApp -->
-            <a id="modalWspLink" href="#" target="_blank"
-              class="bg-green-600 hover:bg-green-500 text-white font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 text-xs transition shadow-md">
-              <i class="fa-brands fa-whatsapp text-base"></i> Reservar Equipo
-            </a>
-
-            <!-- Botón 2: Consultar al Asistente IA -->
-            <button id="modalAiBtn" onclick=""
-              class="bg-slate-900 hover:bg-emerald-600 text-white font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 text-xs transition shadow-md">
-              <i class="fa-solid fa-robot text-emerald-400"></i> Consultar a la IA
-            </button>
-
-          </div>
         </div>
       </div>
     </div>
 
     <!-- ==========================================
-     LÓGICA JAVASCRIPT DE NAVEGACIÓN Y MODAL
+     LÓGICA JAVASCRIPT DEL MODAL EXPANDIDO
      ========================================== -->
     <script>
-      // Cambiar entre categorías
-      function showCategory(categoryId) {
-        document.querySelectorAll('.cat-content').forEach(c => c.classList.add('hidden'));
-        document.querySelectorAll('.cat-btn').forEach(btn => {
-          btn.classList.remove('bg-emerald-600', 'text-white', 'shadow-sm');
-          btn.classList.add('text-gray-700', 'hover:bg-slate-200');
-        });
-
-        const activeContent = document.getElementById('catContent-' + categoryId);
-        if (activeContent) activeContent.classList.remove('hidden');
-
-        const activeBtn = document.getElementById('catBtn-' + categoryId);
-        if (activeBtn) {
-          activeBtn.classList.remove('text-gray-700', 'hover:bg-slate-200');
-          activeBtn.classList.add('bg-emerald-600', 'text-white', 'shadow-sm');
-        }
+      // Función para cambiar la imagen principal al dar clic en una miniatura
+      function changeModalMainImage(src) {
+        if (src) document.getElementById('extModalMainImg').src = src;
       }
 
-      // Abrir Modal de Producto Dinámico
-      function openProductModal(btn) {
+      // Abrir Modal Extendido
+      function openExtendedProductModal(btn) {
         const nombre = btn.getAttribute('data-nombre');
         const precio = btn.getAttribute('data-precio');
-        const img = btn.getAttribute('data-img');
-        const desc = btn.getAttribute('data-desc');
         const garantia = btn.getAttribute('data-garantia');
+        const desc = btn.getAttribute('data-desc');
+        const specsRaw = btn.getAttribute('data-specs') || "";
 
-        // Cargar datos en el Modal
-        document.getElementById('modalProductName').innerText = nombre;
-        document.getElementById('modalProductPrice').innerText = precio;
-        document.getElementById('modalProductImg').src = img;
-        document.getElementById('modalProductDesc').innerText = desc;
-        document.getElementById('modalProductGuarantee').innerText = garantia;
+        // Obtener las 5 imágenes desde el botón
+        const img1 = btn.getAttribute('data-img1');
+        const img2 = btn.getAttribute('data-img2');
+        const img3 = btn.getAttribute('data-img3');
+        const img4 = btn.getAttribute('data-img4');
+        const img5 = btn.getAttribute('data-img5');
 
-        // Configurar Enlace WhatsApp
-        const numWhatsApp = "59171506930"; // Tu número por defecto
-        const msgWsp = encodeURIComponent(`Hola LIM-BOLIVIA, deseo reservar/consultar sobre el equipo: ${nombre} (${precio}).`);
-        document.getElementById('modalWspLink').href = `https://wa.me/${numWhatsApp}?text=${msgWsp}`;
+        // Cargar textos
+        document.getElementById('extModalName').innerText = nombre;
+        document.getElementById('extModalPrice').innerText = precio;
+        document.getElementById('extModalGuarantee').innerText = garantia;
+        document.getElementById('extModalDesc').innerText = desc;
+
+        // Cargar Galería
+        document.getElementById('extModalMainImg').src = img1;
+        document.getElementById('thumb1').src = img1;
+        document.getElementById('thumb2').src = img2;
+        document.getElementById('thumb3').src = img3;
+        document.getElementById('thumb4').src = img4;
+        document.getElementById('thumb5').src = img5;
+
+        // Procesar lista de especificaciones (separadas por el carácter '|')
+        const specsContainer = document.getElementById('extModalSpecs');
+        specsContainer.innerHTML = '';
+        if (specsRaw) {
+          const specsList = specsRaw.split('|');
+          specsList.forEach(spec => {
+            const li = document.createElement('li');
+            li.innerText = spec.trim();
+            specsContainer.appendChild(li);
+          });
+        }
+
+        // Configurar Enlace WhatsApp Directo
+        const numWhatsApp = "59171506930";
+        const msgWsp = encodeURIComponent(`Hola LIM-BOLIVIA, me interesa reservar el equipo: ${nombre} (${precio}).`);
+        document.getElementById('extModalWspLink').href = `https://wa.me/${numWhatsApp}?text=${msgWsp}`;
 
         // Configurar Acción para Consultar a la IA
-        document.getElementById('modalAiBtn').onclick = function () {
-          closeProductModal();
-          if (typeof toggleChat === 'function') toggleChat(); // Abre la ventana del chatbot
+        document.getElementById('extModalAiBtn').onclick = function () {
+          closeExtendedProductModal();
+          if (typeof toggleChat === 'function') toggleChat();
 
           const userInput = document.getElementById('userInput');
           if (userInput) {
-            userInput.value = `Quiero información del equipo ${nombre} (${precio})`;
-            if (typeof sendMessage === 'function') sendMessage(); // Envía la consulta automáticamente
+            userInput.value = `Quiero más información y asesoramiento técnico sobre el producto: ${nombre}`;
+            if (typeof sendMessage === 'function') sendMessage();
           }
         };
 
         // Mostrar Modal
-        document.getElementById('productModal').classList.remove('hidden');
+        document.getElementById('extendedProductModal').classList.remove('hidden');
       }
 
       // Cerrar Modal
-      function closeProductModal() {
-        document.getElementById('productModal').classList.add('hidden');
+      function closeExtendedProductModal() {
+        document.getElementById('extendedProductModal').classList.add('hidden');
       }
     </script>
 
