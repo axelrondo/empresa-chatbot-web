@@ -246,7 +246,8 @@ const BANNER_IMAGES = [
   "/img/banner1.png",
   "/img/banner2.png",
   "/img/banner3.png",
-  "/img/banner4.png"
+  "/img/banner4.png",
+  "/img/banner5.png",
 ];
 
 let currentSlide = 0;
