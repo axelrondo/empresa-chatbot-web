@@ -11,6 +11,93 @@
 
   <!-- Font Awesome Icons CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ==========================================
+       ESTILOS PARA EL ASISTENTE FLOTANTE Y NEÓN
+       ========================================== */
+    .ai-widget-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Avatar Flotante sobre el Botón */
+    .ai-avatar-preview {
+      width: 65px;
+      height: 65px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #10b981;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      margin-bottom: -12px; /* Superpone la imagen al botón */
+      z-index: 10;
+      transition: transform 0.3s ease;
+    }
+
+    .ai-widget-container:hover .ai-avatar-preview {
+      transform: translateY(-4px) scale(1.05);
+    }
+
+    /* Botón Neón con Borde Giratorio tipo Circuito */
+    .ai-glowing-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      border-radius: 9999px;
+      background: #064e3b; /* Verde oscuro base */
+      color: #ffffff;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    /* Efecto de Luz Giratoria (Circuito) */
+    .ai-glowing-btn::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(transparent, transparent, transparent, #10b981, #34d399);
+      animation: rotateGlow 3s linear infinite;
+      z-index: 1;
+    }
+
+    /* Capa interna para el fondo del botón */
+    .ai-glowing-btn::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      background: #047857;
+      border-radius: 9999px;
+      z-index: 1;
+    }
+
+    /* Contenido (Texto e Iconos) */
+    .ai-glowing-btn span {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    @keyframes rotateGlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 
 <body class="bg-gray-100 font-sans text-gray-800 antialiased">
@@ -133,7 +220,7 @@
             </div>
           </div>
 
-          <!-- 2. Control Metros Cuadrados (PASO DE 1 EN 1) -->
+          <!-- 2. Control Metros Cuadrados -->
           <div>
             <div class="flex justify-between items-center mb-2">
               <label class="font-semibold text-gray-700">2. Cantidad en Metros Cuadrados (m²):</label>
@@ -257,7 +344,7 @@
               </div>
             </div>
 
-            <!-- EXTRA: LUSTRADO DE PISO (PASO DE 1 EN 1) -->
+            <!-- EXTRA: LUSTRADO DE PISO -->
             <div class="border rounded-xl p-4 bg-gray-50/50">
               <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
                 <input type="checkbox" id="check-piso" class="w-4 h-4 accent-emerald-600 rounded"
@@ -344,22 +431,36 @@
 
   </main>
 
-  <!-- ASISTENTE FLOTANTE Y CHATBOT CON IA -->
-  <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+  <!-- ==========================================
+       ASISTENTE FLOTANTE Y CHATBOT CON IA
+       ========================================== -->
+  <div class="ai-widget-container">
+    
+    <!-- MODAL VENTANA DE CHAT -->
     <div id="chatBox"
       class="hidden mb-4 w-80 sm:w-96 bg-slate-900 text-white rounded-2xl shadow-2xl border border-slate-800 overflow-hidden flex flex-col h-[450px] transition-all">
-      <div class="bg-slate-800 p-4 flex justify-between items-center border-b border-slate-700">
-        <div class="flex items-center gap-2">
-          <i class="fa-solid fa-robot text-emerald-400"></i>
-          <span class="font-bold text-sm">Asistente LIM-BOLIVIA</span>
+      
+      <!-- Encabezado con Avatar -->
+      <div class="bg-slate-800 p-3 flex justify-between items-center border-b border-slate-700">
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <img src="/img/asistente.png" class="w-9 h-9 rounded-full border border-emerald-500 object-cover" alt="Asistente">
+            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-slate-900"></span>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-white leading-tight">Asistente LIM-BOLIVIA</h3>
+            <p class="text-[10px] text-emerald-400 font-medium">En línea • Inteligencia Artificial</p>
+          </div>
         </div>
-        <button onclick="toggleChat()" class="text-gray-400 hover:text-white">
+        <button onclick="toggleChat()" class="text-gray-400 hover:text-white p-1">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
 
+      <!-- Mensajes del Chat -->
       <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs"></div>
 
+      <!-- Input de Texto y Controles -->
       <div class="p-3 bg-slate-800 border-t border-slate-700 flex gap-2 items-center">
         <input type="text" id="userInput" placeholder="Escribe tu mensaje..."
           class="flex-1 bg-slate-900 text-white text-xs px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-emerald-500"
@@ -378,10 +479,15 @@
       </div>
     </div>
 
-    <button onclick="toggleChat()"
-      class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-5 rounded-full shadow-2xl flex items-center gap-2 transition transform hover:scale-105">
-      <i class="fa-solid fa-robot text-xl"></i>
-      <span>Hablar con IA</span>
+    <!-- AVATAR ENCIMA DEL BOTÓN -->
+    <img src="/img/asistente.png" alt="Asistente IA" class="ai-avatar-preview" />
+
+    <!-- BOTÓN CON LUZ GIRATORIA (CIRCUITO) -->
+    <button onclick="toggleChat()" class="ai-glowing-btn">
+      <span>
+        <i class="fa-solid fa-robot text-emerald-300 text-lg"></i>
+        Hablar con IA
+      </span>
     </button>
   </div>
 
