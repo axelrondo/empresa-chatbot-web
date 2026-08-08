@@ -128,19 +128,19 @@
             <img id="serviceImage" src="/img/banner1.png" alt="Servicio"
               class="w-full sm:w-40 h-28 object-cover rounded-lg shadow shrink-0">
             <div>
-              <h4 id="serviceTitle" class="font-bold text-slate-800 text-base mb-1">Lavado Profesional de Alfombras</h4>
-              <p id="serviceDescription" class="text-xs text-gray-600 leading-relaxed"></p>
+              <h4 id="serviceTitle" class="font-bold text-slate-800 text-base mb-1">Lavado Profesional de Alfombra Fija</h4>
+              <p id="serviceDescription" class="text-xs text-gray-600 leading-relaxed">Seleccione la superficie en metros cuadrados y adicione extras si lo requiere.</p>
             </div>
           </div>
 
-          <!-- 2. Control Metros Cuadrados -->
+          <!-- 2. Control Metros Cuadrados (PASO DE 1 EN 1) -->
           <div>
             <div class="flex justify-between items-center mb-2">
               <label class="font-semibold text-gray-700">2. Cantidad en Metros Cuadrados (m²):</label>
               <div class="flex items-center gap-2">
                 <span id="m2Value"
                   class="font-black text-emerald-600 text-xl bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200">15 m²</span>
-                <span id="m2Subtotal" class="font-bold text-slate-600 text-sm">(Bs 0)</span>
+                <span id="m2Subtotal" class="font-bold text-slate-600 text-sm">(Bs 225)</span>
               </div>
             </div>
 
@@ -150,7 +150,7 @@
                 <i class="fa-solid fa-minus"></i>
               </button>
 
-              <input type="range" id="m2Slider" min="5" max="300" step="5" value="15"
+              <input type="range" id="m2Slider" min="1" max="300" step="1" value="15"
                 class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="onSliderChange()">
 
               <button onclick="changeM2Step(1)"
@@ -176,7 +176,7 @@
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-gray-600">Cantidad de Ventanas:</span>
                   <span id="label-vidrios"
-                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 Unid. (Bs 12)</span>
+                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 vent. (Bs 12)</span>
                 </div>
 
                 <div class="flex items-center gap-2">
@@ -184,7 +184,7 @@
                     class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center border border-slate-300 shrink-0">
                     <i class="fa-solid fa-minus"></i>
                   </button>
-                  <input type="range" id="range-vidrios" min="1" max="30" value="1"
+                  <input type="range" id="range-vidrios" min="1" max="30" step="1" value="1"
                     class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
                     oninput="updateExtraValue('vidrios')">
                   <button onclick="changeExtraQty('vidrios', 1)"
@@ -207,7 +207,7 @@
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-gray-600">Cantidad de Sillas:</span>
                   <span id="label-sillas"
-                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 Unid. (Bs 7)</span>
+                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 vent. (Bs 7)</span>
                 </div>
 
                 <div class="flex items-center gap-2">
@@ -215,7 +215,7 @@
                     class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center border border-slate-300 shrink-0">
                     <i class="fa-solid fa-minus"></i>
                   </button>
-                  <input type="range" id="range-sillas" min="1" max="50" value="1"
+                  <input type="range" id="range-sillas" min="1" max="50" step="1" value="1"
                     class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
                     oninput="updateExtraValue('sillas')">
                   <button onclick="changeExtraQty('sillas', 1)"
@@ -246,7 +246,7 @@
                     class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center border border-slate-300 shrink-0">
                     <i class="fa-solid fa-minus"></i>
                   </button>
-                  <input type="range" id="range-sofas" min="1" max="3" value="1"
+                  <input type="range" id="range-sofas" min="1" max="5" step="1" value="1"
                     class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
                     oninput="updateExtraValue('sofas')">
                   <button onclick="changeExtraQty('sofas', 1)"
@@ -257,7 +257,7 @@
               </div>
             </div>
 
-            <!-- EXTRA: LUSTRADO DE PISO -->
+            <!-- EXTRA: LUSTRADO DE PISO (PASO DE 1 EN 1) -->
             <div class="border rounded-xl p-4 bg-gray-50/50">
               <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
                 <input type="checkbox" id="check-piso" class="w-4 h-4 accent-emerald-600 rounded"
@@ -273,14 +273,14 @@
                 </div>
 
                 <div class="flex items-center gap-2">
-                  <button onclick="changeExtraQty('piso', -5)"
+                  <button onclick="changeExtraQty('piso', -1)"
                     class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center border border-slate-300 shrink-0">
                     <i class="fa-solid fa-minus"></i>
                   </button>
-                  <input type="range" id="range-piso" min="5" max="100" step="5" value="5"
+                  <input type="range" id="range-piso" min="1" max="100" step="1" value="5"
                     class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
                     oninput="updateExtraValue('piso')">
-                  <button onclick="changeExtraQty('piso', 5)"
+                  <button onclick="changeExtraQty('piso', 1)"
                     class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center border border-slate-300 shrink-0">
                     <i class="fa-solid fa-plus"></i>
                   </button>
@@ -291,15 +291,14 @@
             <!-- EXTRA: COCINA -->
             <div class="border rounded-xl p-4 bg-gray-50/50 flex items-center justify-between">
               <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                <input type="checkbox" id="check-cocina" class="w-4 h-4 accent-emerald-600 rounded"
-                  onchange="updateExtraValue('cocina')">
+                <input type="checkbox" id="check-cocina" class="w-4 h-4 accent-emerald-600 rounded">
                 <span>🍳 Limpieza Profunda de Cocina (Bs 150)</span>
               </label>
               <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Precio Fijo Base</span>
             </div>
           </div>
 
-          <!-- BOTÓN AGREGAR A COTIZACIÓN -->
+          <!-- BOTÓN AGREGAR -->
           <div class="pt-2">
             <button onclick="addCurrentToQuote()"
               class="w-full bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm uppercase tracking-wide">
