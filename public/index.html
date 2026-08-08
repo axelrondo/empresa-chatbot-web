@@ -787,9 +787,6 @@
   <!-- ==========================================
        ASISTENTE FLOTANTE Y CHATBOT CON IA
        ========================================== -->
-  <!-- ==========================================
-     ASISTENTE FLOTANTE Y CHATBOT CON IA
-     ========================================== -->
   <div class="ai-widget-container border-none">
 
     <!-- MODAL VENTANA DE CHAT -->
@@ -850,18 +847,18 @@
   </div>
 
   <!-- ==========================================
-     LÓGICA DE PROGRAMACIÓN Y SÍNTESIS DE VOZ (CORREGIDA - BIENVENIDA GARANTIZADA)
+     LÓGICA DE PROGRAMACIÓN Y SÍNTESIS DE VOZ (CORREGIDA Y REPARADA)
      ========================================== -->
   <script>
-    // ESTADO GLOBAL DEL CHAT
     let saludoInicialDado = false;
     let vozSeleccionada = null;
+    let audioDesbloqueado = false;
 
-    // Cargar y seleccionar una voz en español válida apenas el navegador esté listo
+    // 1. OBTENER Y ASIGNAR VOZ EN ESPAÑOL DE FORMA ASÍNCRONA
     function cargarVoces() {
-      if ('speechSynthesis' in window) {
-        const voces = window.speechSynthesis.getVoices();
-        // Buscar voz en español (preferencia MX, ES o cualquier 'es')
+      if (!('speechSynthesis' in window)) return;
+      const voces = window.speechSynthesis.getVoices();
+      if (voces.length > 0) {
         vozSeleccionada = voces.find(v => v.lang.includes('es-MX') || v.lang.includes('es-ES') || v.lang.startsWith('es')) || voces[0];
       }
     }
@@ -871,48 +868,55 @@
       cargarVoces();
     }
 
-    // 1. REPRODUCCIÓN DE VOZ MEJORADA Y FLUIDA (TTS)
-    function hablarTexto(texto) {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel(); // Detener cualquier reproducción activa
-
-        // A) Limpieza profunda de asteriscos, numerales y sintaxis Markdown
-        let textoLimpio = texto
-          .replace(/\*\*/g, '')  // Elimina doble asterisco
-          .replace(/\*/g, '')    // Elimina asterisco simple
-          .replace(/#/g, '')     // Elimina hashtags/encabezados
-          .replace(/`/g, '');    // Elimina comillas de código
-
-        // B) Corrección de pronunciación: evita que deletree "E-L-E-I-E-M-E"
-        textoLimpio = textoLimpio
-          .replace(/LIM-BOLIVIA/gi, "Lim Bolivia")
-          .replace(/LIM BOLIVIA/gi, "Lim Bolivia")
-          .replace(/LIM/gi, "Lim");
-
-        const utterance = new SpeechSynthesisUtterance(textoLimpio);
-
-        // Si no cargó la voz globalmente, intentar obtenerla en el momento
-        if (!vozSeleccionada && window.speechSynthesis.getVoices().length > 0) {
-          cargarVoces();
-        }
-
-        if (vozSeleccionada) {
-          utterance.voice = vozSeleccionada;
-        }
-
-        utterance.lang = 'es-ES';
-        utterance.rate = 1.0;
-        utterance.pitch = 1.0;
-
-        // Forzar reproducción
-        window.speechSynthesis.speak(utterance);
-      }
+    // 2. DESBLOQUEO DE AUDIO (Indispensable para celulares Android/iOS)
+    function desbloquearAudioMobile() {
+      if (audioDesbloqueado || !('speechSynthesis' in window)) return;
+      const silencio = new SpeechSynthesisUtterance('');
+      silencio.volume = 0;
+      window.speechSynthesis.speak(silencio);
+      audioDesbloqueado = true;
     }
 
-    // 2. TOGGLE Y SALUDO DE BIENVENIDA AUTOMÁTICO (CORREGIDO PARA INTERACCIÓN DIRECTA)
+    // Registrar desbloqueo al primer toque del usuario en la pantalla
+    document.addEventListener('touchstart', desbloquearAudioMobile, { once: true });
+    document.addEventListener('click', desbloquearAudioMobile, { once: true });
+
+    // 3. REPRODUCCIÓN DE VOZ (TTS)
+    function hablarTexto(texto) {
+      if (!('speechSynthesis' in window)) return;
+
+      window.speechSynthesis.cancel(); // Cancelar audios previos
+
+      let textoLimpio = texto
+        .replace(/\*\*/g, '')
+        .replace(/\*/g, '')
+        .replace(/#/g, '')
+        .replace(/`/g, '')
+        .replace(/LIM-BOLIVIA/gi, "Lim Bolivia")
+        .replace(/LIM BOLIVIA/gi, "Lim Bolivia")
+        .replace(/LIM/gi, "Lim");
+
+      const utterance = new SpeechSynthesisUtterance(textoLimpio);
+
+      if (!vozSeleccionada) cargarVoces();
+      if (vozSeleccionada) utterance.voice = vozSeleccionada;
+
+      utterance.lang = 'es-ES';
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // 4. CONTROL DE APERTURA DEL CHAT Y SALUDO INICIAL
     function toggleChat() {
+      desbloquearAudioMobile();
+
       const chatBox = document.getElementById('chatBox');
-      if (!chatBox) return;
+      if (!chatBox) {
+        console.error("No se encontró el contenedor chatBox");
+        return;
+      }
 
       const estaOculto = chatBox.classList.contains('hidden');
 
@@ -920,15 +924,12 @@
         chatBox.classList.remove('hidden');
 
         const chatMessages = document.getElementById('chatMessages');
-
         const mensajeBienvenida = "¡Hola! Bienvenido a Lim Bolivia. ¿En qué te puedo ayudar hoy?";
 
-        // A) Si no hay mensajes previos en pantalla, agregar bienvenida visual
         if (chatMessages && chatMessages.children.length === 0) {
           appendMessage('bot', mensajeBienvenida);
         }
 
-        // B) Reproducir voz de bienvenida al presionar el botón por primera vez
         if (!saludoInicialDado) {
           hablarTexto(mensajeBienvenida);
           saludoInicialDado = true;
@@ -936,24 +937,19 @@
       } else {
         chatBox.classList.add('hidden');
         if ('speechSynthesis' in window) {
-          window.speechSynthesis.cancel(); // Cancelar audio si el usuario cierra el chat
+          window.speechSynthesis.cancel();
         }
       }
     }
 
-    // 3. AÑADIR MENSAJES AL CHAT (TEXTO LIMPIO EN PANTALLA Y CON FORMATO LEGIBLE)
+    // 5. INTERFAZ DE MENSAJES EN PANTALLA
     function appendMessage(sender, text) {
       const chatMessages = document.getElementById('chatMessages');
       if (!chatMessages) return;
 
-      // Eliminar asteriscos visuales para la interfaz de usuario
-      const textLimpio = text
-        .replace(/\*\*/g, '')
-        .replace(/\*/g, '');
-
+      const textLimpio = text.replace(/\*\*/g, '').replace(/\*/g, '');
       const msgDiv = document.createElement('div');
 
-      // Agregamos 'whitespace-pre-line' para mantener saltos de línea y listas
       if (sender === 'user') {
         msgDiv.className = "bg-emerald-600 text-white p-2.5 rounded-xl ml-auto max-w-[85%] animate-fade-in whitespace-pre-line";
       } else {
@@ -965,7 +961,7 @@
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    // 4. ENVÍO DE MENSAJES AL SERVIDOR / IA
+    // 6. COMUNICACIÓN CON EL SERVIDOR
     async function sendMessage() {
       const input = document.getElementById('userInput');
       if (!input) return;
@@ -986,7 +982,6 @@
         if (response.ok) {
           const data = await response.json();
           const reply = data.reply || data.message || "Entendido.";
-
           appendMessage('bot', reply);
           hablarTexto(reply);
         } else {
@@ -995,17 +990,17 @@
           hablarTexto(errorMsg);
         }
       } catch (err) {
-        console.error("Error al conectar con el backend de IA:", err);
+        console.error("Error backend:", err);
         const fallbackMsg = "Ocurrió un inconveniente al procesar tu consulta.";
         appendMessage('bot', fallbackMsg);
       }
     }
 
-    // 5. RECONOCIMIENTO DE VOZ POR MICRÓFONO (STT)
+    // 7. ESCUCHA DE MICRÓFONO (STT)
     function startListening() {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRecognition) {
-        alert("Tu navegador no soporta el reconocimiento de voz por micrófono.");
+        alert("Tu navegador no soporta reconocimiento de voz.");
         return;
       }
 
@@ -1036,9 +1031,9 @@
       recognition.start();
     }
   </script>
+
   <!-- JS SCRIPTS -->
   <script src="/js/calculator.js"></script>
-  <script src="/js/chatbot.js"></script>
 </body>
 
 </html>
