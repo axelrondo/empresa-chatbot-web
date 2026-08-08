@@ -850,7 +850,7 @@
   </div>
 
   <!-- ==========================================
-     LÓGICA DE PROGRAMACIÓN Y SÍNTESIS DE VOZ (CORREGIDA)
+     LÓGICA DE PROGRAMACIÓN Y SÍNTESIS DE VOZ (CORREGIDA - BIENVENIDA GARANTIZADA)
      ========================================== -->
   <script>
     // ESTADO GLOBAL DEL CHAT
@@ -891,6 +891,11 @@
 
         const utterance = new SpeechSynthesisUtterance(textoLimpio);
 
+        // Si no cargó la voz globalmente, intentar obtenerla en el momento
+        if (!vozSeleccionada && window.speechSynthesis.getVoices().length > 0) {
+          cargarVoces();
+        }
+
         if (vozSeleccionada) {
           utterance.voice = vozSeleccionada;
         }
@@ -904,7 +909,7 @@
       }
     }
 
-    // 2. TOGGLE Y SALUDO DE BIENVENIDA AUTOMÁTICO
+    // 2. TOGGLE Y SALUDO DE BIENVENIDA AUTOMÁTICO (CORREGIDO PARA INTERACCIÓN DIRECTA)
     function toggleChat() {
       const chatBox = document.getElementById('chatBox');
       if (!chatBox) return;
@@ -916,17 +921,16 @@
 
         const chatMessages = document.getElementById('chatMessages');
 
-        // Si no hay mensajes previos en pantalla, agregar bienvenida
+        const mensajeBienvenida = "¡Hola! Bienvenido a Lim Bolivia. ¿En qué te puedo ayudar hoy?";
+
+        // A) Si no hay mensajes previos en pantalla, agregar bienvenida visual
         if (chatMessages && chatMessages.children.length === 0) {
-          appendMessage('bot', "¡Hola! Bienvenido a Lim Bolivia. ¿En qué te puedo ayudar hoy?");
+          appendMessage('bot', mensajeBienvenida);
         }
 
-        // Reproducir voz al abrir por primera vez
+        // B) Reproducir voz de bienvenida al presionar el botón por primera vez
         if (!saludoInicialDado) {
-          // Un pequeño timeout de 100ms asegura que el DOM y el contexto de audio se sincronicen con el clic
-          setTimeout(() => {
-            hablarTexto("¡Hola! Bienvenido a Lim Bolivia. ¿En qué te puedo ayudar hoy?");
-          }, 100);
+          hablarTexto(mensajeBienvenida);
           saludoInicialDado = true;
         }
       } else {
@@ -949,7 +953,7 @@
 
       const msgDiv = document.createElement('div');
 
-      // Agregamos 'whitespace-pre-line' a las clases para que los saltos de línea se respeten en pantalla
+      // Agregamos 'whitespace-pre-line' para mantener saltos de línea y listas
       if (sender === 'user') {
         msgDiv.className = "bg-emerald-600 text-white p-2.5 rounded-xl ml-auto max-w-[85%] animate-fade-in whitespace-pre-line";
       } else {
