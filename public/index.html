@@ -787,7 +787,10 @@
   <!-- ==========================================
        ASISTENTE FLOTANTE Y CHATBOT CON IA
        ========================================== -->
-  <div class="ai-widget-container">
+  <!-- ==========================================
+     ASISTENTE FLOTANTE Y CHATBOT CON IA
+     ========================================== -->
+  <div class="ai-widget-container border-none">
 
     <!-- MODAL VENTANA DE CHAT -->
     <div id="chatBox"
@@ -798,7 +801,7 @@
         <div class="flex items-center gap-3">
           <div class="relative">
             <img src="/img/asistente.png" class="w-9 h-9 rounded-full border border-emerald-500 object-cover"
-              alt="Asistente">
+              alt="Asistente" onerror="this.src='/img/banner1.png'">
             <span
               class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-slate-900"></span>
           </div>
@@ -835,7 +838,7 @@
     </div>
 
     <!-- AVATAR ENCIMA DEL BOTÓN -->
-    <img src="/img/asistente.png" alt="Asistente IA" class="ai-avatar-preview" />
+    <img src="/img/asistente.png" alt="Asistente IA" class="ai-avatar-preview" onerror="this.src='/img/banner1.png'" />
 
     <!-- BOTÓN CON LUZ GIRATORIA (CIRCUITO) -->
     <button onclick="toggleChat()" class="ai-glowing-btn">
@@ -845,6 +848,153 @@
       </span>
     </button>
   </div>
+
+  <!-- ==========================================
+     LÓGICA DE PROGRAMACIÓN Y SÍNTESIS DE VOZ
+     ========================================== -->
+  <script>
+    // ESTADO GLOBAL DEL CHAT
+    let saludoInicialDado = false;
+
+    // 1. REPRODUCCIÓN DE VOZ MEJORADA (TTS)
+    function hablarTexto(texto) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel(); // Cancela cualquier voz anterior
+
+        // A) Limpieza de asteriscos y formatos Markdown
+        let textoLimpio = texto.replace(/\*/g, '');
+
+        // B) Corrección de pronunciación: evita que deletree "E-L-E-I-E-M-E"
+        textoLimpio = textoLimpio
+          .replace(/LIM-BOLIVIA/gi, "Lim Bolivia")
+          .replace(/LIM BOLIVIA/gi, "Lim Bolivia")
+          .replace(/LIM/gi, "Lim");
+
+        const utterance = new SpeechSynthesisUtterance(textoLimpio);
+        utterance.lang = 'es-ES'; // O 'es-MX'
+        utterance.rate = 1.0;
+
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    // 2. TOGGLE Y SALUDO DE BIENVENIDA
+    function toggleChat() {
+      const chatBox = document.getElementById('chatBox');
+      if (!chatBox) return;
+
+      chatBox.classList.toggle('hidden');
+
+      // Si la ventana se abre
+      if (!chatBox.classList.contains('hidden')) {
+        const chatMessages = document.getElementById('chatMessages');
+
+        // Si no hay mensajes guardados en el historial visual
+        if (chatMessages && chatMessages.children.length === 0) {
+          appendMessage('bot', "¡Hola! Bienvenido a Lim Bolivia. ¿En qué te puedo ayudar hoy?");
+        }
+
+        // Reproducir audio la primera vez que hace clic en "Hablar con IA"
+        if (!saludoInicialDado) {
+          hablarTexto("¡Hola! Bienvenido a Lim Bolivia. ¿En qué te puedo ayudar hoy?");
+          saludoInicialDado = true;
+        }
+      }
+    }
+
+    // 3. AÑADIR MENSAJES AL CHAT (SISTEMA DE TEXTO LIMPIO)
+    function appendMessage(sender, text) {
+      const chatMessages = document.getElementById('chatMessages');
+      if (!chatMessages) return;
+
+      // Elimina asteriscos visuales en pantalla
+      const textLimpio = text.replace(/\*/g, '');
+
+      const msgDiv = document.createElement('div');
+      if (sender === 'user') {
+        msgDiv.className = "bg-emerald-600 text-white p-2.5 rounded-xl ml-auto max-w-[85%] animate-fade-in";
+      } else {
+        msgDiv.className = "bg-slate-800 text-gray-200 p-2.5 rounded-xl border border-slate-700 max-w-[85%] animate-fade-in";
+      }
+
+      msgDiv.innerText = textLimpio;
+      chatMessages.appendChild(msgDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // 4. ENVÍO DE MENSAJES AL SERVIDOR / IA
+    async function sendMessage() {
+      const input = document.getElementById('userInput');
+      if (!input) return;
+
+      const message = input.value.trim();
+      if (!message) return;
+
+      // Mostrar mensaje del usuario
+      appendMessage('user', message);
+      input.value = '';
+
+      try {
+        // Ajusta la URL de la API según tu configuración de backend local o servidor
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: message })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const reply = data.reply || data.message || "Entendido.";
+
+          appendMessage('bot', reply);
+          hablarTexto(reply); // La voz lee la respuesta procesada de la IA
+        } else {
+          const errorMsg = "En este momento no puedo conectarme con el servidor. Inténtalo de nuevo.";
+          appendMessage('bot', errorMsg);
+          hablarTexto(errorMsg);
+        }
+      } catch (err) {
+        console.error("Error al conectar con el backend de IA:", err);
+        const fallbackMsg = "Ocurrió un inconveniente al procesar tu consulta.";
+        appendMessage('bot', fallbackMsg);
+      }
+    }
+
+    // 5. RECONOCIMIENTO DE VOZ POR MICRÓFONO (STT)
+    function startListening() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        alert("Tu navegador no soporta el reconocimiento de voz por micrófono.");
+        return;
+      }
+
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'es-ES';
+      recognition.interimResults = false;
+
+      recognition.onstart = function () {
+        const input = document.getElementById('userInput');
+        if (input) input.placeholder = "Escuchando...";
+      };
+
+      recognition.onresult = function (event) {
+        const transcript = event.results[0][0].transcript;
+        const input = document.getElementById('userInput');
+        if (input) {
+          input.value = transcript;
+          input.placeholder = "Escribe tu mensaje...";
+        }
+        sendMessage();
+      };
+
+      recognition.onerror = function () {
+        const input = document.getElementById('userInput');
+        if (input) input.placeholder = "Escribe tu mensaje...";
+      };
+
+      recognition.start();
+    }
+  </script>
 
   <!-- JS SCRIPTS -->
   <script src="/js/calculator.js"></script>
