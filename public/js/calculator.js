@@ -465,9 +465,10 @@ function setSlide(index) {
   }
 }
 
+
 // ==========================================
 // INICIALIZACIÓN ÚNICA DE LA PÁGINA
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
   selectServiceTab('Alfombras');
-});
+});   
