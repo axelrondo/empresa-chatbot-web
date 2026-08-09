@@ -1,14 +1,5 @@
-// Variable para historial de conversación
-let chatHistory = [
-  {
-    role: "user",
-    parts: [{ text: "Hola, actúa como el asistente virtual amable, atento y experto de la empresa LIM-BOLIVIA en La Paz, Bolivia. Saluda amablemente, responde preguntas con naturalidad y carisma, orienta con detalles sobre limpieza de alfombras, oficinas y casas, y solo ofrece WhatsApp si el cliente pide agendar o coordinar un servicio." }]
-  },
-  {
-    role: "model",
-    parts: [{ text: "¡Entendido! Hola, soy el asistente de LIM-BOLIVIA. Estoy aquí para ayudarte de forma amable y resolver todas tus dudas sobre nuestros servicios de limpieza profesional." }]
-  }
-];
+// Variable para historial de conversación acumulativo
+let chatHistory = [];
 
 function toggleChat() {
   const chatBox = document.getElementById('chatBox');
@@ -20,20 +11,27 @@ async function sendMessage() {
   const message = input.value.trim();
   if (!message) return;
 
-  // Mostrar mensaje del usuario
+  // 1. Mostrar mensaje del usuario en la interfaz
   appendMessage('user', message);
   input.value = '';
 
-  // Mostrar indicador de "Escribiendo..."
+  // 2. AGREGAR INMEDIATAMENTE el mensaje del usuario al historial antes del fetch
+  chatHistory.push({ role: "user", content: message });
+
+  // 3. Mostrar indicador de "Escribiendo..."
   const loadingId = appendLoading();
 
   try {
+    // Se envía todo el historial previo (sin incluir el mensaje actual en el 'history', 
+    // pero el mensaje actual va en 'message')
+    const historyToSend = chatHistory.slice(0, -1);
+
     const response = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
         message: message,
-        history: chatHistory 
+        history: historyToSend 
       })
     });
 
@@ -42,9 +40,8 @@ async function sendMessage() {
 
     if (data && data.reply) {
       appendMessage('bot', data.reply);
-      // Guardar en el historial local
-      chatHistory.push({ role: "user", parts: [{ text: message }] });
-      chatHistory.push({ role: "model", parts: [{ text: data.reply }] });
+      // 4. Guardar la respuesta de la IA en el historial
+      chatHistory.push({ role: "assistant", content: data.reply });
     } else {
       throw new Error("Respuesta no válida del servidor");
     }
@@ -52,7 +49,11 @@ async function sendMessage() {
   } catch (error) {
     console.error("Error en Chatbot:", error);
     removeLoading(loadingId);
-    appendMessage('bot', "¡Hola! Disculpa, tuve un pequeño parpadeo en mi conexión. ¿Me podrías repetir tu consulta? Con gusto te doy todos los detalles de nuestros precios y servicios de limpieza.");
+    
+    // Si falla la petición, removemos el mensaje no procesado del historial
+    chatHistory.pop();
+    
+    appendMessage('bot', "¡Hola! Disculpa, tuve un pequeño parpadeo en mi conexión. ¿Me podrías repetir tu consulta?");
   }
 }
 
@@ -66,8 +67,15 @@ function appendMessage(sender, text) {
   } else {
     msgDiv.className = 'bg-slate-800 text-gray-100 p-3 rounded-xl mr-auto max-w-[85%] text-xs border border-slate-700 shadow-sm space-y-2';
     
-    // Convertir saltos de línea simples
+    // Remplazar saltos de línea y enlaces a WhatsApp para que sean cliqueables
     let formattedText = text.replace(/\n/g, '<br>');
+    
+    // Detectar URLs de wa.me y convertirlas en un botón verde cliqueable
+    const urlPattern = /(https?:\/\/wa\.me\/[^\s<]+)/g;
+    formattedText = formattedText.replace(urlPattern, function(url) {
+      return `<a href="${url}" target="_blank" class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-3 rounded-lg text-xs mt-2 no-underline text-center">📲 Agendar por WhatsApp</a>`;
+    });
+
     msgDiv.innerHTML = `<div>${formattedText}</div>`;
 
     // Reproducir la respuesta con voz
@@ -113,14 +121,17 @@ function startListening() {
   };
 }
 
-// Función para reproducir voz sin HTML
+// Función para reproducir voz (limpia URLs y etiquetas antes de leer)
 function speak(text) {
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel(); // Detener audios anteriores
     
-    // Eliminar etiquetas HTML antes de leer el texto
-    const cleanText = text.replace(/<[^>]*>?/gm, '');
+    // Eliminar URLs y etiquetas HTML antes de hablar para que no lea "h t t p s dos puntos diagonal..."
+    let cleanText = text.replace(/https?:\/\/[^\s]+/g, '');
+    cleanText = cleanText.replace(/<[^>]*>?/gm, '');
     
+    if (cleanText.trim() === '') return;
+
     const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.lang = 'es-ES';
     utterance.rate = 1.0;
