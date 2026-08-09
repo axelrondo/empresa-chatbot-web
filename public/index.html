@@ -942,7 +942,7 @@
       }
     }
 
-    // 5. INTERFAZ DE MENSAJES EN PANTALLA (CON Detección de Enlaces y Botón de WhatsApp)
+    // 5. INTERFAZ DE MENSAJES EN PANTALLA (Procesamiento Inteligente de Enlaces y WhatsApp)
     function appendMessage(sender, text) {
       const chatMessages = document.getElementById('chatMessages');
       if (!chatMessages) return;
@@ -951,24 +951,27 @@
 
       if (sender === 'user') {
         msgDiv.className = "bg-emerald-600 text-white p-2.5 rounded-xl ml-auto max-w-[85%] animate-fade-in whitespace-pre-line";
-        msgDiv.textContent = text.replace(/\*\*/g, '').replace(/\*/g, '');
+        msgDiv.textContent = text;
       } else {
         msgDiv.className = "bg-slate-800 text-gray-200 p-2.5 rounded-xl border border-slate-700 max-w-[85%] animate-fade-in whitespace-pre-line leading-relaxed";
 
-        // Limpiar formato Markdown residual
-        let formattedText = text.replace(/\*\*/g, '').replace(/\*/g, '');
+        // 1. Solo elimina negritas de Markdown (**), manteniendo el signo '*' para operaciones
+        let formattedText = text.replace(/\*\*/g, '');
 
-        // 1. Convertir URLs (https://... o http://...) en botones o enlaces interactivos
+        // 2. Procesar URLs dinámicas (Identifica si es enlace normal o de WhatsApp)
         const urlPattern = /(https?:\/\/[^\s]+)/g;
         formattedText = formattedText.replace(urlPattern, function (url) {
+          if (url.includes('wa.me')) {
+            return `<a href="${url}" target="_blank" class="inline-flex items-center gap-1.5 bg-green-600 hover:bg-green-500 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition shadow-sm my-1.5 no-underline"><i class="fa-brands fa-whatsapp text-sm"></i> Confirmar Reserva por WhatsApp</a>`;
+          }
           return `<a href="${url}" target="_blank" class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1 rounded-lg text-xs transition shadow-sm my-1 no-underline"><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Abrir enlace</a>`;
         });
 
-        // 2. Convertir menciones del número de WhatsApp (+591 71506930 o 71506930) en botón directo
-        const waPattern = /(\+?591\s?)?(71506930)/g;
-        formattedText = formattedText.replace(waPattern, function (match) {
+        // 3. Convertir menciones simples de teléfono (+591 71506930 o 71506930) SOLO si no vienen en una URL
+        const waPattern = /(?<!href=")(?<!\/\/)(\+?591\s?)?(71506930)/g;
+        formattedText = formattedText.replace(waPattern, function () {
           const cleanNum = "59171506930";
-          const wspUrl = `https://wa.me/${cleanNum}?text=${encodeURIComponent('Hola LIM-BOLIVIA, quisiera realizar una consulta/reserva.')}`;
+          const wspUrl = `https://wa.me/${cleanNum}?text=${encodeURIComponent('Hola Lim Bolivia, quisiera realizar una consulta/reserva.')}`;
           return `<a href="${wspUrl}" target="_blank" class="inline-flex items-center gap-1.5 bg-green-600 hover:bg-green-500 text-white font-bold px-2.5 py-1 rounded-lg text-xs transition shadow-sm my-1 no-underline"><i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp +591 71506930</a>`;
         });
 
