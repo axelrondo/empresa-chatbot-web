@@ -476,7 +476,7 @@
       </div>
     </div>
 
-    <!-- DATOS Y LÓGICA DE CATÁLOGO Y SLIDER (CORREGIDO) -->
+    <!-- DATOS Y LÓGICA DE CATÁLOGO Y SLIDER -->
     <script>
       // Lógica Slider Banner con Auto-play
       const slides = ["/img/banner1.png", "/img/banner2.png", "/img/asistente.png", "/img/banner1.png"];
@@ -514,14 +514,14 @@
 
       function startSlideTimer() {
         if (slideTimer) clearInterval(slideTimer);
-        slideTimer = setInterval(nextSlide, 4000); // Rota automáticamente cada 4 segundos
+        slideTimer = setInterval(nextSlide, 4000);
       }
 
       function resetSlideTimer() {
         startSlideTimer();
       }
 
-      // Catálogo Data (Sector 1 expandido a 10 productos completos)
+      // Catálogo Data
       const catalogData = [
         {
           id: "sector1",
@@ -834,12 +834,28 @@
       updateExtraValue(extraKey);
     }
 
+    function resetCotizadorInputs() {
+      Object.keys(extraPrices).forEach(key => {
+        const chk = document.getElementById(`check-${key}`);
+        if (chk) chk.checked = false;
+
+        const panel = document.getElementById(`panel-${key}`);
+        if (panel) panel.classList.add('hidden');
+
+        const rng = document.getElementById(`range-${key}`);
+        if (rng) {
+          rng.value = 1;
+          updateExtraValue(key);
+        }
+      });
+    }
+
     function addCurrentMainService() {
       const sData = serviceRates[currentSelectedServiceKey];
       const subtotal = currentM2 * sData.rate;
 
       addedServices.push({
-        id: Date.now(),
+        id: Date.now() + Math.random(),
         title: `${sData.name} (${currentM2} m²)`,
         price: subtotal
       });
@@ -848,8 +864,13 @@
     }
 
     function addCurrentToQuote() {
-      addCurrentMainService();
+      let addedAnything = false;
 
+      // 1. Agregar el servicio base configurado actualmente
+      addCurrentMainService();
+      addedAnything = true;
+
+      // 2. Agregar los extras seleccionados por el usuario
       Object.keys(extraPrices).forEach(key => {
         const chk = document.getElementById(`check-${key}`);
         if (chk && chk.checked) {
@@ -872,12 +893,14 @@
             price: cost
           });
 
-          chk.checked = false;
-          toggleExtra(key);
+          addedAnything = true;
         }
       });
 
-      renderSummary();
+      if (addedAnything) {
+        resetCotizadorInputs();
+        renderSummary();
+      }
     }
 
     function removeService(id) {
@@ -1119,7 +1142,7 @@
       selectServiceTab('Alfombras');
       if (typeof renderMenu === 'function') renderMenu();
       if (typeof renderProducts === 'function') renderProducts();
-      startSlideTimer(); // Activa el giro automático al iniciar
+      startSlideTimer();
     });
   </script>
 </body>
