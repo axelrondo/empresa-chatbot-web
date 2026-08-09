@@ -847,7 +847,7 @@
   </div>
 
   <!-- ==========================================
-     LÓGICA DE PROGRAMACIÓN Y SÍNTESIS DE VOZ (CORREGIDA Y REPARADA)
+     LÓGICA DE PROGRAMACIÓN Y SÍNTESIS DE VOZ (TOTALMENTE CORREGIDA)
      ========================================== -->
   <script>
     let saludoInicialDado = false;
@@ -881,20 +881,27 @@
     document.addEventListener('touchstart', desbloquearAudioMobile, { once: true });
     document.addEventListener('click', desbloquearAudioMobile, { once: true });
 
-    // 3. REPRODUCCIÓN DE VOZ (TTS)
+    // 3. REPRODUCCIÓN DE VOZ (TTS) - FILTRA CUALQUIER URL PARA QUE NO SEA LEÍDA POR VOZ
     function hablarTexto(texto) {
       if (!('speechSynthesis' in window)) return;
 
       window.speechSynthesis.cancel(); // Cancelar audios previos
 
       let textoLimpio = texto
+        // Elimina URLs de WhatsApp y enlaces estándar para que la voz no lea "https..." o "porciento-veinte..."
+        .replace(/https?:\/\/[^\s]+/g, '')
+        .replace(/Para agendar con los datos acordados, haz clic en el siguiente enlace:/gi, '')
+        .replace(/Puedes hacer clic en el siguiente enlace para coordinar con nosotros:/gi, '')
         .replace(/\*\*/g, '')
         .replace(/\*/g, '')
         .replace(/#/g, '')
         .replace(/`/g, '')
         .replace(/LIM-BOLIVIA/gi, "Lim Bolivia")
         .replace(/LIM BOLIVIA/gi, "Lim Bolivia")
-        .replace(/LIM/gi, "Lim");
+        .replace(/LIM/gi, "Lim")
+        .trim();
+
+      if (!textoLimpio) return;
 
       const utterance = new SpeechSynthesisUtterance(textoLimpio);
 
@@ -942,7 +949,7 @@
       }
     }
 
-    // 5. INTERFAZ DE MENSAJES EN PANTALLA (Renderizado limpio de Botón)
+    // 5. INTERFAZ DE MENSAJES EN PANTALLA (Renderizado dinámico de Botones)
     function appendMessage(sender, text) {
       const chatMessages = document.getElementById('chatMessages');
       if (!chatMessages) return;
@@ -958,20 +965,15 @@
         // 1. Limpieza general de formato Markdown residual
         let formattedText = text.replace(/\*\*/g, '');
 
-        // 2. Expresión regular que captura la URL completa de WhatsApp hasta el último caracter válido
-        const waUrlRegex = /(https:\/\/wa\.me\/59171506930\?text=[^\s<]+)/g;
+        // 2. Expresión regular para reemplazar URLs por Botones interactivos sin romper la estructura
+        const urlPattern = /(https?:\/\/[^\s<]+)/g;
 
-        if (waUrlRegex.test(formattedText)) {
-          formattedText = formattedText.replace(waUrlRegex, function (url) {
+        formattedText = formattedText.replace(urlPattern, function (url) {
+          if (url.includes('wa.me')) {
             return `<br><a href="${url}" target="_blank" class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition shadow-md my-2 no-underline"><i class="fa-brands fa-whatsapp text-base"></i> Confirmar Reserva por WhatsApp</a>`;
-          });
-        } else {
-          // Captura de otras URLs estándar
-          const urlPattern = /(https?:\/\/[^\s<]+)/g;
-          formattedText = formattedText.replace(urlPattern, function (url) {
-            return `<a href="${url}" target="_blank" class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1 rounded-lg text-xs transition shadow-sm my-1 no-underline"><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Abrir enlace</a>`;
-          });
-        }
+          }
+          return `<br><a href="${url}" target="_blank" class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1 rounded-lg text-xs transition shadow-sm my-1 no-underline"><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Abrir enlace</a>`;
+        });
 
         msgDiv.innerHTML = formattedText;
       }
