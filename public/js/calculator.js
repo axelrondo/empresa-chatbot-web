@@ -29,16 +29,53 @@ const SERVICIOS_DATA = {
     img: "/img/banner4.png",
     precioM2: 10,
     minimo: 120
+  },
+  // --- SERVICIOS AUMENTADOS (FILA INFERIOR) ---
+  PisoFrio: {
+    title: "Lustrado y Lavado de Piso Frío",
+    description: "Decapado, limpieza profunda de cerámica, porcelanato o mosaico y sellado brillante.",
+    img: "/img/banner1.png",
+    precioM2: 14,
+    minimo: 100
+  },
+  PisoMadera: {
+    title: "Lustrado y Tratamiento de Piso de Madera",
+    description: "Limpieza especializada, encerado y vitrificado/lustrado para parquet y pisos de madera.",
+    img: "/img/banner2.png",
+    precioM2: 16,
+    minimo: 110
+  },
+  Fumigado: {
+    title: "Fumigación y Control de Plagas General",
+    description: "Desinfección y fumigación contra insectos y plagas con productos de alto rendimiento.",
+    img: "/img/banner3.png",
+    precioM2: 8,
+    minimo: 150
+  },
+  Tanques: {
+    title: "Limpieza y Desinfección de Tanques de Agua",
+    description: "Vaciado, cepillado, desinfección bactericida y purga de tanques/cisternas.",
+    img: "/img/banner4.png",
+    precioM2: 25,
+    minimo: 200
   }
 };
 
-// Mapeo de índices para el carrusel
-const BANNER_KEYS = ['Alfombras', 'AlfombraSuelta', 'Oficinas', 'Casas'];
+// Lista de claves de todos los servicios (8 en total)
+const BANNER_KEYS = [
+  'Alfombras', 
+  'AlfombraSuelta', 
+  'Oficinas', 
+  'Casas', 
+  'PisoFrio', 
+  'PisoMadera', 
+  'Fumigado', 
+  'Tanques'
+];
 
 // Estado global
 let servicioSeleccionado = 'Alfombras';
 let currentSlide = 0;
-let autoSlideInterval = null;
 
 // Precios unitarios para los extras
 const PRECIOS_EXTRAS = {
@@ -59,7 +96,7 @@ function selectServiceTab(tipo) {
   servicioSeleccionado = tipo;
   currentSlide = BANNER_KEYS.indexOf(tipo);
 
-  // Actualizar estado visual de los botones de pestañas
+  // Actualizar estado visual de los 8 botones
   BANNER_KEYS.forEach(s => {
     const btn = document.getElementById(`btn-${s}`);
     if (btn) {
@@ -182,6 +219,8 @@ function recalculoTotalCotizacion() {
   const m2 = m2Slider ? parseInt(m2Slider.value) : 15;
   
   const datosServicio = SERVICIOS_DATA[servicioSeleccionado];
+  if (!datosServicio) return;
+
   let subtotalServicio = m2 * datosServicio.precioM2;
 
   if (subtotalServicio < datosServicio.minimo) {
@@ -272,6 +311,8 @@ function recalculoTotalCotizacion() {
 
 function sendToWhatsApp() {
   const datosServicio = SERVICIOS_DATA[servicioSeleccionado];
+  if (!datosServicio) return;
+
   const m2 = parseInt(document.getElementById('m2Slider')?.value || 15);
   
   let subtotalServicio = m2 * datosServicio.precioM2;
@@ -330,6 +371,8 @@ function talkQuote() {
   window.speechSynthesis.cancel();
 
   const datosServicio = SERVICIOS_DATA[servicioSeleccionado];
+  if (!datosServicio) return;
+
   const m2 = parseInt(document.getElementById('m2Slider')?.value || 15);
   
   let subtotalServicio = m2 * datosServicio.precioM2;
@@ -382,7 +425,7 @@ function talkQuote() {
 }
 
 // ==========================================
-// AUTO-ROTACIÓN DEL CARRUSEL Y NAVEGACIÓN
+// CONTROL DE IMAGEN DE BANNER (MANUAL)
 // ==========================================
 
 function updateSliderUI() {
@@ -408,34 +451,18 @@ function updateSliderUI() {
 function nextSlide() {
   currentSlide = (currentSlide + 1) % BANNER_KEYS.length;
   selectServiceTab(BANNER_KEYS[currentSlide]);
-  resetAutoSlide();
 }
 
 function prevSlide() {
   currentSlide = (currentSlide - 1 + BANNER_KEYS.length) % BANNER_KEYS.length;
   selectServiceTab(BANNER_KEYS[currentSlide]);
-  resetAutoSlide();
 }
 
 function setSlide(index) {
   if (index >= 0 && index < BANNER_KEYS.length) {
     currentSlide = index;
     selectServiceTab(BANNER_KEYS[currentSlide]);
-    resetAutoSlide();
   }
-}
-
-function startAutoSlide() {
-  if (autoSlideInterval) clearInterval(autoSlideInterval);
-  autoSlideInterval = setInterval(() => {
-    currentSlide = (currentSlide + 1) % BANNER_KEYS.length;
-    selectServiceTab(BANNER_KEYS[currentSlide]);
-  }, 5000);
-}
-
-function resetAutoSlide() {
-  clearInterval(autoSlideInterval);
-  startAutoSlide();
 }
 
 // ==========================================
@@ -443,5 +470,4 @@ function resetAutoSlide() {
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
   selectServiceTab('Alfombras');
-  startAutoSlide();
 });

@@ -13,9 +13,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* ==========================================
-       ESTILOS PARA EL ASISTENTE FLOTANTE Y NEÓN
-       ========================================== */
+    /* ESTILOS PARA EL ASISTENTE FLOTANTE Y NEÓN */
     .ai-widget-container {
       position: fixed;
       bottom: 24px;
@@ -26,7 +24,6 @@
       align-items: center;
     }
 
-    /* Avatar Flotante sobre el Botón */
     .ai-avatar-preview {
       width: 65px;
       height: 65px;
@@ -43,7 +40,6 @@
       transform: translateY(-4px) scale(1.05);
     }
 
-    /* Botón Neón con Borde Giratorio tipo Circuito */
     .ai-glowing-btn {
       position: relative;
       display: inline-flex;
@@ -61,7 +57,6 @@
       transition: all 0.3s ease;
     }
 
-    /* Efecto de Luz Giratoria (Circuito Dorado) */
     .ai-glowing-btn::before {
       content: '';
       position: absolute;
@@ -74,7 +69,6 @@
       z-index: 1;
     }
 
-    /* Capa interna para el fondo del botón */
     .ai-glowing-btn::after {
       content: '';
       position: absolute;
@@ -84,7 +78,6 @@
       z-index: 1;
     }
 
-    /* Contenido (Texto e Iconos) */
     .ai-glowing-btn span {
       position: relative;
       z-index: 2;
@@ -94,13 +87,8 @@
     }
 
     @keyframes rotateGlow {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
@@ -110,23 +98,17 @@
   <!-- HEADER -->
   <header class="w-full bg-[#003366] text-white">
     <div class="max-w-7xl mx-auto">
-      <img src="/img/logo-limbolivia.png" alt="LIMBOLIVIA División Limpieza" class="w-full h-auto object-cover block">
+      <img src="/img/logo-limbolivia.png" alt="LIMBOLIVIA División Limpieza" class="w-full h-auto object-cover block" onerror="this.src='https://via.placeholder.com/1200x120?text=LIMBOLIVIA+Servicios+de+Limpieza'">
     </div>
 
     <!-- Menú de Navegación -->
     <nav class="bg-[#002244] border-t border-[#004488] text-white text-xs font-bold uppercase">
       <div class="max-w-7xl mx-auto px-4 flex flex-wrap gap-2 sm:gap-6 py-2">
-        <a href="#inicio" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1"><i
-            class="fa-solid fa-house"></i> Inicio</a>
-        <a href="#empresa" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1"><i
-            class="fa-solid fa-building"></i> Empresa</a>
-        <a href="#servicios" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1"><i
-            class="fa-solid fa-gear"></i> Servicios de Limpieza</a>
-        <a href="#cotizador" class="text-amber-300 hover:text-white transition flex items-center gap-1.5 px-2 py-1"><i
-            class="fa-solid fa-calculator"></i> Cotizador</a>
-        <a href="https://wa.me/59171506930" target="_blank"
-          class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1"><i
-            class="fa-solid fa-envelope"></i> Contáctese</a>
+        <a href="#inicio" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1"><i class="fa-solid fa-house"></i> Inicio</a>
+        <a href="#empresa" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1"><i class="fa-solid fa-building"></i> Empresa</a>
+        <a href="#servicios" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1"><i class="fa-solid fa-gear"></i> Servicios de Limpieza</a>
+        <a href="#cotizador" class="text-amber-300 hover:text-white transition flex items-center gap-1.5 px-2 py-1"><i class="fa-solid fa-calculator"></i> Cotizador</a>
+        <a href="https://wa.me/59171506930" target="_blank" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1"><i class="fa-solid fa-envelope"></i> Contáctese</a>
       </div>
     </nav>
   </header>
@@ -134,34 +116,25 @@
   <!-- SLIDER PRINCIPAL CON BANNERS -->
   <section id="inicio" class="relative max-w-7xl mx-auto overflow-hidden bg-slate-200">
     <div class="relative w-full h-[280px] sm:h-[380px] md:h-[450px]">
-      <img id="mainSliderImg" src="/img/banner2.png" alt="Servicios LIMBOLIVIA"
-        class="w-full h-full object-cover transition-all duration-500">
+      <img id="mainSliderImg" src="/img/banner2.png" alt="Servicios LIMBOLIVIA" class="w-full h-full object-cover transition-all duration-500" onerror="this.src='https://via.placeholder.com/1200x450?text=LIMBOLIVIA+BANNER'">
 
-      <!-- Flechas -->
-      <button onclick="prevSlide()"
-        class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition shadow-lg">
+      <button onclick="prevSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition shadow-lg">
         <i class="fa-solid fa-chevron-left text-xl"></i>
       </button>
-      <button onclick="nextSlide()"
-        class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition shadow-lg">
+      <button onclick="nextSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition shadow-lg">
         <i class="fa-solid fa-chevron-right text-xl"></i>
       </button>
 
-      <!-- Botones Numéricos -->
       <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 bg-black/50 p-1.5 rounded-md">
-        <button onclick="setSlide(0)" id="slideBtn-0"
-          class="w-6 h-6 text-xs font-bold rounded text-white bg-slate-800 hover:bg-slate-700">1</button>
-        <button onclick="setSlide(1)" id="slideBtn-1"
-          class="w-6 h-6 text-xs font-bold rounded text-white bg-blue-600">2</button>
-        <button onclick="setSlide(2)" id="slideBtn-2"
-          class="w-6 h-6 text-xs font-bold rounded text-white bg-slate-800 hover:bg-slate-700">3</button>
-        <button onclick="setSlide(3)" id="slideBtn-3"
-          class="w-6 h-6 text-xs font-bold rounded text-white bg-slate-800 hover:bg-slate-700">4</button>
+        <button onclick="setSlide(0)" id="slideBtn-0" class="w-6 h-6 text-xs font-bold rounded text-white bg-slate-800 hover:bg-slate-700">1</button>
+        <button onclick="setSlide(1)" id="slideBtn-1" class="w-6 h-6 text-xs font-bold rounded text-white bg-blue-600">2</button>
+        <button onclick="setSlide(2)" id="slideBtn-2" class="w-6 h-6 text-xs font-bold rounded text-white bg-slate-800 hover:bg-slate-700">3</button>
+        <button onclick="setSlide(3)" id="slideBtn-3" class="w-6 h-6 text-xs font-bold rounded text-white bg-slate-800 hover:bg-slate-700">4</button>
       </div>
     </div>
   </section>
 
-  <!-- BARRA "¡ESTAMOS ATENTOS A SU LLAMADA!" -->
+  <!-- BARRA INFORMATIVA -->
   <div class="bg-[#001845] text-white py-3.5 px-4 shadow-md">
     <div class="max-w-7xl mx-auto flex items-center gap-3">
       <div class="bg-red-600 text-white w-9 h-9 rounded-full flex items-center justify-center text-lg shadow shrink-0">
@@ -181,77 +154,62 @@
       </h2>
 
       <div class="grid lg:grid-cols-3 gap-6 items-start">
-        <!-- COLUMNA IZQUIERDA: CONFIGURADOR -->
         <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border space-y-6">
 
-          <!-- 1. Pestañas de Servicios Ampliados -->
+          <!-- 1. Pestañas de Servicios Ampliados (8 BOTONES) -->
           <div>
             <label class="block font-semibold text-gray-700 mb-2">1. Selecciona un Servicio para Configurar:</label>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <button onclick="selectServiceTab('Alfombras')" id="btn-Alfombras"
-                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="serviceTabContainer">
+              <button onclick="selectServiceTab('Alfombras')" id="btn-Alfombras" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-rug text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Alfombra Fija</span>
               </button>
 
-              <button onclick="selectServiceTab('AlfombraSuelta')" id="btn-AlfombraSuelta"
-                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('AlfombraSuelta')" id="btn-AlfombraSuelta" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-scroll text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Alfombra Suelta</span>
               </button>
 
-              <button onclick="selectServiceTab('Oficinas')" id="btn-Oficinas"
-                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('Oficinas')" id="btn-Oficinas" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-building text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Limpieza Oficinas</span>
               </button>
 
-              <button onclick="selectServiceTab('Casas')" id="btn-Casas"
-                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('Casas')" id="btn-Casas" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-house-chimney text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Limpieza Casas</span>
               </button>
 
-              <button onclick="selectServiceTab('LustradoFrio')" id="btn-LustradoFrio"
-                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('LustradoFrio')" id="btn-LustradoFrio" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-border-all text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Lustrado Piso Frío</span>
               </button>
 
-              <button onclick="selectServiceTab('LustradoMadera')" id="btn-LustradoMadera"
-                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('LustradoMadera')" id="btn-LustradoMadera" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-tree text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Lustrado Piso Madera</span>
               </button>
 
-              <button onclick="selectServiceTab('Fumigado')" id="btn-Fumigado"
-                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('Fumigado')" id="btn-Fumigado" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-spray-can-sparkles text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Fumigado General</span>
               </button>
 
-              <button onclick="selectServiceTab('Tanques')" id="btn-Tanques"
-                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('Tanques')" id="btn-Tanques" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-faucet-drip text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Limpieza Tanques</span>
               </button>
             </div>
           </div>
 
-          <!-- TARJETA DINÁMICA DE DETALLE CON MAQUINARIA -->
-          <div id="serviceDetailCard"
-            class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-4 transition-all">
-            <img id="serviceImage" src="/img/banner1.png" alt="Servicio"
-              class="w-full sm:w-40 h-28 object-cover rounded-lg shadow shrink-0">
+          <!-- TARJETA DINÁMICA DE DETALLE -->
+          <div id="serviceDetailCard" class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-4 transition-all">
+            <img id="serviceImage" src="/img/banner1.png" alt="Servicio" class="w-full sm:w-40 h-28 object-cover rounded-lg shadow shrink-0" onerror="this.src='https://via.placeholder.com/160x112?text=Servicio'">
             <div>
-              <h4 id="serviceTitle" class="font-bold text-slate-800 text-base mb-1">Lavado Profesional de Alfombra Fija
-              </h4>
-              <p id="serviceDescription" class="text-xs text-gray-600 leading-relaxed mb-2">Seleccione la superficie en
-                metros cuadrados y adicione extras si lo requiere.</p>
-              <div
-                class="text-[11px] bg-emerald-100 text-emerald-900 font-semibold px-2.5 py-1 rounded-md inline-block border border-emerald-200">
-                <i class="fa-solid fa-gears text-emerald-700 mr-1"></i> <span id="serviceMachine">Maquinaria: Inyectora
-                  / Extractora Profesional de Alta Presión</span>
+              <h4 id="serviceTitle" class="font-bold text-slate-800 text-base mb-1">Lavado Profesional de Alfombra Fija</h4>
+              <p id="serviceDescription" class="text-xs text-gray-600 leading-relaxed mb-2">Seleccione la superficie en metros cuadrados y adicione extras si lo requiere.</p>
+              <div class="text-[11px] bg-emerald-100 text-emerald-900 font-semibold px-2.5 py-1 rounded-md inline-block border border-emerald-200">
+                <i class="fa-solid fa-gears text-emerald-700 mr-1"></i> <span id="serviceMachine">Maquinaria: Inyectora / Extractora Profesional de Alta Presión</span>
               </div>
             </div>
           </div>
@@ -261,203 +219,148 @@
             <div class="flex justify-between items-center">
               <label class="font-semibold text-gray-700">2. Cantidad en Metros Cuadrados (m²):</label>
               <div class="flex items-center gap-2">
-                <span id="m2Value"
-                  class="font-black text-emerald-600 text-xl bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200">15
-                  m²</span>
+                <span id="m2Value" class="font-black text-emerald-600 text-xl bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200">15 m²</span>
                 <span id="m2Subtotal" class="font-bold text-slate-600 text-sm">(Bs 225)</span>
               </div>
             </div>
 
             <div class="flex items-center gap-3">
-              <button onclick="changeM2Step(-1)"
-                class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0">
+              <button onclick="changeM2Step(-1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0">
                 <i class="fa-solid fa-minus"></i>
               </button>
 
-              <input type="range" id="m2Slider" min="1" max="300" step="1" value="15"
-                class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="onSliderChange()">
+              <input type="range" id="m2Slider" min="1" max="300" step="1" value="15" class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="onSliderChange()">
 
-              <button onclick="changeM2Step(1)"
-                class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0">
+              <button onclick="changeM2Step(1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0">
                 <i class="fa-solid fa-plus"></i>
               </button>
             </div>
 
-            <!-- Botón Agregar Servicio Seleccionado -->
-            <button onclick="addCurrentMainService()"
-              class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-sm text-xs uppercase tracking-wide">
+            <button onclick="addCurrentMainService()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-sm text-xs uppercase tracking-wide">
               <i class="fa-solid fa-cart-plus text-emerald-400 text-sm"></i> Agregar este Servicio Base a la Cotización
             </button>
           </div>
 
-          <!-- 3. EXTRAS OPCIONALES DINÁMICOS -->
+          <!-- 3. EXTRAS OPCIONALES -->
           <div class="mt-6 space-y-4">
             <h4 class="font-bold text-gray-800 text-base">3. Extras Opcionales para este Servicio:</h4>
 
-            <!-- EXTRA: VIDRIOS Y VENTANAS -->
+            <!-- EXTRA VIDRIOS -->
             <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
               <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                <input type="checkbox" id="check-vidrios" class="w-4 h-4 accent-emerald-600 rounded"
-                  onchange="toggleExtra('vidrios')">
+                <input type="checkbox" id="check-vidrios" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtra('vidrios')">
                 <span>🧼 Lavado de Vidrios y Ventanas (Bs 12 / ventana)</span>
               </label>
-              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i>
-                Maquinaria: Limpiacristales telescópico de fibra de carbono y limpiavidrios magnético.</p>
+              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i> Maquinaria: Limpiacristales telescópico de fibra de carbono.</p>
 
               <div id="panel-vidrios" class="hidden pt-3 border-t border-gray-200 space-y-3">
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-gray-600">Cantidad de Ventanas:</span>
-                  <span id="label-vidrios"
-                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1
-                    vent. (Bs 12)</span>
+                  <span id="label-vidrios" class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 vent. (Bs 12)</span>
                 </div>
                 <div class="flex items-center gap-2">
-                  <button onclick="changeExtraQty('vidrios', -1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                      class="fa-solid fa-minus"></i></button>
-                  <input type="range" id="range-vidrios" min="1" max="30" step="1" value="1"
-                    class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
-                    oninput="updateExtraValue('vidrios')">
-                  <button onclick="changeExtraQty('vidrios', 1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                      class="fa-solid fa-plus"></i></button>
+                  <button onclick="changeExtraQty('vidrios', -1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-minus"></i></button>
+                  <input type="range" id="range-vidrios" min="1" max="30" step="1" value="1" class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="updateExtraValue('vidrios')">
+                  <button onclick="changeExtraQty('vidrios', 1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-plus"></i></button>
                 </div>
               </div>
             </div>
 
-            <!-- EXTRA: SILLAS -->
+            <!-- EXTRA SILLAS -->
             <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
               <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                <input type="checkbox" id="check-sillas" class="w-4 h-4 accent-emerald-600 rounded"
-                  onchange="toggleExtra('sillas')">
+                <input type="checkbox" id="check-sillas" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtra('sillas')">
                 <span>🪑 Lavado de Sillas (Bs 7 / unidad)</span>
               </label>
-              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i>
-                Maquinaria: Lavadora inyectora de espuma seca de baja humedad.</p>
+              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i> Maquinaria: Lavadora inyectora de espuma seca.</p>
 
               <div id="panel-sillas" class="hidden pt-3 border-t border-gray-200 space-y-3">
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-gray-600">Cantidad de Sillas:</span>
-                  <span id="label-sillas"
-                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1
-                    unidad (Bs 7)</span>
+                  <span id="label-sillas" class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 unidad (Bs 7)</span>
                 </div>
                 <div class="flex items-center gap-2">
-                  <button onclick="changeExtraQty('sillas', -1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                      class="fa-solid fa-minus"></i></button>
-                  <input type="range" id="range-sillas" min="1" max="50" step="1" value="1"
-                    class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
-                    oninput="updateExtraValue('sillas')">
-                  <button onclick="changeExtraQty('sillas', 1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                      class="fa-solid fa-plus"></i></button>
+                  <button onclick="changeExtraQty('sillas', -1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-minus"></i></button>
+                  <input type="range" id="range-sillas" min="1" max="50" step="1" value="1" class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="updateExtraValue('sillas')">
+                  <button onclick="changeExtraQty('sillas', 1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-plus"></i></button>
                 </div>
               </div>
             </div>
 
-            <!-- EXTRA: SOFÁS Y MUEBLES -->
+            <!-- EXTRA SOFÁS -->
             <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
               <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                <input type="checkbox" id="check-sofas" class="w-4 h-4 accent-emerald-600 rounded"
-                  onchange="toggleExtra('sofas')">
+                <input type="checkbox" id="check-sofas" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtra('sofas')">
                 <span>🛋️ Lavado de Sofás y Muebles</span>
               </label>
-              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i>
-                Maquinaria: Inyectora-extractora de vapor térmico a 140°C.</p>
+              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i> Maquinaria: Inyectora-extractora de vapor térmico.</p>
 
               <div id="panel-sofas" class="hidden pt-3 border-t border-gray-200 space-y-3">
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-gray-600">Número de Cuerpos/Piezas:</span>
-                  <span id="label-sofas"
-                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1
-                    Cuerpo (Bs 40)</span>
+                  <span id="label-sofas" class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 Cuerpo (Bs 40)</span>
                 </div>
                 <div class="flex items-center gap-2">
-                  <button onclick="changeExtraQty('sofas', -1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                      class="fa-solid fa-minus"></i></button>
-                  <input type="range" id="range-sofas" min="1" max="5" step="1" value="1"
-                    class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
-                    oninput="updateExtraValue('sofas')">
-                  <button onclick="changeExtraQty('sofas', 1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                      class="fa-solid fa-plus"></i></button>
+                  <button onclick="changeExtraQty('sofas', -1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-minus"></i></button>
+                  <input type="range" id="range-sofas" min="1" max="5" step="1" value="1" class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="updateExtraValue('sofas')">
+                  <button onclick="changeExtraQty('sofas', 1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-plus"></i></button>
                 </div>
               </div>
             </div>
 
-            <!-- EXTRA: RIBETEADO DE ALFOMBRAS -->
+            <!-- EXTRA RIBETEADO -->
             <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
               <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                <input type="checkbox" id="check-ribeteado" class="w-4 h-4 accent-emerald-600 rounded"
-                  onchange="toggleExtra('ribeteado')">
-                <span>🧵 Ribeteado / Costura de Bordes de Alfombra (Bs 15 / ML)</span>
+                <input type="checkbox" id="check-ribeteado" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtra('ribeteado')">
+                <span>🧵 Ribeteado / Costura de Bordes (Bs 15 / ML)</span>
               </label>
-              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i>
-                Maquinaria: Máquina Overlock Industrial Portátil para sellado textil.</p>
+              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i> Maquinaria: Máquina Overlock Industrial Portátil.</p>
 
               <div id="panel-ribeteado" class="hidden pt-3 border-t border-gray-200 space-y-3">
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-gray-600">Metros Lineales:</span>
-                  <span id="label-ribeteado"
-                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1
-                    ML (Bs 15)</span>
+                  <span id="label-ribeteado" class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 ML (Bs 15)</span>
                 </div>
                 <div class="flex items-center gap-2">
-                  <button onclick="changeExtraQty('ribeteado', -1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                      class="fa-solid fa-minus"></i></button>
-                  <input type="range" id="range-ribeteado" min="1" max="50" step="1" value="1"
-                    class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
-                    oninput="updateExtraValue('ribeteado')">
-                  <button onclick="changeExtraQty('ribeteado', 1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                      class="fa-solid fa-plus"></i></button>
+                  <button onclick="changeExtraQty('ribeteado', -1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-minus"></i></button>
+                  <input type="range" id="range-ribeteado" min="1" max="50" step="1" value="1" class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="updateExtraValue('ribeteado')">
+                  <button onclick="changeExtraQty('ribeteado', 1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-plus"></i></button>
                 </div>
               </div>
             </div>
 
-            <!-- EXTRA: FUMIGACIÓN AMBIENTAL COMPLEMENTARIA -->
+            <!-- EXTRA FUMIGACIÓN -->
             <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
               <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                <input type="checkbox" id="check-fumigacionExtra" class="w-4 h-4 accent-emerald-600 rounded"
-                  onchange="toggleExtra('fumigacionExtra')">
+                <input type="checkbox" id="check-fumigacionExtra" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtra('fumigacionExtra')">
                 <span>🪰 Fumigación Ambiental de Insectoría (Bs 180)</span>
               </label>
-              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i>
-                Maquinaria: Termonebulizadora de alta presión a motor de combustión.</p>
+              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i> Maquinaria: Termonebulizadora de alta presión.</p>
             </div>
 
-            <!-- EXTRA: COCINA -->
+            <!-- EXTRA COCINA -->
             <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
               <div class="flex items-center justify-between">
                 <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                  <input type="checkbox" id="check-cocina" class="w-4 h-4 accent-emerald-600 rounded"
-                    onchange="toggleExtra('cocina')">
+                  <input type="checkbox" id="check-cocina" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtra('cocina')">
                   <span>🍳 Limpieza Profunda de Cocina (Bs 150)</span>
                 </label>
-                <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Precio Fijo
-                  Base</span>
+                <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Precio Fijo</span>
               </div>
-              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i>
-                Maquinaria: Generador de vapor desengrasante industrial.</p>
+              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i> Maquinaria: Generador de vapor desengrasante industrial.</p>
             </div>
           </div>
 
-          <!-- BOTÓN AGREGAR O ACTUALIZAR TODO -->
           <div class="pt-2">
-            <button onclick="addCurrentToQuote()"
-              class="w-full bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm uppercase tracking-wide">
+            <button onclick="addCurrentToQuote()" class="w-full bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm uppercase tracking-wide">
               <i class="fa-solid fa-plus-circle text-lg"></i> Agregar / Actualizar Servicio en Cotización
             </button>
           </div>
 
         </div>
 
-        <!-- COLUMNA DERECHA: RESUMEN FLOTANTE -->
-        <div
-          class="bg-slate-900 text-white p-6 rounded-xl flex flex-col justify-between shadow-xl sticky top-6 z-10 border border-slate-800">
+        <!-- RESUMEN DERECHA -->
+        <div class="bg-slate-900 text-white p-6 rounded-xl flex flex-col justify-between shadow-xl sticky top-6 z-10 border border-slate-800">
           <div>
             <span class="text-xs uppercase font-bold tracking-widest text-emerald-400">Resumen Detallado</span>
             <h3 class="text-lg font-bold mt-1 text-white border-b border-slate-700 pb-2">Servicios Confirmados</h3>
@@ -473,15 +376,11 @@
               <div id="summaryTotal" class="text-3xl font-black text-amber-400">Bs 0</div>
             </div>
 
-            <!-- Botón WhatsApp -->
-            <button onclick="sendToWhatsApp()"
-              class="w-full bg-green-600 hover:bg-green-500 active:bg-green-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm">
+            <button onclick="sendToWhatsApp()" class="w-full bg-green-600 hover:bg-green-500 active:bg-green-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm">
               <i class="fa-brands fa-whatsapp text-xl"></i> Reservar por WhatsApp
             </button>
 
-            <!-- Botón Voz -->
-            <button onclick="talkQuote()"
-              class="w-full bg-slate-800 hover:bg-slate-700 text-emerald-400 font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition border border-slate-700 text-xs">
+            <button onclick="talkQuote()" class="w-full bg-slate-800 hover:bg-slate-700 text-emerald-400 font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition border border-slate-700 text-xs">
               <i class="fa-solid fa-volume-high"></i> Escuchar Cotización
             </button>
           </div>
@@ -489,7 +388,7 @@
       </div>
     </section>
 
-    <!-- SECCIÓN CATÁLOGO DE PRODUCTOS -->
+    <!-- SECCIÓN CATÁLOGO -->
     <section id="catalogo-alibaba" class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden my-8">
 
       <div class="bg-slate-900 text-white p-5 flex items-center justify-between">
@@ -497,18 +396,15 @@
           <h2 class="text-xl font-bold flex items-center gap-2">
             <i class="fa-solid fa-boxes-packing text-emerald-400"></i> Catálogo de Equipos y Productos
           </h2>
-          <p class="text-xs text-gray-300 mt-0.5">Explora nuestras 10 categorías para ver todos los productos
-            disponibles.</p>
+          <p class="text-xs text-gray-300 mt-0.5">Explora nuestras 10 categorías para ver todos los productos disponibles.</p>
         </div>
-        <span
-          class="hidden sm:inline-block bg-emerald-600/30 text-emerald-300 text-xs px-3 py-1 rounded-full border border-emerald-500/30 font-semibold">
+        <span class="hidden sm:inline-block bg-emerald-600/30 text-emerald-300 text-xs px-3 py-1 rounded-full border border-emerald-500/30 font-semibold">
           Catálogo Interactivo 100+ Ítems
         </span>
       </div>
 
       <div class="flex flex-col md:flex-row min-h-[600px]">
-        <aside
-          class="w-full md:w-64 bg-slate-50 border-r border-gray-200 p-3 space-y-1 shrink-0 max-h-[700px] overflow-y-auto">
+        <aside class="w-full md:w-64 bg-slate-50 border-r border-gray-200 p-3 space-y-1 shrink-0 max-h-[700px] overflow-y-auto">
           <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider px-3 py-2">Categorías</p>
           <div id="categoryMenuContainer" class="space-y-1"></div>
         </aside>
@@ -520,34 +416,21 @@
       </div>
     </section>
 
-    <!-- VENTANA MODAL AMPLIADA -->
-    <div id="extendedProductModal"
-      class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[10000] hidden flex items-center justify-center p-3 sm:p-6 transition-all overflow-y-auto">
-      <div
-        class="bg-white rounded-2xl max-w-5xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-slate-200 relative my-auto animate-fade-in">
-        <button onclick="closeExtendedProductModal()"
-          class="absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 text-slate-600 w-9 h-9 rounded-full flex items-center justify-center z-20 transition shadow">
+    <!-- VENTANA MODAL PRODUCTO -->
+    <div id="extendedProductModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[10000] hidden flex items-center justify-center p-3 sm:p-6 transition-all overflow-y-auto">
+      <div class="bg-white rounded-2xl max-w-5xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-slate-200 relative my-auto animate-fade-in">
+        <button onclick="closeExtendedProductModal()" class="absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 text-slate-600 w-9 h-9 rounded-full flex items-center justify-center z-20 transition shadow">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
 
         <div class="p-5 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           <div class="lg:col-span-5 flex flex-col-reverse sm:flex-row gap-3">
             <div class="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto shrink-0 justify-center">
-              <img id="thumb1" onclick="changeModalMainImage(this.src)" src=""
-                class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg border-2 border-emerald-500 object-cover cursor-pointer hover:opacity-80 transition"
-                onerror="this.src='/img/banner1.png'">
-              <img id="thumb2" onclick="changeModalMainImage(this.src)" src=""
-                class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg border border-gray-200 object-cover cursor-pointer hover:opacity-80 transition"
-                onerror="this.src='/img/banner2.png'">
-              <img id="thumb3" onclick="changeModalMainImage(this.src)" src=""
-                class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg border border-gray-200 object-cover cursor-pointer hover:opacity-80 transition"
-                onerror="this.src='/img/asistente.png'">
-              <img id="thumb4" onclick="changeModalMainImage(this.src)" src=""
-                class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg border border-gray-200 object-cover cursor-pointer hover:opacity-80 transition"
-                onerror="this.src='/img/banner1.png'">
-              <img id="thumb5" onclick="changeModalMainImage(this.src)" src=""
-                class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg border border-gray-200 object-cover cursor-pointer hover:opacity-80 transition"
-                onerror="this.src='/img/banner2.png'">
+              <img id="thumb1" onclick="changeModalMainImage(this.src)" src="" class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg border-2 border-emerald-500 object-cover cursor-pointer hover:opacity-80 transition" onerror="this.src='https://via.placeholder.com/150'">
+              <img id="thumb2" onclick="changeModalMainImage(this.src)" src="" class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg border border-gray-200 object-cover cursor-pointer hover:opacity-80 transition" onerror="this.src='https://via.placeholder.com/150'">
+              <img id="thumb3" onclick="changeModalMainImage(this.src)" src="" class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg border border-gray-200 object-cover cursor-pointer hover:opacity-80 transition" onerror="this.src='https://via.placeholder.com/150'">
+              <img id="thumb4" onclick="changeModalMainImage(this.src)" src="" class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg border border-gray-200 object-cover cursor-pointer hover:opacity-80 transition" onerror="this.src='https://via.placeholder.com/150'">
+              <img id="thumb5" onclick="changeModalMainImage(this.src)" src="" class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg border border-gray-200 object-cover cursor-pointer hover:opacity-80 transition" onerror="this.src='https://via.placeholder.com/150'">
             </div>
 
             <div class="flex-1 bg-slate-100 rounded-xl overflow-hidden border border-slate-200 aspect-square relative">
@@ -558,12 +441,11 @@
           <div class="lg:col-span-7 flex flex-col justify-between space-y-4">
             <div class="space-y-3">
               <div class="border-b pb-3">
-                <span id="extModalGuarantee"
-                  class="inline-block text-[11px] font-bold bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-md mb-1"></span>
+                <span id="extModalGuarantee" class="inline-block text-[11px] font-bold bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-md mb-1"></span>
                 <h3 id="extModalName" class="font-black text-slate-900 text-xl sm:text-2xl leading-tight"></h3>
                 <div class="mt-2 flex items-baseline gap-3">
                   <span id="extModalPrice" class="text-2xl sm:text-3xl font-black text-emerald-600"></span>
-                  <span class="text-xs text-gray-400">Impuestos y factura incluidos</span>
+                  <span class="text-xs text-gray-400">Impuestos e IVA incluidos</span>
                 </div>
               </div>
 
@@ -581,13 +463,11 @@
             </div>
 
             <div class="pt-4 border-t grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <a id="extModalWspLink" href="#" target="_blank"
-                class="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs sm:text-sm transition shadow-md">
+              <a id="extModalWspLink" href="#" target="_blank" class="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs sm:text-sm transition shadow-md">
                 <i class="fa-brands fa-whatsapp text-lg"></i> Reservar Equipo
               </a>
 
-              <button id="extModalAiBtn" onclick=""
-                class="bg-slate-900 hover:bg-emerald-600 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs sm:text-sm transition shadow-md">
+              <button id="extModalAiBtn" onclick="" class="bg-slate-900 hover:bg-emerald-600 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs sm:text-sm transition shadow-md">
                 <i class="fa-solid fa-robot text-emerald-400 text-base"></i> Consultar a la IA
               </button>
             </div>
@@ -596,24 +476,49 @@
       </div>
     </div>
 
-    <!-- DATOS Y LÓGICA DE CATÁLOGO (10 CATS x 10 PRODS) -->
+    <!-- DATOS Y LÓGICA DE CATÁLOGO Y SLIDER -->
     <script>
+      // Lógica Slider Banner
+      const slides = ["/img/banner1.png", "/img/banner2.png", "/img/asistente.png", "/img/banner1.png"];
+      let currentSlide = 0;
+
+      function updateSlideUI() {
+        const img = document.getElementById('mainSliderImg');
+        if (img) img.src = slides[currentSlide];
+        for (let i = 0; i < 4; i++) {
+          const btn = document.getElementById(`slideBtn-${i}`);
+          if (btn) {
+            btn.className = i === currentSlide 
+              ? "w-6 h-6 text-xs font-bold rounded text-white bg-blue-600" 
+              : "w-6 h-6 text-xs font-bold rounded text-white bg-slate-800 hover:bg-slate-700";
+          }
+        }
+      }
+
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        updateSlideUI();
+      }
+
+      function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        updateSlideUI();
+      }
+
+      function setSlide(index) {
+        currentSlide = index;
+        updateSlideUI();
+      }
+
+      // Catálogo Data
       const catalogData = [
         {
           id: "sector1",
           nombre: "Aspiradoras e Hidros",
           icon: "fa-wind",
           productos: [
-            { id: 1, nombre: "Aspiradora Industrial 30L", precio: "Bs 1,200", garantia: "12 Meses de Garantía", desc: "Aspiradora de alto rendimiento ideal para uso comercial e industrial.", specs: ["Tanque de 30L en acero inoxidable", "Motor doble turbina 1200W", "Filtro HEPA lavable"], imgs: ["img/sector1_articulo1_foto1.png", "img/sector1_articulo1_foto2.png", "img/sector1_articulo1_foto3.png", "img/sector1_articulo1_foto4.png", "img/sector1_articulo1_foto5.png"] },
-            { id: 2, nombre: "Hidrolavadora 180 Bar", precio: "Bs 2,450", garantia: "6 Meses de Garantía", desc: "Hidrolavadora de agua fría con sistema de apagado automático.", specs: ["Presión máxima: 180 Bar", "Manguera de 10 metros", "Bomba axial de aluminio"], imgs: ["img/sector1_articulo2_foto1.png", "img/sector1_articulo2_foto2.png", "img/sector1_articulo2_foto3.png", "img/sector1_articulo2_foto4.png", "img/sector1_articulo2_foto5.png"] },
-            { id: 3, nombre: "Lustradora de Pisos Pro", precio: "Bs 1,800", garantia: "12 Meses de Garantía", desc: "Máquina rotativa para pulido y encerado de suelos duros.", specs: ["Motor silencioso 1.5 HP", "Plato de 17 pulgadas", "Manubrio ergonómico ajustables"], imgs: ["img/sector1_articulo3_foto1.png", "img/sector1_articulo3_foto2.png", "img/sector1_articulo3_foto3.png", "img/sector1_articulo3_foto4.png", "img/sector1_articulo3_foto5.png"] },
-            { id: 4, nombre: "Aspiradora Polvo/Agua 60L", precio: "Bs 2,100", garantia: "12 Meses de Garantía", desc: "Equipo de doble motor con gran capacidad de almacenamiento.", specs: ["Capacidad: 60 Litros", "Doble motor independiente", "Chasis con ruedas de alto impacto"], imgs: ["img/sector1_articulo4_foto1.png", "img/sector1_articulo4_foto2.png", "img/sector1_articulo4_foto3.png", "img/sector1_articulo4_foto4.png", "img/sector1_articulo4_foto5.png"] },
-            { id: 5, nombre: "Hidrolavadora Gasolina 13HP", precio: "Bs 4,900", garantia: "12 Meses de Garantía", desc: "Autónoma para trabajos pesados en obras y áreas sin electricidad.", specs: ["Motor a gasolina 13HP", "Presión: 3600 PSI", "Boquillas intercambiables"], imgs: ["img/sector1_articulo5_foto1.png", "img/sector1_articulo5_foto2.png", "img/sector1_articulo5_foto3.png", "img/sector1_articulo5_foto4.png", "img/sector1_articulo5_foto5.png"] },
-            { id: 6, nombre: "Aspiradora Mochila Ergonom", precio: "Bs 1,350", garantia: "6 Meses de Garantía", desc: "Diseño ultraligero para limpieza de cines, buses y oficinas.", specs: ["Peso distribuido ergonómico", "Capacidad: 6 Litros", "Bajo nivel de ruido"], imgs: ["img/sector1_articulo6_foto1.png", "img/sector1_articulo6_foto2.png", "img/sector1_articulo6_foto3.png", "img/sector1_articulo6_foto4.png", "img/sector1_articulo6_foto5.png"] },
-            { id: 7, nombre: "Hidrolavadora Agua Caliente", precio: "Bs 7,800", garantia: "12 Meses de Garantía", desc: "Especial para remoción de grasa industrial y desinfección térmica.", specs: ["Temperatura hasta 90°C", "Caldera a diésel", "Bomba de latón forjado"], imgs: ["img/sector1_articulo7_foto1.png", "img/sector1_articulo7_foto2.png", "img/sector1_articulo7_foto3.png", "img/sector1_articulo7_foto4.png", "img/sector1_articulo7_foto5.png"] },
-            { id: 8, nombre: "Inyectora / Extractora", precio: "Bs 3,200", garantia: "12 Meses de Garantía", desc: "Equipo especializado en limpieza profunda de alfombras y tapices.", specs: ["Inyección a presión constante", "Doble tanque limpio/sucio", "Boquilla transparente"], imgs: ["img/sector1_articulo8_foto1.png", "img/sector1_articulo8_foto2.png", "img/sector1_articulo8_foto3.png", "img/sector1_articulo8_foto4.png", "img/sector1_articulo8_foto5.png"] },
-            { id: 9, nombre: "Aspiradora Silenciosa 15L", precio: "Bs 950", garantia: "6 Meses de Garantía", desc: "Diseñada para hoteles y clínicas donde se requiere bajo nivel sonoro.", specs: ["Modo Ultra-Quiet 58dB", "Filtro antialérgico", "Cable de 12 metros"], imgs: ["img/sector1_articulo9_foto1.png", "img/sector1_articulo9_foto2.png", "img/sector1_articulo9_foto3.png", "img/sector1_articulo9_foto4.png", "img/sector1_articulo9_foto5.png"] },
-            { id: 10, nombre: "Hidrolavadora Compacta 120B", precio: "Bs 1,100", garantia: "6 Meses de Garantía", desc: "Ligera y portátil para uso en pequeños negocios y talleres.", specs: ["Presión: 120 Bar", "Sistema Auto-Stop", "Depósito de detergente integrado"], imgs: ["img/sector1_articulo10_foto1.png", "img/sector1_articulo10_foto2.png", "img/sector1_articulo10_foto3.png", "img/sector1_articulo10_foto4.png", "img/sector1_articulo10_foto5.png"] }
+            { id: 1, nombre: "Aspiradora Industrial 30L", precio: "Bs 1,200", garantia: "12 Meses de Garantía", desc: "Aspiradora de alto rendimiento ideal para uso comercial e industrial.", specs: ["Tanque de 30L en acero inoxidable", "Motor doble turbina 1200W", "Filtro HEPA lavable"], imgs: ["/img/sector1_articulo1_foto1.png", "/img/banner1.png", "/img/banner2.png", "/img/asistente.png", "/img/banner1.png"] },
+            { id: 2, nombre: "Hidrolavadora 180 Bar", precio: "Bs 2,450", garantia: "6 Meses de Garantía", desc: "Hidrolavadora de agua fría con sistema de apagado automático.", specs: ["Presión máxima: 180 Bar", "Manguera de 10 metros", "Bomba axial de aluminio"], imgs: ["/img/sector1_articulo2_foto1.png", "/img/banner1.png", "/img/banner2.png", "/img/asistente.png", "/img/banner1.png"] }
           ]
         }
       ];
@@ -642,11 +547,11 @@
             desc: `Producto profesional de la categoría ${cat.name}. Excelente durabilidad y rendimiento asegurado.`,
             specs: [`Calidad industrial garantizada`, `Rendimiento óptimo en uso continuo`, `Soporte técnico directo`],
             imgs: [
-              `img/sector${catIdx}_articulo${p}_foto1.png`,
-              `img/sector${catIdx}_articulo${p}_foto2.png`,
-              `img/sector${catIdx}_articulo${p}_foto3.png`,
-              `img/sector${catIdx}_articulo${p}_foto4.png`,
-              `img/sector${catIdx}_articulo${p}_foto5.png`
+              `/img/banner1.png`,
+              `/img/banner2.png`,
+              `/img/asistente.png`,
+              `/img/banner1.png`,
+              `/img/banner2.png`
             ]
           });
         }
@@ -654,10 +559,10 @@
       });
 
       let activeCatId = "sector1";
-      let activeProduct = null;
 
       function renderMenu() {
         const container = document.getElementById('categoryMenuContainer');
+        if (!container) return;
         container.innerHTML = '';
         catalogData.forEach(cat => {
           const isSelected = cat.id === activeCatId;
@@ -679,8 +584,10 @@
         const category = catalogData.find(c => c.id === activeCatId);
         if (!category) return;
 
-        document.getElementById('currentCatTitle').innerHTML = `<i class="fa-solid ${category.icon} text-emerald-600"></i> ${category.nombre}`;
+        const titleElem = document.getElementById('currentCatTitle');
+        if(titleElem) titleElem.innerHTML = `<i class="fa-solid ${category.icon} text-emerald-600"></i> ${category.nombre}`;
         const grid = document.getElementById('productsGrid');
+        if(!grid) return;
         grid.innerHTML = '';
 
         category.productos.forEach(prod => {
@@ -689,7 +596,7 @@
           card.innerHTML = `
             <div>
               <div class="aspect-square bg-slate-200 rounded-lg overflow-hidden mb-2">
-                <img src="${prod.imgs[0]}" alt="${prod.nombre}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='/img/banner1.png'">
+                <img src="${prod.imgs[0]}" alt="${prod.nombre}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://via.placeholder.com/200?text=Producto'">
               </div>
               <h4 class="font-bold text-xs text-gray-800 line-clamp-1">${prod.nombre}</h4>
               <p class="text-[11px] text-gray-500 mt-1 line-clamp-2">${prod.desc}</p>
@@ -707,7 +614,6 @@
       }
 
       function openExtendedModal(product) {
-        activeProduct = product;
         document.getElementById('extModalName').innerText = product.nombre;
         document.getElementById('extModalPrice').innerText = product.precio;
         document.getElementById('extModalGuarantee').innerText = product.garantia;
@@ -753,25 +659,17 @@
       function closeExtendedProductModal() {
         document.getElementById('extendedProductModal').classList.add('hidden');
       }
-
-      document.addEventListener('DOMContentLoaded', () => {
-        renderMenu();
-        renderProducts();
-      });
     </script>
   </main>
 
   <!-- ASISTENTE FLOTANTE Y CHATBOT -->
   <div class="ai-widget-container border-none">
-    <div id="chatBox"
-      class="hidden mb-4 w-80 sm:w-96 bg-slate-900 text-white rounded-2xl shadow-2xl border border-slate-800 overflow-hidden flex flex-col h-[450px] transition-all">
+    <div id="chatBox" class="hidden mb-4 w-80 sm:w-96 bg-slate-900 text-white rounded-2xl shadow-2xl border border-slate-800 overflow-hidden flex flex-col h-[450px] transition-all">
       <div class="bg-slate-800 p-3 flex justify-between items-center border-b border-slate-700">
         <div class="flex items-center gap-3">
           <div class="relative">
-            <img src="/img/asistente.png" class="w-9 h-9 rounded-full border border-emerald-500 object-cover"
-              alt="Asistente" onerror="this.src='/img/banner1.png'">
-            <span
-              class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-slate-900"></span>
+            <img src="/img/asistente.png" class="w-9 h-9 rounded-full border border-emerald-500 object-cover" alt="Asistente" onerror="this.src='https://via.placeholder.com/40'">
+            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-slate-900"></span>
           </div>
           <div>
             <h3 class="text-sm font-bold text-white leading-tight">Asistente LIM-BOLIVIA</h3>
@@ -786,22 +684,17 @@
       <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs"></div>
 
       <div class="p-3 bg-slate-800 border-t border-slate-700 flex gap-2 items-center">
-        <input type="text" id="userInput" placeholder="Escribe tu mensaje..."
-          class="flex-1 bg-slate-900 text-white text-xs px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-emerald-500"
-          onkeypress="if(event.key === 'Enter') sendMessage()">
-        <button onclick="startListening()"
-          class="bg-slate-700 hover:bg-slate-600 text-emerald-400 p-2 rounded-lg transition"
-          title="Hablar por micrófono">
+        <input type="text" id="userInput" placeholder="Escribe tu mensaje..." class="flex-1 bg-slate-900 text-white text-xs px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-emerald-500" onkeypress="if(event.key === 'Enter') sendMessage()">
+        <button onclick="startListening()" class="bg-slate-700 hover:bg-slate-600 text-emerald-400 p-2 rounded-lg transition" title="Hablar por micrófono">
           <i class="fa-solid fa-microphone"></i>
         </button>
-        <button onclick="sendMessage()"
-          class="bg-emerald-600 hover:bg-emerald-500 text-white p-2 rounded-lg transition">
+        <button onclick="sendMessage()" class="bg-emerald-600 hover:bg-emerald-500 text-white p-2 rounded-lg transition">
           <i class="fa-solid fa-paper-plane"></i>
         </button>
       </div>
     </div>
 
-    <img src="/img/asistente.png" alt="Asistente IA" class="ai-avatar-preview" onerror="this.src='/img/banner1.png'" />
+    <img src="/img/asistente.png" alt="Asistente IA" class="ai-avatar-preview" onerror="this.src='https://via.placeholder.com/65'" />
 
     <button onclick="toggleChat()" class="ai-glowing-btn">
       <span>
@@ -811,8 +704,232 @@
     </button>
   </div>
 
-  <!-- LÓGICA CHATBOT Y VOZ -->
+  <!-- LÓGICA COMPLETA DEL COTIZADOR Y CHATBOT INTEGRADA -->
   <script>
+    /* ========================================================
+       CONFIGURACIÓN DE SERVICIOS Y TARIFAS (8 BOTONES)
+       ======================================================== */
+    const serviceRates = {
+      'Alfombras': { name: "Alfombra Fija", rate: 15, img: "/img/banner1.png", machine: "Inyectora / Extractora Profesional de Alta Presión", desc: "Lavado profundo con inyección de espumas biológicas para moquetas fijas." },
+      'AlfombraSuelta': { name: "Alfombra Suelta", rate: 18, img: "/img/banner2.png", machine: "Lavadora Centrefugadora Textil Portátil", desc: "Tratamiento intensivo con sacudido mecánico y secado rápido." },
+      'Oficinas': { name: "Limpieza Oficinas", rate: 12, img: "/img/banner1.png", machine: "Rotativa Industrial y Aspirado HEPA", desc: "Mantenimiento integral de escritorios, pisos fijos y áreas comunes." },
+      'Casas': { name: "Limpieza Casas", rate: 10, img: "/img/banner2.png", machine: "Generador de Vapor a Alta Temperatura", desc: "Desinfección profunda de superficies, salas y ambientes habitacionales." },
+      'LustradoFrio': { name: "Lustrado Piso Frío", rate: 14, img: "/img/banner1.png", machine: "Lustradora Monodisco de Alta Velocidad", desc: "Sellado, encerado y cristalizado de mosaicos, cerámica y porcelanato." },
+      'LustradoMadera': { name: "Lustrado Piso Madera", rate: 20, img: "/img/banner2.png", machine: "Pulidora / Acuchilladora de Parquet No-Dust", desc: "Restauración de brillo, aplicación de cera nutritiva o poliuretano." },
+      'Fumigado': { name: "Fumigado General", rate: 8, img: "/img/asistente.png", machine: "Termonebulizadora con Motor a Combustión", desc: "Eliminación de plagas, rastreros y voladores con biocidas autorizados." },
+      'Tanques': { name: "Limpieza Tanques", rate: 25, img: "/img/banner1.png", machine: "Bomba Sumergible de Lodos e Hidrolavadora 200 Bar", desc: "Lavado, evacuación de sedimentos y cloración de tanques de agua." }
+    };
+
+    let currentSelectedServiceKey = 'Alfombras';
+    let currentM2 = 15;
+    let addedServices = [];
+
+    const extraPrices = {
+      vidrios: { pricePerUnit: 12, name: "Lavado de Vidrios" },
+      sillas: { pricePerUnit: 7, name: "Lavado de Sillas" },
+      sofas: { pricePerUnit: 40, name: "Lavado de Sofás" },
+      ribeteado: { pricePerUnit: 15, name: "Ribeteado de Alfombra" },
+      fumigacionExtra: { fixedPrice: 180, name: "Fumigación Ambiental Extra" },
+      cocina: { fixedPrice: 150, name: "Limpieza Profunda Cocina" }
+    };
+
+    function selectServiceTab(key) {
+      if (!serviceRates[key]) return;
+      currentSelectedServiceKey = key;
+
+      // Actualizar interfaz activa
+      Object.keys(serviceRates).forEach(k => {
+        const btn = document.getElementById(`btn-${k}`);
+        if (btn) {
+          if (k === key) {
+            btn.classList.add('bg-emerald-100', 'border-emerald-500', 'ring-2', 'ring-emerald-400');
+            btn.classList.remove('border-gray-200');
+          } else {
+            btn.classList.remove('bg-emerald-100', 'border-emerald-500', 'ring-2', 'ring-emerald-400');
+            btn.classList.add('border-gray-200');
+          }
+        }
+      });
+
+      const sData = serviceRates[key];
+      document.getElementById('serviceTitle').innerText = sData.name;
+      document.getElementById('serviceDescription').innerText = sData.desc;
+      document.getElementById('serviceMachine').innerText = `Maquinaria: ${sData.machine}`;
+      const imgElem = document.getElementById('serviceImage');
+      if (imgElem) imgElem.src = sData.img;
+
+      calculateBaseServiceSubtotal();
+    }
+
+    function calculateBaseServiceSubtotal() {
+      const sData = serviceRates[currentSelectedServiceKey];
+      const subtotal = currentM2 * sData.rate;
+
+      document.getElementById('m2Value').innerText = `${currentM2} m²`;
+      document.getElementById('m2Subtotal').innerText = `(Bs ${subtotal})`;
+      return subtotal;
+    }
+
+    function onSliderChange() {
+      const slider = document.getElementById('m2Slider');
+      currentM2 = parseInt(slider.value) || 1;
+      calculateBaseServiceSubtotal();
+    }
+
+    function changeM2Step(delta) {
+      const slider = document.getElementById('m2Slider');
+      let val = (parseInt(slider.value) || 1) + delta;
+      if (val < 1) val = 1;
+      if (val > 300) val = 300;
+      slider.value = val;
+      currentM2 = val;
+      calculateBaseServiceSubtotal();
+    }
+
+    function toggleExtra(extraKey) {
+      const chk = document.getElementById(`check-${extraKey}`);
+      const panel = document.getElementById(`panel-${extraKey}`);
+      if (panel) {
+        if (chk && chk.checked) panel.classList.remove('hidden');
+        else panel.classList.add('hidden');
+      }
+    }
+
+    function updateExtraValue(extraKey) {
+      const rng = document.getElementById(`range-${extraKey}`);
+      const lbl = document.getElementById(`label-${extraKey}`);
+      if (!rng || !lbl) return;
+
+      const qty = parseInt(rng.value) || 1;
+      const unitPrice = extraPrices[extraKey].pricePerUnit;
+      const total = qty * unitPrice;
+
+      lbl.innerText = `${qty} ${extraKey === 'vidrios' ? 'vent.' : extraKey === 'sofas' ? 'Cuerpos' : extraKey === 'ribeteado' ? 'ML' : 'unid.'} (Bs ${total})`;
+    }
+
+    function changeExtraQty(extraKey, delta) {
+      const rng = document.getElementById(`range-${extraKey}`);
+      if (!rng) return;
+      let val = (parseInt(rng.value) || 1) + delta;
+      if (val < 1) val = 1;
+      rng.value = val;
+      updateExtraValue(extraKey);
+    }
+
+    function addCurrentMainService() {
+      const sData = serviceRates[currentSelectedServiceKey];
+      const subtotal = currentM2 * sData.rate;
+
+      addedServices.push({
+        id: Date.now(),
+        title: `${sData.name} (${currentM2} m²)`,
+        price: subtotal
+      });
+
+      renderSummary();
+    }
+
+    function addCurrentToQuote() {
+      addCurrentMainService();
+
+      // Procesar Extras Marcados
+      Object.keys(extraPrices).forEach(key => {
+        const chk = document.getElementById(`check-${key}`);
+        if (chk && chk.checked) {
+          const itemConfig = extraPrices[key];
+          let cost = 0;
+          let label = itemConfig.name;
+
+          if (itemConfig.fixedPrice) {
+            cost = itemConfig.fixedPrice;
+          } else {
+            const rng = document.getElementById(`range-${key}`);
+            const qty = rng ? parseInt(rng.value) || 1 : 1;
+            cost = qty * itemConfig.pricePerUnit;
+            label += ` (${qty})`;
+          }
+
+          addedServices.push({
+            id: Date.now() + Math.random(),
+            title: label,
+            price: cost
+          });
+
+          // Resetear checkbox y panel
+          chk.checked = false;
+          toggleExtra(key);
+        }
+      });
+
+      renderSummary();
+    }
+
+    function removeService(id) {
+      addedServices = addedServices.filter(item => item.id !== id);
+      renderSummary();
+    }
+
+    function renderSummary() {
+      const container = document.getElementById('servicesBreakdown');
+      const totalDisplay = document.getElementById('summaryTotal');
+      if (!container || !totalDisplay) return;
+
+      if (addedServices.length === 0) {
+        container.innerHTML = '<p class="text-xs text-gray-400 italic text-center py-4">No has agregado ningún servicio todavía.</p>';
+        totalDisplay.innerText = 'Bs 0';
+        return;
+      }
+
+      container.innerHTML = '';
+      let sum = 0;
+
+      addedServices.forEach(item => {
+        sum += item.price;
+        const row = document.createElement('div');
+        row.className = "flex justify-between items-center bg-slate-800 p-2.5 rounded-lg mb-2 text-xs border border-slate-700";
+        row.innerHTML = `
+          <span class="font-medium text-gray-200 truncate max-w-[170px]">${item.title}</span>
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-emerald-400">Bs ${item.price}</span>
+            <button onclick="removeService(${item.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+
+      totalDisplay.innerText = `Bs ${sum}`;
+    }
+
+    function sendToWhatsApp() {
+      if (addedServices.length === 0) {
+        alert("Por favor, agrega al menos un servicio a la cotización.");
+        return;
+      }
+
+      let text = "¡Hola LIM-BOLIVIA! Deseo reservar el siguiente detalle de cotización:\n\n";
+      let total = 0;
+      addedServices.forEach((s, i) => {
+        text += `${i + 1}. ${s.title} - Bs ${s.price}\n`;
+        total += s.price;
+      });
+      text += `\n*Total Estimado: Bs ${total}*`;
+
+      const numWhatsApp = "59171506930";
+      window.open(`https://wa.me/${numWhatsApp}?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    function talkQuote() {
+      if (addedServices.length === 0) {
+        hablarTexto("Aún no ha agregado servicios a su resumen de cotización.");
+        return;
+      }
+      let total = addedServices.reduce((acc, curr) => acc + curr.price, 0);
+      hablarTexto(`Su cotización actual tiene un total estimado de ${total} Bolivianos.`);
+    }
+
+    /* ========================================================
+       LÓGICA CHATBOT Y VOZ
+       ======================================================== */
     let saludoInicialDado = false;
     let vozSeleccionada = null;
     let audioDesbloqueado = false;
@@ -862,7 +979,6 @@
 
       utterance.lang = 'es-ES';
       utterance.rate = 1.0;
-      utterance.pitch = 1.0;
 
       window.speechSynthesis.speak(utterance);
     }
@@ -981,10 +1097,14 @@
 
       recognition.start();
     }
-  </script>
 
-  <!-- LÓGICA COTIZADOR ACCUMULATIVO -->
-  <script src="/js/calculator.js"></script>
+    // Inicialización general al cargar el DOM
+    document.addEventListener('DOMContentLoaded', () => {
+      selectServiceTab('Alfombras');
+      if (typeof renderMenu === 'function') renderMenu();
+      if (typeof renderProducts === 'function') renderProducts();
+    });
+  </script>
 </body>
 
 </html>
