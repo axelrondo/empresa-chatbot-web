@@ -942,7 +942,7 @@
       }
     }
 
-    // 5. INTERFAZ DE MENSAJES EN PANTALLA (Procesamiento Inteligente de Enlaces y WhatsApp)
+    // 5. INTERFAZ DE MENSAJES EN PANTALLA (Renderizado limpio de Botón)
     function appendMessage(sender, text) {
       const chatMessages = document.getElementById('chatMessages');
       if (!chatMessages) return;
@@ -955,25 +955,23 @@
       } else {
         msgDiv.className = "bg-slate-800 text-gray-200 p-2.5 rounded-xl border border-slate-700 max-w-[85%] animate-fade-in whitespace-pre-line leading-relaxed";
 
-        // 1. Solo elimina negritas de Markdown (**), manteniendo el signo '*' para operaciones
+        // 1. Limpieza general de formato Markdown residual
         let formattedText = text.replace(/\*\*/g, '');
 
-        // 2. Procesar URLs dinámicas (Identifica si es enlace normal o de WhatsApp)
-        const urlPattern = /(https?:\/\/[^\s]+)/g;
-        formattedText = formattedText.replace(urlPattern, function (url) {
-          if (url.includes('wa.me')) {
-            return `<a href="${url}" target="_blank" class="inline-flex items-center gap-1.5 bg-green-600 hover:bg-green-500 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition shadow-sm my-1.5 no-underline"><i class="fa-brands fa-whatsapp text-sm"></i> Confirmar Reserva por WhatsApp</a>`;
-          }
-          return `<a href="${url}" target="_blank" class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1 rounded-lg text-xs transition shadow-sm my-1 no-underline"><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Abrir enlace</a>`;
-        });
+        // 2. Expresión regular que captura la URL completa de WhatsApp hasta el último caracter válido
+        const waUrlRegex = /(https:\/\/wa\.me\/59171506930\?text=[^\s<]+)/g;
 
-        // 3. Convertir menciones simples de teléfono (+591 71506930 o 71506930) SOLO si no vienen en una URL
-        const waPattern = /(?<!href=")(?<!\/\/)(\+?591\s?)?(71506930)/g;
-        formattedText = formattedText.replace(waPattern, function () {
-          const cleanNum = "59171506930";
-          const wspUrl = `https://wa.me/${cleanNum}?text=${encodeURIComponent('Hola Lim Bolivia, quisiera realizar una consulta/reserva.')}`;
-          return `<a href="${wspUrl}" target="_blank" class="inline-flex items-center gap-1.5 bg-green-600 hover:bg-green-500 text-white font-bold px-2.5 py-1 rounded-lg text-xs transition shadow-sm my-1 no-underline"><i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp +591 71506930</a>`;
-        });
+        if (waUrlRegex.test(formattedText)) {
+          formattedText = formattedText.replace(waUrlRegex, function (url) {
+            return `<br><a href="${url}" target="_blank" class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition shadow-md my-2 no-underline"><i class="fa-brands fa-whatsapp text-base"></i> Confirmar Reserva por WhatsApp</a>`;
+          });
+        } else {
+          // Captura de otras URLs estándar
+          const urlPattern = /(https?:\/\/[^\s<]+)/g;
+          formattedText = formattedText.replace(urlPattern, function (url) {
+            return `<a href="${url}" target="_blank" class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1 rounded-lg text-xs transition shadow-sm my-1 no-underline"><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Abrir enlace</a>`;
+          });
+        }
 
         msgDiv.innerHTML = formattedText;
       }
