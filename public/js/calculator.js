@@ -32,8 +32,13 @@ const SERVICIOS_DATA = {
   }
 };
 
-// Servicio actualmente activo
+// Mapeo de índices para el carrusel
+const BANNER_KEYS = ['Alfombras', 'AlfombraSuelta', 'Oficinas', 'Casas'];
+
+// Estado global
 let servicioSeleccionado = 'Alfombras';
+let currentSlide = 0;
+let autoSlideInterval = null;
 
 // Precios unitarios para los extras
 const PRECIOS_EXTRAS = {
@@ -45,16 +50,17 @@ const PRECIOS_EXTRAS = {
 };
 
 // ==========================================
-// CONTROL DE PESTAÑAS Y SLIDER BASE (1 Y 2)
+// CONTROL DE PESTAÑAS Y SLIDER BASE
 // ==========================================
 
 function selectServiceTab(tipo) {
   if (!SERVICIOS_DATA[tipo]) return;
   
   servicioSeleccionado = tipo;
+  currentSlide = BANNER_KEYS.indexOf(tipo);
 
-  const listaServicios = ['Alfombras', 'AlfombraSuelta', 'Oficinas', 'Casas'];
-  listaServicios.forEach(s => {
+  // Actualizar estado visual de los botones de pestañas
+  BANNER_KEYS.forEach(s => {
     const btn = document.getElementById(`btn-${s}`);
     if (btn) {
       if (s === tipo) {
@@ -67,6 +73,7 @@ function selectServiceTab(tipo) {
     }
   });
 
+  // Actualizar textos e imagen principal del servicio
   const data = SERVICIOS_DATA[tipo];
   const imgEl = document.getElementById('serviceImage');
   const titleEl = document.getElementById('serviceTitle');
@@ -76,17 +83,17 @@ function selectServiceTab(tipo) {
   if (titleEl) titleEl.innerText = data.title;
   if (descEl) descEl.innerText = data.description;
 
+  updateSliderUI();
   recalculoTotalCotizacion();
 }
 
-// Corrección: Avanzar estrictamente de 1 en 1 en lugar de delta * 5
 function changeM2Step(delta) {
   const slider = document.getElementById('m2Slider');
   if (!slider) return;
 
   let val = parseInt(slider.value) + delta;
-  let min = parseInt(slider.min);
-  let max = parseInt(slider.max);
+  let min = parseInt(slider.min) || 1;
+  let max = parseInt(slider.max) || 500;
 
   if (val >= min && val <= max) {
     slider.value = val;
@@ -129,8 +136,8 @@ function changeExtraQty(tipo, delta) {
   if (!slider) return;
   
   let val = parseInt(slider.value) + delta;
-  let min = parseInt(slider.min);
-  let max = parseInt(slider.max);
+  let min = parseInt(slider.min) || 1;
+  let max = parseInt(slider.max) || 100;
   
   if (val >= min && val <= max) {
     slider.value = val;
@@ -141,6 +148,12 @@ function changeExtraQty(tipo, delta) {
 function updateExtraValue(tipo) {
   const slider = document.getElementById(`range-${tipo}`);
   const label = document.getElementById(`label-${tipo}`);
+  
+  if (tipo === 'cocina') {
+    recalculoTotalCotizacion();
+    return;
+  }
+
   if (!slider || !label) return;
 
   const val = parseInt(slider.value);
@@ -175,7 +188,6 @@ function recalculoTotalCotizacion() {
     subtotalServicio = datosServicio.minimo;
   }
 
-  // Actualizar etiqueta del subtotal individual de m2 en la columna izquierda
   const m2SubtotalEl = document.getElementById('m2Subtotal');
   if (m2SubtotalEl) {
     m2SubtotalEl.innerText = `(Bs ${subtotalServicio})`;
@@ -191,13 +203,10 @@ function recalculoTotalCotizacion() {
       <div class="text-[10px] text-gray-400 mb-1">Superficie: ${m2} m²</div>
   `;
 
-  let extrasCount = 0;
-
   if (document.getElementById('check-vidrios')?.checked) {
-    const cant = parseInt(document.getElementById('range-vidrios').value);
+    const cant = parseInt(document.getElementById('range-vidrios')?.value || 1);
     const costo = cant * PRECIOS_EXTRAS.vidrios;
     totalExtras += costo;
-    extrasCount++;
     listaResumenHTML += `
       <div class="text-[11px] text-gray-300 flex justify-between pt-1">
         <span>+ Vidrios (${cant} vent.)</span>
@@ -206,10 +215,9 @@ function recalculoTotalCotizacion() {
   }
 
   if (document.getElementById('check-sillas')?.checked) {
-    const cant = parseInt(document.getElementById('range-sillas').value);
+    const cant = parseInt(document.getElementById('range-sillas')?.value || 1);
     const costo = cant * PRECIOS_EXTRAS.sillas;
     totalExtras += costo;
-    extrasCount++;
     listaResumenHTML += `
       <div class="text-[11px] text-gray-300 flex justify-between pt-1">
         <span>+ Sillas (${cant} unid.)</span>
@@ -218,10 +226,9 @@ function recalculoTotalCotizacion() {
   }
 
   if (document.getElementById('check-sofas')?.checked) {
-    const cant = parseInt(document.getElementById('range-sofas').value);
+    const cant = parseInt(document.getElementById('range-sofas')?.value || 1);
     const costo = PRECIOS_EXTRAS.sofas[cant] || (cant * 40);
     totalExtras += costo;
-    extrasCount++;
     listaResumenHTML += `
       <div class="text-[11px] text-gray-300 flex justify-between pt-1">
         <span>+ Sofá (${cant} cuerpos)</span>
@@ -230,10 +237,9 @@ function recalculoTotalCotizacion() {
   }
 
   if (document.getElementById('check-piso')?.checked) {
-    const m2Piso = parseInt(document.getElementById('range-piso').value);
+    const m2Piso = parseInt(document.getElementById('range-piso')?.value || 1);
     const costo = m2Piso * PRECIOS_EXTRAS.piso;
     totalExtras += costo;
-    extrasCount++;
     listaResumenHTML += `
       <div class="text-[11px] text-gray-300 flex justify-between pt-1">
         <span>+ Lustrado Piso (${m2Piso} m²)</span>
@@ -243,7 +249,6 @@ function recalculoTotalCotizacion() {
 
   if (document.getElementById('check-cocina')?.checked) {
     totalExtras += PRECIOS_EXTRAS.cocina;
-    extrasCount++;
     listaResumenHTML += `
       <div class="text-[11px] text-gray-300 flex justify-between pt-1">
         <span>+ Limpieza Profunda de Cocina</span>
@@ -267,7 +272,7 @@ function recalculoTotalCotizacion() {
 
 function sendToWhatsApp() {
   const datosServicio = SERVICIOS_DATA[servicioSeleccionado];
-  const m2 = parseInt(document.getElementById('m2Slider').value);
+  const m2 = parseInt(document.getElementById('m2Slider')?.value || 15);
   
   let subtotalServicio = m2 * datosServicio.precioM2;
   if (subtotalServicio < datosServicio.minimo) subtotalServicio = datosServicio.minimo;
@@ -279,28 +284,28 @@ function sendToWhatsApp() {
   let totalExtras = 0;
 
   if (document.getElementById('check-vidrios')?.checked) {
-    const cant = parseInt(document.getElementById('range-vidrios').value);
+    const cant = parseInt(document.getElementById('range-vidrios')?.value || 1);
     const costo = cant * PRECIOS_EXTRAS.vidrios;
     totalExtras += costo;
     message += `  + Vidrios: ${cant} vent. (Bs ${costo})\n`;
   }
 
   if (document.getElementById('check-sillas')?.checked) {
-    const cant = parseInt(document.getElementById('range-sillas').value);
+    const cant = parseInt(document.getElementById('range-sillas')?.value || 1);
     const costo = cant * PRECIOS_EXTRAS.sillas;
     totalExtras += costo;
     message += `  + Sillas: ${cant} unid. (Bs ${costo})\n`;
   }
 
   if (document.getElementById('check-sofas')?.checked) {
-    const cant = parseInt(document.getElementById('range-sofas').value);
+    const cant = parseInt(document.getElementById('range-sofas')?.value || 1);
     const costo = PRECIOS_EXTRAS.sofas[cant] || (cant * 40);
     totalExtras += costo;
     message += `  + Sofá: ${cant} cuerpos (Bs ${costo})\n`;
   }
 
   if (document.getElementById('check-piso')?.checked) {
-    const m2Piso = parseInt(document.getElementById('range-piso').value);
+    const m2Piso = parseInt(document.getElementById('range-piso')?.value || 1);
     const costo = m2Piso * PRECIOS_EXTRAS.piso;
     totalExtras += costo;
     message += `  + Lustrado de Piso: ${m2Piso} m² (Bs ${costo})\n`;
@@ -322,10 +327,10 @@ function sendToWhatsApp() {
 }
 
 function talkQuote() {
-  window.speechSynthesis.cancel(); // Cancelar locuciones previas
+  window.speechSynthesis.cancel();
 
   const datosServicio = SERVICIOS_DATA[servicioSeleccionado];
-  const m2 = parseInt(document.getElementById('m2Slider').value);
+  const m2 = parseInt(document.getElementById('m2Slider')?.value || 15);
   
   let subtotalServicio = m2 * datosServicio.precioM2;
   if (subtotalServicio < datosServicio.minimo) subtotalServicio = datosServicio.minimo;
@@ -334,28 +339,28 @@ function talkQuote() {
   let totalExtras = 0;
 
   if (document.getElementById('check-vidrios')?.checked) {
-    const cant = parseInt(document.getElementById('range-vidrios').value);
+    const cant = parseInt(document.getElementById('range-vidrios')?.value || 1);
     const costo = cant * PRECIOS_EXTRAS.vidrios;
     totalExtras += costo;
     text += `Incluye lavado de ${cant} ventanas por ${costo} bolivianos. `;
   }
 
   if (document.getElementById('check-sillas')?.checked) {
-    const cant = parseInt(document.getElementById('range-sillas').value);
+    const cant = parseInt(document.getElementById('range-sillas')?.value || 1);
     const costo = cant * PRECIOS_EXTRAS.sillas;
     totalExtras += costo;
     text += `Incluye ${cant} sillas por ${costo} bolivianos. `;
   }
 
   if (document.getElementById('check-sofas')?.checked) {
-    const cant = parseInt(document.getElementById('range-sofas').value);
+    const cant = parseInt(document.getElementById('range-sofas')?.value || 1);
     const costo = PRECIOS_EXTRAS.sofas[cant] || (cant * 40);
     totalExtras += costo;
     text += `Incluye sofá de ${cant} cuerpos por ${costo} bolivianos. `;
   }
 
   if (document.getElementById('check-piso')?.checked) {
-    const m2Piso = parseInt(document.getElementById('range-piso').value);
+    const m2Piso = parseInt(document.getElementById('range-piso')?.value || 1);
     const costo = m2Piso * PRECIOS_EXTRAS.piso;
     totalExtras += costo;
     text += `Incluye lustrado de ${m2Piso} metros cuadrados de piso por ${costo} bolivianos. `;
@@ -377,25 +382,18 @@ function talkQuote() {
 }
 
 // ==========================================
-// AUTO-ROTACIÓN DEL CARRUSEL (HTML ACTUAL)
+// AUTO-ROTACIÓN DEL CARRUSEL Y NAVEGACIÓN
 // ==========================================
-const BANNER_IMAGES = [
-  "/img/banner1.png",
-  "/img/banner2.png",
-  "/img/banner3.png",
-  "/img/banner4.png"
-];
-
-let currentSlide = 0;
-let autoSlideInterval = null;
 
 function updateSliderUI() {
   const imgEl = document.getElementById('mainSliderImg');
-  if (imgEl) {
-    imgEl.src = BANNER_IMAGES[currentSlide];
+  const key = BANNER_KEYS[currentSlide];
+  
+  if (imgEl && SERVICIOS_DATA[key]) {
+    imgEl.src = SERVICIOS_DATA[key].img;
   }
 
-  BANNER_IMAGES.forEach((_, idx) => {
+  BANNER_KEYS.forEach((_, idx) => {
     const btn = document.getElementById(`slideBtn-${idx}`);
     if (btn) {
       if (idx === currentSlide) {
@@ -408,29 +406,31 @@ function updateSliderUI() {
 }
 
 function nextSlide() {
-  currentSlide = (currentSlide + 1) % BANNER_IMAGES.length;
-  updateSliderUI();
+  currentSlide = (currentSlide + 1) % BANNER_KEYS.length;
+  selectServiceTab(BANNER_KEYS[currentSlide]);
   resetAutoSlide();
 }
 
 function prevSlide() {
-  currentSlide = (currentSlide - 1 + BANNER_IMAGES.length) % BANNER_IMAGES.length;
-  updateSliderUI();
+  currentSlide = (currentSlide - 1 + BANNER_KEYS.length) % BANNER_KEYS.length;
+  selectServiceTab(BANNER_KEYS[currentSlide]);
   resetAutoSlide();
 }
 
 function setSlide(index) {
-  currentSlide = index;
-  updateSliderUI();
-  resetAutoSlide();
+  if (index >= 0 && index < BANNER_KEYS.length) {
+    currentSlide = index;
+    selectServiceTab(BANNER_KEYS[currentSlide]);
+    resetAutoSlide();
+  }
 }
 
 function startAutoSlide() {
   if (autoSlideInterval) clearInterval(autoSlideInterval);
   autoSlideInterval = setInterval(() => {
-    currentSlide = (currentSlide + 1) % BANNER_IMAGES.length;
-    updateSliderUI();
-  }, 4000);
+    currentSlide = (currentSlide + 1) % BANNER_KEYS.length;
+    selectServiceTab(BANNER_KEYS[currentSlide]);
+  }, 5000);
 }
 
 function resetAutoSlide() {
@@ -443,6 +443,5 @@ function resetAutoSlide() {
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
   selectServiceTab('Alfombras');
-  updateSliderUI();
   startAutoSlide();
 });
