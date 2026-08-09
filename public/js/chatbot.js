@@ -11,27 +11,21 @@ async function sendMessage() {
   const message = input.value.trim();
   if (!message) return;
 
-  // 1. Mostrar mensaje del usuario en la interfaz
+  // 1. Mostrar mensaje del usuario en el chat
   appendMessage('user', message);
   input.value = '';
 
-  // 2. AGREGAR INMEDIATAMENTE el mensaje del usuario al historial antes del fetch
-  chatHistory.push({ role: "user", content: message });
-
-  // 3. Mostrar indicador de "Escribiendo..."
+  // 2. Mostrar animación de "Escribiendo..."
   const loadingId = appendLoading();
 
   try {
-    // Se envía todo el historial previo (sin incluir el mensaje actual en el 'history', 
-    // pero el mensaje actual va en 'message')
-    const historyToSend = chatHistory.slice(0, -1);
-
+    // Enviamos el mensaje actual junto con el historial acumulado
     const response = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
         message: message,
-        history: historyToSend 
+        history: chatHistory 
       })
     });
 
@@ -40,7 +34,9 @@ async function sendMessage() {
 
     if (data && data.reply) {
       appendMessage('bot', data.reply);
-      // 4. Guardar la respuesta de la IA en el historial
+
+      // 3. Guardar la interacción completa en el historial local
+      chatHistory.push({ role: "user", content: message });
       chatHistory.push({ role: "assistant", content: data.reply });
     } else {
       throw new Error("Respuesta no válida del servidor");
@@ -49,10 +45,6 @@ async function sendMessage() {
   } catch (error) {
     console.error("Error en Chatbot:", error);
     removeLoading(loadingId);
-    
-    // Si falla la petición, removemos el mensaje no procesado del historial
-    chatHistory.pop();
-    
     appendMessage('bot', "¡Hola! Disculpa, tuve un pequeño parpadeo en mi conexión. ¿Me podrías repetir tu consulta?");
   }
 }
@@ -67,10 +59,10 @@ function appendMessage(sender, text) {
   } else {
     msgDiv.className = 'bg-slate-800 text-gray-100 p-3 rounded-xl mr-auto max-w-[85%] text-xs border border-slate-700 shadow-sm space-y-2';
     
-    // Remplazar saltos de línea y enlaces a WhatsApp para que sean cliqueables
+    // Reemplazar saltos de línea
     let formattedText = text.replace(/\n/g, '<br>');
     
-    // Detectar URLs de wa.me y convertirlas en un botón verde cliqueable
+    // Detectar URLs de wa.me y convertirlas en botón verde cliqueable
     const urlPattern = /(https?:\/\/wa\.me\/[^\s<]+)/g;
     formattedText = formattedText.replace(urlPattern, function(url) {
       return `<a href="${url}" target="_blank" class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-3 rounded-lg text-xs mt-2 no-underline text-center">📲 Agendar por WhatsApp</a>`;
@@ -78,7 +70,7 @@ function appendMessage(sender, text) {
 
     msgDiv.innerHTML = `<div>${formattedText}</div>`;
 
-    // Reproducir la respuesta con voz
+    // Reproducir respuesta por voz
     speak(text);
   }
 
@@ -121,12 +113,12 @@ function startListening() {
   };
 }
 
-// Función para reproducir voz (limpia URLs y etiquetas antes de leer)
+// Función de voz
 function speak(text) {
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel(); // Detener audios anteriores
     
-    // Eliminar URLs y etiquetas HTML antes de hablar para que no lea "h t t p s dos puntos diagonal..."
+    // Limpiar URLs y HTML antes de hablar
     let cleanText = text.replace(/https?:\/\/[^\s]+/g, '');
     cleanText = cleanText.replace(/<[^>]*>?/gm, '');
     
