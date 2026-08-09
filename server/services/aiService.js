@@ -55,7 +55,6 @@ REGLAS DE MEMORIA Y ATENCIÓN:
         cleanHistory.push(msg);
       } else {
         const lastMsg = cleanHistory[cleanHistory.length - 1];
-        // Evita agregar el mismo mensaje del usuario al final si ya venía en el historial
         if (lastMsg.role !== msg.role || lastMsg.content !== msg.content) {
           cleanHistory.push(msg);
         }
@@ -70,16 +69,20 @@ REGLAS DE MEMORIA Y ATENCIÓN:
       }
     }
 
-    // 5. Ensamblado del payload
+    // 5. Mantener únicamente los últimos 8 mensajes para ahorrar tokens y evitar 429
+    const recentHistory = cleanHistory.slice(-8);
+
+    // 6. Ensamblado del payload
     const messages = [
       { role: 'system', content: systemPrompt },
-      ...cleanHistory,
+      ...recentHistory,
       { role: 'user', content: userQuery.trim() }
     ];
 
+    // Llamada con modelo liviano 'llama-3.1-8b-instant'
     const chatCompletion = await groq.chat.completions.create({
       messages: messages,
-      model: 'llama-3.3-70b-versatile',
+      model: 'llama-3.1-8b-instant',
       temperature: 0.4
     });
 
