@@ -352,8 +352,8 @@
           </div>
 
           <div class="pt-2">
-            <button onclick="addCurrentToQuote()" class="w-full bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm uppercase tracking-wide">
-              <i class="fa-solid fa-plus-circle text-lg"></i> Agregar / Actualizar Servicio en Cotización
+            <button onclick="addSelectedExtrasOnly()" class="w-full bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm uppercase tracking-wide">
+              <i class="fa-solid fa-plus-circle text-lg"></i> Agregar Extras Seleccionados a la Cotización
             </button>
           </div>
 
@@ -850,6 +850,7 @@
       });
     }
 
+    // BOTÓN OSCURO: Agrega solo el servicio base por m2
     function addCurrentMainService() {
       const sData = serviceRates[currentSelectedServiceKey];
       const subtotal = currentM2 * sData.rate;
@@ -863,14 +864,10 @@
       renderSummary();
     }
 
-    function addCurrentToQuote() {
-      let addedAnything = false;
+    // BOTÓN VERDE INFERIOR: Agrega ÚNICAMENTE los extras seleccionados
+    function addSelectedExtrasOnly() {
+      let addedCount = 0;
 
-      // 1. Agregar el servicio base configurado actualmente
-      addCurrentMainService();
-      addedAnything = true;
-
-      // 2. Agregar los extras seleccionados por el usuario
       Object.keys(extraPrices).forEach(key => {
         const chk = document.getElementById(`check-${key}`);
         if (chk && chk.checked) {
@@ -893,13 +890,15 @@
             price: cost
           });
 
-          addedAnything = true;
+          addedCount++;
         }
       });
 
-      if (addedAnything) {
+      if (addedCount > 0) {
         resetCotizadorInputs();
         renderSummary();
+      } else {
+        alert("Por favor marque al menos una casilla de los Extras Opcionales antes de hacer clic en este botón.");
       }
     }
 
