@@ -96,83 +96,7 @@
       }
     }
   </style>
-
-  <style>
-    /* ========================================================
-     SISTEMA ANTI-CACHE PARA IMÁGENES - LIM-BOLIVIA
-     ======================================================== */
-    /* Esta clase fuerza la recarga de imágenes evitando caché del navegador */
-    .img-no-cache {
-      /* No afecta el diseño, solo fuerza recarga */
-    }
-  </style>
-
-  <script>
-    // ========================================================
-    // SISTEMA ANTI-CACHE PARA TODAS LAS IMÁGENES
-    // ========================================================
-    (function () {
-      // Genera un timestamp único para esta sesión
-      const cacheBuster = Date.now();
-
-      // Función que agrega el timestamp a cualquier URL de imagen
-      function addCacheBuster(url) {
-        if (!url || url.startsWith('data:') || url.startsWith('blob:')) return url;
-        const separator = url.includes('?') ? '&' : '?';
-        return `${url}${separator}v=${cacheBuster}`;
-      }
-
-      // Procesa TODAS las imágenes al cargar la página
-      function processImages() {
-        // Todas las etiquetas <img>
-        document.querySelectorAll('img').forEach(img => {
-          // Si tiene src, le agregamos el cache buster
-          if (img.src && !img.src.includes('v=')) {
-            img.src = addCacheBuster(img.src);
-          }
-          // Si tiene srcset, también lo procesamos
-          if (img.srcset) {
-            const newSrcset = img.srcset.split(',').map(src => {
-              const parts = src.trim().split(' ');
-              const url = parts[0];
-              if (!url.includes('v=')) {
-                parts[0] = addCacheBuster(url);
-              }
-              return parts.join(' ');
-            }).join(', ');
-            img.srcset = newSrcset;
-          }
-        });
-
-        // También procesa imágenes en CSS (background-image)
-        document.querySelectorAll('[style*="background-image"]').forEach(el => {
-          const style = el.getAttribute('style');
-          const newStyle = style.replace(/url\(['"]?([^'"()]+)['"]?\)/g, (match, url) => {
-            if (!url.includes('v=') && !url.startsWith('data:') && !url.startsWith('blob:')) {
-              return `url("${addCacheBuster(url)}")`;
-            }
-            return match;
-          });
-          el.setAttribute('style', newStyle);
-        });
-      }
-
-      // Ejecutar cuando el DOM esté listo
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', processImages);
-      } else {
-        processImages();
-      }
-
-      // También ejecutar cuando se carguen completamente (para imágenes diferidas)
-      window.addEventListener('load', processImages);
-
-      // Hacer la función global para que se pueda llamar manualmente
-      window.refreshImages = processImages;
-
-      console.log('🔄 Sistema Anti-Cache activado - Timestamp:', cacheBuster);
-    })();
-  </script>
+  
 </head>
 
 <body class="bg-gray-100 font-sans text-gray-800 antialiased">
@@ -180,8 +104,7 @@
   <!-- HEADER -->
   <header class="w-full bg-[#003366] text-white">
     <div class="max-w-7xl mx-auto">
-      <img id="headerLogo" src="/img/logo-limbolivia.png" alt="LIMBOLIVIA División Limpieza"
-        class="w-full h-auto object-cover block"
+      <img id="headerLogo" src="/img/logo-limbolivia.png" alt="LIMBOLIVIA División Limpieza" class="w-full h-auto object-cover block"
         onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x120?text=LIMBOLIVIA+Servicios+de+Limpieza';">
     </div>
 
@@ -220,8 +143,7 @@
       </button>
 
       <!-- Indicadores de Slides generados automáticamente -->
-      <div id="slideIndicatorsContainer"
-        class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 bg-black/50 p-1.5 rounded-md z-10"></div>
+      <div id="slideIndicatorsContainer" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 bg-black/50 p-1.5 rounded-md z-10"></div>
     </div>
   </section>
 
@@ -308,14 +230,10 @@
               class="w-full sm:w-40 h-28 object-cover rounded-lg shadow shrink-0"
               onerror="this.onerror=null; this.src='https://via.placeholder.com/160x112?text=Servicio';">
             <div>
-              <h4 id="serviceTitle" class="font-bold text-slate-800 text-base mb-1">Lavado Profesional de Alfombra Fija
-              </h4>
-              <p id="serviceDescription" class="text-xs text-gray-600 leading-relaxed mb-2">Seleccione la superficie en
-                metros cuadrados y adicione extras si lo requiere.</p>
-              <div
-                class="text-[11px] bg-emerald-100 text-emerald-900 font-semibold px-2.5 py-1 rounded-md inline-block border border-emerald-200">
-                <i class="fa-solid fa-gears text-emerald-700 mr-1"></i> <span id="serviceMachine">Maquinaria: Inyectora
-                  / Extractora Profesional de Alta Presión</span>
+              <h4 id="serviceTitle" class="font-bold text-slate-800 text-base mb-1">Lavado Profesional de Alfombra Fija</h4>
+              <p id="serviceDescription" class="text-xs text-gray-600 leading-relaxed mb-2">Seleccione la superficie en metros cuadrados y adicione extras si lo requiere.</p>
+              <div class="text-[11px] bg-emerald-100 text-emerald-900 font-semibold px-2.5 py-1 rounded-md inline-block border border-emerald-200">
+                <i class="fa-solid fa-gears text-emerald-700 mr-1"></i> <span id="serviceMachine">Maquinaria: Inyectora / Extractora Profesional de Alta Presión</span>
               </div>
             </div>
           </div>
@@ -325,9 +243,7 @@
             <div class="flex justify-between items-center">
               <label class="font-semibold text-gray-700">2. Cantidad en Metros Cuadrados (m²):</label>
               <div class="flex items-center gap-2">
-                <span id="m2Value"
-                  class="font-black text-emerald-600 text-xl bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200">15
-                  m²</span>
+                <span id="m2Value" class="font-black text-emerald-600 text-xl bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200">15 m²</span>
                 <span id="m2Subtotal" class="font-bold text-slate-600 text-sm">(Bs 225)</span>
               </div>
             </div>
@@ -371,8 +287,7 @@
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-gray-600">Cantidad de Ventanas:</span>
                   <span id="label-vidrios"
-                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1
-                    vent. (Bs 12)</span>
+                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 vent. (Bs 12)</span>
                 </div>
                 <div class="flex items-center gap-2">
                   <button onclick="changeExtraQty('vidrios', -1)"
@@ -402,8 +317,7 @@
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-gray-600">Cantidad de Sillas:</span>
                   <span id="label-sillas"
-                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1
-                    unidad (Bs 7)</span>
+                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 unidad (Bs 7)</span>
                 </div>
                 <div class="flex items-center gap-2">
                   <button onclick="changeExtraQty('sillas', -1)"
@@ -433,8 +347,7 @@
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-gray-600">Número de Cuerpos/Piezas:</span>
                   <span id="label-sofas"
-                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1
-                    Cuerpo (Bs 40)</span>
+                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 Cuerpo (Bs 40)</span>
                 </div>
                 <div class="flex items-center gap-2">
                   <button onclick="changeExtraQty('sofas', -1)"
@@ -464,8 +377,7 @@
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-gray-600">Metros Lineales:</span>
                   <span id="label-ribeteado"
-                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1
-                    ML (Bs 15)</span>
+                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 ML (Bs 15)</span>
                 </div>
                 <div class="flex items-center gap-2">
                   <button onclick="changeExtraQty('ribeteado', -1)"
@@ -500,8 +412,7 @@
                     onchange="toggleExtra('cocina')">
                   <span>🍳 Limpieza Profunda de Cocina (Bs 150)</span>
                 </label>
-                <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Precio
-                  Fijo</span>
+                <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Precio Fijo</span>
               </div>
               <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i>
                 Maquinaria: Generador de vapor desengrasante industrial.</p>
@@ -557,8 +468,7 @@
           <h2 class="text-xl font-bold flex items-center gap-2">
             <i class="fa-solid fa-boxes-packing text-emerald-400"></i> Catálogo de Equipos y Productos
           </h2>
-          <p class="text-xs text-gray-300 mt-0.5">Explora nuestras categorías para ver todos los productos disponibles.
-          </p>
+          <p class="text-xs text-gray-300 mt-0.5">Explora nuestras categorías para ver todos los productos disponibles.</p>
         </div>
         <span
           class="hidden sm:inline-block bg-emerald-600/30 text-emerald-300 text-xs px-3 py-1 rounded-full border border-emerald-500/30 font-semibold">
@@ -593,8 +503,7 @@
         <div class="p-5 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           <div class="lg:col-span-5 flex flex-col-reverse sm:flex-row gap-3">
             <!-- Galería de miniatura dinámica -->
-            <div id="modalThumbsContainer"
-              class="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto shrink-0 justify-center"></div>
+            <div id="modalThumbsContainer" class="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto shrink-0 justify-center"></div>
 
             <div class="flex-1 bg-slate-100 rounded-xl overflow-hidden border border-slate-200 aspect-square relative">
               <img id="extModalMainImg" src="" alt="Vista previa producto" class="w-full h-full object-cover"
@@ -651,9 +560,8 @@
       <div class="bg-slate-800 p-3 flex justify-between items-center border-b border-slate-700">
         <div class="flex items-center gap-3">
           <div class="relative">
-            <img id="aiChatHeaderAvatar" src="/img/asistente.png"
-              class="w-9 h-9 rounded-full border border-emerald-500 object-cover" alt="Asistente"
-              onerror="this.onerror=null; this.src='https://via.placeholder.com/40?text=IA';">
+            <img id="aiChatHeaderAvatar" src="/img/asistente.png" class="w-9 h-9 rounded-full border border-emerald-500 object-cover"
+              alt="Asistente" onerror="this.onerror=null; this.src='https://via.placeholder.com/40?text=IA';">
             <span
               class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-slate-900"></span>
           </div>
@@ -898,8 +806,8 @@
           const thumb = document.createElement('img');
           thumb.src = imgSrc;
           thumb.className = `w-12 h-12 sm:w-14 sm:h-14 rounded-lg border ${idx === 0 ? 'border-2 border-emerald-500' : 'border-gray-200'} object-cover cursor-pointer hover:opacity-80 transition`;
-          thumb.onerror = function () { this.src = 'https://via.placeholder.com/150'; };
-          thumb.onclick = function () {
+          thumb.onerror = function() { this.src = 'https://via.placeholder.com/150'; };
+          thumb.onclick = function() {
             document.getElementById('extModalMainImg').src = imgSrc;
             Array.from(thumbsContainer.children).forEach(child => child.classList.replace('border-emerald-500', 'border-gray-200'));
             this.classList.replace('border-gray-200', 'border-emerald-500');
