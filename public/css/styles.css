@@ -91,49 +91,50 @@
 
 
 /* ==========================================
-   2. BANNER DE CABECERA (LUZ DORADA)
+   BANNER DE CABECERA (EFECTO BORDES DORADOS)
    ========================================== */
 
-/* Contenedor que crea el borde brillante */
 .logo-glow-wrapper {
   position: relative;
-  display: block; /* Ocupa todo el ancho en el header */
+  display: block;
   width: 100%;
-  padding: 3px;   /* Grosor del borde brillante */
-  border-radius: 6px;
+  padding: 4px; /* Grosor del borde brillante */
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); /* Resplandor dorado hacia afuera */
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+  background: #003366;
 }
 
-/* Fondo de luz dorada en rotación */
+/* Capa que genera el haz de luz giratorio ampliado */
 .logo-glow-wrapper::before {
   content: '';
   position: absolute;
-  top: -50%;
+  top: -150%;
   left: -50%;
   width: 200%;
-  height: 200%;
+  height: 400%; /* Tamaño ampliado para cubrir la proporción panoramica del banner */
   background: conic-gradient(
-    transparent 65%,
-    #ffd700, /* Dorado claro */
-    #ffae00, /* Dorado intenso */
-    #ffffff  /* Destello brillante */
+    from 0deg,
+    transparent 70%,
+    #ffd700 85%,
+    #ffffff 92%,
+    #ffd700 100%
   );
-  animation: rotateGlowLogo 3s linear infinite;
+  animation: rotateGlowLogo 3.5s linear infinite;
   z-index: 1;
 }
 
-/* Mantiene la imagen sobre el fondo giratorio */
-.logo-glow-img {
+/* Capa interna sólida que tapa el centro y deja libre solo el marco */
+.logo-glow-inner {
   position: relative;
   z-index: 2;
-  display: block;
   width: 100%;
-  height: auto;
-  border-radius: 4px;
+  height: 100%;
+  background-color: #003366; /* Mismo color del header */
+  border-radius: 6px;
+  overflow: hidden;
 }
 
-/* Animación Logo Dorado */
 @keyframes rotateGlowLogo {
   0% {
     transform: rotate(0deg);
