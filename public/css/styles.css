@@ -1,7 +1,3 @@
-/* ==========================================
-   1. WIDGET Y BOTÓN FLOTANTE (VERDE NEÓN)
-   ========================================== */
-
 /* Contenedor Flotante */
 .ai-widget-container {
   position: fixed;
@@ -21,7 +17,8 @@
   border-radius: 50%;
   border: 2px solid #10b981;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  margin-bottom: -12px; /* Superpone la imagen al botón */
+  margin-bottom: -12px;
+  /* Superpone la imagen al botón */
   z-index: 10;
   transition: transform 0.3s ease;
 }
@@ -30,7 +27,7 @@
   transform: translateY(-4px) scale(1.05);
 }
 
-/* Botón Neón con Borde Giratorio */
+/* Botón Neón con Borde Giratorio tipo Circuito */
 .ai-glowing-btn {
   position: relative;
   display: inline-flex;
@@ -38,7 +35,8 @@
   justify-content: center;
   padding: 12px 24px;
   border-radius: 9999px;
-  background: #064e3b; /* Verde oscuro base */
+  background: #064e3b;
+  /* Verde oscuro base */
   color: #ffffff;
   font-weight: 700;
   border: none;
@@ -48,7 +46,7 @@
   transition: all 0.3s ease;
 }
 
-/* Efecto de Luz Giratoria Verde */
+/* Efecto de Luz Giratoria (Circuito) */
 .ai-glowing-btn::before {
   content: '';
   position: absolute;
@@ -57,8 +55,17 @@
   width: 200%;
   height: 200%;
   background: conic-gradient(transparent, transparent, transparent, #10b981, #34d399);
-  animation: rotateGlowBtn 3s linear infinite;
+  animation: rotateGlow 3s linear infinite;
   z-index: 1;
+}
+
+/* Interior del botón para dar profundidad al texto */
+.ai-glowing-btn span {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .ai-glowing-btn::after {
@@ -70,76 +77,64 @@
   z-index: 1;
 }
 
-/* Texto e Íconos del botón */
-.ai-glowing-btn span {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* Animación Botón Verde */
-@keyframes rotateGlowBtn {
+@keyframes rotateGlow {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
 }
 
-
-/* ==========================================
-   BANNER DE CABECERA (EFECTO BORDES DORADOS)
-   ========================================== */
-
-.logo-glow-wrapper {
-  position: relative;
-  display: block;
-  width: 100%;
-  padding: 4px; /* Grosor del borde brillante */
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-  background: #003366;
+@property --glow-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
 }
 
-/* Capa que genera el haz de luz giratorio ampliado */
+/* Contenedor que crea el borde brillante */
+.logo-glow-wrapper {
+  position: relative;
+  display: inline-block;
+  padding: 3px; /* Grosor del borde brillante */
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); /* Resplandor dorado tenue hacia afuera */
+}
+
+/* Fondo de luz dorada en rotación */
 .logo-glow-wrapper::before {
   content: '';
   position: absolute;
-  top: -150%;
+  top: -50%;
   left: -50%;
   width: 200%;
-  height: 400%; /* Tamaño ampliado para cubrir la proporción panoramica del banner */
+  height: 200%;
   background: conic-gradient(
-    from 0deg,
-    transparent 70%,
-    #ffd700 85%,
-    #ffffff 92%,
-    #ffd700 100%
+    from var(--glow-angle),
+    transparent 65%,
+    #ffd700, /* Dorado claro */
+    #ffae00, /* Dorado Intenso */
+    #ffffff  /* Destello brillante */
   );
-  animation: rotateGlowLogo 3.5s linear infinite;
+  animation: rotateGlow 3s linear infinite;
   z-index: 1;
 }
 
-/* Capa interna sólida que tapa el centro y deja libre solo el marco */
-.logo-glow-inner {
+/* Mantiene la imagen sobre el fondo que gira */
+.logo-glow-img {
   position: relative;
   z-index: 2;
+  display: block;
   width: 100%;
-  height: 100%;
-  background-color: #003366; /* Mismo color del header */
-  border-radius: 6px;
-  overflow: hidden;
+  height: auto;
+  border-radius: 4px;
 }
 
-@keyframes rotateGlowLogo {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
+/* Animación de giro continuo */
+@keyframes rotateGlow {
+  to {
+    --glow-angle: 360deg;
   }
 }
