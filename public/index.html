@@ -18,17 +18,51 @@
       font-size: 75%;
     }
 
-    /* 2. EFECTO SECUENCIAL TRICOLOR TIPO NAVIDAD ALREDEDOR DEL LOGO */
+    /* 2. EFECTO DE LUZ TIPO PISTA DE CARRERAS ALREDEDOR DEL LOGO */
+    @property --track-angle {
+      syntax: "<angle>";
+      initial-value: 0deg;
+      inherits: false;
+    }
+
     .race-track-container {
       position: relative;
       display: block;
       width: 100%;
       border-radius: 12px;
-      padding: 4px; /* Grosor del marco */
+      padding: 4px; /* Grosor de la pista de carreras */
       overflow: hidden;
       background: #001f3f;
-      transition: transform 0.4s ease;
-      animation: boliviaPulse 4.5s ease-in-out infinite;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    /* Borde dinámico con gradiente en rotación */
+    .race-track-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(
+        from var(--track-angle),
+        transparent 60%,
+        #10b981 80%,  /* Verde Esmeralda */
+        #34d399 90%,  /* Destello Claro */
+        #fbbf24 100%  /* Destello Dorado/Pista */
+      );
+      animation: rotateRaceTrack 3s linear infinite;
+      z-index: 1;
+    }
+
+    /* Fondo interior protector para la imagen */
+    .race-track-container::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      background: #003366;
+      border-radius: 8px;
+      z-index: 2;
     }
 
     /* Imagen interna alineada */
@@ -38,77 +72,106 @@
       display: block;
       width: 100%;
       height: auto;
-      border-radius: 8px;
+      border-radius: 6px;
     }
 
-    /* Elevación 3D en hover */
+    /* EFECTO SORPRESA EXTRA: Elevación 3D e iluminación Neón al pasar el mouse */
     .race-track-container:hover {
       transform: translateY(-3px) scale(1.005);
+      box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.5), 0 0 15px rgba(251, 191, 36, 0.3);
     }
 
-    /* ANIMACIÓN SECUENCIAL TIPO LUCES NAVIDEÑAS (ROJO -> AMARILLO -> VERDE) */
-    @keyframes boliviaPulse {
-      0%, 100% {
-        /* Estado 1: Rojo Bolivia */
-        background-color: #ef4444;
-        box-shadow: 0 0 18px rgba(239, 68, 68, 0.7), inset 0 0 10px rgba(239, 68, 68, 0.4);
+    @keyframes rotateRaceTrack {
+      0% {
+        --track-angle: 0deg;
       }
-      33% {
-        /* Estado 2: Amarillo Bolivia */
-        background-color: #f59e0b;
-        box-shadow: 0 0 18px rgba(245, 158, 11, 0.7), inset 0 0 10px rgba(245, 158, 11, 0.4);
-      }
-      66% {
-        /* Estado 3: Verde Bolivia */
-        background-color: #10b981;
-        box-shadow: 0 0 18px rgba(16, 185, 129, 0.7), inset 0 0 10px rgba(16, 185, 129, 0.4);
+      100% {
+        --track-angle: 360deg;
       }
     }
 
-    /* 3. ESTILOS PARA EL ASISTENTE FLOTANTE Y WIDGET */
+    /* 3. ESTILOS REVISADOS PARA EL BOTÓN Y ASISTENTE FLOTANTE */
     .ai-widget-container {
       position: fixed;
-      bottom: 16px;
-      right: 16px;
+      bottom: 24px;
+      right: 24px;
       z-index: 9999;
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
+      align-items: center;
     }
 
     .ai-avatar-preview {
-      width: 60px;
-      height: 60px;
+      width: 65px;
+      height: 65px;
       object-fit: cover;
       border-radius: 50%;
       border: 2px solid #10b981;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-      margin-bottom: -10px;
+      margin-bottom: -12px;
       z-index: 10;
       transition: transform 0.3s ease;
-      align-self: center;
     }
 
     .ai-widget-container:hover .ai-avatar-preview {
       transform: translateY(-4px) scale(1.05);
     }
 
+    /* Ajuste en el botón para restaurar el estado original al perder foco/hover */
     .ai-glowing-btn {
       position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 10px 20px;
+      padding: 12px 24px;
       border-radius: 9999px;
-      background: #064e3b;
+      background: #047857;
       color: #ffffff;
       font-weight: 700;
-      border: none;
+      border: 2px solid #10b981;
       cursor: pointer;
       overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
       transition: all 0.3s ease;
-      align-self: center;
-      animation: boliviaPulse 4.5s ease-in-out infinite;
+    }
+
+    .ai-glowing-btn::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(transparent 70%, #f59e0b, #fbbf24);
+      animation: rotateGlow 3s linear infinite;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .ai-glowing-btn::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      background: #064e3b;
+      border-radius: 9999px;
+      z-index: 1;
+      transition: background 0.3s ease;
+    }
+
+    /* Activa la rotación neón únicamente al interactuar o enfocar */
+    .ai-glowing-btn:hover::before,
+    .ai-glowing-btn:focus::before {
+      opacity: 1;
+    }
+
+    .ai-glowing-btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.5);
+    }
+
+    .ai-glowing-btn:hover::after {
+      background: #047857;
     }
 
     .ai-glowing-btn span {
@@ -118,14 +181,24 @@
       align-items: center;
       gap: 8px;
     }
+
+    @keyframes rotateGlow {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
 
 <body class="bg-gray-100 font-sans text-gray-800 antialiased">
 
-  <!-- HEADER CON EFECTO DE LUCES TRICOLOR EN EL LOGO -->
+  <!-- HEADER CON EFECTO DE PISTA DE CARRERAS EN EL LOGO -->
   <header class="w-full bg-[#003366] text-white py-2">
     <div class="max-w-7xl mx-auto px-2">
+      <!-- Contenedor Pista de Carreras con Luz Giratoria -->
       <div class="race-track-container">
         <img id="headerLogo" src="/img/logo-limbolivia.png" alt="LIMBOLIVIA División Limpieza" class="race-track-img object-cover"
           onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x120?text=LIMBOLIVIA+Servicios+de+Limpieza';">
@@ -579,10 +652,8 @@
 
   <!-- ASISTENTE FLOTANTE Y CHATBOT -->
   <div class="ai-widget-container border-none">
-    
-    <!-- Recuadro del Chat -->
     <div id="chatBox"
-      class="hidden w-80 sm:w-96 bg-slate-900 text-white rounded-2xl shadow-2xl border border-slate-800 overflow-hidden flex flex-col h-[480px] transition-all">
+      class="hidden mb-4 w-80 sm:w-96 bg-slate-900 text-white rounded-2xl shadow-2xl border border-slate-800 overflow-hidden flex flex-col h-[450px] transition-all">
       <div class="bg-slate-800 p-3 flex justify-between items-center border-b border-slate-700">
         <div class="flex items-center gap-3">
           <div class="relative">
@@ -596,7 +667,7 @@
             <p class="text-[10px] text-emerald-400 font-medium">En línea • Inteligencia Artificial</p>
           </div>
         </div>
-        <button onclick="toggleChat()" class="text-gray-400 hover:text-white p-2">
+        <button onclick="toggleChat()" class="text-gray-400 hover:text-white p-1">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
@@ -619,11 +690,10 @@
       </div>
     </div>
 
-    <!-- Avatar y Botón de Apertura -->
     <img id="aiFloatingAvatar" src="/img/asistente.png" alt="Asistente IA" class="ai-avatar-preview"
       onerror="this.onerror=null; this.src='https://via.placeholder.com/65?text=IA';" />
 
-    <button id="aiGlowBtn" onclick="toggleChat()" class="ai-glowing-btn">
+    <button onclick="toggleChat()" class="ai-glowing-btn">
       <span>
         <i class="fa-solid fa-robot text-emerald-300 text-lg"></i>
         Hablar con IA
@@ -631,7 +701,7 @@
     </button>
   </div>
 
-  <!-- SCRIPT CENTRALIZADO -->
+  <!-- SCRIPT CENTRALIZADO Y FLEXIBLE -->
   <script>
     /* ========================================================
        CONFIGURACIÓN DE IMÁGENES GLOBALES
@@ -1110,7 +1180,7 @@
     }
 
     /* ========================================================
-       LÓGICA CHATBOT, OCULTAMIENTO Y VOZ
+       LÓGICA CHATBOT Y VOZ
        ======================================================== */
     let saludoInicialDado = false;
     let vozSeleccionada = null;
@@ -1168,18 +1238,12 @@
     function toggleChat() {
       desbloquearAudioMobile();
       const chatBox = document.getElementById('chatBox');
-      const floatAvatar = document.getElementById('aiFloatingAvatar');
-      const floatBtn = document.getElementById('aiGlowBtn');
       if (!chatBox) return;
 
       const estaOculto = chatBox.classList.contains('hidden');
 
       if (estaOculto) {
-        // Abrir Chat y Ocultar el Botón Flotante para ganar espacio vertical
         chatBox.classList.remove('hidden');
-        if (floatAvatar) floatAvatar.style.display = 'none';
-        if (floatBtn) floatBtn.style.display = 'none';
-
         const chatMessages = document.getElementById('chatMessages');
         const mensajeBienvenida = "¡Hola! Bienvenido a Lim Bolivia. ¿En qué te puedo ayudar hoy?";
 
@@ -1192,11 +1256,7 @@
           saludoInicialDado = true;
         }
       } else {
-        // Cerrar Chat y Volver a Mostrar el Botón
         chatBox.classList.add('hidden');
-        if (floatAvatar) floatAvatar.style.display = 'block';
-        if (floatBtn) floatBtn.style.display = 'inline-flex';
-
         if ('speechSynthesis' in window) window.speechSynthesis.cancel();
       }
     }
