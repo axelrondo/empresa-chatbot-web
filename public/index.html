@@ -13,84 +13,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* 1. ESCALA GLOBAL DE PÁGINA (ZOOM AL 75% POR DEFECTO) */
-    html {
-      font-size: 75%;
-    }
-
-    /* 2. EFECTO DE LUZ TIPO PISTA DE CARRERAS ALREDEDOR DEL LOGO */
-    @property --track-angle {
-      syntax: "<angle>";
-      initial-value: 0deg;
-      inherits: false;
-    }
-
-    .race-track-container {
-      position: relative;
-      display: block;
-      width: 100%;
-      border-radius: 12px;
-      padding: 4px; /* Grosor de la pista de carreras */
-      overflow: hidden;
-      background: #001f3f;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-
-    /* Borde dinámico con gradiente en rotación */
-    .race-track-container::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: conic-gradient(
-        from var(--track-angle),
-        transparent 60%,
-        #10b981 80%,  /* Verde Esmeralda */
-        #34d399 90%,  /* Destello Claro */
-        #fbbf24 100%  /* Destello Dorado/Pista */
-      );
-      animation: rotateRaceTrack 3s linear infinite;
-      z-index: 1;
-    }
-
-    /* Fondo interior protector para la imagen */
-    .race-track-container::after {
-      content: '';
-      position: absolute;
-      inset: 3px;
-      background: #003366;
-      border-radius: 8px;
-      z-index: 2;
-    }
-
-    /* Imagen interna alineada */
-    .race-track-img {
-      position: relative;
-      z-index: 3;
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 6px;
-    }
-
-    /* EFECTO SORPRESA EXTRA: Elevación 3D e iluminación Neón al pasar el mouse */
-    .race-track-container:hover {
-      transform: translateY(-3px) scale(1.005);
-      box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.5), 0 0 15px rgba(251, 191, 36, 0.3);
-    }
-
-    @keyframes rotateRaceTrack {
-      0% {
-        --track-angle: 0deg;
-      }
-      100% {
-        --track-angle: 360deg;
-      }
-    }
-
-    /* 3. ESTILOS PARA EL ASISTENTE FLOTANTE Y NEÓN */
+    /* ESTILOS PARA EL ASISTENTE FLOTANTE Y NEÓN */
     .ai-widget-container {
       position: fixed;
       bottom: 24px;
@@ -167,6 +90,7 @@
       0% {
         transform: rotate(0deg);
       }
+
       100% {
         transform: rotate(360deg);
       }
@@ -176,18 +100,15 @@
 
 <body class="bg-gray-100 font-sans text-gray-800 antialiased">
 
-  <!-- HEADER CON EFECTO DE PISTA DE CARRERAS EN EL LOGO -->
-  <header class="w-full bg-[#003366] text-white py-2">
-    <div class="max-w-7xl mx-auto px-2">
-      <!-- Contenedor Pista de Carreras con Luz Giratoria -->
-      <div class="race-track-container">
-        <img id="headerLogo" src="/img/logo-limbolivia.png" alt="LIMBOLIVIA División Limpieza" class="race-track-img object-cover"
-          onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x120?text=LIMBOLIVIA+Servicios+de+Limpieza';">
-      </div>
+  <!-- HEADER -->
+  <header class="w-full bg-[#003366] text-white">
+    <div class="max-w-7xl mx-auto">
+      <img id="headerLogo" src="/img/logo-limbolivia.png" alt="LIMBOLIVIA División Limpieza" class="w-full h-auto object-cover block"
+        onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x120?text=LIMBOLIVIA+Servicios+de+Limpieza';">
     </div>
 
     <!-- Menú de Navegación -->
-    <nav class="bg-[#002244] border-t border-[#004488] text-white text-xs font-bold uppercase mt-2">
+    <nav class="bg-[#002244] border-t border-[#004488] text-white text-xs font-bold uppercase">
       <div class="max-w-7xl mx-auto px-4 flex flex-wrap gap-2 sm:gap-6 py-2">
         <a href="#inicio" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1"><i
             class="fa-solid fa-house"></i> Inicio</a>
@@ -685,7 +606,7 @@
   <!-- SCRIPT CENTRALIZADO Y FLEXIBLE -->
   <script>
     /* ========================================================
-       CONFIGURACIÓN DE IMÁGENES GLOBALES
+       CONFIGURACIÓN DE IMÁGENES GLOBALES (CAMBIA RUTA AQUÍ)
        ======================================================== */
     const APP_IMAGES = {
       logo: "/img/logo-limbolivia.png",
@@ -694,13 +615,14 @@
     };
 
     /* ========================================================
-       SLIDER PRINCIPAL ESCALABLE
+       SLIDER PRINCIPAL ESCALABLE (AGREGA N BANNERS AQUÍ)
        ======================================================== */
     const slides = [
       "/img/banner1.png",
       "/img/banner2.png",
       "/img/banner3.png",
       "/img/banner4.png"
+      // Puedes agregar más imágenes simplemente agregando la ruta: "/img/banner5.png"
     ];
 
     let currentSlide = 0;
@@ -761,7 +683,7 @@
     }
 
     /* ========================================================
-       CATÁLOGO DE PRODUCTOS
+       CATÁLOGO DE PRODUCTOS (CONFIGURABLE Y EXPANDIBLE)
        ======================================================== */
     const catalogData = [
       {
@@ -873,6 +795,7 @@
       document.getElementById('extModalGuarantee').innerText = product.garantia;
       document.getElementById('extModalDesc').innerText = product.desc;
 
+      // Carga dinámica de miniaturas
       const thumbsContainer = document.getElementById('modalThumbsContainer');
       thumbsContainer.innerHTML = '';
 
