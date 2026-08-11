@@ -1,52 +1,71 @@
 /* ==========================================
-   ESCALA GLOBAL DE LA PÁGINA (ZOOM AL 75%)
+   ESCALA GLOBAL DE LA PÁGINA
    ========================================== */
 html {
-  font-size: 75%; /* Reduce proporcionalmente todo el diseño de Tailwind */
+  font-size: 75%;
 }
-
 
 /* ==========================================
    1. WIDGET Y BOTÓN FLOTANTE (IA)
    ========================================== */
 
-/* Contenedor Flotante */
+/* Contenedor Flotante Adaptable */
 .ai-widget-container {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: 1rem;
+  right: 1rem;
   z-index: 9999;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
+  max-width: calc(100vw - 2rem);
 }
 
-/* Avatar Flotante sobre el Botón */
+/* Caja de Chat Responsiva */
+.ai-chat-box {
+  width: 22rem;
+  max-width: 90vw;
+  height: 480px;
+  max-height: calc(100vh - 120px);
+  background-color: #0f172a;
+  color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  border: 1px solid #1e293b;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+/* Avatar Flotante */
 .ai-avatar-preview {
-  width: 65px;
-  height: 65px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
   border-radius: 50%;
   border: 2px solid #10b981;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  margin-bottom: -12px; /* Superpone la imagen al botón */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  margin-bottom: -10px;
   z-index: 10;
   transition: transform 0.3s ease;
+  align-self: center;
 }
 
 .ai-widget-container:hover .ai-avatar-preview {
   transform: translateY(-4px) scale(1.05);
 }
 
-/* Botón Neón con Borde Giratorio tipo Circuito */
+/* Botón Neón con Borde Giratorio */
 .ai-glowing-btn {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 24px;
+  padding: 10px 20px;
   border-radius: 9999px;
-  background: #064e3b; /* Verde oscuro base */
+  background: #064e3b;
   color: #ffffff;
   font-weight: 700;
   border: none;
@@ -54,9 +73,10 @@ html {
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
   transition: all 0.3s ease;
+  align-self: center;
 }
 
-/* Efecto de Luz Giratoria (Circuito) */
+/* Efecto de Luz Giratoria */
 .ai-glowing-btn::before {
   content: '';
   position: absolute;
@@ -69,15 +89,6 @@ html {
   z-index: 1;
 }
 
-/* Interior del botón para dar profundidad al texto */
-.ai-glowing-btn span {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
 .ai-glowing-btn::after {
   content: '';
   position: absolute;
@@ -85,6 +96,14 @@ html {
   background: #047857;
   border-radius: 9999px;
   z-index: 1;
+}
+
+.ai-glowing-btn span {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 /* Animación de Giro */
@@ -96,7 +115,6 @@ html {
     transform: rotate(360deg);
   }
 }
-
 
 /* ==========================================
    2. CONTENEDOR DEL LOGO DE CABECERA
