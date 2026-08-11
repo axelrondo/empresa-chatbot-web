@@ -54,7 +54,7 @@ html {
   transform: translateY(-4px) scale(1.05);
 }
 
-/* Botón Flotante con Secuencia Neón */
+/* Botón Flotante en Verde Fijo con Luz Giratoria */
 .ai-glowing-btn {
   position: relative;
   display: inline-flex;
@@ -62,7 +62,7 @@ html {
   justify-content: center;
   padding: 10px 20px;
   border-radius: 9999px;
-  background: #064e3b;
+  background: #10b981; /* Color verde fijo */
   color: #ffffff;
   font-weight: 700;
   border: none;
@@ -70,13 +70,25 @@ html {
   overflow: hidden;
   transition: all 0.3s ease;
   align-self: center;
-  /* Animación de Borde y Resplandor */
-  animation: boliviaPulse 4.5s ease-in-out infinite;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+}
+
+/* Haz de luz giratorio alrededor del botón */
+.ai-glowing-btn::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(transparent, #ffffff, rgba(16, 185, 129, 0.8), transparent 30%);
+  animation: girarLuz 3s linear infinite;
+  z-index: 1;
 }
 
 .ai-glowing-btn span {
   position: relative;
-  z-index: 2;
+  z-index: 2; /* Texto e ícono por encima de la luz */
   display: flex;
   align-items: center;
   gap: 8px;
@@ -94,7 +106,7 @@ html {
   padding: 4px;
   background: #0f172a;
   transition: transform 0.4s ease;
-  /* Aplica la animación de pulso de colores al contenedor */
+  /* Aplica la animación de pulso de colores al contenedor del logo */
   animation: boliviaPulse 4.5s ease-in-out infinite;
 }
 
@@ -126,21 +138,30 @@ html {
 }
 
 /* ==========================================
-   ANIMACIÓN SECUENCIAL (ROJO -> AMARILLO -> VERDE)
+   ANIMACIONES
    ========================================== */
+
+/* 1. Rotación del haz de luz para el botón de la IA */
+@keyframes girarLuz {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 2. Secuencia Tricolor para el logo (Rojo -> Amarillo -> Verde) */
 @keyframes boliviaPulse {
   0%, 100% {
-    /* Estado 1: Rojo */
     background-color: #ef4444;
     box-shadow: 0 0 15px rgba(239, 68, 68, 0.6), inset 0 0 10px rgba(239, 68, 68, 0.4);
   }
   33% {
-    /* Estado 2: Amarillo */
     background-color: #f59e0b;
     box-shadow: 0 0 15px rgba(245, 158, 11, 0.6), inset 0 0 10px rgba(245, 158, 11, 0.4);
   }
   66% {
-    /* Estado 3: Verde */
     background-color: #10b981;
     box-shadow: 0 0 15px rgba(16, 185, 129, 0.6), inset 0 0 10px rgba(16, 185, 129, 0.4);
   }
