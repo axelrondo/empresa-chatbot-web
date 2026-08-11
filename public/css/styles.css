@@ -76,7 +76,7 @@ html {
   align-self: center;
 }
 
-/* Efecto de Luz Giratoria */
+/* Efecto de Luz Giratoria Continua y Fluida */
 .ai-glowing-btn::before {
   content: '';
   position: absolute;
@@ -84,7 +84,13 @@ html {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: conic-gradient(transparent, transparent, transparent, #10b981, #34d399);
+  background: conic-gradient(
+    transparent 0%,
+    transparent 50%,
+    #10b981 75%,
+    #34d399 90%,
+    #fbbf24 100%
+  );
   animation: rotateGlow 3s linear infinite;
   z-index: 1;
 }
@@ -106,20 +112,83 @@ html {
   gap: 8px;
 }
 
-/* Animación de Giro */
+/* Animación de Giro Sin Tirones */
 @keyframes rotateGlow {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
+  to {
     transform: rotate(360deg);
   }
 }
 
 /* ==========================================
-   2. CONTENEDOR DEL LOGO DE CABECERA
+   2. CONTENEDOR DEL LOGO DE CABECERA (PISTA DE CARRERAS)
    ========================================== */
 
+@property --track-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.race-track-container {
+  position: relative;
+  display: block;
+  width: 100%;
+  border-radius: 12px;
+  padding: 4px;
+  overflow: hidden;
+  background: #001f3f;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.race-track-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from var(--track-angle),
+    transparent 0%,
+    transparent 50%,
+    #10b981 75%,
+    #34d399 90%,
+    #fbbf24 100%
+  );
+  animation: rotateRaceTrack 3s linear infinite;
+  z-index: 1;
+}
+
+.race-track-container::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  background: #003366;
+  border-radius: 8px;
+  z-index: 2;
+}
+
+.race-track-img {
+  position: relative;
+  z-index: 3;
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.race-track-container:hover {
+  transform: translateY(-3px) scale(1.005);
+  box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.5), 0 0 15px rgba(251, 191, 36, 0.3);
+}
+
+@keyframes rotateRaceTrack {
+  to {
+    --track-angle: 360deg;
+  }
+}
+
+/* Compatibilidad con tus clases anteriores de logo */
 .logo-glow-wrapper {
   position: relative;
   display: block;
