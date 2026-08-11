@@ -90,7 +90,7 @@
       }
     }
 
-    /* 3. ESTILOS REVISADOS PARA EL BOTÓN Y ASISTENTE FLOTANTE */
+    /* 3. ESTILOS PARA EL ASISTENTE FLOTANTE Y NEÓN */
     .ai-widget-container {
       position: fixed;
       bottom: 24px;
@@ -117,7 +117,6 @@
       transform: translateY(-4px) scale(1.05);
     }
 
-    /* Ajuste en el botón para restaurar el estado original al perder foco/hover */
     .ai-glowing-btn {
       position: relative;
       display: inline-flex;
@@ -125,13 +124,13 @@
       justify-content: center;
       padding: 12px 24px;
       border-radius: 9999px;
-      background: #047857;
+      background: #064e3b;
       color: #ffffff;
       font-weight: 700;
-      border: 2px solid #10b981;
+      border: none;
       cursor: pointer;
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
       transition: all 0.3s ease;
     }
 
@@ -142,36 +141,18 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background: conic-gradient(transparent 70%, #f59e0b, #fbbf24);
+      background: conic-gradient(transparent, transparent, transparent, #f59e0b, #fbbf24);
       animation: rotateGlow 3s linear infinite;
       z-index: 1;
-      opacity: 0;
-      transition: opacity 0.3s ease;
     }
 
     .ai-glowing-btn::after {
       content: '';
       position: absolute;
       inset: 2px;
-      background: #064e3b;
+      background: #047857;
       border-radius: 9999px;
       z-index: 1;
-      transition: background 0.3s ease;
-    }
-
-    /* Activa la rotación neón únicamente al interactuar o enfocar */
-    .ai-glowing-btn:hover::before,
-    .ai-glowing-btn:focus::before {
-      opacity: 1;
-    }
-
-    .ai-glowing-btn:hover {
-      transform: scale(1.03);
-      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.5);
-    }
-
-    .ai-glowing-btn:hover::after {
-      background: #047857;
     }
 
     .ai-glowing-btn span {
@@ -651,49 +632,49 @@
   </main>
 
   <!-- ASISTENTE FLOTANTE Y CHATBOT -->
-  <div class="ai-widget-container border-none">
-    <div id="chatBox"
-      class="hidden mb-4 w-80 sm:w-96 bg-slate-900 text-white rounded-2xl shadow-2xl border border-slate-800 overflow-hidden flex flex-col h-[450px] transition-all">
-      <div class="bg-slate-800 p-3 flex justify-between items-center border-b border-slate-700">
-        <div class="flex items-center gap-3">
-          <div class="relative">
-            <img id="aiChatHeaderAvatar" src="/img/asistente.png" class="w-9 h-9 rounded-full border border-emerald-500 object-cover"
-              alt="Asistente" onerror="this.onerror=null; this.src='https://via.placeholder.com/40?text=IA';">
-            <span
-              class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-slate-900"></span>
-          </div>
-          <div>
-            <h3 class="text-sm font-bold text-white leading-tight">Asistente LIM-BOLIVIA</h3>
-            <p class="text-[10px] text-emerald-400 font-medium">En línea • Inteligencia Artificial</p>
-          </div>
+  <div id="chatBox"
+    class="hidden fixed bottom-6 right-6 z-[9999] w-80 sm:w-96 bg-slate-900 text-white rounded-2xl shadow-2xl border border-slate-800 overflow-hidden flex flex-col h-[480px] transition-all">
+    <div class="bg-slate-800 p-3 flex justify-between items-center border-b border-slate-700">
+      <div class="flex items-center gap-3">
+        <div class="relative">
+          <img id="aiChatHeaderAvatar" src="/img/asistente.png" class="w-9 h-9 rounded-full border border-emerald-500 object-cover"
+            alt="Asistente" onerror="this.onerror=null; this.src='https://via.placeholder.com/40?text=IA';">
+          <span
+            class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-slate-900"></span>
         </div>
-        <button onclick="toggleChat()" class="text-gray-400 hover:text-white p-1">
-          <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
+        <div>
+          <h3 class="text-sm font-bold text-white leading-tight">Asistente LIM-BOLIVIA</h3>
+          <p class="text-[10px] text-emerald-400 font-medium">En línea • Inteligencia Artificial</p>
+        </div>
       </div>
-
-      <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs"></div>
-
-      <div class="p-3 bg-slate-800 border-t border-slate-700 flex gap-2 items-center">
-        <input type="text" id="userInput" placeholder="Escribe tu mensaje..."
-          class="flex-1 bg-slate-900 text-white text-xs px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-emerald-500"
-          onkeypress="if(event.key === 'Enter') sendMessage()">
-        <button onclick="startListening()"
-          class="bg-slate-700 hover:bg-slate-600 text-emerald-400 p-2 rounded-lg transition"
-          title="Hablar por micrófono">
-          <i class="fa-solid fa-microphone"></i>
-        </button>
-        <button onclick="sendMessage()"
-          class="bg-emerald-600 hover:bg-emerald-500 text-white p-2 rounded-lg transition">
-          <i class="fa-solid fa-paper-plane"></i>
-        </button>
-      </div>
+      <button onclick="toggleChat()" class="text-gray-400 hover:text-white p-1">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
     </div>
 
+    <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs"></div>
+
+    <div class="p-3 bg-slate-800 border-t border-slate-700 flex gap-2 items-center">
+      <input type="text" id="userInput" placeholder="Escribe tu mensaje..."
+        class="flex-1 bg-slate-900 text-white text-xs px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-emerald-500"
+        onkeypress="if(event.key === 'Enter') sendMessage()">
+      <button onclick="startListening()"
+        class="bg-slate-700 hover:bg-slate-600 text-emerald-400 p-2 rounded-lg transition"
+        title="Hablar por micrófono">
+        <i class="fa-solid fa-microphone"></i>
+      </button>
+      <button onclick="sendMessage()"
+        class="bg-emerald-600 hover:bg-emerald-500 text-white p-2 rounded-lg transition">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="ai-widget-container border-none">
     <img id="aiFloatingAvatar" src="/img/asistente.png" alt="Asistente IA" class="ai-avatar-preview"
       onerror="this.onerror=null; this.src='https://via.placeholder.com/65?text=IA';" />
 
-    <button onclick="toggleChat()" class="ai-glowing-btn">
+    <button id="aiTriggerBtn" onclick="toggleChat()" class="ai-glowing-btn">
       <span>
         <i class="fa-solid fa-robot text-emerald-300 text-lg"></i>
         Hablar con IA
@@ -1238,12 +1219,17 @@
     function toggleChat() {
       desbloquearAudioMobile();
       const chatBox = document.getElementById('chatBox');
+      const triggerBtn = document.getElementById('aiTriggerBtn');
+      const floatingAvatar = document.getElementById('aiFloatingAvatar');
       if (!chatBox) return;
 
       const estaOculto = chatBox.classList.contains('hidden');
 
       if (estaOculto) {
         chatBox.classList.remove('hidden');
+        if (triggerBtn) triggerBtn.classList.add('hidden');
+        if (floatingAvatar) floatingAvatar.classList.add('hidden');
+
         const chatMessages = document.getElementById('chatMessages');
         const mensajeBienvenida = "¡Hola! Bienvenido a Lim Bolivia. ¿En qué te puedo ayudar hoy?";
 
@@ -1257,6 +1243,9 @@
         }
       } else {
         chatBox.classList.add('hidden');
+        if (triggerBtn) triggerBtn.classList.remove('hidden');
+        if (floatingAvatar) floatingAvatar.classList.remove('hidden');
+
         if ('speechSynthesis' in window) window.speechSynthesis.cancel();
       }
     }
