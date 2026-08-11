@@ -2,14 +2,13 @@
    ESCALA GLOBAL DE LA PÁGINA
    ========================================== */
 html {
-  font-size: 75%;
+  font-size: 90%;
 }
 
 /* ==========================================
    1. WIDGET Y BOTÓN FLOTANTE (IA)
    ========================================== */
 
-/* Contenedor Flotante Adaptable */
 .ai-widget-container {
   position: fixed;
   bottom: 1rem;
@@ -21,7 +20,6 @@ html {
   max-width: calc(100vw - 2rem);
 }
 
-/* Caja de Chat Responsiva */
 .ai-chat-box {
   width: 22rem;
   max-width: 90vw;
@@ -39,7 +37,6 @@ html {
   transition: all 0.3s ease;
 }
 
-/* Avatar Flotante */
 .ai-avatar-preview {
   width: 60px;
   height: 60px;
@@ -57,7 +54,7 @@ html {
   transform: translateY(-4px) scale(1.05);
 }
 
-/* Botón Neón con Borde Giratorio */
+/* Botón Neón Flotante */
 .ai-glowing-btn {
   position: relative;
   display: inline-flex;
@@ -76,7 +73,7 @@ html {
   align-self: center;
 }
 
-/* Efecto de Luz Giratoria Continua y Fluida */
+/* Luz Giratoria Botón - Bolivia Colors */
 .ai-glowing-btn::before {
   content: '';
   position: absolute;
@@ -86,12 +83,12 @@ html {
   height: 200%;
   background: conic-gradient(
     transparent 0%,
-    transparent 50%,
-    #10b981 75%,
-    #34d399 90%,
-    #fbbf24 100%
+    transparent 40%,
+    #ef4444 60%,  /* Rojo */
+    #f59e0b 80%,  /* Amarillo */
+    #10b981 100%  /* Verde */
   );
-  animation: rotateGlow 3s linear infinite;
+  animation: smoothRotate 3s linear infinite;
   z-index: 1;
 }
 
@@ -112,22 +109,9 @@ html {
   gap: 8px;
 }
 
-/* Animación de Giro Sin Tirones */
-@keyframes rotateGlow {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 /* ==========================================
-   2. CONTENEDOR DEL LOGO DE CABECERA (PISTA DE CARRERAS)
+   2. CONTENEDOR DEL LOGO (PISTA DE CARRERAS)
    ========================================== */
-
-@property --track-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
 
 .race-track-container {
   position: relative;
@@ -136,26 +120,26 @@ html {
   border-radius: 12px;
   padding: 4px;
   overflow: hidden;
-  background: #001f3f;
+  background: #0f172a;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
+/* Luz Giratoria Logo - Bolivia Colors + Giro Físico Continuo */
 .race-track-container::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
   background: conic-gradient(
-    from var(--track-angle),
-    transparent 0%,
-    transparent 50%,
-    #10b981 75%,
-    #34d399 90%,
-    #fbbf24 100%
+    transparent 0deg,
+    transparent 180deg,
+    #ef4444 240deg, /* Rojo */
+    #f59e0b 300deg, /* Amarillo */
+    #10b981 360deg  /* Verde */
   );
-  animation: rotateRaceTrack 3s linear infinite;
+  animation: smoothRotate 3.5s linear infinite;
   z-index: 1;
 }
 
@@ -163,8 +147,8 @@ html {
   content: '';
   position: absolute;
   inset: 3px;
-  background: #003366;
-  border-radius: 8px;
+  background: #1e293b;
+  border-radius: 9px;
   z-index: 2;
 }
 
@@ -179,16 +163,10 @@ html {
 
 .race-track-container:hover {
   transform: translateY(-3px) scale(1.005);
-  box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.5), 0 0 15px rgba(251, 191, 36, 0.3);
+  box-shadow: 0 10px 25px -5px rgba(239, 68, 68, 0.4), 0 0 15px rgba(16, 185, 129, 0.3);
 }
 
-@keyframes rotateRaceTrack {
-  to {
-    --track-angle: 360deg;
-  }
-}
-
-/* Compatibilidad con tus clases anteriores de logo */
+/* Compatibilidad con tus clases de logo anteriores */
 .logo-glow-wrapper {
   position: relative;
   display: block;
@@ -200,4 +178,16 @@ html {
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* ==========================================
+   ANIMACIÓN ÚNICA MATEMÁTICAMENTE CONTINUA
+   ========================================== */
+@keyframes smoothRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
