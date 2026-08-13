@@ -21,7 +21,6 @@
   <!-- HEADER CON BANNER/LOGO A ANCHO COMPLETO -->
   <header class="w-full bg-[#003366] text-white">
     <div class="w-full">
-      <!-- Pista con Luz Giratoria envolviendo el Banner/Logo principal -->
       <div class="race-track-container w-full">
         <img id="headerLogo" src="/img/logo-limbolivia.png" alt="LIMBOLIVIA Servicios de Limpieza" 
           class="race-track-img w-full h-auto max-h-36 md:max-h-48 object-contain md:object-fill mx-auto"
@@ -29,7 +28,7 @@
       </div>
     </div>
 
-    <!-- Menú de Navegación con Dropdown Ajustado -->
+    <!-- Menú de Navegación -->
     <nav class="navbar bg-[#002244] border-t border-[#004488] text-white text-xs font-bold uppercase">
       <div class="max-w-7xl mx-auto px-4 flex flex-wrap gap-2 sm:gap-6 py-2 items-center">
         
@@ -65,19 +64,18 @@
           <i class="fa-solid fa-calculator"></i> Cotizador
         </button>
 
-        <a href="https://wa.me/59171506930" target="_blank" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1">
+        <a href="https://www.facebook.com/limbolivia?ref=embed_page" target="_blank" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1">
           <i class="fa-solid fa-envelope"></i> Contáctese
         </a>
       </div>
     </nav>
   </header>
 
-  <!-- CONTENEDOR PRINCIPAL VISTAS DINÁMICAS -->
+  <!-- CONTENEDOR PRINCIPAL -->
   <main class="max-w-7xl mx-auto py-6 px-4">
 
     <!-- ================= 1. VISTA INICIO ================= -->
     <div id="view-inicio" class="view-section space-y-6">
-      <!-- SLIDER PRINCIPAL -->
       <section class="relative w-full overflow-hidden bg-slate-200 rounded-xl shadow-md">
         <div class="relative w-full h-[280px] sm:h-[380px] md:h-[450px]">
           <img id="mainSliderImg" src="/img/banner1.png" alt="Servicios LIMBOLIVIA"
@@ -95,7 +93,6 @@
         </div>
       </section>
 
-      <!-- BARRA INFORMATIVA -->
       <div class="bg-[#001845] text-white py-3.5 px-4 rounded-xl shadow-md flex items-center gap-3">
         <div class="bg-red-600 text-white w-9 h-9 rounded-full flex items-center justify-center text-lg shadow shrink-0">
           <i class="fa-solid fa-headset"></i>
@@ -104,84 +101,122 @@
       </div>
     </div>
 
-    <!-- ================= 2. VISTA MISIÓN / VISIÓN (EXACTA A IMAGEN 3) ================= -->
-    <div id="view-mision-vision" class="view-section hidden bg-white p-8 md:p-12 rounded-2xl shadow-md border border-slate-200 space-y-8">
+    <!-- ================= CONTENEDOR DE 2 COLUMNAS PARA INSTITUCIONAL ================= -->
+    <div id="institutional-wrapper" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       
-      <!-- MISIÓN -->
-      <div class="space-y-3">
-        <h2 class="text-xl md:text-2xl font-black text-[#003366] tracking-wide uppercase">MISIÓN</h2>
-        <p class="text-gray-700 leading-relaxed text-sm md:text-base font-medium">
-          Diseñar, operar y administrar sistemas y servicios de limpieza de acuerdo a las más exigentes necesidades, los cuales garanticen higiene de calidad en las condiciones de tiempo, satisfacción y presupuesto acorde con nuestros clientes.
-        </p>
-      </div>
+      <!-- COLUMNA IZQUIERDA: INFORMACIÓN (OCUPA 2 COLUMNAS) -->
+      <div class="lg:col-span-2 space-y-6">
 
-      <!-- VISIÓN -->
-      <div class="space-y-3">
-        <h2 class="text-xl md:text-2xl font-black text-[#003366] tracking-wide uppercase">VISIÓN</h2>
-        <p class="text-gray-700 leading-relaxed text-sm md:text-base font-medium">
-          Superar la barrera del tiempo llegando a ser la más importante referencia a nivel nacional e internacional en materia de limpieza. Pensando siempre en la calidad de vida de nuestros clientes y no apartándonos de nuestros valores y principios con los cuales comenzamos este camino.
-        </p>
-      </div>
+        <!-- VISTA MISIÓN / VISIÓN -->
+        <div id="view-mision-vision" class="view-section hidden bg-white p-8 rounded-2xl shadow-md border border-slate-200 space-y-8">
+          <div class="space-y-3">
+            <h2 class="text-xl md:text-2xl font-black text-[#003366] tracking-wide uppercase">MISIÓN</h2>
+            <p class="text-gray-700 leading-relaxed text-sm md:text-base font-medium">
+              Diseñar, operar y administrar sistemas y servicios de limpieza de acuerdo a las más exigentes necesidades, los cuales garanticen higiene de calidad en las condiciones de tiempo, satisfacción y presupuesto acorde con nuestros clientes.
+            </p>
+          </div>
 
-      <!-- LEMA -->
-      <div class="pt-6 border-t border-gray-200 text-center space-y-3">
-        <h2 class="text-xl md:text-2xl font-black text-[#003366] tracking-wide uppercase">LEMA</h2>
-        <div class="flex justify-center my-2">
-          <i class="fa-solid fa-sparkles text-3xl text-amber-500"></i>
+          <div class="space-y-3">
+            <h2 class="text-xl md:text-2xl font-black text-[#003366] tracking-wide uppercase">VISIÓN</h2>
+            <p class="text-gray-700 leading-relaxed text-sm md:text-base font-medium">
+              Superar la barrera del tiempo llegando a ser la más importante referencia a nivel nacional e internacional en materia de limpieza. Pensando siempre en la calidad de vida de nuestros clientes y no apartándonos de nuestros valores y principios con los cuales comenzamos este camino.
+            </p>
+          </div>
+
+          <div class="pt-6 border-t border-gray-200 text-center space-y-3">
+            <h2 class="text-xl md:text-2xl font-black text-[#003366] tracking-wide uppercase">LEMA</h2>
+            <div class="flex justify-center my-2">
+              <i class="fa-solid fa-sparkles text-3xl text-amber-500"></i>
+            </div>
+            <div class="font-bold text-slate-800 space-y-1 text-sm md:text-base">
+              <p class="uppercase tracking-widest text-emerald-700">LIMPIEZA ES NUESTRO LEMA</p>
+              <p class="uppercase tracking-widest text-[#003366]">SALUD Y BIENESTAR NUESTRO OBJETIVO</p>
+            </div>
+          </div>
         </div>
-        <div class="font-bold text-slate-800 space-y-1 text-sm md:text-base">
-          <p class="uppercase tracking-widest text-emerald-700">LIMPIEZA ES NUESTRO LEMA</p>
-          <p class="uppercase tracking-widest text-[#003366]">SALUD Y BIENESTAR NUESTRO OBJETIVO</p>
+
+        <!-- VISTA ¿QUIÉNES SOMOS? -->
+        <div id="view-quienes-somos" class="view-section hidden bg-white p-8 rounded-2xl shadow-md border border-slate-200 space-y-6">
+          <h2 class="text-2xl font-black text-[#003366] uppercase">¿QUIÉNES SOMOS?</h2>
+          <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+            (División Limpieza), creada en la ciudad de La Paz - Bolivia en Diciembre de 1999, formada en un principio con el nombre de "Electrolux Line Servicios..." (El proceso de cambio de nombre se lo comenzó el 1º de junio del año 2001). Organizada y Especializada en la realización de trabajos eventuales o de PLANTA / Residenciales, se comprometió a brindar a sus clientes la máxima eficacia y eficiencia en la prestación de sus múltiples servicios. Hoy en día podemos decir con orgullo que somos la única Empresa que no sólo se comprometió sino que lleva adelante ese compromiso con una gran eficiencia. Tenemos y contamos con los servicios y técnicas en limpieza más innovadoras, jefes operativos con toda la experiencia en limpieza, incorporación de maquinaria y equipamiento con la mejor tecnología, productos innovadores en materia de limpieza y la mejora continua de nuestra Metodología.
+          </p>
+          <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+            Actualmente hemos incursionado en el campo del Servicio Corporativo o Servicio de Limpieza - mantenimiento a instituciones, con toda la experiencia y sabiendo que somos los mejores en el campo de servicios de limpieza Residenciales.
+          </p>
         </div>
+
+        <!-- VISTA PRINCIPIOS -->
+        <div id="view-principios" class="view-section hidden bg-slate-900 text-white p-8 rounded-2xl shadow-xl space-y-6">
+          <h2 class="text-2xl font-black text-emerald-400 uppercase text-center">Nuestros Principios y Valores</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center pt-4">
+            <div class="p-4 bg-slate-800 rounded-xl border border-slate-700">
+              <i class="fa-solid fa-shield-heart text-3xl text-emerald-400 mb-2"></i>
+              <h3 class="font-bold text-sm uppercase">Compromiso</h3>
+              <p class="text-xs text-gray-400 mt-1">Garantía y responsabilidad en cada servicio ejecutado.</p>
+            </div>
+            <div class="p-4 bg-slate-800 rounded-xl border border-slate-700">
+              <i class="fa-solid fa-award text-3xl text-amber-400 mb-2"></i>
+              <h3 class="font-bold text-sm uppercase">Calidad</h3>
+              <p class="text-xs text-gray-400 mt-1">Altos estándares operacionales y maquinaria especializada.</p>
+            </div>
+          </div>
+        </div>
+
       </div>
 
+      <!-- COLUMNA DERECHA: SIDEBAR FIJO (NÚMERO + ANUNCIO FACEBOOK) -->
+      <aside id="sidebar-derecho" class="space-y-4">
+        
+        <!-- Imagen Central Piloto / numero.png -->
+        <div class="bg-white p-2 rounded-xl shadow border border-slate-200 overflow-hidden hover:shadow-md transition">
+          <img src="/img/numero.png" alt="Central Piloto LIMBOLIVIA" class="w-full h-auto object-contain rounded-lg"
+            onerror="this.onerror=null; this.src='https://via.placeholder.com/350x200/003366/FFFFFF?text=Central+Piloto+79684700';">
+        </div>
+
+        <!-- Tarjeta Interactiva de Facebook con Redirección Directa -->
+        <div class="bg-white rounded-xl shadow border border-slate-200 overflow-hidden hover:shadow-lg transition group">
+          <div class="bg-[#3b5998] text-white p-3 flex justify-between items-center text-xs font-bold">
+            <span class="flex items-center gap-1.5"><i class="fa-brands fa-facebook"></i> SÍGUENOS EN FACEBOOK</span>
+            <a href="https://www.facebook.com/limbolivia?ref=embed_page" target="_blank" class="bg-white text-[#3b5998] px-2.5 py-1 rounded hover:bg-slate-100 transition text-[11px]">
+              <i class="fa-solid fa-thumbs-up"></i> Seguir
+            </a>
+          </div>
+
+          <!-- Imagen con Enlace -->
+          <a href="https://www.facebook.com/limbolivia?ref=embed_page" target="_blank" class="block relative overflow-hidden">
+            <img src="/img/limpieza.png" alt="Limpieza Profesional LIMBOLIVIA" class="w-full h-auto object-cover group-hover:scale-105 transition duration-300"
+              onerror="this.onerror=null; this.src='https://via.placeholder.com/350x350/10b981/FFFFFF?text=Limpieza+WhatsApp+73017175';">
+            
+            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition"></div>
+          </a>
+
+          <!-- Pie de Tarjeta Facebook -->
+          <div class="p-3 bg-slate-50 flex items-center justify-between border-t border-slate-200 text-xs">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-[#003366] text-white font-bold flex items-center justify-center text-xs">LIM</div>
+              <div>
+                <p class="font-bold text-slate-800 text-[11px]">Bolivia LINE / LIM Bolivia</p>
+                <p class="text-[10px] text-gray-500">Página oficial de Facebook</p>
+              </div>
+            </div>
+            <a href="https://www.facebook.com/limbolivia?ref=embed_page" target="_blank" class="text-blue-600 hover:text-blue-800 font-bold text-[11px]">
+              Ver más <i class="fa-solid fa-arrow-right text-[9px]"></i>
+            </a>
+          </div>
+        </div>
+
+      </aside>
     </div>
 
-    <!-- ================= 3. VISTA ¿QUIÉNES SOMOS? ================= -->
-    <div id="view-quienes-somos" class="view-section hidden bg-white p-8 md:p-12 rounded-2xl shadow-md border border-slate-200 space-y-6">
-      <h2 class="text-2xl font-black text-[#003366] uppercase">¿Quiénes somos?</h2>
-      <p class="text-gray-700 leading-relaxed text-sm md:text-base">
-        Somos **LIM-BOLIVIA**, una empresa especialista en servicios integrales de limpieza, desinfección e higienización profesional con amplia trayectoria en el mercado boliviano. Contamos con equipamiento tecnológico de vanguardia, insumos certificados y personal altamente capacitado para brindar un servicio garantizado en instituciones, empresas y residencias particulares.
-      </p>
-    </div>
-
-    <!-- ================= 4. VISTA NUESTROS PRINCIPIOS ================= -->
-    <div id="view-principios" class="view-section hidden bg-slate-900 text-white p-8 rounded-2xl shadow-xl space-y-6">
-      <h2 class="text-2xl font-black text-emerald-400 uppercase text-center">Nuestros Principios y Valores</h2>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center pt-4">
-        <div class="p-4 bg-slate-800 rounded-xl border border-slate-700">
-          <i class="fa-solid fa-shield-heart text-3xl text-emerald-400 mb-2"></i>
-          <h3 class="font-bold text-sm uppercase">Compromiso</h3>
-          <p class="text-xs text-gray-400 mt-1">Garantía y responsabilidad en cada servicio ejecutado.</p>
-        </div>
-        <div class="p-4 bg-slate-800 rounded-xl border border-slate-700">
-          <i class="fa-solid fa-award text-3xl text-amber-400 mb-2"></i>
-          <h3 class="font-bold text-sm uppercase">Calidad</h3>
-          <p class="text-xs text-gray-400 mt-1">Altos estándares operacionales y maquinaria especializada.</p>
-        </div>
-        <div class="p-4 bg-slate-800 rounded-xl border border-slate-700">
-          <i class="fa-solid fa-leaf text-3xl text-green-400 mb-2"></i>
-          <h3 class="font-bold text-sm uppercase">Ecológicos</h3>
-          <p class="text-xs text-gray-400 mt-1">Uso responsable de químicos amigables con el medio ambiente.</p>
-        </div>
-        <div class="p-4 bg-slate-800 rounded-xl border border-slate-700">
-          <i class="fa-solid fa-users text-3xl text-blue-400 mb-2"></i>
-          <h3 class="font-bold text-sm uppercase">Confianza</h3>
-          <p class="text-xs text-gray-400 mt-1">Personal calificado, identificado y verificado de total confianza.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ================= 5. VISTA COTIZADOR ================= -->
-    <div id="view-cotizador" class="view-section hidden p-6 bg-slate-50 border rounded-2xl shadow-sm">
+    <!-- ================= VISTA COTIZADOR (OCUPA TODO EL ANCHO CUANDO SE SELECCIONA) ================= -->
+    <div id="view-cotizador" class="view-section hidden p-6 bg-slate-50 border rounded-2xl shadow-sm my-6">
       <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
         <i class="fa-solid fa-calculator text-emerald-600"></i> Cotizador Rápido de Servicios
       </h2>
 
       <div class="grid lg:grid-cols-3 gap-6 items-start">
         <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border space-y-6">
-
-          <!-- Pestañas de Servicios -->
           <div>
             <label class="block font-semibold text-gray-700 mb-2">1. Selecciona un Servicio para Configurar:</label>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="serviceTabContainer">
@@ -201,26 +236,9 @@
                 <i class="fa-solid fa-house-chimney text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Limpieza Casas</span>
               </button>
-              <button onclick="selectServiceTab('LustradoFrio')" id="btn-LustradoFrio" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
-                <i class="fa-solid fa-border-all text-xl text-emerald-600"></i>
-                <span class="text-xs font-bold">Lustrado Piso Frío</span>
-              </button>
-              <button onclick="selectServiceTab('LustradoMadera')" id="btn-LustradoMadera" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
-                <i class="fa-solid fa-tree text-xl text-emerald-600"></i>
-                <span class="text-xs font-bold">Lustrado Piso Madera</span>
-              </button>
-              <button onclick="selectServiceTab('Fumigado')" id="btn-Fumigado" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
-                <i class="fa-solid fa-spray-can-sparkles text-xl text-emerald-600"></i>
-                <span class="text-xs font-bold">Fumigado General</span>
-              </button>
-              <button onclick="selectServiceTab('Tanques')" id="btn-Tanques" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
-                <i class="fa-solid fa-faucet-drip text-xl text-emerald-600"></i>
-                <span class="text-xs font-bold">Limpieza Tanques</span>
-              </button>
             </div>
           </div>
 
-          <!-- TARJETA DINÁMICA -->
           <div id="serviceDetailCard" class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-4 transition-all">
             <img id="serviceImage" src="/img/banner1.png" alt="Servicio" class="w-full sm:w-40 h-28 object-cover rounded-lg shadow shrink-0" onerror="this.onerror=null; this.src='https://via.placeholder.com/160x112?text=Servicio';">
             <div>
@@ -232,7 +250,6 @@
             </div>
           </div>
 
-          <!-- Control m² -->
           <div class="space-y-3">
             <div class="flex justify-between items-center">
               <label class="font-semibold text-gray-700">2. Cantidad en Metros Cuadrados (m²):</label>
@@ -249,13 +266,11 @@
             </div>
 
             <button onclick="addCurrentMainService()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-sm text-xs uppercase tracking-wide">
-              <i class="fa-solid fa-cart-plus text-emerald-400 text-sm"></i> Agregar este Servicio Base a la Cotización
+              <i class="fa-solid fa-cart-plus text-emerald-400 text-sm"></i> Agregar este Servicio Base
             </button>
           </div>
-
         </div>
 
-        <!-- RESUMEN EN BANNER DERECHA -->
         <div class="bg-slate-900 text-white p-6 rounded-xl flex flex-col justify-between shadow-xl sticky top-6 z-10 border border-slate-800">
           <div>
             <span class="text-xs uppercase font-bold tracking-widest text-emerald-400">Resumen Detallado</span>
@@ -282,7 +297,7 @@
 
   </main>
 
-  <!-- BOTÓN FLOTANTE PARA ACTIVAR LA IA -->
+  <!-- BOTÓN FLOTANTE IA -->
   <div class="btn-ia-container ai-widget-container fixed bottom-6 left-6 z-[9999] flex items-center gap-2">
     <img id="aiFloatingAvatar" src="/img/asistente.png" alt="Asistente IA" class="ai-avatar-preview w-12 h-12 rounded-full border-2 border-emerald-400 object-cover shadow-lg" onerror="this.onerror=null; this.src='https://via.placeholder.com/65?text=IA';" />
 
