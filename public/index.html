@@ -18,37 +18,46 @@
 
 <body class="bg-gray-100 font-sans text-gray-800 antialiased">
 
-  <!-- HEADER CON EFECTO DE PISTA DE CARRERAS EN EL LOGO -->
+  <!-- HEADER CON EFECTO Y LOGO GIRATORIO -->
   <header class="w-full bg-[#003366] text-white py-2">
-    <div class="max-w-7xl mx-auto px-2">
-      <!-- Contenedor Pista de Carreras con Luz Giratoria y Pulso Tricolor -->
+    <div class="max-w-7xl mx-auto px-2 flex justify-between items-center">
+      <!-- Contenedor Pista de Carreras con Luz Giratoria -->
       <div class="race-track-container">
-        <img id="headerLogo" src="/img/logo-limbolivia.png" alt="LIMBOLIVIA División Limpieza" class="race-track-img object-cover"
+        <img id="headerLogo" src="/img/logo-limbolivia.png" alt="LIMBOLIVIA División Limpieza" class="logo-spin race-track-img object-cover h-16"
           onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x120?text=LIMBOLIVIA+Servicios+de+Limpieza';">
       </div>
     </div>
 
-    <!-- Menú de Navegación -->
-    <nav class="bg-[#002244] border-t border-[#004488] text-white text-xs font-bold uppercase mt-2">
-      <div class="max-w-7xl mx-auto px-4 flex flex-wrap gap-2 sm:gap-6 py-2">
-        <a href="#inicio" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1"><i
-            class="fa-solid fa-house"></i> Inicio</a>
-        <a href="#empresa" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1"><i
-            class="fa-solid fa-building"></i> Empresa</a>
-        <a href="#mision" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1"><i
-            class="fa-solid fa-bullseye"></i> Misión</a>
-        <a href="#vision" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1"><i
-            class="fa-solid fa-eye"></i> Visión</a>
-        <a href="#cotizador" class="text-amber-300 hover:text-white transition flex items-center gap-1.5 px-2 py-1"><i
-            class="fa-solid fa-calculator"></i> Cotizador</a>
-        <a href="https://wa.me/59171506930" target="_blank"
-          class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1"><i
-            class="fa-solid fa-envelope"></i> Contáctese</a>
+    <!-- Menú de Navegación con Dropdown -->
+    <nav class="navbar bg-[#002244] border-t border-[#004488] text-white text-xs font-bold uppercase mt-2">
+      <div class="max-w-7xl mx-auto px-4 flex flex-wrap gap-2 sm:gap-6 py-2 items-center">
+        <a href="#inicio" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1">
+          <i class="fa-solid fa-house"></i> Inicio
+        </a>
+        
+        <!-- Dropdown Desplegable de EMPRESA -->
+        <div class="dropdown relative group">
+          <a href="#empresa" class="dropbtn hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
+            <i class="fa-solid fa-building"></i> Empresa <i class="fa-solid fa-chevron-down text-[10px]"></i>
+          </a>
+          <ul class="dropdown-content absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-md py-2 w-48 z-50 mt-1">
+            <li><a href="#mision" class="block px-4 py-2 hover:bg-slate-100 hover:text-emerald-600 transition"><i class="fa-solid fa-bullseye mr-2"></i> Misión</a></li>
+            <li><a href="#vision" class="block px-4 py-2 hover:bg-slate-100 hover:text-emerald-600 transition"><i class="fa-solid fa-eye mr-2"></i> Visión</a></li>
+            <li><a href="#principios" class="block px-4 py-2 hover:bg-slate-100 hover:text-emerald-600 transition"><i class="fa-solid fa-shield-heart mr-2"></i> Nuestros Principios</a></li>
+          </ul>
+        </div>
+
+        <a href="#cotizador" class="text-amber-300 hover:text-white transition flex items-center gap-1.5 px-2 py-1">
+          <i class="fa-solid fa-calculator"></i> Cotizador
+        </a>
+        <a href="https://wa.me/59171506930" target="_blank" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1">
+          <i class="fa-solid fa-envelope"></i> Contáctese
+        </a>
       </div>
     </nav>
   </header>
 
-  <!-- SLIDER PRINCIPAL CON BANNERS CON ROTACIÓN AUTOMÁTICA DINÁMICA -->
+  <!-- SLIDER PRINCIPAL DE BANNERS -->
   <section id="inicio" class="relative max-w-7xl mx-auto overflow-hidden bg-slate-200">
     <div class="relative w-full h-[280px] sm:h-[380px] md:h-[450px]">
       <img id="mainSliderImg" src="/img/banner1.png" alt="Servicios LIMBOLIVIA"
@@ -64,7 +73,7 @@
         <i class="fa-solid fa-chevron-right text-xl"></i>
       </button>
 
-      <!-- Indicadores de Slides generados automáticamente -->
+      <!-- Indicadores -->
       <div id="slideIndicatorsContainer" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 bg-black/50 p-1.5 rounded-md z-10"></div>
     </div>
   </section>
@@ -119,7 +128,7 @@
     </div>
 
     <!-- VALORES CORPORATIVOS -->
-    <div class="mt-6 bg-slate-900 text-white rounded-2xl p-6 shadow-lg">
+    <div id="principios" class="mt-6 bg-slate-900 text-white rounded-2xl p-6 shadow-lg">
       <h3 class="text-center font-bold uppercase tracking-wider text-emerald-400 text-sm mb-6">Valores que nos Definen</h3>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
         <div class="p-3 bg-slate-800 rounded-xl border border-slate-700">
@@ -146,10 +155,8 @@
     </div>
   </section>
 
-  <!-- CONTENIDO PRINCIPAL / COTIZADOR -->
+  <!-- COTIZADOR Y SERVICIOS -->
   <main class="max-w-7xl mx-auto py-8 px-4 space-y-12">
-
-    <!-- SECCIÓN DE COTIZADOR DINÁMICO -->
     <section class="p-6 bg-slate-50 border-b rounded-2xl shadow-sm" id="cotizador">
       <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
         <i class="fa-solid fa-calculator text-emerald-600"></i> Cotizador Rápido de Servicios
@@ -158,66 +165,48 @@
       <div class="grid lg:grid-cols-3 gap-6 items-start">
         <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border space-y-6">
 
-          <!-- 1. Pestañas de Servicios Ampliados -->
+          <!-- Pestañas de Servicios -->
           <div>
             <label class="block font-semibold text-gray-700 mb-2">1. Selecciona un Servicio para Configurar:</label>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="serviceTabContainer">
-              <button onclick="selectServiceTab('Alfombras')" id="btn-Alfombras"
-                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('Alfombras')" id="btn-Alfombras" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-rug text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Alfombra Fija</span>
               </button>
-
-              <button onclick="selectServiceTab('AlfombraSuelta')" id="btn-AlfombraSuelta"
-                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('AlfombraSuelta')" id="btn-AlfombraSuelta" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-scroll text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Alfombra Suelta</span>
               </button>
-
-              <button onclick="selectServiceTab('Oficinas')" id="btn-Oficinas"
-                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('Oficinas')" id="btn-Oficinas" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-building text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Limpieza Oficinas</span>
               </button>
-
-              <button onclick="selectServiceTab('Casas')" id="btn-Casas"
-                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('Casas')" id="btn-Casas" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-house-chimney text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Limpieza Casas</span>
               </button>
-
-              <button onclick="selectServiceTab('LustradoFrio')" id="btn-LustradoFrio"
-                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('LustradoFrio')" id="btn-LustradoFrio" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-border-all text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Lustrado Piso Frío</span>
               </button>
-
-              <button onclick="selectServiceTab('LustradoMadera')" id="btn-LustradoMadera"
-                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('LustradoMadera')" id="btn-LustradoMadera" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-tree text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Lustrado Piso Madera</span>
               </button>
-
-              <button onclick="selectServiceTab('Fumigado')" id="btn-Fumigado"
-                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('Fumigado')" id="btn-Fumigado" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-spray-can-sparkles text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Fumigado General</span>
               </button>
-
-              <button onclick="selectServiceTab('Tanques')" id="btn-Tanques"
-                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('Tanques')" id="btn-Tanques" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-faucet-drip text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Limpieza Tanques</span>
               </button>
             </div>
           </div>
 
-          <!-- TARJETA DINÁMICA DE DETALLE -->
-          <div id="serviceDetailCard"
-            class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-4 transition-all">
-            <img id="serviceImage" src="/img/banner1.png" alt="Servicio"
-              class="w-full sm:w-40 h-28 object-cover rounded-lg shadow shrink-0"
-              onerror="this.onerror=null; this.src='https://via.placeholder.com/160x112?text=Servicio';">
+          <!-- TARJETA DINÁMICA -->
+          <div id="serviceDetailCard" class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-4 transition-all">
+            <img id="serviceImage" src="/img/banner1.png" alt="Servicio" class="w-full sm:w-40 h-28 object-cover rounded-lg shadow shrink-0" onerror="this.onerror=null; this.src='https://via.placeholder.com/160x112?text=Servicio';">
             <div>
               <h4 id="serviceTitle" class="font-bold text-slate-800 text-base mb-1">Lavado Profesional de Alfombra Fija</h4>
               <p id="serviceDescription" class="text-xs text-gray-600 leading-relaxed mb-2">Seleccione la superficie en metros cuadrados y adicione extras si lo requiere.</p>
@@ -227,7 +216,7 @@
             </div>
           </div>
 
-          <!-- 2. Control Metros Cuadrados -->
+          <!-- Control m² -->
           <div class="space-y-3">
             <div class="flex justify-between items-center">
               <label class="font-semibold text-gray-700">2. Cantidad en Metros Cuadrados (m²):</label>
@@ -238,56 +227,36 @@
             </div>
 
             <div class="flex items-center gap-3">
-              <button onclick="changeM2Step(-1)"
-                class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0">
-                <i class="fa-solid fa-minus"></i>
-              </button>
-
-              <input type="range" id="m2Slider" min="1" max="300" step="1" value="15"
-                class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="onSliderChange()">
-
-              <button onclick="changeM2Step(1)"
-                class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0">
-                <i class="fa-solid fa-plus"></i>
-              </button>
+              <button onclick="changeM2Step(-1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0"><i class="fa-solid fa-minus"></i></button>
+              <input type="range" id="m2Slider" min="1" max="300" step="1" value="15" class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="onSliderChange()">
+              <button onclick="changeM2Step(1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0"><i class="fa-solid fa-plus"></i></button>
             </div>
 
-            <button onclick="addCurrentMainService()"
-              class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-sm text-xs uppercase tracking-wide">
+            <button onclick="addCurrentMainService()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-sm text-xs uppercase tracking-wide">
               <i class="fa-solid fa-cart-plus text-emerald-400 text-sm"></i> Agregar este Servicio Base a la Cotización
             </button>
           </div>
 
-          <!-- 3. EXTRAS OPCIONALES -->
+          <!-- EXTRAS OPCIONALES -->
           <div class="mt-6 space-y-4">
             <h4 class="font-bold text-gray-800 text-base">3. Extras Opcionales para este Servicio:</h4>
 
             <!-- EXTRA VIDRIOS -->
             <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
               <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                <input type="checkbox" id="check-vidrios" class="w-4 h-4 accent-emerald-600 rounded"
-                  onchange="toggleExtra('vidrios')">
+                <input type="checkbox" id="check-vidrios" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtra('vidrios')">
                 <span>🧼 Lavado de Vidrios y Ventanas (Bs 12 / ventana)</span>
               </label>
-              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i>
-                Maquinaria: Limpiacristales telescópico de fibra de carbono.</p>
-
+              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i> Maquinaria: Limpiacristales telescópico de fibra de carbono.</p>
               <div id="panel-vidrios" class="hidden pt-3 border-t border-gray-200 space-y-3">
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-gray-600">Cantidad de Ventanas:</span>
-                  <span id="label-vidrios"
-                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 vent. (Bs 12)</span>
+                  <span id="label-vidrios" class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 vent. (Bs 12)</span>
                 </div>
                 <div class="flex items-center gap-2">
-                  <button onclick="changeExtraQty('vidrios', -1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                      class="fa-solid fa-minus"></i></button>
-                  <input type="range" id="range-vidrios" min="1" max="30" step="1" value="1"
-                    class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
-                    oninput="updateExtraValue('vidrios')">
-                  <button onclick="changeExtraQty('vidrios', 1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                      class="fa-solid fa-plus"></i></button>
+                  <button onclick="changeExtraQty('vidrios', -1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-minus"></i></button>
+                  <input type="range" id="range-vidrios" min="1" max="30" step="1" value="1" class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="updateExtraValue('vidrios')">
+                  <button onclick="changeExtraQty('vidrios', 1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-plus"></i></button>
                 </div>
               </div>
             </div>
@@ -295,29 +264,19 @@
             <!-- EXTRA SILLAS -->
             <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
               <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                <input type="checkbox" id="check-sillas" class="w-4 h-4 accent-emerald-600 rounded"
-                  onchange="toggleExtra('sillas')">
+                <input type="checkbox" id="check-sillas" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtra('sillas')">
                 <span>🪑 Lavado de Sillas (Bs 7 / unidad)</span>
               </label>
-              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i>
-                Maquinaria: Lavadora inyectora de espuma seca.</p>
-
+              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i> Maquinaria: Lavadora inyectora de espuma seca.</p>
               <div id="panel-sillas" class="hidden pt-3 border-t border-gray-200 space-y-3">
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-gray-600">Cantidad de Sillas:</span>
-                  <span id="label-sillas"
-                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 unidad (Bs 7)</span>
+                  <span id="label-sillas" class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 unidad (Bs 7)</span>
                 </div>
                 <div class="flex items-center gap-2">
-                  <button onclick="changeExtraQty('sillas', -1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                      class="fa-solid fa-minus"></i></button>
-                  <input type="range" id="range-sillas" min="1" max="50" step="1" value="1"
-                    class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
-                    oninput="updateExtraValue('sillas')">
-                  <button onclick="changeExtraQty('sillas', 1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                      class="fa-solid fa-plus"></i></button>
+                  <button onclick="changeExtraQty('sillas', -1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-minus"></i></button>
+                  <input type="range" id="range-sillas" min="1" max="50" step="1" value="1" class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="updateExtraValue('sillas')">
+                  <button onclick="changeExtraQty('sillas', 1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-plus"></i></button>
                 </div>
               </div>
             </div>
@@ -325,29 +284,19 @@
             <!-- EXTRA SOFÁS -->
             <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
               <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                <input type="checkbox" id="check-sofas" class="w-4 h-4 accent-emerald-600 rounded"
-                  onchange="toggleExtra('sofas')">
+                <input type="checkbox" id="check-sofas" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtra('sofas')">
                 <span>🛋️ Lavado de Sofás y Muebles</span>
               </label>
-              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i>
-                Maquinaria: Inyectora-extractora de vapor térmico.</p>
-
+              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i> Maquinaria: Inyectora-extractora de vapor térmico.</p>
               <div id="panel-sofas" class="hidden pt-3 border-t border-gray-200 space-y-3">
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-gray-600">Número de Cuerpos/Piezas:</span>
-                  <span id="label-sofas"
-                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 Cuerpo (Bs 40)</span>
+                  <span id="label-sofas" class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 Cuerpo (Bs 40)</span>
                 </div>
                 <div class="flex items-center gap-2">
-                  <button onclick="changeExtraQty('sofas', -1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                      class="fa-solid fa-minus"></i></button>
-                  <input type="range" id="range-sofas" min="1" max="5" step="1" value="1"
-                    class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
-                    oninput="updateExtraValue('sofas')">
-                  <button onclick="changeExtraQty('sofas', 1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                      class="fa-solid fa-plus"></i></button>
+                  <button onclick="changeExtraQty('sofas', -1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-minus"></i></button>
+                  <input type="range" id="range-sofas" min="1" max="5" step="1" value="1" class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="updateExtraValue('sofas')">
+                  <button onclick="changeExtraQty('sofas', 1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-plus"></i></button>
                 </div>
               </div>
             </div>
@@ -355,29 +304,19 @@
             <!-- EXTRA RIBETEADO -->
             <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
               <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                <input type="checkbox" id="check-ribeteado" class="w-4 h-4 accent-emerald-600 rounded"
-                  onchange="toggleExtra('ribeteado')">
+                <input type="checkbox" id="check-ribeteado" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtra('ribeteado')">
                 <span>🧵 Ribeteado / Costura de Bordes (Bs 15 / ML)</span>
               </label>
-              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i>
-                Maquinaria: Máquina Overlock Industrial Portátil.</p>
-
+              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i> Maquinaria: Máquina Overlock Industrial Portátil.</p>
               <div id="panel-ribeteado" class="hidden pt-3 border-t border-gray-200 space-y-3">
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-gray-600">Metros Lineales:</span>
-                  <span id="label-ribeteado"
-                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 ML (Bs 15)</span>
+                  <span id="label-ribeteado" class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 ML (Bs 15)</span>
                 </div>
                 <div class="flex items-center gap-2">
-                  <button onclick="changeExtraQty('ribeteado', -1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                      class="fa-solid fa-minus"></i></button>
-                  <input type="range" id="range-ribeteado" min="1" max="50" step="1" value="1"
-                    class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
-                    oninput="updateExtraValue('ribeteado')">
-                  <button onclick="changeExtraQty('ribeteado', 1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                      class="fa-solid fa-plus"></i></button>
+                  <button onclick="changeExtraQty('ribeteado', -1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-minus"></i></button>
+                  <input type="range" id="range-ribeteado" min="1" max="50" step="1" value="1" class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="updateExtraValue('ribeteado')">
+                  <button onclick="changeExtraQty('ribeteado', 1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-plus"></i></button>
                 </div>
               </div>
             </div>
@@ -385,41 +324,35 @@
             <!-- EXTRA FUMIGACIÓN -->
             <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
               <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                <input type="checkbox" id="check-fumigacionExtra" class="w-4 h-4 accent-emerald-600 rounded"
-                  onchange="toggleExtra('fumigacionExtra')">
+                <input type="checkbox" id="check-fumigacionExtra" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtra('fumigacionExtra')">
                 <span>🪰 Fumigación Ambiental de Insectoría (Bs 180)</span>
               </label>
-              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i>
-                Maquinaria: Termonebulizadora de alta presión.</p>
+              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i> Maquinaria: Termonebulizadora de alta presión.</p>
             </div>
 
             <!-- EXTRA COCINA -->
             <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
               <div class="flex items-center justify-between">
                 <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                  <input type="checkbox" id="check-cocina" class="w-4 h-4 accent-emerald-600 rounded"
-                    onchange="toggleExtra('cocina')">
+                  <input type="checkbox" id="check-cocina" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtra('cocina')">
                   <span>🍳 Limpieza Profunda de Cocina (Bs 150)</span>
                 </label>
                 <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Precio Fijo</span>
               </div>
-              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i>
-                Maquinaria: Generador de vapor desengrasante industrial.</p>
+              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i> Maquinaria: Generador de vapor desengrasante industrial.</p>
             </div>
           </div>
 
           <div class="pt-2">
-            <button onclick="addSelectedExtrasOnly()"
-              class="w-full bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm uppercase tracking-wide">
+            <button onclick="addSelectedExtrasOnly()" class="w-full bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm uppercase tracking-wide">
               <i class="fa-solid fa-plus-circle text-lg"></i> Agregar Extras Seleccionados a la Cotización
             </button>
           </div>
 
         </div>
 
-        <!-- RESUMEN DERECHA -->
-        <div
-          class="bg-slate-900 text-white p-6 rounded-xl flex flex-col justify-between shadow-xl sticky top-6 z-10 border border-slate-800">
+        <!-- RESUMEN EN BANNER DERECHA -->
+        <div class="bg-slate-900 text-white p-6 rounded-xl flex flex-col justify-between shadow-xl sticky top-6 z-10 border border-slate-800">
           <div>
             <span class="text-xs uppercase font-bold tracking-widest text-emerald-400">Resumen Detallado</span>
             <h3 class="text-lg font-bold mt-1 text-white border-b border-slate-700 pb-2">Servicios Confirmados</h3>
@@ -435,13 +368,11 @@
               <div id="summaryTotal" class="text-3xl font-black text-amber-400">Bs 0</div>
             </div>
 
-            <button onclick="sendToWhatsApp()"
-              class="w-full bg-green-600 hover:bg-green-500 active:bg-green-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm">
+            <button onclick="sendToWhatsApp()" class="w-full bg-green-600 hover:bg-green-500 active:bg-green-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm">
               <i class="fa-brands fa-whatsapp text-xl"></i> Reservar por WhatsApp
             </button>
 
-            <button onclick="talkQuote()"
-              class="w-full bg-slate-800 hover:bg-slate-700 text-emerald-400 font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition border border-slate-700 text-xs">
+            <button onclick="talkQuote()" class="w-full bg-slate-800 hover:bg-slate-700 text-emerald-400 font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition border border-slate-700 text-xs">
               <i class="fa-solid fa-volume-high"></i> Escuchar Cotización
             </button>
           </div>
@@ -450,16 +381,13 @@
     </section>
   </main>
 
-  <!-- ASISTENTE FLOTANTE Y CHATBOT -->
-  <div id="chatBox"
-    class="hidden fixed bottom-6 right-6 z-[9999] w-80 sm:w-96 bg-slate-900 text-white rounded-2xl shadow-2xl border border-slate-800 overflow-hidden flex flex-col h-[480px] transition-all">
+  <!-- ASISTENTE FLOTANTE Y CHATBOT DE IA -->
+  <div id="chatBox" class="hidden fixed bottom-6 right-6 z-[9999] w-80 sm:w-96 bg-slate-900 text-white rounded-2xl shadow-2xl border border-slate-800 overflow-hidden flex flex-col h-[480px] transition-all">
     <div class="bg-slate-800 p-3 flex justify-between items-center border-b border-slate-700">
       <div class="flex items-center gap-3">
         <div class="relative">
-          <img id="aiChatHeaderAvatar" src="/img/asistente.png" class="w-9 h-9 rounded-full border border-emerald-500 object-cover"
-            alt="Asistente" onerror="this.onerror=null; this.src='https://via.placeholder.com/40?text=IA';">
-          <span
-            class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-slate-900"></span>
+          <img id="aiChatHeaderAvatar" src="/img/asistente.png" class="w-9 h-9 rounded-full border border-emerald-500 object-cover" alt="Asistente" onerror="this.onerror=null; this.src='https://via.placeholder.com/40?text=IA';">
+          <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-slate-900"></span>
         </div>
         <div>
           <h3 class="text-sm font-bold text-white leading-tight">Asistente LIM-BOLIVIA</h3>
@@ -474,537 +402,28 @@
     <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs"></div>
 
     <div class="p-3 bg-slate-800 border-t border-slate-700 flex gap-2 items-center">
-      <input type="text" id="userInput" placeholder="Escribe tu mensaje..."
-        class="flex-1 bg-slate-900 text-white text-xs px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-emerald-500"
-        onkeypress="if(event.key === 'Enter') sendMessage()">
-      <button onclick="startListening()"
-        class="bg-slate-700 hover:bg-slate-600 text-emerald-400 p-2 rounded-lg transition"
-        title="Hablar por micrófono">
+      <input type="text" id="userInput" placeholder="Escribe tu mensaje..." class="flex-1 bg-slate-900 text-white text-xs px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-emerald-500" onkeypress="if(event.key === 'Enter') sendMessage()">
+      <button onclick="startListening()" class="bg-slate-700 hover:bg-slate-600 text-emerald-400 p-2 rounded-lg transition" title="Hablar por micrófono">
         <i class="fa-solid fa-microphone"></i>
       </button>
-      <button onclick="sendMessage()"
-        class="bg-emerald-600 hover:bg-emerald-500 text-white p-2 rounded-lg transition">
+      <button onclick="sendMessage()" class="bg-emerald-600 hover:bg-emerald-500 text-white p-2 rounded-lg transition">
         <i class="fa-solid fa-paper-plane"></i>
       </button>
     </div>
   </div>
 
-  <div class="ai-widget-container">
-    <img id="aiFloatingAvatar" src="/img/asistente.png" alt="Asistente IA" class="ai-avatar-preview"
-      onerror="this.onerror=null; this.src='https://via.placeholder.com/65?text=IA';" />
+  <!-- BOTÓN FLOTANTE PARA ACTIVAR LA IA -->
+  <div class="btn-ia-container ai-widget-container fixed bottom-6 left-6 z-[9999] flex items-center gap-2">
+    <img id="aiFloatingAvatar" src="/img/asistente.png" alt="Asistente IA" class="ai-avatar-preview w-12 h-12 rounded-full border-2 border-emerald-400 object-cover shadow-lg" onerror="this.onerror=null; this.src='https://via.placeholder.com/65?text=IA';" />
 
-    <button id="aiTriggerBtn" onclick="toggleChat()" class="ai-glowing-btn">
-      <span>
-        <i class="fa-solid fa-robot text-emerald-300 text-lg"></i>
-        Hablar con IA
-      </span>
+    <button id="btnHablarIA" onclick="toggleChat()" class="btn-ia ai-glowing-btn bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 rounded-full font-bold shadow-xl flex items-center gap-2 transition-all cursor-pointer">
+      <i class="fa-solid fa-robot text-emerald-200 text-lg"></i>
+      <span>Hablar con IA</span>
     </button>
   </div>
 
   <!-- SCRIPT CENTRALIZADO -->
-  <script>
-    /* ========================================================
-       CONFIGURACIÓN DE IMÁGENES GLOBALES
-       ======================================================== */
-    const APP_IMAGES = {
-      logo: "/img/logo-limbolivia.png",
-      avatarAI: "/img/asistente.png",
-      placeholder: "https://via.placeholder.com/600x400?text=LIM-BOLIVIA"
-    };
-
-    /* ========================================================
-       SLIDER PRINCIPAL ESCALABLE
-       ======================================================== */
-    const slides = [
-      "/img/banner1.png",
-      "/img/banner2.png",
-      "/img/banner3.png",
-      "/img/banner4.png"
-    ];
-
-    let currentSlide = 0;
-    let slideTimer = null;
-
-    function renderSlideIndicators() {
-      const container = document.getElementById('slideIndicatorsContainer');
-      if (!container) return;
-      container.innerHTML = '';
-      slides.forEach((_, i) => {
-        const btn = document.createElement('button');
-        btn.id = `slideBtn-${i}`;
-        btn.onclick = () => setSlide(i);
-        btn.innerText = i + 1;
-        btn.className = i === currentSlide
-          ? "w-6 h-6 text-xs font-bold rounded text-white bg-blue-600"
-          : "w-6 h-6 text-xs font-bold rounded text-white bg-slate-800 hover:bg-slate-700";
-        container.appendChild(btn);
-      });
-    }
-
-    function updateSlideUI() {
-      const img = document.getElementById('mainSliderImg');
-      if (img) img.src = slides[currentSlide];
-      slides.forEach((_, i) => {
-        const btn = document.getElementById(`slideBtn-${i}`);
-        if (btn) {
-          btn.className = i === currentSlide
-            ? "w-6 h-6 text-xs font-bold rounded text-white bg-blue-600"
-            : "w-6 h-6 text-xs font-bold rounded text-white bg-slate-800 hover:bg-slate-700";
-        }
-      });
-    }
-
-    function nextSlide() {
-      currentSlide = (currentSlide + 1) % slides.length;
-      updateSlideUI();
-    }
-
-    function prevSlide() {
-      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-      updateSlideUI();
-    }
-
-    function setSlide(index) {
-      currentSlide = index;
-      updateSlideUI();
-      resetSlideTimer();
-    }
-
-    function startSlideTimer() {
-      if (slideTimer) clearInterval(slideTimer);
-      slideTimer = setInterval(nextSlide, 4000);
-    }
-
-    function resetSlideTimer() {
-      startSlideTimer();
-    }
-
-    /* ========================================================
-       COTIZADOR Y TARIFAS DE SERVICIOS
-       ======================================================== */
-    const serviceRates = {
-      'Alfombras': { name: "LAVADO DE ALFOMBRA - FIJA", rate: 15, img: "/img/alfombra_fija.png", machine: "Inyectora / Extractora Profesional de Alta Presión", desc: "Lavado profundo con inyección de espumas biológicas para moquetas fijas." },
-      'AlfombraSuelta': { name: "ALFOMBRA - SUELTA", rate: 18, img: "/img/alfombrafija.png", machine: "Lavadora Centrefugadora Textil Portátil", desc: "Tratamiento intensivo con sacudido mecánico y secado rápido." },
-      'Oficinas': { name: "LIMPIEZA DE OFICINAS", rate: 12, img: "/img/oficina.png", machine: "Rotativa Industrial y Aspirado HEPA", desc: "Mantenimiento integral de escritorios, pisos fijos y áreas comunes." },
-      'Casas': { name: "LIMPIEZA DE CASAS", rate: 10, img: "/img/casa.png", machine: "Generador de Vapor a Alta Temperatura", desc: "Desinfección profunda de superficies, salas y ambientes habitacionales." },
-      'LustradoFrio': { name: "LUSTRADO PISO FRIO", rate: 14, img: "/img/piso_frio.png", machine: "Lustradora Monodisco de Alta Velocidad", desc: "Sellado, encerado y cristalizado de mosaicos, cerámica y porcelanato." },
-      'LustradoMadera': { name: "LUSTRADO PISO DE MADERA", rate: 20, img: "/img/madera.png", machine: "Pulidora / Acuchilladora de Parquet No-Dust", desc: "Restauración de brillo, aplicación de cera nutritiva o poliuretano." },
-      'Fumigado': { name: "FUMIGADO - GENERAL", rate: 8, img: "/img/fumigado.png", machine: "Termonebulizadora con Motor a Combustión", desc: "Eliminación de plagas, rastreros y voladores con biocidas autorizados." },
-      'Tanques': { name: "LIMPIEZA DE TANQUES - EXTRACCION DE HUMEDAD - INUNDACION", rate: 25, img: "/img/tanque.png", machine: "Bomba Sumergible de Lodos e Hidrolavadora 200 Bar", desc: "Lavado, evacuación de sedimentos y cloración de tanques de agua." }
-    };
-
-    let currentSelectedServiceKey = 'Alfombras';
-    let currentM2 = 15;
-    let addedServices = [];
-
-    const extraPrices = {
-      vidrios: { pricePerUnit: 12, name: "Lavado de Vidrios" },
-      sillas: { pricePerUnit: 7, name: "Lavado de Sillas" },
-      sofas: { pricePerUnit: 40, name: "Lavado de Sofás" },
-      ribeteado: { pricePerUnit: 15, name: "Ribeteado de Alfombra" },
-      fumigacionExtra: { fixedPrice: 180, name: "Fumigación Ambiental Extra" },
-      cocina: { fixedPrice: 150, name: "Limpieza Profunda Cocina" }
-    };
-
-    function selectServiceTab(key) {
-      if (!serviceRates[key]) return;
-      currentSelectedServiceKey = key;
-
-      Object.keys(serviceRates).forEach(k => {
-        const btn = document.getElementById(`btn-${k}`);
-        if (btn) {
-          if (k === key) {
-            btn.classList.add('bg-emerald-100', 'border-emerald-500', 'ring-2', 'ring-emerald-400');
-            btn.classList.remove('border-gray-200');
-          } else {
-            btn.classList.remove('bg-emerald-100', 'border-emerald-500', 'ring-2', 'ring-emerald-400');
-            btn.classList.add('border-gray-200');
-          }
-        }
-      });
-
-      const sData = serviceRates[key];
-      document.getElementById('serviceTitle').innerText = sData.name;
-      document.getElementById('serviceDescription').innerText = sData.desc;
-      document.getElementById('serviceMachine').innerText = `Maquinaria: ${sData.machine}`;
-      const imgElem = document.getElementById('serviceImage');
-      if (imgElem) imgElem.src = sData.img;
-
-      calculateBaseServiceSubtotal();
-    }
-
-    function calculateBaseServiceSubtotal() {
-      const sData = serviceRates[currentSelectedServiceKey];
-      const subtotal = currentM2 * sData.rate;
-
-      document.getElementById('m2Value').innerText = `${currentM2} m²`;
-      document.getElementById('m2Subtotal').innerText = `(Bs ${subtotal})`;
-      return subtotal;
-    }
-
-    function onSliderChange() {
-      const slider = document.getElementById('m2Slider');
-      currentM2 = parseInt(slider.value) || 1;
-      calculateBaseServiceSubtotal();
-    }
-
-    function changeM2Step(delta) {
-      const slider = document.getElementById('m2Slider');
-      let val = (parseInt(slider.value) || 1) + delta;
-      if (val < 1) val = 1;
-      if (val > 300) val = 300;
-      slider.value = val;
-      currentM2 = val;
-      calculateBaseServiceSubtotal();
-    }
-
-    function toggleExtra(extraKey) {
-      const chk = document.getElementById(`check-${extraKey}`);
-      const panel = document.getElementById(`panel-${extraKey}`);
-      if (panel) {
-        if (chk && chk.checked) panel.classList.remove('hidden');
-        else panel.classList.add('hidden');
-      }
-    }
-
-    function updateExtraValue(extraKey) {
-      const rng = document.getElementById(`range-${extraKey}`);
-      const lbl = document.getElementById(`label-${extraKey}`);
-      if (!rng || !lbl) return;
-
-      const qty = parseInt(rng.value) || 1;
-      const unitPrice = extraPrices[extraKey].pricePerUnit;
-      const total = qty * unitPrice;
-
-      lbl.innerText = `${qty} ${extraKey === 'vidrios' ? 'vent.' : extraKey === 'sofas' ? 'Cuerpos' : extraKey === 'ribeteado' ? 'ML' : 'unid.'} (Bs ${total})`;
-    }
-
-    function changeExtraQty(extraKey, delta) {
-      const rng = document.getElementById(`range-${extraKey}`);
-      if (!rng) return;
-      let val = (parseInt(rng.value) || 1) + delta;
-      if (val < 1) val = 1;
-      rng.value = val;
-      updateExtraValue(extraKey);
-    }
-
-    function resetCotizadorInputs() {
-      Object.keys(extraPrices).forEach(key => {
-        const chk = document.getElementById(`check-${key}`);
-        if (chk) chk.checked = false;
-
-        const panel = document.getElementById(`panel-${key}`);
-        if (panel) panel.classList.add('hidden');
-
-        const rng = document.getElementById(`range-${key}`);
-        if (rng) {
-          rng.value = 1;
-          updateExtraValue(key);
-        }
-      });
-    }
-
-    function addCurrentMainService() {
-      const sData = serviceRates[currentSelectedServiceKey];
-      const subtotal = currentM2 * sData.rate;
-
-      addedServices.push({
-        id: Date.now() + Math.random(),
-        title: `${sData.name} (${currentM2} m²)`,
-        price: subtotal
-      });
-
-      renderSummary();
-    }
-
-    function addSelectedExtrasOnly() {
-      let addedCount = 0;
-
-      Object.keys(extraPrices).forEach(key => {
-        const chk = document.getElementById(`check-${key}`);
-        if (chk && chk.checked) {
-          const itemConfig = extraPrices[key];
-          let cost = 0;
-          let label = itemConfig.name;
-
-          if (itemConfig.fixedPrice) {
-            cost = itemConfig.fixedPrice;
-          } else {
-            const rng = document.getElementById(`range-${key}`);
-            const qty = rng ? parseInt(rng.value) || 1 : 1;
-            cost = qty * itemConfig.pricePerUnit;
-            label += ` (${qty})`;
-          }
-
-          addedServices.push({
-            id: Date.now() + Math.random(),
-            title: label,
-            price: cost
-          });
-
-          addedCount++;
-        }
-      });
-
-      if (addedCount > 0) {
-        resetCotizadorInputs();
-        renderSummary();
-      } else {
-        alert("Por favor marque al menos una casilla de los Extras Opcionales antes de hacer clic en este botón.");
-      }
-    }
-
-    function removeService(id) {
-      addedServices = addedServices.filter(item => item.id !== id);
-      renderSummary();
-    }
-
-    function renderSummary() {
-      const container = document.getElementById('servicesBreakdown');
-      const totalDisplay = document.getElementById('summaryTotal');
-      if (!container || !totalDisplay) return;
-
-      if (addedServices.length === 0) {
-        container.innerHTML = '<p class="text-xs text-gray-400 italic text-center py-4">No has agregado ningún servicio todavía.</p>';
-        totalDisplay.innerText = 'Bs 0';
-        return;
-      }
-
-      container.innerHTML = '';
-      let sum = 0;
-
-      addedServices.forEach(item => {
-        sum += item.price;
-        const row = document.createElement('div');
-        row.className = "flex justify-between items-center bg-slate-800 p-2.5 rounded-lg mb-2 text-xs border border-slate-700";
-        row.innerHTML = `
-          <span class="font-medium text-gray-200 truncate max-w-[170px]">${item.title}</span>
-          <div class="flex items-center gap-2">
-            <span class="font-bold text-emerald-400">Bs ${item.price}</span>
-            <button onclick="removeService(${item.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fa-solid fa-trash"></i></button>
-          </div>
-        `;
-        container.appendChild(row);
-      });
-
-      totalDisplay.innerText = `Bs ${sum}`;
-    }
-
-    function sendToWhatsApp() {
-      if (addedServices.length === 0) {
-        alert("Por favor, agrega al menos un servicio a la cotización.");
-        return;
-      }
-
-      let text = "¡Hola LIM-BOLIVIA! Deseo reservar el siguiente detalle de cotización:\n\n";
-      let total = 0;
-      addedServices.forEach((s, i) => {
-        text += `${i + 1}. ${s.title} - Bs ${s.price}\n`;
-        total += s.price;
-      });
-      text += `\n*Total Estimado: Bs ${total}*`;
-
-      const numWhatsApp = "59171506930";
-      window.open(`https://wa.me/${numWhatsApp}?text=${encodeURIComponent(text)}`, '_blank');
-    }
-
-    function talkQuote() {
-      if (addedServices.length === 0) {
-        hablarTexto("Aún no ha agregado servicios a su resumen de cotización.");
-        return;
-      }
-      let total = addedServices.reduce((acc, curr) => acc + curr.price, 0);
-      hablarTexto(`Su cotización actual tiene un total estimado de ${total} Bolivianos.`);
-    }
-
-    /* ========================================================
-       LÓGICA CHATBOT Y VOZ
-       ======================================================== */
-    let saludoInicialDado = false;
-    let vozSeleccionada = null;
-    let audioDesbloqueado = false;
-
-    function cargarVoces() {
-      if (!('speechSynthesis' in window)) return;
-      const voces = window.speechSynthesis.getVoices();
-      if (voces.length > 0) {
-        vozSeleccionada = voces.find(v => v.lang.includes('es-MX') || v.lang.includes('es-ES') || v.lang.startsWith('es')) || voces[0];
-      }
-    }
-
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.onvoiceschanged = cargarVoces;
-      cargarVoces();
-    }
-
-    function desbloquearAudioMobile() {
-      if (audioDesbloqueado || !('speechSynthesis' in window)) return;
-      const silencio = new SpeechSynthesisUtterance('');
-      silencio.volume = 0;
-      window.speechSynthesis.speak(silencio);
-      audioDesbloqueado = true;
-    }
-
-    document.addEventListener('touchstart', desbloquearAudioMobile, { once: true });
-    document.addEventListener('click', desbloquearAudioMobile, { once: true });
-
-    function hablarTexto(texto) {
-      if (!('speechSynthesis' in window)) return;
-      window.speechSynthesis.cancel();
-
-      let textoLimpio = texto
-        .replace(/https?:\/\/[^\s]+/g, '')
-        .replace(/\*\*/g, '')
-        .replace(/\*/g, '')
-        .replace(/#/g, '')
-        .replace(/`/g, '')
-        .replace(/LIM-BOLIVIA/gi, "Lim Bolivia")
-        .trim();
-
-      if (!textoLimpio) return;
-
-      const utterance = new SpeechSynthesisUtterance(textoLimpio);
-      if (!vozSeleccionada) cargarVoces();
-      if (vozSeleccionada) utterance.voice = vozSeleccionada;
-
-      utterance.lang = 'es-ES';
-      utterance.rate = 1.0;
-
-      window.speechSynthesis.speak(utterance);
-    }
-
-    function toggleChat() {
-      desbloquearAudioMobile();
-      const chatBox = document.getElementById('chatBox');
-      const triggerBtn = document.getElementById('aiTriggerBtn');
-      const floatingAvatar = document.getElementById('aiFloatingAvatar');
-      if (!chatBox) return;
-
-      const estaOculto = chatBox.classList.contains('hidden');
-
-      if (estaOculto) {
-        chatBox.classList.remove('hidden');
-        if (triggerBtn) triggerBtn.classList.add('hidden');
-        if (floatingAvatar) floatingAvatar.classList.add('hidden');
-
-        const chatMessages = document.getElementById('chatMessages');
-        const mensajeBienvenida = "¡Hola! Bienvenido a Lim Bolivia. ¿En qué te puedo ayudar hoy?";
-
-        if (chatMessages && chatMessages.children.length === 0) {
-          appendMessage('bot', mensajeBienvenida);
-        }
-
-        if (!saludoInicialDado) {
-          hablarTexto(mensajeBienvenida);
-          saludoInicialDado = true;
-        }
-      } else {
-        chatBox.classList.add('hidden');
-        if (triggerBtn) triggerBtn.classList.remove('hidden');
-        if (floatingAvatar) floatingAvatar.classList.remove('hidden');
-
-        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-      }
-    }
-
-    function appendMessage(sender, text) {
-      const chatMessages = document.getElementById('chatMessages');
-      if (!chatMessages) return;
-
-      const msgDiv = document.createElement('div');
-
-      if (sender === 'user') {
-        msgDiv.className = "bg-emerald-600 text-white p-2.5 rounded-xl ml-auto max-w-[85%] animate-fade-in whitespace-pre-line";
-        msgDiv.textContent = text;
-      } else {
-        msgDiv.className = "bg-slate-800 text-gray-200 p-2.5 rounded-xl border border-slate-700 max-w-[85%] animate-fade-in whitespace-pre-line leading-relaxed";
-
-        let formattedText = text.replace(/\*\*/g, '');
-        const urlPattern = /(https?:\/\/[^\s<]+)/g;
-
-        formattedText = formattedText.replace(urlPattern, function (url) {
-          if (url.includes('wa.me')) {
-            return `<br><a href="${url}" target="_blank" class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition shadow-md my-2 no-underline"><i class="fa-brands fa-whatsapp text-base"></i> Confirmar Reserva por WhatsApp</a>`;
-          }
-          return `<br><a href="${url}" target="_blank" class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1 rounded-lg text-xs transition shadow-sm my-1 no-underline"><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Abrir enlace</a>`;
-        });
-
-        msgDiv.innerHTML = formattedText;
-      }
-
-      chatMessages.appendChild(msgDiv);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    async function sendMessage() {
-      const input = document.getElementById('userInput');
-      if (!input) return;
-
-      const message = input.value.trim();
-      if (!message) return;
-
-      appendMessage('user', message);
-      input.value = '';
-
-      try {
-        const response = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: message })
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          const reply = data.reply || data.message || "Entendido.";
-          appendMessage('bot', reply);
-          hablarTexto(reply);
-        } else {
-          const errorMsg = "No puedo conectarme con el servidor en este momento.";
-          appendMessage('bot', errorMsg);
-          hablarTexto(errorMsg);
-        }
-      } catch (err) {
-        console.error("Error backend:", err);
-      }
-    }
-
-    function startListening() {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!SpeechRecognition) {
-        alert("Tu navegador no soporta reconocimiento de voz.");
-        return;
-      }
-
-      const recognition = new SpeechRecognition();
-      recognition.lang = 'es-ES';
-
-      recognition.onstart = function () {
-        const input = document.getElementById('userInput');
-        if (input) input.placeholder = "Escuchando...";
-      };
-
-      recognition.onresult = function (event) {
-        const transcript = event.results[0][0].transcript;
-        const input = document.getElementById('userInput');
-        if (input) {
-          input.value = transcript;
-          input.placeholder = "Escribe tu mensaje...";
-        }
-        sendMessage();
-      };
-
-      recognition.start();
-    }
-
-    /* ========================================================
-       INICIALIZACIÓN GENERAL
-       ======================================================== */
-    document.addEventListener('DOMContentLoaded', () => {
-      renderSlideIndicators();
-      selectServiceTab('Alfombras');
-      startSlideTimer();
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 
 </html>
