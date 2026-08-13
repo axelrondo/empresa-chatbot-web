@@ -26,7 +26,6 @@ function showView(viewId) {
    2. CARRUSEL / SLIDER PRINCIPAL
    ========================================== */
 
-// Lista de imágenes para el slider
 const slideImages = [
   '/img/banner1.png',
   '/img/banner2.png',
@@ -76,18 +75,15 @@ function updateIndicators() {
 // Rotación automática del slider cada 5 segundos
 setInterval(() => {
   const inicioSection = document.getElementById('view-inicio');
-  // Solo rotar si la vista de inicio está visible
   if (inicioSection && !inicioSection.classList.contains('hidden')) {
     nextSlide();
   }
 }, 5000);
 
-
 /* ==========================================
    3. LÓGICA DEL COTIZADOR DE SERVICIOS
    ========================================== */
 
-// Base de datos de servicios y precios base por m² (en Bs)
 const servicesData = {
   'Alfombras': {
     title: 'Lavado Profesional de Alfombra Fija',
@@ -150,13 +146,11 @@ const servicesData = {
 let currentSelectedKey = 'Alfombras';
 let selectedCartItems = [];
 
-// Cambia la pestaña activa del cotizador
 function selectServiceTab(serviceKey) {
   currentSelectedKey = serviceKey;
   const data = servicesData[serviceKey];
   if (!data) return;
 
-  // Actualizar estilos de los botones
   Object.keys(servicesData).forEach(key => {
     const btn = document.getElementById(`btn-${key}`);
     if (btn) {
@@ -170,29 +164,38 @@ function selectServiceTab(serviceKey) {
     }
   });
 
-  // Actualizar datos de la tarjeta dinámica
-  document.getElementById('serviceTitle').textContent = data.title;
-  document.getElementById('serviceDescription').textContent = data.description;
-  document.getElementById('serviceMachine').textContent = `Maquinaria: ${data.machine}`;
-  document.getElementById('serviceImage').src = data.image;
+  const titleEl = document.getElementById('serviceTitle');
+  const descEl = document.getElementById('serviceDescription');
+  const machineEl = document.getElementById('serviceMachine');
+  const imgEl = document.getElementById('serviceImage');
+
+  if (titleEl) titleEl.textContent = data.title;
+  if (descEl) descEl.textContent = data.description;
+  if (machineEl) machineEl.textContent = `Maquinaria: ${data.machine}`;
+  if (imgEl) imgEl.src = data.image;
 
   onSliderChange();
 }
 
-// Evento al mover la barra de m²
 function onSliderChange() {
   const slider = document.getElementById('m2Slider');
+  if (!slider) return;
+  
   const m2Val = parseInt(slider.value, 10);
   const data = servicesData[currentSelectedKey];
 
-  document.getElementById('m2Value').textContent = `${m2Val} m²`;
+  const m2ValEl = document.getElementById('m2Value');
+  const m2SubEl = document.getElementById('m2Subtotal');
+
+  if (m2ValEl) m2ValEl.textContent = `${m2Val} m²`;
   const subtotal = m2Val * data.pricePerM2;
-  document.getElementById('m2Subtotal').textContent = `(Bs ${subtotal})`;
+  if (m2SubEl) m2SubEl.textContent = `(Bs ${subtotal})`;
 }
 
-// Botones + y - para m²
 function changeM2Step(delta) {
   const slider = document.getElementById('m2Slider');
+  if (!slider) return;
+  
   let current = parseInt(slider.value, 10) + delta;
   if (current < 1) current = 1;
   if (current > 300) current = 300;
@@ -200,9 +203,10 @@ function changeM2Step(delta) {
   onSliderChange();
 }
 
-// Agregar servicio seleccionado al carrito
 function addCurrentMainService() {
   const slider = document.getElementById('m2Slider');
+  if (!slider) return;
+  
   const m2 = parseInt(slider.value, 10);
   const data = servicesData[currentSelectedKey];
   const totalItem = m2 * data.pricePerM2;
@@ -216,16 +220,15 @@ function addCurrentMainService() {
   renderCart();
 }
 
-// Eliminar un item del carrito
 function removeCartItem(index) {
   selectedCartItems.splice(index, 1);
   renderCart();
 }
 
-// Renderizar el resumen del carrito
 function renderCart() {
   const container = document.getElementById('servicesBreakdown');
   const totalEl = document.getElementById('summaryTotal');
+  if (!container || !totalEl) return;
 
   if (selectedCartItems.length === 0) {
     container.innerHTML = '<p class="text-xs text-gray-400 italic text-center py-4">No has agregado ningún servicio todavía.</p>';
@@ -256,7 +259,6 @@ function renderCart() {
   totalEl.textContent = `Bs ${grandTotal}`;
 }
 
-// Enviar la cotización directamente por WhatsApp
 function sendToWhatsApp() {
   if (selectedCartItems.length === 0) {
     alert('Por favor agrega al menos un servicio a tu cotización.');
@@ -275,7 +277,7 @@ function sendToWhatsApp() {
 
   mensaje += `*TOTAL ESTIMADO: Bs ${total}*\n\nQuedo a la espera de su confirmación. ¡Muchas gracias!`;
 
-  const numeroTelefono = '59171506930'; // Número oficial de LIMBOLIVIA
+  const numeroTelefono = '59171506930';
   const url = `https://wa.me/${numeroTelefono}?text=${encodeURIComponent(mensaje)}`;
   window.open(url, '_blank');
 }
@@ -293,12 +295,7 @@ function toggleChat() {
    ========================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Asegurar vista de inicio cargada por defecto
   showView('view-inicio');
-  
-  // Inicializar slider e indicadores
   updateIndicators();
-  
-  // Inicializar primera pestaña del cotizador
   selectServiceTab('Alfombras');
 });
