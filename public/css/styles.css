@@ -137,7 +137,7 @@ html {
   position: relative;
   display: inline-flex;
   align-items: center;
-  justify-center: center;
+  justify-content: center; /* Corregido: antes decía justify-center */
   padding: 10px 20px;
   border-radius: 9999px;
   background: #10b981; /* Verde esmeralda base */
@@ -161,6 +161,7 @@ html {
   background: conic-gradient(transparent, #ffffff, rgba(16, 185, 129, 0.8), transparent 30%);
   animation: girarLuz 3s linear infinite;
   z-index: 1;
+  pointer-events: none;
 }
 
 .ai-glowing-btn::after {
@@ -170,6 +171,7 @@ html {
   background: #047857;
   border-radius: 9999px;
   z-index: 1;
+  pointer-events: none;
 }
 
 /* Mantener todos los elementos internos sobre la luz */

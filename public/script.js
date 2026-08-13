@@ -3,21 +3,22 @@
    ========================================== */
 
 /**
- * Muestra la vista seleccionada y oculta las demás.
+ * Muestra la vista seleccionada y oculta las demás de forma fluida.
  * @param {string} viewId - ID de la sección a mostrar
  */
 function showView(viewId) {
-  // Ocultar todas las secciones con la clase 'view-section'
+  // Ocultar todas las secciones
   const sections = document.querySelectorAll('.view-section');
   sections.forEach(section => {
     section.classList.add('hidden');
   });
 
-  // Mostrar la vista deseada
+  // Mostrar la vista seleccionada
   const targetView = document.getElementById(viewId);
   if (targetView) {
     targetView.classList.remove('hidden');
-    // Desplazar suavemente al inicio de la página
+    
+    // Smooth scroll superior
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
@@ -64,15 +65,15 @@ function updateIndicators() {
   container.innerHTML = '';
   slideImages.forEach((_, idx) => {
     const dot = document.createElement('div');
-    dot.className = `w-2.5 h-2.5 rounded-full cursor-pointer transition-all ${
-      idx === currentSlideIndex ? 'bg-amber-400 w-6' : 'bg-white/60 hover:bg-white'
+    dot.className = `h-2.5 rounded-full cursor-pointer transition-all duration-300 ${
+      idx === currentSlideIndex ? 'bg-amber-400 w-6' : 'bg-white/60 hover:bg-white w-2.5'
     }`;
     dot.onclick = () => setSlide(idx);
     container.appendChild(dot);
   });
 }
 
-// Rotación automática del slider cada 5 segundos
+// Rotación automática del slider cada 5 segundos (solo activa si Inicio está visible)
 setInterval(() => {
   const inicioSection = document.getElementById('view-inicio');
   if (inicioSection && !inicioSection.classList.contains('hidden')) {
@@ -151,19 +152,21 @@ function selectServiceTab(serviceKey) {
   const data = servicesData[serviceKey];
   if (!data) return;
 
+  // Actualizar resaltado de botones
   Object.keys(servicesData).forEach(key => {
     const btn = document.getElementById(`btn-${key}`);
     if (btn) {
       if (key === serviceKey) {
-        btn.classList.add('bg-emerald-100', 'border-emerald-600', 'text-emerald-900');
+        btn.classList.add('bg-emerald-100', 'border-emerald-600', 'text-emerald-900', 'shadow-sm');
         btn.classList.remove('border-gray-200');
       } else {
-        btn.classList.remove('bg-emerald-100', 'border-emerald-600', 'text-emerald-900');
+        btn.classList.remove('bg-emerald-100', 'border-emerald-600', 'text-emerald-900', 'shadow-sm');
         btn.classList.add('border-gray-200');
       }
     }
   });
 
+  // Actualizar textos en la tarjeta de detalle
   const titleEl = document.getElementById('serviceTitle');
   const descEl = document.getElementById('serviceDescription');
   const machineEl = document.getElementById('serviceMachine');
@@ -249,7 +252,7 @@ function renderCart() {
         </div>
         <div class="text-right shrink-0">
           <p class="font-bold text-emerald-400">Bs ${item.subtotal}</p>
-          <button onclick="removeCartItem(${idx})" class="text-red-400 hover:text-red-300 text-[10px] underline">Quitar</button>
+          <button onclick="removeCartItem(${idx})" class="text-red-400 hover:text-red-300 text-[10px] underline cursor-pointer">Quitar</button>
         </div>
       </div>
     `;
@@ -283,11 +286,12 @@ function sendToWhatsApp() {
 }
 
 /* ==========================================
-   4. CHAT Y ASISTENTE IA (INTERFAZ)
+   4. CHAT Y ASISTENTE IA
    ========================================== */
 
 function toggleChat() {
-  alert('Iniciando interacción con el Asistente de IA de LIMBOLIVIA...');
+  // Puedes sustituir esto por la apertura de un modal o widget conversacional real
+  console.log('Iniciando asistente interactivo...');
 }
 
 /* ==========================================

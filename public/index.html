@@ -14,6 +14,20 @@
 
   <!-- Hoja de Estilos CSS Personalizada -->
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Estilos para animación fluida al alternar secciones */
+    .view-section {
+      transition: all 0.3s ease-in-out;
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 
 <body class="bg-gray-100 font-sans text-gray-800 antialiased">
@@ -128,7 +142,7 @@
       <div class="lg:col-span-2 space-y-6">
 
         <!-- ================= VISTA INICIO ================= -->
-        <div id="view-inicio" class="view-section space-y-6">
+        <div id="view-inicio" class="view-section space-y-6 animate-fade-in">
           <section class="relative w-full overflow-hidden bg-slate-200 rounded-xl shadow-md">
             <div class="relative w-full h-[280px] sm:h-[380px] md:h-[450px]">
               <img id="mainSliderImg" src="/img/banner1.png" alt="Servicios LIMBOLIVIA"
@@ -160,7 +174,7 @@
 
         <!-- ================= VISTA MISIÓN / VISIÓN ================= -->
         <div id="view-mision-vision"
-          class="view-section hidden bg-white p-6 md:p-8 rounded-2xl shadow-md border border-slate-200 space-y-8">
+          class="view-section hidden bg-white p-6 md:p-8 rounded-2xl shadow-md border border-slate-200 space-y-8 animate-fade-in">
 
           <div class="space-y-3">
             <h2 class="text-xl md:text-2xl font-black text-[#003366] tracking-wide uppercase flex items-center gap-2">
@@ -233,7 +247,7 @@
 
         <!-- ================= VISTA ¿QUIÉNES SOMOS? ================= -->
         <div id="view-quienes-somos"
-          class="view-section hidden bg-white p-6 md:p-8 rounded-2xl shadow-md border border-slate-200 space-y-8">
+          class="view-section hidden bg-white p-6 md:p-8 rounded-2xl shadow-md border border-slate-200 space-y-8 animate-fade-in">
 
           <div class="border-b border-slate-200 pb-4">
             <h2 class="text-2xl md:text-3xl font-black text-[#003366] tracking-wide uppercase flex items-center gap-3">
@@ -243,16 +257,10 @@
 
           <div class="space-y-4 text-gray-700 leading-relaxed text-sm md:text-base">
             <p>
-              (División Limpieza), creada en la ciudad de La Paz - Bolivia en Diciembre de 1999, formada en un principio
-              con el nombre de "Electrolux Line Servicios..." (El proceso de cambio de nombre se lo comenzó el 1º de
-              junio del año 2001). Organizada y Especializada en la realización de trabajos eventuales o de PLANTA /
-              Residenciales, se comprometió a brindar a sus clientes la máxima eficacia y eficiencia en la prestación de
-              sus múltiples servicios.
+              <strong class="text-[#003366]">LIM-BOLIVIA (División Limpieza)</strong> fue creada en la ciudad de La Paz - Bolivia en Diciembre de 1999, formada en un principio con el nombre de "Electrolux Line Servicios..." (el proceso de cambio de nombre oficial se consolidó a partir de junio del año 2001). Organizada y especializada en la realización de trabajos eventuales, de PLANTA y Residenciales, asumió el compromiso constante de brindar a sus clientes la máxima eficacia y eficiencia.
             </p>
-            <p class="font-medium text-slate-800 bg-slate-50 p-3.5 rounded-xl border-l-4 border-[#003366]">
-              Actualmente hemos incursionado en el campo del Servicio Corporativo o Servicio de Limpieza - mantenimiento
-              a instituciones, con toda la experiencia y sabiendo que somos los mejores en el campo de servicios de
-              limpieza Residenciales.
+            <p class="font-medium text-slate-800 bg-emerald-50/60 p-4 rounded-xl border-l-4 border-emerald-600 shadow-sm">
+              Actualmente hemos incursionado con gran éxito en el campo del Servicio Corporativo e Institucional, ofreciendo mantenimiento integral con la trayectoria y solvencia técnica que nos respalda como líderes del sector.
             </p>
           </div>
 
@@ -268,30 +276,30 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm">
-                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2"><i class="fa-solid fa-landmark text-emerald-600 mr-2"></i>Gobierno & Diplomacia</h4>
+              <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2 flex items-center"><i class="fa-solid fa-landmark text-emerald-600 mr-2"></i>Gobierno & Diplomacia</h4>
                 <ul class="space-y-1 text-xs text-gray-700">
                   <li>• Casa del Pueblo</li>
                   <li>• Embajada de Brasil</li>
                 </ul>
               </div>
 
-              <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm">
-                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2"><i class="fa-solid fa-industry text-emerald-600 mr-2"></i>Sector Minero e Industrial</h4>
+              <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2 flex items-center"><i class="fa-solid fa-industry text-emerald-600 mr-2"></i>Sector Minero e Industrial</h4>
                 <ul class="space-y-1 text-xs text-gray-700">
                   <li>• Minera San Cristóbal</li>
                 </ul>
               </div>
 
-              <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm">
-                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2"><i class="fa-solid fa-tv text-emerald-600 mr-2"></i>Medios de Comunicación</h4>
+              <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2 flex items-center"><i class="fa-solid fa-tv text-emerald-600 mr-2"></i>Medios de Comunicación</h4>
                 <ul class="space-y-1 text-xs text-gray-700">
                   <li>• Canal RTP / Bolivisión / ATB</li>
                 </ul>
               </div>
 
-              <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm">
-                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2"><i class="fa-solid fa-hospital text-emerald-600 mr-2"></i>Salud & Clínicas</h4>
+              <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2 flex items-center"><i class="fa-solid fa-hospital text-emerald-600 mr-2"></i>Salud & Clínicas</h4>
                 <ul class="space-y-1 text-xs text-gray-700">
                   <li>• Clínica Uyuni / Villa Dolores / 6 de Agosto</li>
                 </ul>
@@ -303,35 +311,61 @@
 
         <!-- ================= VISTA NUESTROS PRINCIPIOS ================= -->
         <div id="view-principios"
-          class="view-section hidden bg-white p-6 md:p-10 rounded-2xl shadow-md border border-slate-200 space-y-8">
+          class="view-section hidden bg-white p-6 md:p-8 rounded-2xl shadow-md border border-slate-200 space-y-8 animate-fade-in">
 
           <div class="border-b border-slate-200 pb-4">
             <h2 class="text-2xl md:text-3xl font-black text-[#003366] tracking-wide uppercase flex items-center gap-3">
               <i class="fa-solid fa-award text-amber-500"></i> NUESTROS PRINCIPIOS
             </h2>
+            <p class="text-xs text-gray-500 mt-1">Los pilares fundamentales que rigen cada uno de nuestros servicios y operaciones diarias.</p>
           </div>
 
-          <div class="space-y-6">
-            <div class="p-4 rounded-xl bg-slate-50 border-l-4 border-[#003366]">
-              <h3 class="font-black text-[#003366] uppercase mb-1">CLIENTE</h3>
-              <p class="text-sm text-gray-700">Orientamos nuestros esfuerzos en aumentar su satisfacción y cumplir con
-                los requisitos convenidos.</p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- TARJETA CLIENTE -->
+            <div class="p-5 rounded-xl bg-slate-50 border-t-4 border-[#003366] shadow-sm hover:shadow-md transition space-y-2">
+              <div class="w-10 h-10 bg-blue-100 text-[#003366] rounded-lg flex items-center justify-center text-lg font-bold">
+                <i class="fa-solid fa-user-check"></i>
+              </div>
+              <h3 class="font-black text-[#003366] uppercase text-sm tracking-wide">CLIENTE</h3>
+              <p class="text-xs text-gray-600 leading-relaxed">
+                Orientamos nuestros esfuerzos en aumentar continuamente su satisfacción y cumplir rigurosamente con todos los requisitos convenidos.
+              </p>
             </div>
-            <div class="p-4 rounded-xl bg-slate-50 border-l-4 border-[#003366]">
-              <h3 class="font-black text-[#003366] uppercase mb-1">LIDERAZGO</h3>
-              <p class="text-sm text-gray-700">Mantener una actitud proactiva para seguir siendo la primera elección de
-                cada cliente.</p>
+
+            <!-- TARJETA LIDERAZGO -->
+            <div class="p-5 rounded-xl bg-slate-50 border-t-4 border-amber-500 shadow-sm hover:shadow-md transition space-y-2">
+              <div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-lg font-bold">
+                <i class="fa-solid fa-trophy"></i>
+              </div>
+              <h3 class="font-black text-[#003366] uppercase text-sm tracking-wide">LIDERAZGO</h3>
+              <p class="text-xs text-gray-600 leading-relaxed">
+                Mantenemos una actitud proactiva e innovadora para mantenernos de forma constante como la primera opción de preferencia de cada cliente.
+              </p>
             </div>
-            <div class="p-4 rounded-xl bg-slate-50 border-l-4 border-[#003366]">
-              <h3 class="font-black text-[#003366] uppercase mb-1">SEGURIDAD</h3>
-              <p class="text-sm text-gray-700">Resguardamos la salud y la integridad física de nuestro personal y
-                clientes en cada operativo.</p>
+
+            <!-- TARJETA SEGURIDAD -->
+            <div class="p-5 rounded-xl bg-slate-50 border-t-4 border-emerald-600 shadow-sm hover:shadow-md transition space-y-2">
+              <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-lg font-bold">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <h3 class="font-black text-[#003366] uppercase text-sm tracking-wide">SEGURIDAD</h3>
+              <p class="text-xs text-gray-600 leading-relaxed">
+                Resguardamos la salud, la confidencialidad y la integridad física tanto de nuestro personal como de nuestros clientes en cada operativo.
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-[#001845] text-white p-5 rounded-xl flex items-center gap-4 shadow">
+            <i class="fa-solid fa-handshake-angle text-3xl text-amber-400"></i>
+            <div>
+              <h4 class="font-bold text-sm uppercase">Compromiso de Calidad Total</h4>
+              <p class="text-xs text-slate-300">Garantizamos estándares internacionales y uso de insumos de primera línea en todos nuestros proyectos.</p>
             </div>
           </div>
         </div>
 
-        <!-- ================= VISTA SERVICIO 24 HORAS (AQUÍ ESTÁ CORREGIDA SU POSICIÓN) ================= -->
-        <div id="view-24horas" class="view-section hidden space-y-6">
+        <!-- ================= VISTA SERVICIO 24 HORAS ================= -->
+        <div id="view-24horas" class="view-section hidden space-y-6 animate-fade-in">
 
           <!-- BANNER DE EMERGENCIA ANIMADO -->
           <div
@@ -414,7 +448,7 @@
               </span>
             </div>
 
-            <!-- REJILLA DE TARJETAS EN 2 COLUMNAS PARA ENCAJAR PERFECTO EN LA IZQUIERDA -->
+            <!-- REJILLA DE TARJETAS -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
               <!-- TARJETA 1 -->
@@ -510,7 +544,7 @@
         </div>
 
         <!-- ================= VISTA COTIZADOR ================= -->
-        <div id="view-cotizador" class="view-section hidden p-6 bg-slate-50 border rounded-2xl shadow-sm">
+        <div id="view-cotizador" class="view-section hidden p-6 bg-slate-50 border border-slate-200 rounded-2xl shadow-sm animate-fade-in">
           <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
             <i class="fa-solid fa-calculator text-emerald-600"></i> Cotizador Rápido de Servicios
           </h2>
@@ -609,7 +643,7 @@
 
       </div>
 
-      <!-- COLUMNA DERECHA: SIDEBAR FIJO (SIEMPRE VISIBLE A LA DERECHA DE TODAS LAS VISTAS) -->
+      <!-- COLUMNA DERECHA: SIDEBAR FIJO (SIEMPRE VISIBLE EN TODAS LAS VISTAS) -->
       <aside id="sidebar-derecho" class="space-y-4">
 
         <div class="bg-white p-2 rounded-xl shadow border border-slate-200 overflow-hidden hover:shadow-md transition">
