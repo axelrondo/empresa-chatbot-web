@@ -113,7 +113,6 @@ html {
    4. WIDGET Y BOTÓN FLOTANTE (IA)
    ========================================== */
 
-/* Contenedor alineado a la izquierda según el HTML */
 .ai-widget-container {
   z-index: 9999;
 }
@@ -138,7 +137,7 @@ html {
   position: relative;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-center: center;
   padding: 10px 20px;
   border-radius: 9999px;
   background: #10b981; /* Verde esmeralda base */
