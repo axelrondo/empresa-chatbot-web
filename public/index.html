@@ -12,166 +12,8 @@
   <!-- Font Awesome Icons CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <style>
-    /* 1. ESCALA GLOBAL DE PÁGINA (ZOOM AL 75% POR DEFECTO) */
-    html {
-      font-size: 100%;
-    }
-
-    /* 2. EFECTO DE LUZ TIPO PISTA DE CARRERAS ALREDEDOR DEL LOGO */
-    @property --track-angle {
-      syntax: "<angle>";
-      initial-value: 0deg;
-      inherits: false;
-    }
-
-    .race-track-container {
-      position: relative;
-      display: block;
-      width: 100%;
-      border-radius: 12px;
-      padding: 4px; /* Grosor de la pista de carreras */
-      overflow: hidden;
-      background: #001f3f;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-
-    /* Borde dinámico con gradiente en rotación */
-    .race-track-container::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: conic-gradient(
-        from var(--track-angle),
-        transparent 60%,
-        #10b981 80%,  /* Verde Esmeralda */
-        #34d399 90%,  /* Destello Claro */
-        #fbbf24 100%  /* Destello Dorado/Pista */
-      );
-      animation: rotateRaceTrack 3s linear infinite;
-      z-index: 1;
-    }
-
-    /* Fondo interior protector para la imagen */
-    .race-track-container::after {
-      content: '';
-      position: absolute;
-      inset: 3px;
-      background: #003366;
-      border-radius: 8px;
-      z-index: 2;
-    }
-
-    /* Imagen interna alineada */
-    .race-track-img {
-      position: relative;
-      z-index: 3;
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 6px;
-    }
-
-    /* EFECTO SORPRESA EXTRA: Elevación 3D e iluminación Neón al pasar el mouse */
-    .race-track-container:hover {
-      transform: translateY(-3px) scale(1.005);
-      box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.5), 0 0 15px rgba(251, 191, 36, 0.3);
-    }
-
-    @keyframes rotateRaceTrack {
-      0% {
-        --track-angle: 0deg;
-      }
-      100% {
-        --track-angle: 360deg;
-      }
-    }
-
-    /* 3. ESTILOS PARA EL ASISTENTE FLOTANTE Y NEÓN */
-    .ai-widget-container {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .ai-avatar-preview {
-      width: 65px;
-      height: 65px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 2px solid #10b981;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-      margin-bottom: -12px;
-      z-index: 10;
-      transition: transform 0.3s ease;
-    }
-
-    .ai-widget-container:hover .ai-avatar-preview {
-      transform: translateY(-4px) scale(1.05);
-    }
-
-    .ai-glowing-btn {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 24px;
-      border-radius: 9999px;
-      background: #064e3b;
-      color: #ffffff;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
-      transition: all 0.3s ease;
-    }
-
-    .ai-glowing-btn::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: conic-gradient(transparent, transparent, transparent, #f59e0b, #fbbf24);
-      animation: rotateGlow 3s linear infinite;
-      z-index: 1;
-    }
-
-    .ai-glowing-btn::after {
-      content: '';
-      position: absolute;
-      inset: 2px;
-      background: #047857;
-      border-radius: 9999px;
-      z-index: 1;
-    }
-
-    .ai-glowing-btn span {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    @keyframes rotateGlow {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-  </style>
+  <!-- Hoja de Estilos CSS Personalizada -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="bg-gray-100 font-sans text-gray-800 antialiased">
@@ -179,7 +21,7 @@
   <!-- HEADER CON EFECTO DE PISTA DE CARRERAS EN EL LOGO -->
   <header class="w-full bg-[#003366] text-white py-2">
     <div class="max-w-7xl mx-auto px-2">
-      <!-- Contenedor Pista de Carreras con Luz Giratoria -->
+      <!-- Contenedor Pista de Carreras con Luz Giratoria y Pulso Tricolor -->
       <div class="race-track-container">
         <img id="headerLogo" src="/img/logo-limbolivia.png" alt="LIMBOLIVIA División Limpieza" class="race-track-img object-cover"
           onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x120?text=LIMBOLIVIA+Servicios+de+Limpieza';">
@@ -316,7 +158,7 @@
       <div class="grid lg:grid-cols-3 gap-6 items-start">
         <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border space-y-6">
 
-          <!-- 1. Pestañas de Servicios Ampliados (8 BOTONES) -->
+          <!-- 1. Pestañas de Servicios Ampliados -->
           <div>
             <label class="block font-semibold text-gray-700 mb-2">1. Selecciona un Servicio para Configurar:</label>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="serviceTabContainer">
@@ -647,7 +489,7 @@
     </div>
   </div>
 
-  <div class="ai-widget-container border-none">
+  <div class="ai-widget-container">
     <img id="aiFloatingAvatar" src="/img/asistente.png" alt="Asistente IA" class="ai-avatar-preview"
       onerror="this.onerror=null; this.src='https://via.placeholder.com/65?text=IA';" />
 
@@ -659,7 +501,7 @@
     </button>
   </div>
 
-  <!-- SCRIPT CENTRALIZADO Y FLEXIBLE -->
+  <!-- SCRIPT CENTRALIZADO -->
   <script>
     /* ========================================================
        CONFIGURACIÓN DE IMÁGENES GLOBALES
