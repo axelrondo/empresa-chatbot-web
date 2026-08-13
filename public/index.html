@@ -22,7 +22,7 @@
   <header class="w-full bg-[#003366] text-white">
     <div class="w-full">
       <div class="race-track-container w-full">
-        <img id="headerLogo" src="/img/logo-limbolivia.png" alt="LIMBOLIVIA Servicios de Limpieza" 
+        <img id="headerLogo" src="/img/logo-limbolivia.png" alt="LIMBOLIVIA Servicios de Limpieza"
           class="race-track-img w-full h-auto max-h-36 md:max-h-48 object-contain md:object-fill mx-auto"
           onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x120?text=LIMBOLIVIA+Servicios+de+Limpieza';">
       </div>
@@ -31,40 +31,47 @@
     <!-- Menú de Navegación -->
     <nav class="navbar bg-[#002244] border-t border-[#004488] text-white text-xs font-bold uppercase">
       <div class="max-w-7xl mx-auto px-4 flex flex-wrap gap-2 sm:gap-6 py-2 items-center">
-        
-        <button onclick="showView('view-inicio')" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1">
+
+        <button onclick="showView('view-inicio')"
+          class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1">
           <i class="fa-solid fa-house"></i> Inicio
         </button>
-        
+
         <!-- Dropdown Desplegable de EMPRESA -->
         <div class="dropdown relative group">
           <button class="dropbtn hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
             <i class="fa-solid fa-building"></i> Empresa <i class="fa-solid fa-chevron-down text-[10px]"></i>
           </button>
-          <ul class="dropdown-content absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-md py-2 w-52 z-50 mt-0 border border-slate-200">
+          <ul
+            class="dropdown-content absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-md py-2 w-52 z-50 mt-0 border border-slate-200">
             <li>
-              <a href="javascript:void(0)" onclick="showView('view-mision-vision')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
+              <a href="javascript:void(0)" onclick="showView('view-mision-vision')"
+                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
                 Misión / Visión
               </a>
             </li>
             <li>
-              <a href="javascript:void(0)" onclick="showView('view-quienes-somos')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
+              <a href="javascript:void(0)" onclick="showView('view-quienes-somos')"
+                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
                 ¿Quiénes somos?
               </a>
             </li>
             <li>
-              <a href="javascript:void(0)" onclick="showView('view-principios')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
+              <a href="javascript:void(0)" onclick="showView('view-principios')"
+                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
                 Nuestros principios
               </a>
             </li>
           </ul>
         </div>
 
-        <button onclick="showView('view-cotizador')" class="text-amber-300 hover:text-white transition flex items-center gap-1.5 px-2 py-1">
+        <button onclick="showView('view-cotizador')"
+          class="text-amber-300 hover:text-white transition flex items-center gap-1.5 px-2 py-1">
           <i class="fa-solid fa-calculator"></i> Cotizador
         </button>
 
-        <a href="https://www.facebook.com/limbolivia?ref=embed_page" target="_blank" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1">
+        <a href="https://www.facebook.com/limbolivia?ref=embed_page" target="_blank"
+          class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1">
           <i class="fa-solid fa-envelope"></i> Contáctese
         </a>
       </div>
@@ -82,19 +89,23 @@
             class="w-full h-full object-cover transition-all duration-500"
             onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x450?text=LIMBOLIVIA+BANNER';">
 
-          <button onclick="prevSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition shadow-lg z-10">
+          <button onclick="prevSlide()"
+            class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition shadow-lg z-10">
             <i class="fa-solid fa-chevron-left text-xl"></i>
           </button>
-          <button onclick="nextSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition shadow-lg z-10">
+          <button onclick="nextSlide()"
+            class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition shadow-lg z-10">
             <i class="fa-solid fa-chevron-right text-xl"></i>
           </button>
 
-          <div id="slideIndicatorsContainer" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 bg-black/50 p-1.5 rounded-md z-10"></div>
+          <div id="slideIndicatorsContainer"
+            class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 bg-black/50 p-1.5 rounded-md z-10"></div>
         </div>
       </section>
 
       <div class="bg-[#001845] text-white py-3.5 px-4 rounded-xl shadow-md flex items-center gap-3">
-        <div class="bg-red-600 text-white w-9 h-9 rounded-full flex items-center justify-center text-lg shadow shrink-0">
+        <div
+          class="bg-red-600 text-white w-9 h-9 rounded-full flex items-center justify-center text-lg shadow shrink-0">
           <i class="fa-solid fa-headset"></i>
         </div>
         <span class="text-base sm:text-lg font-black uppercase tracking-wider">¡ESTAMOS ATENTOS A SU LLAMADA!</span>
@@ -103,23 +114,28 @@
 
     <!-- ================= CONTENEDOR DE 2 COLUMNAS PARA INSTITUCIONAL ================= -->
     <div id="institutional-wrapper" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      
+
       <!-- COLUMNA IZQUIERDA: INFORMACIÓN (OCUPA 2 COLUMNAS) -->
       <div class="lg:col-span-2 space-y-6">
 
         <!-- VISTA MISIÓN / VISIÓN -->
-        <div id="view-mision-vision" class="view-section hidden bg-white p-8 rounded-2xl shadow-md border border-slate-200 space-y-8">
+        <div id="view-mision-vision"
+          class="view-section hidden bg-white p-8 rounded-2xl shadow-md border border-slate-200 space-y-8">
           <div class="space-y-3">
             <h2 class="text-xl md:text-2xl font-black text-[#003366] tracking-wide uppercase">MISIÓN</h2>
             <p class="text-gray-700 leading-relaxed text-sm md:text-base font-medium">
-              Diseñar, operar y administrar sistemas y servicios de limpieza de acuerdo a las más exigentes necesidades, los cuales garanticen higiene de calidad en las condiciones de tiempo, satisfacción y presupuesto acorde con nuestros clientes.
+              Diseñar, operar y administrar sistemas y servicios de limpieza de acuerdo a las más exigentes necesidades,
+              los cuales garanticen higiene de calidad en las condiciones de tiempo, satisfacción y presupuesto acorde
+              con nuestros clientes.
             </p>
           </div>
 
           <div class="space-y-3">
             <h2 class="text-xl md:text-2xl font-black text-[#003366] tracking-wide uppercase">VISIÓN</h2>
             <p class="text-gray-700 leading-relaxed text-sm md:text-base font-medium">
-              Superar la barrera del tiempo llegando a ser la más importante referencia a nivel nacional e internacional en materia de limpieza. Pensando siempre en la calidad de vida de nuestros clientes y no apartándonos de nuestros valores y principios con los cuales comenzamos este camino.
+              Superar la barrera del tiempo llegando a ser la más importante referencia a nivel nacional e internacional
+              en materia de limpieza. Pensando siempre en la calidad de vida de nuestros clientes y no apartándonos de
+              nuestros valores y principios con los cuales comenzamos este camino.
             </p>
           </div>
 
@@ -136,30 +152,104 @@
         </div>
 
         <!-- VISTA ¿QUIÉNES SOMOS? -->
-        <div id="view-quienes-somos" class="view-section hidden bg-white p-8 rounded-2xl shadow-md border border-slate-200 space-y-6">
+        <div id="view-quienes-somos"
+          class="view-section hidden bg-white p-8 rounded-2xl shadow-md border border-slate-200 space-y-6">
           <h2 class="text-2xl font-black text-[#003366] uppercase">¿QUIÉNES SOMOS?</h2>
           <p class="text-gray-700 leading-relaxed text-sm md:text-base">
-            (División Limpieza), creada en la ciudad de La Paz - Bolivia en Diciembre de 1999, formada en un principio con el nombre de "Electrolux Line Servicios..." (El proceso de cambio de nombre se lo comenzó el 1º de junio del año 2001). Organizada y Especializada en la realización de trabajos eventuales o de PLANTA / Residenciales, se comprometió a brindar a sus clientes la máxima eficacia y eficiencia en la prestación de sus múltiples servicios. Hoy en día podemos decir con orgullo que somos la única Empresa que no sólo se comprometió sino que lleva adelante ese compromiso con una gran eficiencia. Tenemos y contamos con los servicios y técnicas en limpieza más innovadoras, jefes operativos con toda la experiencia en limpieza, incorporación de maquinaria y equipamiento con la mejor tecnología, productos innovadores en materia de limpieza y la mejora continua de nuestra Metodología.
+            (División Limpieza), creada en la ciudad de La Paz - Bolivia en Diciembre de 1999, formada en un principio
+            con el nombre de "Electrolux Line Servicios..." (El proceso de cambio de nombre se lo comenzó el 1º de junio
+            del año 2001). Organizada y Especializada en la realización de trabajos eventuales o de PLANTA /
+            Residenciales, se comprometió a brindar a sus clientes la máxima eficacia y eficiencia en la prestación de
+            sus múltiples servicios. Hoy en día podemos decir con orgullo que somos la única Empresa que no sólo se
+            comprometió sino que lleva adelante ese compromiso con una gran eficiencia. Tenemos y contamos con los
+            servicios y técnicas en limpieza más innovadoras, jefes operativos con toda la experiencia en limpieza,
+            incorporación de maquinaria y equipamiento con la mejor tecnología, productos innovadores en materia de
+            limpieza y la mejora continua de nuestra Metodología.
           </p>
           <p class="text-gray-700 leading-relaxed text-sm md:text-base">
-            Actualmente hemos incursionado en el campo del Servicio Corporativo o Servicio de Limpieza - mantenimiento a instituciones, con toda la experiencia y sabiendo que somos los mejores en el campo de servicios de limpieza Residenciales.
+            Actualmente hemos incursionado en el campo del Servicio Corporativo o Servicio de Limpieza - mantenimiento a
+            instituciones, con toda la experiencia y sabiendo que somos los mejores en el campo de servicios de limpieza
+            Residenciales.
           </p>
         </div>
 
-        <!-- VISTA PRINCIPIOS -->
-        <div id="view-principios" class="view-section hidden bg-slate-900 text-white p-8 rounded-2xl shadow-xl space-y-6">
-          <h2 class="text-2xl font-black text-emerald-400 uppercase text-center">Nuestros Principios y Valores</h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center pt-4">
-            <div class="p-4 bg-slate-800 rounded-xl border border-slate-700">
-              <i class="fa-solid fa-shield-heart text-3xl text-emerald-400 mb-2"></i>
-              <h3 class="font-bold text-sm uppercase">Compromiso</h3>
-              <p class="text-xs text-gray-400 mt-1">Garantía y responsabilidad en cada servicio ejecutado.</p>
+        <!-- ================= VISTA NUESTROS PRINCIPIOS ================= -->
+        <div id="view-principios"
+          class="view-section hidden bg-white p-6 md:p-10 rounded-2xl shadow-md border border-slate-200 space-y-8">
+
+          <!-- TÍTULO PRINCIPAL -->
+          <div class="border-b border-slate-200 pb-4">
+            <h2 class="text-2xl md:text-3xl font-black text-[#003366] tracking-wide uppercase flex items-center gap-3">
+              <i class="fa-solid fa-award text-amber-500"></i> NUESTROS PRINCIPIOS
+            </h2>
+          </div>
+
+          <!-- LISTADO DE PRINCIPIOS CON CONTENIDO EXACTO DE TU IMAGEN -->
+          <div class="space-y-6">
+
+            <!-- 1. CLIENTE -->
+            <div
+              class="p-4 md:p-5 rounded-xl bg-slate-50 border-l-4 border-[#003366] shadow-sm hover:shadow-md transition">
+              <h3 class="text-base md:text-lg font-black text-[#003366] uppercase mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-user-check text-emerald-600 text-sm"></i> CLIENTE
+              </h3>
+              <p class="text-gray-700 leading-relaxed text-sm md:text-base font-medium">
+                Orientamos todos nuestros esfuerzos en aumentar su satisfacción y cumplir con los requisitos convenidos,
+                agregando valor al servicio que le prestamos con un óptimo costo-beneficio.
+              </p>
             </div>
-            <div class="p-4 bg-slate-800 rounded-xl border border-slate-700">
-              <i class="fa-solid fa-award text-3xl text-amber-400 mb-2"></i>
-              <h3 class="font-bold text-sm uppercase">Calidad</h3>
-              <p class="text-xs text-gray-400 mt-1">Altos estándares operacionales y maquinaria especializada.</p>
+
+            <!-- 2. LIDERAZGO -->
+            <div
+              class="p-4 md:p-5 rounded-xl bg-slate-50 border-l-4 border-[#003366] shadow-sm hover:shadow-md transition">
+              <h3 class="text-base md:text-lg font-black text-[#003366] uppercase mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-chart-line text-emerald-600 text-sm"></i> LIDERAZGO
+              </h3>
+              <p class="text-gray-700 leading-relaxed text-sm md:text-base font-medium">
+                Nuestra trayectoria y experiencia en el mercado nos permiten ser flexibles, dentro del marco legal y
+                reglamentario aplicable, así como mantener una actitud proactiva para seguir siendo la primera elección
+                de cada cliente.
+              </p>
             </div>
+
+            <!-- 3. SERVICIOS -->
+            <div
+              class="p-4 md:p-5 rounded-xl bg-slate-50 border-l-4 border-[#003366] shadow-sm hover:shadow-md transition">
+              <h3 class="text-base md:text-lg font-black text-[#003366] uppercase mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-[#003366] fa-gears text-emerald-600 text-sm"></i> SERVICIOS
+              </h3>
+              <p class="text-gray-700 leading-relaxed text-sm md:text-base font-medium">
+                La constante investigación y nuestro permanente desarrollo interno, a través de la actualización
+                realizada a nivel nacional e internacional, nos permiten generar y mejorar continuamente nuestros
+                operativos tecnológicos.
+              </p>
+            </div>
+
+            <!-- 4. PERSONAL -->
+            <div
+              class="p-4 md:p-5 rounded-xl bg-slate-50 border-l-4 border-[#003366] shadow-sm hover:shadow-md transition">
+              <h3 class="text-base md:text-lg font-black text-[#003366] uppercase mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-users-gear text-emerald-600 text-sm"></i> PERSONAL
+              </h3>
+              <p class="text-gray-700 leading-relaxed text-sm md:text-base font-medium">
+                El compromiso que nuestro personal posee en las tareas brindadas reflejan su identificación con los
+                valores de nuestra empresa y demuestra la continua capacitación y motivación que recibe.
+              </p>
+            </div>
+
+            <!-- 5. SEGURIDAD -->
+            <div
+              class="p-4 md:p-5 rounded-xl bg-slate-50 border-l-4 border-[#003366] shadow-sm hover:shadow-md transition">
+              <h3 class="text-base md:text-lg font-black text-[#003366] uppercase mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-shield-halved text-emerald-600 text-sm"></i> SEGURIDAD
+              </h3>
+              <p class="text-gray-700 leading-relaxed text-sm md:text-base font-medium">
+                Resguardamos la salud y la integridad física de nuestro personal, la de nuestros clientes y de todo
+                aquel que interactúa con los servicios que brindamos. Para ello, concientizamos a nuestro personal sobre
+                los riesgos inherentes a sus tareas.
+              </p>
+            </div>
+
           </div>
         </div>
 
@@ -167,7 +257,7 @@
 
       <!-- COLUMNA DERECHA: SIDEBAR FIJO (NÚMERO + ANUNCIO FACEBOOK) -->
       <aside id="sidebar-derecho" class="space-y-4">
-        
+
         <!-- Imagen Central Piloto / numero.png -->
         <div class="bg-white p-2 rounded-xl shadow border border-slate-200 overflow-hidden hover:shadow-md transition">
           <img src="/img/numero.png" alt="Central Piloto LIMBOLIVIA" class="w-full h-auto object-contain rounded-lg"
@@ -175,32 +265,39 @@
         </div>
 
         <!-- Tarjeta Interactiva de Facebook con Redirección Directa -->
-        <div class="bg-white rounded-xl shadow border border-slate-200 overflow-hidden hover:shadow-lg transition group">
+        <div
+          class="bg-white rounded-xl shadow border border-slate-200 overflow-hidden hover:shadow-lg transition group">
           <div class="bg-[#3b5998] text-white p-3 flex justify-between items-center text-xs font-bold">
             <span class="flex items-center gap-1.5"><i class="fa-brands fa-facebook"></i> SÍGUENOS EN FACEBOOK</span>
-            <a href="https://www.facebook.com/limbolivia?ref=embed_page" target="_blank" class="bg-white text-[#3b5998] px-2.5 py-1 rounded hover:bg-slate-100 transition text-[11px]">
+            <a href="https://www.facebook.com/limbolivia?ref=embed_page" target="_blank"
+              class="bg-white text-[#3b5998] px-2.5 py-1 rounded hover:bg-slate-100 transition text-[11px]">
               <i class="fa-solid fa-thumbs-up"></i> Seguir
             </a>
-          </div>   
+          </div>
 
           <!-- Imagen con Enlace -->
-          <a href="https://www.facebook.com/limbolivia?ref=embed_page" target="_blank" class="block relative overflow-hidden">
-            <img src="/img/limpieza.png" alt="Limpieza Profesional LIMBOLIVIA" class="w-full h-auto object-cover group-hover:scale-105 transition duration-300"
+          <a href="https://www.facebook.com/limbolivia?ref=embed_page" target="_blank"
+            class="block relative overflow-hidden">
+            <img src="/img/limpieza.png" alt="Limpieza Profesional LIMBOLIVIA"
+              class="w-full h-auto object-cover group-hover:scale-105 transition duration-300"
               onerror="this.onerror=null; this.src='https://via.placeholder.com/350x350/10b981/FFFFFF?text=Limpieza+WhatsApp+73017175';">
-            
+
             <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition"></div>
           </a>
 
           <!-- Pie de Tarjeta Facebook -->
           <div class="p-3 bg-slate-50 flex items-center justify-between border-t border-slate-200 text-xs">
             <div class="flex items-center gap-2">
-              <div class="w-8 h-8 rounded-full bg-[#003366] text-white font-bold flex items-center justify-center text-xs">LIM</div>
+              <div
+                class="w-8 h-8 rounded-full bg-[#003366] text-white font-bold flex items-center justify-center text-xs">
+                LIM</div>
               <div>
                 <p class="font-bold text-slate-800 text-[11px]">Bolivia LINE / LIM Bolivia</p>
                 <p class="text-[10px] text-gray-500">Página oficial de Facebook</p>
               </div>
             </div>
-            <a href="https://www.facebook.com/limbolivia?ref=embed_page" target="_blank" class="text-blue-600 hover:text-blue-800 font-bold text-[11px]">
+            <a href="https://www.facebook.com/limbolivia?ref=embed_page" target="_blank"
+              class="text-blue-600 hover:text-blue-800 font-bold text-[11px]">
               Ver más <i class="fa-solid fa-arrow-right text-[9px]"></i>
             </a>
           </div>
@@ -220,32 +317,43 @@
           <div>
             <label class="block font-semibold text-gray-700 mb-2">1. Selecciona un Servicio para Configurar:</label>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="serviceTabContainer">
-              <button onclick="selectServiceTab('Alfombras')" id="btn-Alfombras" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('Alfombras')" id="btn-Alfombras"
+                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-rug text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Alfombra Fija</span>
               </button>
-              <button onclick="selectServiceTab('AlfombraSuelta')" id="btn-AlfombraSuelta" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('AlfombraSuelta')" id="btn-AlfombraSuelta"
+                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-scroll text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Alfombra Suelta</span>
               </button>
-              <button onclick="selectServiceTab('Oficinas')" id="btn-Oficinas" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('Oficinas')" id="btn-Oficinas"
+                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-building text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Limpieza Oficinas</span>
               </button>
-              <button onclick="selectServiceTab('Casas')" id="btn-Casas" class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+              <button onclick="selectServiceTab('Casas')" id="btn-Casas"
+                class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                 <i class="fa-solid fa-house-chimney text-xl text-emerald-600"></i>
                 <span class="text-xs font-bold">Limpieza Casas</span>
               </button>
             </div>
           </div>
 
-          <div id="serviceDetailCard" class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-4 transition-all">
-            <img id="serviceImage" src="/img/banner1.png" alt="Servicio" class="w-full sm:w-40 h-28 object-cover rounded-lg shadow shrink-0" onerror="this.onerror=null; this.src='https://via.placeholder.com/160x112?text=Servicio';">
+          <div id="serviceDetailCard"
+            class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-4 transition-all">
+            <img id="serviceImage" src="/img/banner1.png" alt="Servicio"
+              class="w-full sm:w-40 h-28 object-cover rounded-lg shadow shrink-0"
+              onerror="this.onerror=null; this.src='https://via.placeholder.com/160x112?text=Servicio';">
             <div>
-              <h4 id="serviceTitle" class="font-bold text-slate-800 text-base mb-1">Lavado Profesional de Alfombra Fija</h4>
-              <p id="serviceDescription" class="text-xs text-gray-600 leading-relaxed mb-2">Seleccione la superficie en metros cuadrados y adicione extras si lo requiere.</p>
-              <div class="text-[11px] bg-emerald-100 text-emerald-900 font-semibold px-2.5 py-1 rounded-md inline-block border border-emerald-200">
-                <i class="fa-solid fa-gears text-emerald-700 mr-1"></i> <span id="serviceMachine">Maquinaria: Inyectora / Extractora Profesional</span>
+              <h4 id="serviceTitle" class="font-bold text-slate-800 text-base mb-1">Lavado Profesional de Alfombra Fija
+              </h4>
+              <p id="serviceDescription" class="text-xs text-gray-600 leading-relaxed mb-2">Seleccione la superficie en
+                metros cuadrados y adicione extras si lo requiere.</p>
+              <div
+                class="text-[11px] bg-emerald-100 text-emerald-900 font-semibold px-2.5 py-1 rounded-md inline-block border border-emerald-200">
+                <i class="fa-solid fa-gears text-emerald-700 mr-1"></i> <span id="serviceMachine">Maquinaria: Inyectora
+                  / Extractora Profesional</span>
               </div>
             </div>
           </div>
@@ -254,24 +362,33 @@
             <div class="flex justify-between items-center">
               <label class="font-semibold text-gray-700">2. Cantidad en Metros Cuadrados (m²):</label>
               <div class="flex items-center gap-2">
-                <span id="m2Value" class="font-black text-emerald-600 text-xl bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200">15 m²</span>
+                <span id="m2Value"
+                  class="font-black text-emerald-600 text-xl bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200">15
+                  m²</span>
                 <span id="m2Subtotal" class="font-bold text-slate-600 text-sm">(Bs 225)</span>
               </div>
             </div>
 
             <div class="flex items-center gap-3">
-              <button onclick="changeM2Step(-1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0"><i class="fa-solid fa-minus"></i></button>
-              <input type="range" id="m2Slider" min="1" max="300" step="1" value="15" class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="onSliderChange()">
-              <button onclick="changeM2Step(1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0"><i class="fa-solid fa-plus"></i></button>
+              <button onclick="changeM2Step(-1)"
+                class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0"><i
+                  class="fa-solid fa-minus"></i></button>
+              <input type="range" id="m2Slider" min="1" max="300" step="1" value="15"
+                class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="onSliderChange()">
+              <button onclick="changeM2Step(1)"
+                class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0"><i
+                  class="fa-solid fa-plus"></i></button>
             </div>
 
-            <button onclick="addCurrentMainService()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-sm text-xs uppercase tracking-wide">
+            <button onclick="addCurrentMainService()"
+              class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-sm text-xs uppercase tracking-wide">
               <i class="fa-solid fa-cart-plus text-emerald-400 text-sm"></i> Agregar este Servicio Base
             </button>
           </div>
         </div>
 
-        <div class="bg-slate-900 text-white p-6 rounded-xl flex flex-col justify-between shadow-xl sticky top-6 z-10 border border-slate-800">
+        <div
+          class="bg-slate-900 text-white p-6 rounded-xl flex flex-col justify-between shadow-xl sticky top-6 z-10 border border-slate-800">
           <div>
             <span class="text-xs uppercase font-bold tracking-widest text-emerald-400">Resumen Detallado</span>
             <h3 class="text-lg font-bold mt-1 text-white border-b border-slate-700 pb-2">Servicios Confirmados</h3>
@@ -287,7 +404,8 @@
               <div id="summaryTotal" class="text-3xl font-black text-amber-400">Bs 0</div>
             </div>
 
-            <button onclick="sendToWhatsApp()" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm">
+            <button onclick="sendToWhatsApp()"
+              class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm">
               <i class="fa-brands fa-whatsapp text-xl"></i> Reservar por WhatsApp
             </button>
           </div>
@@ -299,9 +417,12 @@
 
   <!-- BOTÓN FLOTANTE IA -->
   <div class="btn-ia-container ai-widget-container fixed bottom-6 left-6 z-[9999] flex items-center gap-2">
-    <img id="aiFloatingAvatar" src="/img/asistente.png" alt="Asistente IA" class="ai-avatar-preview w-12 h-12 rounded-full border-2 border-emerald-400 object-cover shadow-lg" onerror="this.onerror=null; this.src='https://via.placeholder.com/65?text=IA';" />
+    <img id="aiFloatingAvatar" src="/img/asistente.png" alt="Asistente IA"
+      class="ai-avatar-preview w-12 h-12 rounded-full border-2 border-emerald-400 object-cover shadow-lg"
+      onerror="this.onerror=null; this.src='https://via.placeholder.com/65?text=IA';" />
 
-    <button id="btnHablarIA" onclick="toggleChat()" class="btn-ia ai-glowing-btn bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 rounded-full font-bold shadow-xl flex items-center gap-2 transition-all cursor-pointer">
+    <button id="btnHablarIA" onclick="toggleChat()"
+      class="btn-ia ai-glowing-btn bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 rounded-full font-bold shadow-xl flex items-center gap-2 transition-all cursor-pointer">
       <i class="fa-solid fa-robot text-emerald-200 text-lg"></i>
       <span>Hablar con IA</span>
     </button>
