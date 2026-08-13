@@ -46,7 +46,7 @@
       <div class="max-w-7xl mx-auto px-4 flex flex-wrap gap-2 sm:gap-6 py-2 items-center">
 
         <button onclick="showView('view-inicio')"
-          class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1">
+          class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
           <i class="fa-solid fa-house"></i> Inicio
         </button>
 
@@ -102,8 +102,8 @@
               </a>
             </li>
             <li>
-              <a href="javascript:void(0)" onclick="selectServiceTab('Alfombras'); showView('view-cotizador');"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs">
+              <a href="javascript:void(0)" onclick="showView('view-alfombras-tapizados')"
+                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366] group-hover:text-white">
                 <i class="fa-solid fa-rug text-emerald-600 group-hover:text-white mr-1.5"></i>
                 3. Lavado de Alfombras y Tapizados
               </a>
@@ -119,7 +119,7 @@
         </div>
 
         <button onclick="showView('view-cotizador')"
-          class="text-amber-300 hover:text-white transition flex items-center gap-1.5 px-2 py-1">
+          class="text-amber-300 hover:text-white transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
           <i class="fa-solid fa-calculator"></i> Cotizador
         </button>
 
@@ -134,7 +134,7 @@
   <!-- CONTENEDOR PRINCIPAL -->
   <main class="max-w-7xl mx-auto py-6 px-4 space-y-6">
 
-    <!-- ================= CARRUSEL SUPERIOR DE BANNERS (A ANCHO COMPLETO) ================= -->
+    <!-- ================= CARRUSEL SUPERIOR DE BANNERS (ANCHO COMPLETO) ================= -->
     <div id="carousel-header-container" class="w-full">
       <section class="relative w-full overflow-hidden bg-slate-200 rounded-xl shadow-md border border-slate-300">
         <div class="relative w-full h-[280px] sm:h-[380px] md:h-[450px]">
@@ -363,6 +363,153 @@
           </div>
         </div>
 
+        <!-- ================= VISTA LAVADO DE ALFOMBRAS Y TAPIZADOS ================= -->
+        <div id="view-alfombras-tapizados"
+          class="view-section hidden bg-white p-6 md:p-8 rounded-2xl shadow-md border border-slate-200 space-y-8 animate-fade-in">
+
+          <!-- Encabezado Principal -->
+          <div class="border-b border-slate-200 pb-5 space-y-2">
+            <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-800 text-xs font-black uppercase px-3 py-1 rounded-full border border-emerald-200">
+              <i class="fa-solid fa-sparkles text-emerald-600"></i> Servicio Especializado
+            </div>
+            <h2 class="text-2xl md:text-3xl font-black text-[#003366] uppercase tracking-wide">
+              LIMPIEZA Y LAVADO DE ALFOMBRAS Y TAPIZADOS
+            </h2>
+            <p class="text-sm text-gray-600 leading-relaxed font-medium">
+              Sabemos que sus alfombras y tapizados son uno de los bienes más valiosos de su hogar u oficina. Mantenerlos limpios no es tarea sencilla, pero para que luzcan nuevos es necesario limpiarlos regularmente. Nadie cuidará mejor de sus ambientes que <strong class="text-[#003366]">LIM-BOLIVIA</strong>.
+            </p>
+          </div>
+
+          <!-- Video Promocional Destacado -->
+          <div class="bg-slate-900 rounded-2xl p-4 shadow-xl border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between text-white border-b border-slate-700 pb-2 px-2">
+              <h3 class="font-bold text-sm md:text-base flex items-center gap-2 text-emerald-400">
+                <i class="fa-solid fa-circle-play text-red-500 animate-pulse"></i> Demostración en Video: Proceso Técnico
+              </h3>
+              <span class="text-[10px] bg-red-600 text-white font-bold px-2 py-0.5 rounded">HD DEMO</span>
+            </div>
+            <div class="relative rounded-xl overflow-hidden bg-black aspect-video shadow-inner">
+              <video class="w-full h-full object-cover" controls poster="/img/banner1.png">
+                <source src="/img/video.mp4" type="video/mp4">
+                Tu navegador no soporta la reproducción de video.
+              </video>
+            </div>
+            <p class="text-xs text-slate-400 text-center italic">Observe la efectividad de nuestra maquinaria en la remoción de manchas profundas y secado rápido.</p>
+          </div>
+
+          <!-- Soluciones a Todos los Niveles -->
+          <div class="bg-slate-50 p-5 md:p-6 rounded-xl border border-slate-200 space-y-4">
+            <h3 class="text-lg md:text-xl font-black text-[#003366] uppercase flex items-center gap-2">
+              <i class="fa-solid fa-layer-group text-amber-500"></i> SOLUCIONES A TODOS LOS NIVELES
+            </h3>
+            <p class="text-xs md:text-sm text-gray-700 leading-relaxed">
+              Nuestra intención es darle el mayor valor añadido posible como empresa de limpieza especializada en trabajos técnicos, cubriendo perfectamente todas sus necesidades y expectativas. Sustituimos métodos tradicionales por una combinación de procedimientos e innovación tecnológica, mejorando la calidad y reduciendo el gasto.
+            </p>
+          </div>
+
+          <!-- Sistemas y Métodos de Limpieza -->
+          <div class="space-y-4">
+            <h3 class="text-lg md:text-xl font-black text-[#003366] uppercase flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-emerald-600"></i> SISTEMAS Y MÉTODOS DE LIMPIEZA
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-t-4 border-emerald-600">
+                <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-sm">1</div>
+                <h4 class="font-bold text-slate-800 text-sm uppercase">Sistema Champuneado</h4>
+                <p class="text-xs text-gray-600">Remoción de suciedad acumulada mediante fricción controlada de espuma y cepillado profundo.</p>
+              </div>
+
+              <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-t-4 border-amber-500">
+                <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-700 font-bold flex items-center justify-center text-sm">2</div>
+                <h4 class="font-bold text-slate-800 text-sm uppercase">Sistema Espuma Seca</h4>
+                <p class="text-xs text-gray-600">Ideal para tejidos delicados que requieren una humedad mínima y secado en tiempo récord.</p>
+              </div>
+
+              <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-t-4 border-blue-600">
+                <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-sm">3</div>
+                <h4 class="font-bold text-slate-800 text-sm uppercase">Inyección - Extracción</h4>
+                <p class="text-xs text-gray-600">Inyección de solución limpiadora a presión y extracción de agua sucia en un solo paso técnico.</p>
+              </div>
+            </div>
+
+            <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl text-xs md:text-sm text-amber-900 font-medium flex items-center gap-3">
+              <i class="fa-solid fa-user-gear text-2xl text-amber-600 shrink-0"></i>
+              <p>Déjenos aconsejarle por un asesor técnico, el cual le explicará detalladamente el proceso ideal según el tipo de pavimento o tapizado que requiera intervención.</p>
+            </div>
+          </div>
+
+          <!-- Galería Especializada: Ribeteado y Colocado de Alfombras -->
+          <div class="pt-6 border-t border-slate-200 space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <h3 class="text-lg md:text-xl font-black text-[#003366] uppercase flex items-center gap-2">
+                  <i class="fa-solid fa-scissors text-amber-500"></i> Ribeteado y Colocado de Alfombras
+                </h3>
+                <p class="text-xs text-gray-500">Instalación técnica, corte a medida y ribeteado protector en pisos y gradas.</p>
+              </div>
+              <span class="text-[10px] bg-slate-100 text-slate-700 font-bold px-3 py-1 rounded-full border border-slate-300 w-max">
+                Trabajos Terminados
+              </span>
+            </div>
+
+            <!-- Grilla con las imágenes ribeteado.png hasta ribeteado7.png -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
+              <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
+                <img src="/img/ribeteado.png" alt="Ribeteado de Alfombras 1" class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado.png';">
+                <p class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">Ribeteado Profesional</p>
+              </div>
+
+              <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
+                <img src="/img/ribeteado1.png" alt="Ribeteado de Alfombras 2" class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado1.png';">
+                <p class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">Corte e Instalación</p>
+              </div>
+
+              <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
+                <img src="/img/ribeteado2.png" alt="Ribeteado de Alfombras 3" class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado2.png';">
+                <p class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">Fijación en Pisos</p>
+              </div>
+
+              <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
+                <img src="/img/ribeteado3.png" alt="Ribeteado de Alfombras 4" class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado3.png';">
+                <p class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">Colocado en Gradas</p>
+              </div>
+
+              <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
+                <img src="/img/ribeteado4.png" alt="Ribeteado de Alfombras 5" class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado4.png';">
+                <p class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">Ajuste de Bordes</p>
+              </div>
+
+              <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
+                <img src="/img/ribeteado5.png" alt="Ribeteado de Alfombras 6" class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado5.png';">
+                <p class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">Terminación Perimetral</p>
+              </div>
+
+              <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
+                <img src="/img/ribeteado6.png" alt="Ribeteado de Alfombras 7" class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado6.png';">
+                <p class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">Detalles Finos</p>
+              </div>
+
+              <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
+                <img src="/img/ribeteado7.png" alt="Ribeteado de Alfombras 8" class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado7.png';">
+                <p class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">Resultado Final</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botón Directo al Cotizador o WhatsApp -->
+          <div class="pt-4 flex flex-col sm:flex-row gap-3">
+            <button onclick="selectServiceTab('Alfombras'); showView('view-cotizador');"
+              class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow text-xs uppercase tracking-wider cursor-pointer">
+              <i class="fa-solid fa-calculator"></i> Cotizar Lavado de Alfombras Ahora
+            </button>
+            <a href="https://wa.me/59179684700?text=Hola,%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20Lavado%20y%20Ribeteado%20de%20Alfombras" target="_blank"
+              class="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2 transition shadow text-xs uppercase tracking-wider">
+              <i class="fa-brands fa-whatsapp text-base"></i> Consultar Asesor
+            </a>
+          </div>
+
+        </div>
+
         <!-- ================= VISTA SERVICIO 24 HORAS ================= -->
         <div id="view-24horas" class="view-section hidden space-y-6 animate-fade-in">
 
@@ -541,22 +688,22 @@
                 <label class="block font-semibold text-gray-700 mb-2">1. Selecciona un Servicio para Configurar:</label>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="serviceTabContainer">
                   <button onclick="selectServiceTab('Alfombras')" id="btn-Alfombras"
-                    class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+                    class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200 cursor-pointer">
                     <i class="fa-solid fa-rug text-xl text-emerald-600"></i>
                     <span class="text-xs font-bold">Alfombra Fija</span>
                   </button>
                   <button onclick="selectServiceTab('AlfombraSuelta')" id="btn-AlfombraSuelta"
-                    class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+                    class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200 cursor-pointer">
                     <i class="fa-solid fa-scroll text-xl text-emerald-600"></i>
                     <span class="text-xs font-bold">Alfombra Suelta</span>
                   </button>
                   <button onclick="selectServiceTab('Oficinas')" id="btn-Oficinas"
-                    class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+                    class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200 cursor-pointer">
                     <i class="fa-solid fa-building text-xl text-emerald-600"></i>
                     <span class="text-xs font-bold">Limpieza Oficinas</span>
                   </button>
                   <button onclick="selectServiceTab('Casas')" id="btn-Casas"
-                    class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
+                    class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200 cursor-pointer">
                     <i class="fa-solid fa-house-chimney text-xl text-emerald-600"></i>
                     <span class="text-xs font-bold">Limpieza Casas</span>
                   </button>
@@ -588,15 +735,15 @@
 
                 <div class="flex items-center gap-3">
                   <button onclick="changeM2Step(-1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0"><i class="fa-solid fa-minus"></i></button>
+                    class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0 cursor-pointer"><i class="fa-solid fa-minus"></i></button>
                   <input type="range" id="m2Slider" min="1" max="300" step="1" value="15"
                     class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="onSliderChange()">
                   <button onclick="changeM2Step(1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0"><i class="fa-solid fa-plus"></i></button>
+                    class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0 cursor-pointer"><i class="fa-solid fa-plus"></i></button>
                 </div>
 
                 <button onclick="addCurrentMainService()"
-                  class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-sm text-xs uppercase tracking-wide">
+                  class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-sm text-xs uppercase tracking-wide cursor-pointer">
                   <i class="fa-solid fa-cart-plus text-emerald-400 text-sm"></i> Agregar este Servicio Base
                 </button>
               </div>
@@ -619,7 +766,7 @@
                 </div>
 
                 <button onclick="sendToWhatsApp()"
-                  class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm">
+                  class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm cursor-pointer">
                   <i class="fa-brands fa-whatsapp text-xl"></i> Reservar por WhatsApp
                 </button>
               </div>
