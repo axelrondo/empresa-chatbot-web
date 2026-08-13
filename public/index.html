@@ -18,38 +18,53 @@
 
 <body class="bg-gray-100 font-sans text-gray-800 antialiased">
 
-  <!-- HEADER CON EFECTO Y LOGO GIRATORIO -->
-  <header class="w-full bg-[#003366] text-white py-2">
-    <div class="max-w-7xl mx-auto px-2 flex justify-between items-center">
-      <!-- Contenedor Pista de Carreras con Luz Giratoria -->
-      <div class="race-track-container">
-        <img id="headerLogo" src="/img/logo-limbolivia.png" alt="LIMBOLIVIA División Limpieza" class="logo-spin race-track-img object-cover h-16"
+  <!-- HEADER CON BANNER/LOGO A ANCHO COMPLETO -->
+  <header class="w-full bg-[#003366] text-white">
+    <div class="w-full">
+      <!-- Pista con Luz Giratoria envolviendo el Banner/Logo principal -->
+      <div class="race-track-container w-full">
+        <img id="headerLogo" src="/img/logo-limbolivia.png" alt="LIMBOLIVIA Servicios de Limpieza" 
+          class="race-track-img w-full h-auto max-h-36 md:max-h-48 object-contain md:object-fill mx-auto"
           onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x120?text=LIMBOLIVIA+Servicios+de+Limpieza';">
       </div>
     </div>
 
-    <!-- Menú de Navegación con Dropdown -->
-    <nav class="navbar bg-[#002244] border-t border-[#004488] text-white text-xs font-bold uppercase mt-2">
+    <!-- Menú de Navegación con Dropdown Ajustado -->
+    <nav class="navbar bg-[#002244] border-t border-[#004488] text-white text-xs font-bold uppercase">
       <div class="max-w-7xl mx-auto px-4 flex flex-wrap gap-2 sm:gap-6 py-2 items-center">
-        <a href="#inicio" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1">
+        
+        <button onclick="showView('view-inicio')" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1">
           <i class="fa-solid fa-house"></i> Inicio
-        </a>
+        </button>
         
         <!-- Dropdown Desplegable de EMPRESA -->
         <div class="dropdown relative group">
-          <a href="#empresa" class="dropbtn hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
+          <button class="dropbtn hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
             <i class="fa-solid fa-building"></i> Empresa <i class="fa-solid fa-chevron-down text-[10px]"></i>
-          </a>
-          <ul class="dropdown-content absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-md py-2 w-48 z-50 mt-1">
-            <li><a href="#mision" class="block px-4 py-2 hover:bg-slate-100 hover:text-emerald-600 transition"><i class="fa-solid fa-bullseye mr-2"></i> Misión</a></li>
-            <li><a href="#vision" class="block px-4 py-2 hover:bg-slate-100 hover:text-emerald-600 transition"><i class="fa-solid fa-eye mr-2"></i> Visión</a></li>
-            <li><a href="#principios" class="block px-4 py-2 hover:bg-slate-100 hover:text-emerald-600 transition"><i class="fa-solid fa-shield-heart mr-2"></i> Nuestros Principios</a></li>
+          </button>
+          <ul class="dropdown-content absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-md py-2 w-52 z-50 mt-0 border border-slate-200">
+            <li>
+              <a href="javascript:void(0)" onclick="showView('view-mision-vision')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
+                Misión / Visión
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" onclick="showView('view-quienes-somos')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
+                ¿Quiénes somos?
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" onclick="showView('view-principios')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
+                Nuestros principios
+              </a>
+            </li>
           </ul>
         </div>
 
-        <a href="#cotizador" class="text-amber-300 hover:text-white transition flex items-center gap-1.5 px-2 py-1">
+        <button onclick="showView('view-cotizador')" class="text-amber-300 hover:text-white transition flex items-center gap-1.5 px-2 py-1">
           <i class="fa-solid fa-calculator"></i> Cotizador
-        </a>
+        </button>
+
         <a href="https://wa.me/59171506930" target="_blank" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1">
           <i class="fa-solid fa-envelope"></i> Contáctese
         </a>
@@ -57,107 +72,108 @@
     </nav>
   </header>
 
-  <!-- SLIDER PRINCIPAL DE BANNERS -->
-  <section id="inicio" class="relative max-w-7xl mx-auto overflow-hidden bg-slate-200">
-    <div class="relative w-full h-[280px] sm:h-[380px] md:h-[450px]">
-      <img id="mainSliderImg" src="/img/banner1.png" alt="Servicios LIMBOLIVIA"
-        class="w-full h-full object-cover transition-all duration-500"
-        onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x450?text=LIMBOLIVIA+BANNER';">
+  <!-- CONTENEDOR PRINCIPAL VISTAS DINÁMICAS -->
+  <main class="max-w-7xl mx-auto py-6 px-4">
 
-      <button onclick="prevSlide()"
-        class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition shadow-lg z-10">
-        <i class="fa-solid fa-chevron-left text-xl"></i>
-      </button>
-      <button onclick="nextSlide()"
-        class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition shadow-lg z-10">
-        <i class="fa-solid fa-chevron-right text-xl"></i>
-      </button>
+    <!-- ================= 1. VISTA INICIO ================= -->
+    <div id="view-inicio" class="view-section space-y-6">
+      <!-- SLIDER PRINCIPAL -->
+      <section class="relative w-full overflow-hidden bg-slate-200 rounded-xl shadow-md">
+        <div class="relative w-full h-[280px] sm:h-[380px] md:h-[450px]">
+          <img id="mainSliderImg" src="/img/banner1.png" alt="Servicios LIMBOLIVIA"
+            class="w-full h-full object-cover transition-all duration-500"
+            onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x450?text=LIMBOLIVIA+BANNER';">
 
-      <!-- Indicadores -->
-      <div id="slideIndicatorsContainer" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 bg-black/50 p-1.5 rounded-md z-10"></div>
-    </div>
-  </section>
+          <button onclick="prevSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition shadow-lg z-10">
+            <i class="fa-solid fa-chevron-left text-xl"></i>
+          </button>
+          <button onclick="nextSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition shadow-lg z-10">
+            <i class="fa-solid fa-chevron-right text-xl"></i>
+          </button>
 
-  <!-- BARRA INFORMATIVA -->
-  <div class="bg-[#001845] text-white py-3.5 px-4 shadow-md">
-    <div class="max-w-7xl mx-auto flex items-center gap-3">
-      <div class="bg-red-600 text-white w-9 h-9 rounded-full flex items-center justify-center text-lg shadow shrink-0">
-        <i class="fa-solid fa-headset"></i>
-      </div>
-      <span class="text-base sm:text-lg font-black uppercase tracking-wider">¡ESTAMOS ATENTOS A SU LLAMADA!</span>
-    </div>
-  </div>
-
-  <!-- SECCIÓN EMPRESA: MISIÓN, VISIÓN Y VALORES -->
-  <section id="empresa" class="max-w-7xl mx-auto pt-8 px-4">
-    <div class="text-center max-w-3xl mx-auto mb-8">
-      <h2 class="text-3xl font-extrabold text-slate-900 uppercase tracking-wide">
-        Sobre <span class="text-emerald-600">LIM-BOLIVIA</span>
-      </h2>
-      <p class="text-sm text-gray-600 mt-2">
-        Líderes en servicios integrales de limpieza, desinfección y mantenimiento especializado a nivel nacional.
-      </p>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-6">
-      <!-- MISIÓN -->
-      <div id="mision" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-2xl font-bold">
-            <i class="fa-solid fa-bullseye"></i>
-          </div>
-          <h3 class="text-xl font-bold text-slate-800">Nuestra Misión</h3>
+          <div id="slideIndicatorsContainer" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 bg-black/50 p-1.5 rounded-md z-10"></div>
         </div>
-        <p class="text-sm text-gray-600 leading-relaxed">
-          Brindar soluciones profesionales de limpieza e higienización de la más alta calidad para hogares, empresas e industrias en Bolivia. Nos comprometemos a garantizar ambientes limpios, saludables y seguros utilizando tecnología de vanguardia, maquinaria especializada y personal calificado de alta confianza.
+      </section>
+
+      <!-- BARRA INFORMATIVA -->
+      <div class="bg-[#001845] text-white py-3.5 px-4 rounded-xl shadow-md flex items-center gap-3">
+        <div class="bg-red-600 text-white w-9 h-9 rounded-full flex items-center justify-center text-lg shadow shrink-0">
+          <i class="fa-solid fa-headset"></i>
+        </div>
+        <span class="text-base sm:text-lg font-black uppercase tracking-wider">¡ESTAMOS ATENTOS A SU LLAMADA!</span>
+      </div>
+    </div>
+
+    <!-- ================= 2. VISTA MISIÓN / VISIÓN (EXACTA A IMAGEN 3) ================= -->
+    <div id="view-mision-vision" class="view-section hidden bg-white p-8 md:p-12 rounded-2xl shadow-md border border-slate-200 space-y-8">
+      
+      <!-- MISIÓN -->
+      <div class="space-y-3">
+        <h2 class="text-xl md:text-2xl font-black text-[#003366] tracking-wide uppercase">MISIÓN</h2>
+        <p class="text-gray-700 leading-relaxed text-sm md:text-base font-medium">
+          Diseñar, operar y administrar sistemas y servicios de limpieza de acuerdo a las más exigentes necesidades, los cuales garanticen higiene de calidad en las condiciones de tiempo, satisfacción y presupuesto acorde con nuestros clientes.
         </p>
       </div>
 
       <!-- VISIÓN -->
-      <div id="vision" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-2xl font-bold">
-            <i class="fa-solid fa-eye"></i>
-          </div>
-          <h3 class="text-xl font-bold text-slate-800">Nuestra Visión</h3>
-        </div>
-        <p class="text-sm text-gray-600 leading-relaxed">
-          Consolidarnos como la empresa referente y número uno en el rubro de servicios de limpieza y desinfección en todo el país, destacándonos por la innovación continua, la responsabilidad ambiental en nuestras operaciones y el compromiso constante con la excelencia y la satisfacción total de nuestros clientes.
+      <div class="space-y-3">
+        <h2 class="text-xl md:text-2xl font-black text-[#003366] tracking-wide uppercase">VISIÓN</h2>
+        <p class="text-gray-700 leading-relaxed text-sm md:text-base font-medium">
+          Superar la barrera del tiempo llegando a ser la más importante referencia a nivel nacional e internacional en materia de limpieza. Pensando siempre en la calidad de vida de nuestros clientes y no apartándonos de nuestros valores y principios con los cuales comenzamos este camino.
         </p>
       </div>
+
+      <!-- LEMA -->
+      <div class="pt-6 border-t border-gray-200 text-center space-y-3">
+        <h2 class="text-xl md:text-2xl font-black text-[#003366] tracking-wide uppercase">LEMA</h2>
+        <div class="flex justify-center my-2">
+          <i class="fa-solid fa-sparkles text-3xl text-amber-500"></i>
+        </div>
+        <div class="font-bold text-slate-800 space-y-1 text-sm md:text-base">
+          <p class="uppercase tracking-widest text-emerald-700">LIMPIEZA ES NUESTRO LEMA</p>
+          <p class="uppercase tracking-widest text-[#003366]">SALUD Y BIENESTAR NUESTRO OBJETIVO</p>
+        </div>
+      </div>
+
     </div>
 
-    <!-- VALORES CORPORATIVOS -->
-    <div id="principios" class="mt-6 bg-slate-900 text-white rounded-2xl p-6 shadow-lg">
-      <h3 class="text-center font-bold uppercase tracking-wider text-emerald-400 text-sm mb-6">Valores que nos Definen</h3>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-        <div class="p-3 bg-slate-800 rounded-xl border border-slate-700">
-          <i class="fa-solid fa-shield-heart text-2xl text-emerald-400 mb-2"></i>
-          <h4 class="font-bold text-xs uppercase">Compromiso</h4>
-          <p class="text-[11px] text-gray-400 mt-1">Garantía en cada servicio realizado.</p>
+    <!-- ================= 3. VISTA ¿QUIÉNES SOMOS? ================= -->
+    <div id="view-quienes-somos" class="view-section hidden bg-white p-8 md:p-12 rounded-2xl shadow-md border border-slate-200 space-y-6">
+      <h2 class="text-2xl font-black text-[#003366] uppercase">¿Quiénes somos?</h2>
+      <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+        Somos **LIM-BOLIVIA**, una empresa especialista en servicios integrales de limpieza, desinfección e higienización profesional con amplia trayectoria en el mercado boliviano. Contamos con equipamiento tecnológico de vanguardia, insumos certificados y personal altamente capacitado para brindar un servicio garantizado en instituciones, empresas y residencias particulares.
+      </p>
+    </div>
+
+    <!-- ================= 4. VISTA NUESTROS PRINCIPIOS ================= -->
+    <div id="view-principios" class="view-section hidden bg-slate-900 text-white p-8 rounded-2xl shadow-xl space-y-6">
+      <h2 class="text-2xl font-black text-emerald-400 uppercase text-center">Nuestros Principios y Valores</h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center pt-4">
+        <div class="p-4 bg-slate-800 rounded-xl border border-slate-700">
+          <i class="fa-solid fa-shield-heart text-3xl text-emerald-400 mb-2"></i>
+          <h3 class="font-bold text-sm uppercase">Compromiso</h3>
+          <p class="text-xs text-gray-400 mt-1">Garantía y responsabilidad en cada servicio ejecutado.</p>
         </div>
-        <div class="p-3 bg-slate-800 rounded-xl border border-slate-700">
-          <i class="fa-solid fa-award text-2xl text-amber-400 mb-2"></i>
-          <h4 class="font-bold text-xs uppercase">Calidad</h4>
-          <p class="text-[11px] text-gray-400 mt-1">Estándares industriales de excelencia.</p>
+        <div class="p-4 bg-slate-800 rounded-xl border border-slate-700">
+          <i class="fa-solid fa-award text-3xl text-amber-400 mb-2"></i>
+          <h3 class="font-bold text-sm uppercase">Calidad</h3>
+          <p class="text-xs text-gray-400 mt-1">Altos estándares operacionales y maquinaria especializada.</p>
         </div>
-        <div class="p-3 bg-slate-800 rounded-xl border border-slate-700">
-          <i class="fa-solid fa-leaf text-2xl text-green-400 mb-2"></i>
-          <h4 class="font-bold text-xs uppercase">Ecológicos</h4>
-          <p class="text-[11px] text-gray-400 mt-1">Productos y procesos sostenibles.</p>
+        <div class="p-4 bg-slate-800 rounded-xl border border-slate-700">
+          <i class="fa-solid fa-leaf text-3xl text-green-400 mb-2"></i>
+          <h3 class="font-bold text-sm uppercase">Ecológicos</h3>
+          <p class="text-xs text-gray-400 mt-1">Uso responsable de químicos amigables con el medio ambiente.</p>
         </div>
-        <div class="p-3 bg-slate-800 rounded-xl border border-slate-700">
-          <i class="fa-solid fa-users text-2xl text-blue-400 mb-2"></i>
-          <h4 class="font-bold text-xs uppercase">Confianza</h4>
-          <p class="text-[11px] text-gray-400 mt-1">Personal capacitado y verificado.</p>
+        <div class="p-4 bg-slate-800 rounded-xl border border-slate-700">
+          <i class="fa-solid fa-users text-3xl text-blue-400 mb-2"></i>
+          <h3 class="font-bold text-sm uppercase">Confianza</h3>
+          <p class="text-xs text-gray-400 mt-1">Personal calificado, identificado y verificado de total confianza.</p>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- COTIZADOR Y SERVICIOS -->
-  <main class="max-w-7xl mx-auto py-8 px-4 space-y-12">
-    <section class="p-6 bg-slate-50 border-b rounded-2xl shadow-sm" id="cotizador">
+    <!-- ================= 5. VISTA COTIZADOR ================= -->
+    <div id="view-cotizador" class="view-section hidden p-6 bg-slate-50 border rounded-2xl shadow-sm">
       <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
         <i class="fa-solid fa-calculator text-emerald-600"></i> Cotizador Rápido de Servicios
       </h2>
@@ -211,7 +227,7 @@
               <h4 id="serviceTitle" class="font-bold text-slate-800 text-base mb-1">Lavado Profesional de Alfombra Fija</h4>
               <p id="serviceDescription" class="text-xs text-gray-600 leading-relaxed mb-2">Seleccione la superficie en metros cuadrados y adicione extras si lo requiere.</p>
               <div class="text-[11px] bg-emerald-100 text-emerald-900 font-semibold px-2.5 py-1 rounded-md inline-block border border-emerald-200">
-                <i class="fa-solid fa-gears text-emerald-700 mr-1"></i> <span id="serviceMachine">Maquinaria: Inyectora / Extractora Profesional de Alta Presión</span>
+                <i class="fa-solid fa-gears text-emerald-700 mr-1"></i> <span id="serviceMachine">Maquinaria: Inyectora / Extractora Profesional</span>
               </div>
             </div>
           </div>
@@ -237,118 +253,6 @@
             </button>
           </div>
 
-          <!-- EXTRAS OPCIONALES -->
-          <div class="mt-6 space-y-4">
-            <h4 class="font-bold text-gray-800 text-base">3. Extras Opcionales para este Servicio:</h4>
-
-            <!-- EXTRA VIDRIOS -->
-            <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
-              <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                <input type="checkbox" id="check-vidrios" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtra('vidrios')">
-                <span>🧼 Lavado de Vidrios y Ventanas (Bs 12 / ventana)</span>
-              </label>
-              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i> Maquinaria: Limpiacristales telescópico de fibra de carbono.</p>
-              <div id="panel-vidrios" class="hidden pt-3 border-t border-gray-200 space-y-3">
-                <div class="flex justify-between items-center">
-                  <span class="text-xs font-semibold text-gray-600">Cantidad de Ventanas:</span>
-                  <span id="label-vidrios" class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 vent. (Bs 12)</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <button onclick="changeExtraQty('vidrios', -1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-minus"></i></button>
-                  <input type="range" id="range-vidrios" min="1" max="30" step="1" value="1" class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="updateExtraValue('vidrios')">
-                  <button onclick="changeExtraQty('vidrios', 1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-plus"></i></button>
-                </div>
-              </div>
-            </div>
-
-            <!-- EXTRA SILLAS -->
-            <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
-              <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                <input type="checkbox" id="check-sillas" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtra('sillas')">
-                <span>🪑 Lavado de Sillas (Bs 7 / unidad)</span>
-              </label>
-              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i> Maquinaria: Lavadora inyectora de espuma seca.</p>
-              <div id="panel-sillas" class="hidden pt-3 border-t border-gray-200 space-y-3">
-                <div class="flex justify-between items-center">
-                  <span class="text-xs font-semibold text-gray-600">Cantidad de Sillas:</span>
-                  <span id="label-sillas" class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 unidad (Bs 7)</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <button onclick="changeExtraQty('sillas', -1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-minus"></i></button>
-                  <input type="range" id="range-sillas" min="1" max="50" step="1" value="1" class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="updateExtraValue('sillas')">
-                  <button onclick="changeExtraQty('sillas', 1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-plus"></i></button>
-                </div>
-              </div>
-            </div>
-
-            <!-- EXTRA SOFÁS -->
-            <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
-              <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                <input type="checkbox" id="check-sofas" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtra('sofas')">
-                <span>🛋️ Lavado de Sofás y Muebles</span>
-              </label>
-              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i> Maquinaria: Inyectora-extractora de vapor térmico.</p>
-              <div id="panel-sofas" class="hidden pt-3 border-t border-gray-200 space-y-3">
-                <div class="flex justify-between items-center">
-                  <span class="text-xs font-semibold text-gray-600">Número de Cuerpos/Piezas:</span>
-                  <span id="label-sofas" class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 Cuerpo (Bs 40)</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <button onclick="changeExtraQty('sofas', -1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-minus"></i></button>
-                  <input type="range" id="range-sofas" min="1" max="5" step="1" value="1" class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="updateExtraValue('sofas')">
-                  <button onclick="changeExtraQty('sofas', 1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-plus"></i></button>
-                </div>
-              </div>
-            </div>
-
-            <!-- EXTRA RIBETEADO -->
-            <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
-              <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                <input type="checkbox" id="check-ribeteado" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtra('ribeteado')">
-                <span>🧵 Ribeteado / Costura de Bordes (Bs 15 / ML)</span>
-              </label>
-              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i> Maquinaria: Máquina Overlock Industrial Portátil.</p>
-              <div id="panel-ribeteado" class="hidden pt-3 border-t border-gray-200 space-y-3">
-                <div class="flex justify-between items-center">
-                  <span class="text-xs font-semibold text-gray-600">Metros Lineales:</span>
-                  <span id="label-ribeteado" class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1 ML (Bs 15)</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <button onclick="changeExtraQty('ribeteado', -1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-minus"></i></button>
-                  <input type="range" id="range-ribeteado" min="1" max="50" step="1" value="1" class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="updateExtraValue('ribeteado')">
-                  <button onclick="changeExtraQty('ribeteado', 1)" class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i class="fa-solid fa-plus"></i></button>
-                </div>
-              </div>
-            </div>
-
-            <!-- EXTRA FUMIGACIÓN -->
-            <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
-              <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                <input type="checkbox" id="check-fumigacionExtra" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtra('fumigacionExtra')">
-                <span>🪰 Fumigación Ambiental de Insectoría (Bs 180)</span>
-              </label>
-              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i> Maquinaria: Termonebulizadora de alta presión.</p>
-            </div>
-
-            <!-- EXTRA COCINA -->
-            <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
-              <div class="flex items-center justify-between">
-                <label class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                  <input type="checkbox" id="check-cocina" class="w-4 h-4 accent-emerald-600 rounded" onchange="toggleExtra('cocina')">
-                  <span>🍳 Limpieza Profunda de Cocina (Bs 150)</span>
-                </label>
-                <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Precio Fijo</span>
-              </div>
-              <p class="text-[11px] text-gray-500 pl-7"><i class="fa-solid fa-screwdriver-wrench text-emerald-600"></i> Maquinaria: Generador de vapor desengrasante industrial.</p>
-            </div>
-          </div>
-
-          <div class="pt-2">
-            <button onclick="addSelectedExtrasOnly()" class="w-full bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm uppercase tracking-wide">
-              <i class="fa-solid fa-plus-circle text-lg"></i> Agregar Extras Seleccionados a la Cotización
-            </button>
-          </div>
-
         </div>
 
         <!-- RESUMEN EN BANNER DERECHA -->
@@ -368,49 +272,15 @@
               <div id="summaryTotal" class="text-3xl font-black text-amber-400">Bs 0</div>
             </div>
 
-            <button onclick="sendToWhatsApp()" class="w-full bg-green-600 hover:bg-green-500 active:bg-green-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm">
+            <button onclick="sendToWhatsApp()" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm">
               <i class="fa-brands fa-whatsapp text-xl"></i> Reservar por WhatsApp
-            </button>
-
-            <button onclick="talkQuote()" class="w-full bg-slate-800 hover:bg-slate-700 text-emerald-400 font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition border border-slate-700 text-xs">
-              <i class="fa-solid fa-volume-high"></i> Escuchar Cotización
             </button>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+
   </main>
-
-  <!-- ASISTENTE FLOTANTE Y CHATBOT DE IA -->
-  <div id="chatBox" class="hidden fixed bottom-6 right-6 z-[9999] w-80 sm:w-96 bg-slate-900 text-white rounded-2xl shadow-2xl border border-slate-800 overflow-hidden flex flex-col h-[480px] transition-all">
-    <div class="bg-slate-800 p-3 flex justify-between items-center border-b border-slate-700">
-      <div class="flex items-center gap-3">
-        <div class="relative">
-          <img id="aiChatHeaderAvatar" src="/img/asistente.png" class="w-9 h-9 rounded-full border border-emerald-500 object-cover" alt="Asistente" onerror="this.onerror=null; this.src='https://via.placeholder.com/40?text=IA';">
-          <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-slate-900"></span>
-        </div>
-        <div>
-          <h3 class="text-sm font-bold text-white leading-tight">Asistente LIM-BOLIVIA</h3>
-          <p class="text-[10px] text-emerald-400 font-medium">En línea • Inteligencia Artificial</p>
-        </div>
-      </div>
-      <button onclick="toggleChat()" class="text-gray-400 hover:text-white p-1">
-        <i class="fa-solid fa-xmark text-lg"></i>
-      </button>
-    </div>
-
-    <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs"></div>
-
-    <div class="p-3 bg-slate-800 border-t border-slate-700 flex gap-2 items-center">
-      <input type="text" id="userInput" placeholder="Escribe tu mensaje..." class="flex-1 bg-slate-900 text-white text-xs px-3 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-emerald-500" onkeypress="if(event.key === 'Enter') sendMessage()">
-      <button onclick="startListening()" class="bg-slate-700 hover:bg-slate-600 text-emerald-400 p-2 rounded-lg transition" title="Hablar por micrófono">
-        <i class="fa-solid fa-microphone"></i>
-      </button>
-      <button onclick="sendMessage()" class="bg-emerald-600 hover:bg-emerald-500 text-white p-2 rounded-lg transition">
-        <i class="fa-solid fa-paper-plane"></i>
-      </button>
-    </div>
-  </div>
 
   <!-- BOTÓN FLOTANTE PARA ACTIVAR LA IA -->
   <div class="btn-ia-container ai-widget-container fixed bottom-6 left-6 z-[9999] flex items-center gap-2">
@@ -422,7 +292,6 @@
     </button>
   </div>
 
-  <!-- SCRIPT CENTRALIZADO -->
   <script src="script.js"></script>
 </body>
 
