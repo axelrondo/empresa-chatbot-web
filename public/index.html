@@ -43,14 +43,15 @@
 
     <!-- Menú de Navegación -->
     <nav class="navbar bg-[#002244] border-t border-[#004488] text-white text-xs font-bold uppercase">
-      <div class="max-w-7xl mx-auto px-4 flex flex-wrap gap-2 sm:gap-6 py-2 items-center">
+      <div class="max-w-7xl mx-auto px-4 flex flex-wrap gap-2 sm:gap-4 py-2 items-center">
 
+        <!-- INICIO -->
         <button onclick="showView('view-inicio')"
           class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
           <i class="fa-solid fa-house"></i> Inicio
         </button>
 
-        <!-- Dropdown Desplegable de EMPRESA -->
+        <!-- DROPDOWN EMPRESA -->
         <div class="dropdown relative group">
           <button class="dropbtn hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
             <i class="fa-solid fa-building"></i> Empresa <i class="fa-solid fa-chevron-down text-[10px]"></i>
@@ -78,7 +79,7 @@
           </ul>
         </div>
 
-        <!-- Dropdown Desplegable de SERVICIOS DE LIMPIEZA -->
+        <!-- DROPDOWN SERVICIOS DE LIMPIEZA -->
         <div class="dropdown relative group">
           <button
             class="dropbtn bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5 px-3 py-1 rounded cursor-pointer">
@@ -111,15 +112,68 @@
           </ul>
         </div>
 
+        <!-- DROPDOWN OTROS SERVICIOS -->
+        <div class="dropdown relative group">
+          <button class="dropbtn hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
+            <i class="fa-solid fa-list-check"></i> Otros Servicios <i class="fa-solid fa-chevron-down text-[10px]"></i>
+          </button>
+          <ul
+            class="dropdown-content absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-md py-2 w-64 z-50 mt-0 border border-slate-200">
+            <li>
+              <a href="https://wa.me/59179684700?text=Consulta%20sobre%20Limpieza%20de%20Vidrios%20en%20Altura" target="_blank"
+                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
+                <i class="fa-solid fa-building-user text-blue-600 mr-2"></i> Limpieza de Vidrios en Altura
+              </a>
+            </li>
+            <li>
+              <a href="https://wa.me/59179684700?text=Consulta%20sobre%20Tratamiento%20y%20Pulido%20de%20Pisos" target="_blank"
+                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
+                <i class="fa-solid fa-broom text-amber-500 mr-2"></i> Tratamiento y Pulido de Pisos
+              </a>
+            </li>
+            <li>
+              <a href="https://wa.me/59179684700?text=Consulta%20sobre%20Desinfección%20y%20Fumigación" target="_blank"
+                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
+                <i class="fa-solid fa-spray-can-sparkles text-emerald-600 mr-2"></i> Desinfección Ambiental
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- DROPDOWN VENTA DE PRODUCTOS / EQUIPOS -->
+        <div class="dropdown relative group">
+          <button class="dropbtn hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
+            <i class="fa-solid fa-store"></i> Venta de... <i class="fa-solid fa-chevron-down text-[10px]"></i>
+          </button>
+          <ul
+            class="dropdown-content absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-md py-2 w-64 z-50 mt-0 border border-slate-200">
+            <li>
+              <a href="https://wa.me/59171506930?text=Consulta%20sobre%20Venta%20de%20Insumos%20y%20Químicos" target="_blank"
+                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
+                <i class="fa-solid fa-flask text-purple-600 mr-2"></i> Productos Químicos de Limpieza
+              </a>
+            </li>
+            <li>
+              <a href="https://wa.me/59171506930?text=Consulta%20sobre%20Maquinaria%20y%20Aspiradoras%20Industriales" target="_blank"
+                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
+                <i class="fa-solid fa-plug text-red-500 mr-2"></i> Maquinaria y Aspiradoras
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- COTIZADOR -->
         <button onclick="showView('view-cotizador')"
           class="text-amber-300 hover:text-white transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
           <i class="fa-solid fa-calculator"></i> Cotizador
         </button>
 
+        <!-- CONTÁCTESE -->
         <a href="https://www.facebook.com/limbolivia?ref=embed_page" target="_blank"
           class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1">
           <i class="fa-solid fa-envelope"></i> Contáctese
         </a>
+
       </div>
     </nav>
   </header>
