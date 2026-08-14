@@ -13,6 +13,11 @@ html {
   inherits: false;
 }
 
+/* Fallback o variables por defecto */
+:root {
+  --track-angle: 0deg;
+}
+
 /* ==========================================
    2. CONTENEDOR DEL LOGO (PISTA CON SECUENCIA / LUZ)
    ========================================== */
@@ -137,7 +142,7 @@ html {
   position: relative;
   display: inline-flex;
   align-items: center;
-  justify-content: center; /* Corregido: antes decía justify-center */
+  justify-content: center;
   padding: 10px 20px;
   border-radius: 9999px;
   background: #10b981; /* Verde esmeralda base */
