@@ -35,7 +35,7 @@ function showView(viewId) {
   }
 
   // Cargar catálogo de maquinaria si se accede a dicha vista
-  if (viewId === 'view-venta-maquinas' || viewId === 'view-venta-maquinaria') {
+  if (viewId === 'view-venta-maquinaria') {
     loadMachineryProducts();
   }
 }
@@ -311,10 +311,6 @@ function closeModal(id) {
   if (modal) modal.classList.add('hidden');
 }
 
-function openAdminModal() {
-  checkAdminAuth();
-}
-
 function checkAdminAuth() {
   if (isAdminAuthenticated) {
     document.getElementById('modalUploadMachine').classList.remove('hidden');
@@ -344,9 +340,6 @@ async function handleAdminLogin(e) {
     if (error) throw error;
 
     isAdminAuthenticated = true;
-    const statusLbl = document.getElementById('lblAdminStatus');
-    if (statusLbl) statusLbl.textContent = "Publicar Máquina";
-
     errorMsg.classList.add('hidden');
     closeModal('modalAdminLogin');
     document.getElementById('modalUploadMachine').classList.remove('hidden');
@@ -452,7 +445,7 @@ async function loadMachineryProducts() {
     container.innerHTML = products.map(prod => `
       <div class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
         <div class="h-48 bg-slate-200 overflow-hidden relative">
-          <img src="${prod.imagen_url}" alt="${prod.titulo}" class="w-full h-full object-cover hover:scale-105 transition duration-300" onerror="this.src='https://via.placeholder.com/300x200?text=Producto';">
+          <img src="${prod.imagen_url}" alt="${prod.titulo}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://via.placeholder.com/300x200?text=Producto';">
           <span class="absolute top-2 right-2 bg-amber-500 text-slate-900 font-black text-xs px-2.5 py-1 rounded-md shadow">
             Bs. ${parseFloat(prod.precio).toFixed(2)}
           </span>
