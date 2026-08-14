@@ -19,21 +19,12 @@
     .view-section {
       transition: all 0.3s ease-in-out;
     }
-
     .animate-fade-in {
       animation: fadeIn 0.4s ease-out forwards;
     }
-
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -65,63 +56,59 @@
             <i class="fa-solid fa-building"></i> Empresa <i class="fa-solid fa-chevron-down text-[10px]"></i>
           </button>
           <ul
-            class="dropdown-content absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-md py-2 w-52 z-50 mt-0 border border-slate-200">
+            class="dropdown-content absolute hidden group-hover:block bg-white text-slate-900 shadow-2xl rounded-md py-2 w-56 z-50 mt-0 border border-slate-300 font-bold">
             <li>
               <a href="javascript:void(0)" onclick="showView('view-mision-vision')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
+                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-slate-800">
                 Misión / Visión
               </a>
             </li>
             <li>
               <a href="javascript:void(0)" onclick="showView('view-quienes-somos')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
+                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-slate-800">
                 ¿Quiénes somos?
               </a>
             </li>
             <li>
               <a href="javascript:void(0)" onclick="showView('view-principios')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
+                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-slate-800">
                 Nuestros principios
               </a>
             </li>
           </ul>
         </div>
 
-        <!-- Dropdown Desplegable de SERVICIOS DE LIMPIEZA -->
+        <!-- Dropdown Desplegable de SERVICIOS DE LIMPIEZA MODIFICADO -->
         <div class="dropdown relative group">
           <button
-            class="dropbtn bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5 px-3 py-1 rounded cursor-pointer">
+            class="dropbtn bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5 px-3 py-1 rounded cursor-pointer shadow">
             <i class="fa-solid fa-sparkles"></i> SERVICIOS DE LIMPIEZA <i
               class="fa-solid fa-chevron-down text-[10px]"></i>
           </button>
           <ul
-            class="dropdown-content absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-md py-2 w-72 z-50 mt-0 border border-slate-200">
-            <li>
-              <a href="javascript:void(0)" onclick="selectServiceTab('Casas'); showView('view-cotizador');"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs">
-                <i class="fa-solid fa-house-user text-emerald-600 group-hover:text-white mr-1.5"></i>
-                1. Servicios Residenciales (Limpiezas Técnicas)
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)" onclick="selectServiceTab('Oficinas'); showView('view-cotizador');"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs">
-                <i class="fa-solid fa-building text-emerald-600 group-hover:text-white mr-1.5"></i>
-                2. Servicios Institucionales (Mantenimiento)
-              </a>
-            </li>
+            class="dropdown-content absolute hidden group-hover:block bg-white text-slate-900 shadow-2xl rounded-md py-2 w-80 z-50 mt-0 border border-slate-300 font-extrabold">
+            <!-- 1. Lavado de Alfombras y Tapizados -->
             <li>
               <a href="javascript:void(0)" onclick="showView('view-alfombras-tapizados')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366] group-hover:text-white">
-                <i class="fa-solid fa-rug text-emerald-600 group-hover:text-white mr-1.5"></i>
-                3. Lavado de Alfombras y Tapizados
+                class="block px-4 py-2.5 hover:bg-emerald-600 hover:text-white transition text-xs text-[#003366]">
+                <i class="fa-solid fa-rug text-emerald-600 mr-2 text-sm"></i>
+                1. Lavado de Alfombras y Tapizados
               </a>
             </li>
+            <!-- 2. Servicio 24 Horas -->
             <li>
               <a href="javascript:void(0)" onclick="showView('view-24horas')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-red-600 group-hover:text-white">
-                <i class="fa-solid fa-clock text-red-600 group-hover:text-white mr-1.5"></i>
-                4. Servicio 24 Horas
+                class="block px-4 py-2.5 hover:bg-emerald-600 hover:text-white transition text-xs text-red-600">
+                <i class="fa-solid fa-clock text-red-600 mr-2 text-sm"></i>
+                2. Servicio 24 Horas
+              </a>
+            </li>
+            <!-- 3. Servicios Residenciales (LIMPIEZAS TÉCNICAS) -->
+            <li>
+              <a href="javascript:void(0)" onclick="showView('view-residenciales')"
+                class="block px-4 py-2.5 hover:bg-emerald-600 hover:text-white transition text-xs text-slate-900">
+                <i class="fa-solid fa-house-user text-amber-500 mr-2 text-sm"></i>
+                3. Servicios Residenciales (Limpiezas Técnicas)
               </a>
             </li>
           </ul>
@@ -143,7 +130,7 @@
   <!-- CONTENEDOR PRINCIPAL -->
   <main class="max-w-7xl mx-auto py-6 px-4 space-y-6">
 
-    <!-- ================= CARRUSEL SUPERIOR DE BANNERS (ANCHO COMPLETO) ================= -->
+    <!-- ================= CARRUSEL SUPERIOR DE BANNERS ================= -->
     <div id="carousel-header-container" class="w-full">
       <section class="relative w-full overflow-hidden bg-slate-200 rounded-xl shadow-md border border-slate-300">
         <div class="relative w-full h-[280px] sm:h-[380px] md:h-[450px]">
@@ -232,41 +219,23 @@
 
             <div class="bg-slate-50 p-4 md:p-5 rounded-xl border border-slate-200 shadow-inner">
               <div id="galleryGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
-                <div
-                  class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
-                  <img src="img/img1.png" alt="Servicio LIMBOLIVIA 1"
-                    class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300"
-                    onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img1.png';">
+                <div class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
+                  <img src="img/img1.png" alt="Servicio LIMBOLIVIA 1" class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img1.png';">
                 </div>
-                <div
-                  class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
-                  <img src="img/img2.png" alt="Servicio LIMBOLIVIA 2"
-                    class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300"
-                    onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img2.png';">
+                <div class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
+                  <img src="img/img2.png" alt="Servicio LIMBOLIVIA 2" class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img2.png';">
                 </div>
-                <div
-                  class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
-                  <img src="img/img3.png" alt="Servicio LIMBOLIVIA 3"
-                    class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300"
-                    onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img3.png';">
+                <div class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
+                  <img src="img/img3.png" alt="Servicio LIMBOLIVIA 3" class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img3.png';">
                 </div>
-                <div
-                  class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
-                  <img src="img/img4.png" alt="Servicio LIMBOLIVIA 4"
-                    class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300"
-                    onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img4.png';">
+                <div class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
+                  <img src="img/img4.png" alt="Servicio LIMBOLIVIA 4" class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img4.png';">
                 </div>
-                <div
-                  class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
-                  <img src="img/img5.png" alt="Servicio LIMBOLIVIA 5"
-                    class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300"
-                    onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img5.png';">
+                <div class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
+                  <img src="img/img5.png" alt="Servicio LIMBOLIVIA 5" class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img5.png';">
                 </div>
-                <div
-                  class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
-                  <img src="img/img6.png" alt="Servicio LIMBOLIVIA 6"
-                    class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300"
-                    onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img6.png';">
+                <div class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
+                  <img src="img/img6.png" alt="Servicio LIMBOLIVIA 6" class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img6.png';">
                 </div>
               </div>
             </div>
@@ -286,17 +255,10 @@
 
           <div class="space-y-4 text-gray-700 leading-relaxed text-sm md:text-base">
             <p>
-              <strong class="text-[#003366]">LIM-BOLIVIA (División Limpieza)</strong> fue creada en la ciudad de La Paz
-              - Bolivia en Diciembre de 1999, formada en un principio con el nombre de "Electrolux Line Servicios..."
-              (el proceso de cambio de nombre oficial se consolidó a partir de junio del año 2001). Organizada y
-              especializada en la realización de trabajos eventuales, de PLANTA y Residenciales, asumió el compromiso
-              constante de brindar a sus clientes la máxima eficacia y eficiencia.
+              <strong class="text-[#003366]">LIM-BOLIVIA (División Limpieza)</strong> fue creada en la ciudad de La Paz - Bolivia en Diciembre de 1999, formada en un principio con el nombre de "Electrolux Line Servicios..." (el proceso de cambio de nombre oficial se consolidó a partir de junio del año 2001). Organizada y especializada en la realización de trabajos eventuales, de PLANTA y Residenciales, asumió el compromiso constante de brindar a sus clientes la máxima eficacia y eficiencia.
             </p>
-            <p
-              class="font-medium text-slate-800 bg-emerald-50/60 p-4 rounded-xl border-l-4 border-emerald-600 shadow-sm">
-              Actualmente hemos incursionado con gran éxito en el campo del Servicio Corporativo e Institucional,
-              ofreciendo mantenimiento integral con la trayectoria y solvencia técnica que nos respalda como líderes del
-              sector.
+            <p class="font-medium text-slate-800 bg-emerald-50/60 p-4 rounded-xl border-l-4 border-emerald-600 shadow-sm">
+              Actualmente hemos incursionado con gran éxito en el campo del Servicio Corporativo e Institucional, ofreciendo mantenimiento integral con la trayectoria y solvencia técnica que nos respalda como líderes del sector.
             </p>
           </div>
 
@@ -313,8 +275,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
-                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2 flex items-center"><i
-                    class="fa-solid fa-landmark text-emerald-600 mr-2"></i>Gobierno & Diplomacia</h4>
+                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2 flex items-center"><i class="fa-solid fa-landmark text-emerald-600 mr-2"></i>Gobierno & Diplomacia</h4>
                 <ul class="space-y-1 text-xs text-gray-700">
                   <li>• Casa del Pueblo</li>
                   <li>• Embajada de Brasil</li>
@@ -322,24 +283,21 @@
               </div>
 
               <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
-                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2 flex items-center"><i
-                    class="fa-solid fa-industry text-emerald-600 mr-2"></i>Sector Minero e Industrial</h4>
+                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2 flex items-center"><i class="fa-solid fa-industry text-emerald-600 mr-2"></i>Sector Minero e Industrial</h4>
                 <ul class="space-y-1 text-xs text-gray-700">
                   <li>• Minera San Cristóbal</li>
                 </ul>
               </div>
 
               <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
-                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2 flex items-center"><i
-                    class="fa-solid fa-tv text-emerald-600 mr-2"></i>Medios de Comunicación</h4>
+                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2 flex items-center"><i class="fa-solid fa-tv text-emerald-600 mr-2"></i>Medios de Comunicación</h4>
                 <ul class="space-y-1 text-xs text-gray-700">
                   <li>• Canal RTP / Bolivisión / ATB</li>
                 </ul>
               </div>
 
               <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
-                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2 flex items-center"><i
-                    class="fa-solid fa-hospital text-emerald-600 mr-2"></i>Salud & Clínicas</h4>
+                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2 flex items-center"><i class="fa-solid fa-hospital text-emerald-600 mr-2"></i>Salud & Clínicas</h4>
                 <ul class="space-y-1 text-xs text-gray-700">
                   <li>• Clínica Uyuni / Villa Dolores / 6 de Agosto</li>
                 </ul>
@@ -357,47 +315,37 @@
             <h2 class="text-2xl md:text-3xl font-black text-[#003366] tracking-wide uppercase flex items-center gap-3">
               <i class="fa-solid fa-award text-amber-500"></i> NUESTROS PRINCIPIOS
             </h2>
-            <p class="text-xs text-gray-500 mt-1">Los pilares fundamentales que rigen cada uno de nuestros servicios y
-              operaciones diarias.</p>
+            <p class="text-xs text-gray-500 mt-1">Los pilares fundamentales que rigen cada uno de nuestros servicios y operaciones diarias.</p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div
-              class="p-5 rounded-xl bg-slate-50 border-t-4 border-[#003366] shadow-sm hover:shadow-md transition space-y-2">
-              <div
-                class="w-10 h-10 bg-blue-100 text-[#003366] rounded-lg flex items-center justify-center text-lg font-bold">
+            <div class="p-5 rounded-xl bg-slate-50 border-t-4 border-[#003366] shadow-sm hover:shadow-md transition space-y-2">
+              <div class="w-10 h-10 bg-blue-100 text-[#003366] rounded-lg flex items-center justify-center text-lg font-bold">
                 <i class="fa-solid fa-user-check"></i>
               </div>
               <h3 class="font-black text-[#003366] uppercase text-sm tracking-wide">CLIENTE</h3>
               <p class="text-xs text-gray-600 leading-relaxed">
-                Orientamos nuestros esfuerzos en aumentar continuamente su satisfacción y cumplir rigurosamente con
-                todos los requisitos convenidos.
+                Orientamos nuestros esfuerzos en aumentar continuamente su satisfacción y cumplir rigurosamente con todos los requisitos convenidos.
               </p>
             </div>
 
-            <div
-              class="p-5 rounded-xl bg-slate-50 border-t-4 border-amber-500 shadow-sm hover:shadow-md transition space-y-2">
-              <div
-                class="w-10 h-10 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-lg font-bold">
+            <div class="p-5 rounded-xl bg-slate-50 border-t-4 border-amber-500 shadow-sm hover:shadow-md transition space-y-2">
+              <div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-lg font-bold">
                 <i class="fa-solid fa-trophy"></i>
               </div>
               <h3 class="font-black text-[#003366] uppercase text-sm tracking-wide">LIDERAZGO</h3>
               <p class="text-xs text-gray-600 leading-relaxed">
-                Mantenemos una actitud proactiva e innovadora para mantenernos de forma constante como la primera opción
-                de preferencia de cada cliente.
+                Mantenemos una actitud proactiva e innovadora para mantenernos de forma constante como la primera opción de preferencia de cada cliente.
               </p>
             </div>
 
-            <div
-              class="p-5 rounded-xl bg-slate-50 border-t-4 border-emerald-600 shadow-sm hover:shadow-md transition space-y-2">
-              <div
-                class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-lg font-bold">
+            <div class="p-5 rounded-xl bg-slate-50 border-t-4 border-emerald-600 shadow-sm hover:shadow-md transition space-y-2">
+              <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-lg font-bold">
                 <i class="fa-solid fa-shield-halved"></i>
               </div>
               <h3 class="font-black text-[#003366] uppercase text-sm tracking-wide">SEGURIDAD</h3>
               <p class="text-xs text-gray-600 leading-relaxed">
-                Resguardamos la salud, la confidencialidad y la integridad física tanto de nuestro personal como de
-                nuestros clientes en cada operativo.
+                Resguardamos la salud, la confidencialidad y la integridad física tanto de nuestro personal como de nuestros clientes en cada operativo.
               </p>
             </div>
           </div>
@@ -406,39 +354,31 @@
             <i class="fa-solid fa-handshake-angle text-3xl text-amber-400"></i>
             <div>
               <h4 class="font-bold text-sm uppercase">Compromiso de Calidad Total</h4>
-              <p class="text-xs text-slate-300">Garantizamos estándares internacionales y uso de insumos de primera
-                línea en todos nuestros proyectos.</p>
+              <p class="text-xs text-slate-300">Garantizamos estándares internacionales y uso de insumos de primera línea en todos nuestros proyectos.</p>
             </div>
           </div>
         </div>
 
-        <!-- ================= VISTA LAVADO DE ALFOMBRAS Y TAPIZADOS ================= -->
+        <!-- ================= 1. VISTA LAVADO DE ALFOMBRAS Y TAPIZADOS ================= -->
         <div id="view-alfombras-tapizados"
           class="view-section hidden bg-white p-6 md:p-8 rounded-2xl shadow-md border border-slate-200 space-y-8 animate-fade-in">
 
-          <!-- Encabezado Principal -->
           <div class="border-b border-slate-200 pb-5 space-y-2">
-            <div
-              class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-800 text-xs font-black uppercase px-3 py-1 rounded-full border border-emerald-200">
+            <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-800 text-xs font-black uppercase px-3 py-1 rounded-full border border-emerald-200">
               <i class="fa-solid fa-sparkles text-emerald-600"></i> Servicio Especializado
             </div>
             <h2 class="text-2xl md:text-3xl font-black text-[#003366] uppercase tracking-wide">
-              LIMPIEZA Y LAVADO DE ALFOMBRAS Y TAPIZADOS
+              1. LIMPIEZA Y LAVADO DE ALFOMBRAS Y TAPIZADOS
             </h2>
             <p class="text-sm text-gray-600 leading-relaxed font-medium">
-              Sabemos que sus alfombras y tapizados son uno de los bienes más valiosos de su hogar u oficina.
-              Mantenerlos limpios no es tarea sencilla, pero para que luzcan nuevos es necesario limpiarlos
-              regularmente. Nadie cuidará mejor de sus ambientes que <strong
-                class="text-[#003366]">LIM-BOLIVIA</strong>.
+              Sabemos que sus alfombras y tapizados son uno de los bienes más valiosos de su hogar u oficina. Mantenerlos limpios no es tarea sencilla, pero para que luzcan nuevos es necesario limpiarlos regularmente. Nadie cuidará mejor de sus ambientes que <strong class="text-[#003366]">LIM-BOLIVIA</strong>.
             </p>
           </div>
 
-          <!-- Video Promocional Destacado -->
           <div class="bg-slate-900 rounded-2xl p-4 shadow-xl border border-slate-800 space-y-3">
             <div class="flex items-center justify-between text-white border-b border-slate-700 pb-2 px-2">
               <h3 class="font-bold text-sm md:text-base flex items-center gap-2 text-emerald-400">
-                <i class="fa-solid fa-circle-play text-red-500 animate-pulse"></i> Demostración en Video: Proceso
-                Técnico
+                <i class="fa-solid fa-circle-play text-red-500 animate-pulse"></i> Demostración en Video: Proceso Técnico
               </h3>
               <span class="text-[10px] bg-red-600 text-white font-bold px-2 py-0.5 rounded">HD DEMO</span>
             </div>
@@ -448,186 +388,49 @@
                 Tu navegador no soporta la reproducción de video.
               </video>
             </div>
-            <p class="text-xs text-slate-400 text-center italic">Observe la efectividad de nuestra maquinaria en la
-              remoción de manchas profundas y secado rápido.</p>
-          </div>
-          <!-- Video Promocional Destacado -->
-          <div class="bg-slate-900 rounded-2xl p-4 shadow-xl border border-slate-800 space-y-3">
-            <div class="flex items-center justify-between text-white border-b border-slate-700 pb-2 px-2">
-              <h3 class="font-bold text-sm md:text-base flex items-center gap-2 text-emerald-400">
-                <i class="fa-solid fa-circle-play text-red-500 animate-pulse"></i> Demostración en Video: Proceso
-                Técnico
-              </h3>
-              <span class="text-[10px] bg-red-600 text-white font-bold px-2 py-0.5 rounded">HD DEMO</span>
-            </div>
-            <div class="relative rounded-xl overflow-hidden bg-black aspect-video shadow-inner">
-              <video class="w-full h-full object-cover" controls poster="/img/banner1.png">
-                <source src="/img/video1.mp4" type="video/mp4">
-                Tu navegador no soporta la reproducción de video.
-              </video>
-            </div>
-            <p class="text-xs text-slate-400 text-center italic">Observe la efectividad de nuestra maquinaria en la
-              remoción de manchas profundas y secado rápido.</p>
+            <p class="text-xs text-slate-400 text-center italic">Observe la efectividad de nuestra maquinaria en la remoción de manchas profundas y secado rápido.</p>
           </div>
 
-          <!-- Soluciones a Todos los Niveles -->
           <div class="bg-slate-50 p-5 md:p-6 rounded-xl border border-slate-200 space-y-4">
             <h3 class="text-lg md:text-xl font-black text-[#003366] uppercase flex items-center gap-2">
               <i class="fa-solid fa-layer-group text-amber-500"></i> SOLUCIONES A TODOS LOS NIVELES
             </h3>
             <p class="text-xs md:text-sm text-gray-700 leading-relaxed">
-              Nuestra intención es darle el mayor valor añadido posible como empresa de limpieza especializada en
-              trabajos técnicos, cubriendo perfectamente todas sus necesidades y expectativas. Sustituimos métodos
-              tradicionales por una combinación de procedimientos e innovación tecnológica, mejorando la calidad y
-              reduciendo el gasto.
+              Nuestra intención es darle el mayor valor añadido posible como empresa de limpieza especializada en trabajos técnicos, cubriendo perfectamente todas sus necesidades y expectativas.
             </p>
           </div>
 
-          <!-- Sistemas y Métodos de Limpieza -->
           <div class="space-y-4">
             <h3 class="text-lg md:text-xl font-black text-[#003366] uppercase flex items-center gap-2">
               <i class="fa-solid fa-list-check text-emerald-600"></i> SISTEMAS Y MÉTODOS DE LIMPIEZA
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div
-                class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-t-4 border-emerald-600">
-                <div
-                  class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-sm">
-                  1</div>
+              <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-t-4 border-emerald-600">
+                <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-sm">1</div>
                 <h4 class="font-bold text-slate-800 text-sm uppercase">Sistema Champuneado</h4>
-                <p class="text-xs text-gray-600">Remoción de suciedad acumulada mediante fricción controlada de espuma y
-                  cepillado profundo.</p>
+                <p class="text-xs text-gray-600">Remoción de suciedad acumulada mediante fricción controlada de espuma y cepillado profundo.</p>
               </div>
 
-              <div
-                class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-t-4 border-amber-500">
-                <div
-                  class="w-8 h-8 rounded-full bg-amber-100 text-amber-700 font-bold flex items-center justify-center text-sm">
-                  2</div>
+              <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-t-4 border-amber-500">
+                <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-700 font-bold flex items-center justify-center text-sm">2</div>
                 <h4 class="font-bold text-slate-800 text-sm uppercase">Sistema Espuma Seca</h4>
-                <p class="text-xs text-gray-600">Ideal para tejidos delicados que requieren una humedad mínima y secado
-                  en tiempo récord.</p>
+                <p class="text-xs text-gray-600">Ideal para tejidos delicados que requieren una humedad mínima y secado en tiempo récord.</p>
               </div>
 
-              <div
-                class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-t-4 border-blue-600">
-                <div
-                  class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-sm">
-                  3</div>
+              <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-t-4 border-blue-600">
+                <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-sm">3</div>
                 <h4 class="font-bold text-slate-800 text-sm uppercase">Inyección - Extracción</h4>
-                <p class="text-xs text-gray-600">Inyección de solución limpiadora a presión y extracción de agua sucia
-                  en un solo paso técnico.</p>
-              </div>
-            </div>
-
-            <div
-              class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl text-xs md:text-sm text-amber-900 font-medium flex items-center gap-3">
-              <i class="fa-solid fa-user-gear text-2xl text-amber-600 shrink-0"></i>
-              <p>Déjenos aconsejarle por un asesor técnico, el cual le explicará detalladamente el proceso ideal según
-                el tipo de pavimento o tapizado que requiera intervención.</p>
-            </div>
-          </div>
-
-          <!-- Galería Especializada: Ribeteado y Colocado de Alfombras -->
-          <div class="pt-6 border-t border-slate-200 space-y-4">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div>
-                <h3 class="text-lg md:text-xl font-black text-[#003366] uppercase flex items-center gap-2">
-                  <i class="fa-solid fa-scissors text-amber-500"></i> Ribeteado y Colocado de Alfombras
-                </h3>
-                <p class="text-xs text-gray-500">Instalación técnica, corte a medida y ribeteado protector en pisos y
-                  gradas.</p>
-              </div>
-              <span
-                class="text-[10px] bg-slate-100 text-slate-700 font-bold px-3 py-1 rounded-full border border-slate-300 w-max">
-                Trabajos Terminados
-              </span>
-            </div>
-
-            <!-- Grilla con las imágenes ribeteado.png hasta ribeteado7.png -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
-              <div
-                class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
-                <img src="/img/ribeteado.png" alt="Ribeteado de Alfombras 1"
-                  class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300"
-                  onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado.png';">
-                <p class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">
-                  Ribeteado Profesional</p>
-              </div>
-
-              <div
-                class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
-                <img src="/img/ribeteado1.png" alt="Ribeteado de Alfombras 2"
-                  class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300"
-                  onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado1.png';">
-                <p class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">
-                  Corte e Instalación</p>
-              </div>
-
-              <div
-                class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
-                <img src="/img/ribeteado2.png" alt="Ribeteado de Alfombras 3"
-                  class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300"
-                  onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado2.png';">
-                <p class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">
-                  Fijación en Pisos</p>
-              </div>
-
-              <div
-                class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
-                <img src="/img/ribeteado3.png" alt="Ribeteado de Alfombras 4"
-                  class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300"
-                  onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado3.png';">
-                <p class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">
-                  Colocado en Gradas</p>
-              </div>
-
-              <div
-                class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
-                <img src="/img/ribeteado4.png" alt="Ribeteado de Alfombras 5"
-                  class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300"
-                  onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado4.png';">
-                <p class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">
-                  Ajuste de Bordes</p>
-              </div>
-
-              <div
-                class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
-                <img src="/img/ribeteado5.png" alt="Ribeteado de Alfombras 6"
-                  class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300"
-                  onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado5.png';">
-                <p class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">
-                  Terminación Perimetral</p>
-              </div>
-
-              <div
-                class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
-                <img src="/img/ribeteado6.png" alt="Ribeteado de Alfombras 7"
-                  class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300"
-                  onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado6.png';">
-                <p class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">
-                  Detalles Finos</p>
-              </div>
-
-              <div
-                class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
-                <img src="/img/ribeteado7.png" alt="Ribeteado de Alfombras 8"
-                  class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300"
-                  onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado7.png';">
-                <p class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">
-                  Resultado Final</p>
+                <p class="text-xs text-gray-600">Inyección de solución limpiadora a presión y extracción de agua sucia en un solo paso técnico.</p>
               </div>
             </div>
           </div>
 
-          <!-- Botón Directo al Cotizador o WhatsApp -->
           <div class="pt-4 flex flex-col sm:flex-row gap-3">
             <button onclick="selectServiceTab('Alfombras'); showView('view-cotizador');"
               class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow text-xs uppercase tracking-wider cursor-pointer">
               <i class="fa-solid fa-calculator"></i> Cotizar Lavado de Alfombras Ahora
             </button>
-            <a href="https://wa.me/59179684700?text=Hola,%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20Lavado%20y%20Ribeteado%20de%20Alfombras"
-              target="_blank"
+            <a href="https://wa.me/59179684700?text=Hola,%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20Lavado%20de%20Alfombras" target="_blank"
               class="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2 transition shadow text-xs uppercase tracking-wider">
               <i class="fa-brands fa-whatsapp text-base"></i> Consultar Asesor
             </a>
@@ -635,7 +438,7 @@
 
         </div>
 
-        <!-- ================= VISTA SERVICIO 24 HORAS ================= -->
+        <!-- ================= 2. VISTA SERVICIO 24 HORAS ================= -->
         <div id="view-24horas" class="view-section hidden space-y-6 animate-fade-in">
 
           <div
@@ -650,11 +453,10 @@
                   Atención Inmediata 24/7
                 </div>
                 <h2 class="text-xl md:text-3xl font-black uppercase tracking-tight drop-shadow-md">
-                  Servicio 24 Horas a Clientes
+                  2. Servicio 24 Horas a Clientes
                 </h2>
                 <p class="text-red-100 text-xs md:text-sm font-medium leading-relaxed">
-                  Todos los clientes de <strong class="text-amber-300">LIM-BOLIVIA</strong> pueden disponer de un
-                  teléfono las 24 horas (Lunes a Domingo) para atender emergencias.
+                  Todos los clientes de <strong class="text-amber-300">LIM-BOLIVIA</strong> pueden disponer de un teléfono las 24 horas (Lunes a Domingo) para atender emergencias.
                 </p>
               </div>
 
@@ -676,8 +478,7 @@
                   <i class="fa-solid fa-phone-volume animate-bounce"></i>
                 </div>
                 <div class="space-y-0.5">
-                  <span class="text-[10px] font-bold text-red-600 uppercase tracking-wider block">Emergencias
-                    Técnicas</span>
+                  <span class="text-[10px] font-bold text-red-600 uppercase tracking-wider block">Emergencias Técnicas</span>
                   <h3 class="text-xl font-black text-slate-800 group-hover:text-red-600 transition-colors">79684700</h3>
                   <p class="text-[11px] text-gray-500 font-medium">Limpiezas Técnicas Especializadas</p>
                 </div>
@@ -693,149 +494,227 @@
                   <i class="fa-solid fa-headset"></i>
                 </div>
                 <div class="space-y-0.5">
-                  <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider block">Atención
-                    Continuada</span>
-                  <h3 class="text-xl font-black text-slate-800 group-hover:text-emerald-600 transition-colors">71506930
-                  </h3>
+                  <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider block">Atención Continuada</span>
+                  <h3 class="text-xl font-black text-slate-800 group-hover:text-emerald-600 transition-colors">71506930</h3>
                   <p class="text-[11px] text-gray-500 font-medium">Limpiezas de Mantenimiento e Institucional</p>
                 </div>
               </div>
             </a>
           </div>
 
-          <div class="bg-white p-5 md:p-6 rounded-2xl shadow border border-slate-200 space-y-5">
-            <div class="border-b border-slate-100 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div>
-                <h3 class="text-lg font-black text-[#003366] uppercase flex items-center gap-2">
-                  <i class="fa-solid fa-bolt text-amber-500"></i> Servicios 24H Más Requeridos
-                </h3>
-              </div>
-              <span
-                class="text-[10px] bg-amber-100 text-amber-900 font-bold px-2.5 py-0.5 rounded-full w-max border border-amber-300">
-                Disponibilidad Inmediata
+        </div>
+
+        <!-- ================= 3. VISTA SERVICIOS RESIDENCIALES (LIMPIEZAS TÉCNICAS) ================= -->
+        <div id="view-residenciales" class="view-section hidden space-y-8 animate-fade-in">
+          
+          <!-- Banner Principal con Gradiente Corporativo -->
+          <div class="relative bg-gradient-to-r from-[#002244] via-[#003366] to-[#004488] rounded-2xl p-6 md:p-8 text-white shadow-xl overflow-hidden border border-slate-700">
+            <div class="absolute top-0 right-0 -mt-8 -mr-8 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl"></div>
+            <div class="relative z-10 space-y-3">
+              <span class="bg-amber-400 text-slate-900 font-black text-[10px] uppercase px-3 py-1 rounded-full tracking-widest inline-block shadow">
+                Excelencia & Liderazgo en Bolivia
               </span>
+              <h2 class="text-2xl md:text-4xl font-black uppercase tracking-tight text-white drop-shadow">
+                3. SERVICIOS RESIDENCIALES (LIMPIEZAS TÉCNICAS)
+              </h2>
+              <p class="text-slate-200 text-sm md:text-base max-w-2xl font-medium leading-relaxed">
+                Transformamos sus espacios residenciales con procesos técnicos avanzados, personal calificado e innovación constante para garantizar el máximo confort y salud de su hogar.
+              </p>
+            </div>
+          </div>
+
+          <!-- Galería Destacada Interactiva con Imagenes del Proyecto -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white p-3 rounded-2xl shadow-md border border-slate-200 hover:shadow-xl transition group overflow-hidden">
+              <div class="h-48 overflow-hidden rounded-xl bg-slate-100 relative">
+                <img src="/img/residencial.png" alt="Limpieza Residencial Especializada" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/003366/FFFFFF?text=residencial.png';">
+                <span class="absolute bottom-2 left-2 bg-slate-900/80 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded">Técnica Profesional</span>
+              </div>
+              <h4 class="font-extrabold text-[#003366] text-sm mt-3 px-1">Atención Detallada</h4>
+              <p class="text-xs text-slate-600 px-1 mt-0.5">Sistemas de limpieza profundos adaptados a requerimientos exigentes.</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div
-                class="group bg-slate-50 rounded-xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div class="relative h-36 overflow-hidden bg-blue-900">
-                  <div class="flex h-full w-full">
-                    <img src="/img/inundacion1.png" alt="Inundaciones 1"
-                      class="w-1/2 h-full object-cover group-hover:scale-110 transition duration-500"
-                      onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200/003366/FFFFFF?text=Inundacion+1';">
-                    <img src="/img/inundacion2.png" alt="Inundaciones 2"
-                      class="w-1/2 h-full object-cover group-hover:scale-110 transition duration-500"
-                      onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200/002244/FFFFFF?text=Inundacion+2';">
-                  </div>
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                  <span
-                    class="absolute bottom-2 left-2 bg-red-600 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded shadow">
-                    <i class="fa-solid fa-water-lower animate-pulse"></i> URGENCIA
-                  </span>
+            <div class="bg-white p-3 rounded-2xl shadow-md border border-slate-200 hover:shadow-xl transition group overflow-hidden">
+              <div class="h-48 overflow-hidden rounded-xl bg-slate-100 relative">
+                <img src="/img/residencial1.png" alt="Equipos y Personal Capacitado" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/003366/FFFFFF?text=residencial1.png';">
+                <span class="absolute bottom-2 left-2 bg-emerald-700/80 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded">Garantía Total</span>
+              </div>
+              <h4 class="font-extrabold text-[#003366] text-sm mt-3 px-1">Equipamiento Moderno</h4>
+              <p class="text-xs text-slate-600 px-1 mt-0.5">Maquinaria de vanguardia que cuida la estética y vida útil de sus activos.</p>
+            </div>
+
+            <div class="bg-white p-3 rounded-2xl shadow-md border border-slate-200 hover:shadow-xl transition group overflow-hidden">
+              <div class="h-48 overflow-hidden rounded-xl bg-slate-100 relative">
+                <img src="/img/residencial2.png" alt="Supervisión e Higiene Garantizada" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/003366/FFFFFF?text=residencial2.png';">
+                <span class="absolute bottom-2 left-2 bg-amber-600/80 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded">Supervisión Rigurosa</span>
+              </div>
+              <h4 class="font-extrabold text-[#003366] text-sm mt-3 px-1">Espacios Impecables</h4>
+              <p class="text-xs text-slate-600 px-1 mt-0.5">Resultados visibles con control riguroso en cada fase de trabajo.</p>
+            </div>
+          </div>
+
+          <!-- SECCIÓN: ¿POR QUÉ ESCOGERNOS? (Puntos Clave Integrados) -->
+          <div class="bg-white p-6 md:p-8 rounded-2xl shadow-md border border-slate-200 space-y-8">
+            <div class="text-center max-w-xl mx-auto space-y-2">
+              <span class="text-xs font-black uppercase text-emerald-600 tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-block">Nuestra Diferencia</span>
+              <h3 class="text-2xl md:text-3xl font-black text-[#003366] uppercase">¿POR QUÉ ESCOGERNOS?</h3>
+              <p class="text-xs md:text-sm text-slate-600 font-medium">Ofrecemos un modelo de atención integral centrado en la tranquilidad y rentabilidad operativa de nuestros clientes.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              
+              <!-- Card 1 -->
+              <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-500 transition shadow-sm space-y-3">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center text-xl font-bold">
+                  <i class="fa-solid fa-[#003366] fa-hand-holding-heart"></i>
                 </div>
-                <div class="p-4 space-y-2 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h4 class="font-bold text-slate-800 text-sm group-hover:text-red-600 transition-colors">Extracción
-                      de Agua en Inundaciones</h4>
-                    <p class="text-[11px] text-gray-600 mt-1">Absorción y bombeo rápido de agua por fugas o lluvias.</p>
-                  </div>
-                  <a href="https://wa.me/59179684700?text=Requiero%20Servicio%20de%20Extracci%C3%B3n%20de%20Agua%20en%20Inundaci%C3%B3n"
-                    target="_blank"
-                    class="w-full bg-red-600 hover:bg-red-700 text-white text-xs font-bold py-2 rounded-lg text-center block transition shadow">
-                    Solicitar Auxilio 24/7
-                  </a>
-                </div>
+                <h4 class="font-black text-[#003366] text-base uppercase">Despreocúpese</h4>
+                <p class="text-xs text-slate-700 leading-relaxed font-medium">
+                  Permitimos que nuestros clientes concentren todas sus fuerzas en el objetivo principal de su actividad y que, por lo tanto, puedan conseguir un nivel de tranquilidad que derive en ventajas operativas y económicas para sus negocios.
+                </p>
               </div>
 
-              <div
-                class="group bg-slate-50 rounded-xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div class="relative h-36 overflow-hidden bg-slate-800">
-                  <img src="/img/secado.png" alt="Secado de Alfombras"
-                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200/1e293b/FFFFFF?text=Secado+de+Alfombras';">
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                  <span
-                    class="absolute bottom-2 left-2 bg-blue-600 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded shadow">
-                    <i class="fa-solid fa-fan animate-spin"></i> SECADO RÁPIDO
-                  </span>
+              <!-- Card 2 -->
+              <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-500 transition shadow-sm space-y-3">
+                <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center text-xl font-bold">
+                  <i class="fa-solid fa-layer-group"></i>
                 </div>
-                <div class="p-4 space-y-2 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h4 class="font-bold text-slate-800 text-sm group-hover:text-blue-600 transition-colors">Secado de
-                      Alfombras</h4>
-                    <p class="text-[11px] text-gray-600 mt-1">Deshumidificación e inyección de aire para evitar hongos.
-                    </p>
-                  </div>
-                  <a href="https://wa.me/59179684700?text=Requiero%20Servicio%20Urgente%20de%20Secado%20de%20Alfombras"
-                    target="_blank"
-                    class="w-full bg-[#003366] hover:bg-[#002244] text-white text-xs font-bold py-2 rounded-lg text-center block transition shadow">
-                    Pedir Secado Urgente
-                  </a>
-                </div>
+                <h4 class="font-black text-[#003366] text-base uppercase">Un amplio abanico de servicios</h4>
+                <p class="text-xs text-slate-700 leading-relaxed font-medium">
+                  Las posibilidades que ofrecen a nuestros clientes el amplio abanico de servicios ofrecidos, tanto en el área de limpieza como en la de mantenimiento y servicios auxiliares, dotan a <strong>LIM BOLIVIA</strong> de un elevado valor añadido.
+                </p>
               </div>
 
-              <div
-                class="group bg-slate-50 rounded-xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div class="relative h-36 overflow-hidden bg-emerald-900">
-                  <img src="/img/mudanza.png" alt="Limpieza Mudanza"
-                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200/065f46/FFFFFF?text=Limpieza+Mudanza';">
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                  <span
-                    class="absolute bottom-2 left-2 bg-emerald-600 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded shadow">
-                    <i class="fa-solid fa-truck-ramp-box"></i> MUDANZAS
-                  </span>
+              <!-- Card 3 -->
+              <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-500 transition shadow-sm space-y-3">
+                <div class="w-12 h-12 bg-blue-100 text-[#003366] rounded-xl flex items-center justify-center text-xl font-bold">
+                  <i class="fa-solid fa-award"></i>
                 </div>
-                <div class="p-4 space-y-2 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h4 class="font-bold text-slate-800 text-sm group-hover:text-emerald-600 transition-colors">Limpieza
-                      Pre y Post Mudanza</h4>
-                    <p class="text-[11px] text-gray-600 mt-1">Acondicionamiento y desinfección antes de ocupar o
-                      entregar el espacio.</p>
-                  </div>
-                  <a href="https://wa.me/59171506930?text=Requiero%20Limpieza%20Pre/Post%20Mudanza" target="_blank"
-                    class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 rounded-lg text-center block transition shadow">
-                    Programar Mudanza
-                  </a>
-                </div>
+                <h4 class="font-black text-[#003366] text-base uppercase">Desde 1999</h4>
+                <p class="text-xs text-slate-700 leading-relaxed font-medium">
+                  Experiencia sostenida y comprobada en el sector desde el año 1999.
+                </p>
               </div>
 
-              <div
-                class="group bg-slate-50 rounded-xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div class="relative h-36 overflow-hidden bg-amber-900">
-                  <img src="/img/general.png" alt="Limpieza General Instituciones"
-                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200/78350f/FFFFFF?text=Limpieza+General+Instituciones';">
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                  <span
-                    class="absolute bottom-2 left-2 bg-amber-500 text-slate-900 text-[9px] font-black uppercase px-2 py-0.5 rounded shadow">
-                    <i class="fa-solid fa-calendar-week"></i> FIN DE SEMANA
-                  </span>
+              <!-- Card 4 -->
+              <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-500 transition shadow-sm space-y-3">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center text-xl font-bold">
+                  <i class="fa-solid fa-microscope"></i>
                 </div>
-                <div class="p-4 space-y-2 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h4 class="font-bold text-slate-800 text-sm group-hover:text-amber-600 transition-colors">Limpieza
-                      General Institucional</h4>
-                    <p class="text-[11px] text-gray-600 mt-1">Mantenimiento masivo a instituciones en días no hábiles.
-                    </p>
-                  </div>
-                  <a href="https://wa.me/59171506930?text=Requiero%20Limpieza%20Institucional%20Fin%20de%20Semana"
-                    target="_blank"
-                    class="w-full bg-amber-500 hover:bg-amber-600 text-slate-900 text-xs font-black py-2 rounded-lg text-center block transition shadow">
-                    Cotizar Fin de Semana
-                  </a>
+                <h4 class="font-black text-[#003366] text-base uppercase">Especializados en limpieza técnica</h4>
+                <p class="text-xs text-slate-700 leading-relaxed font-medium">
+                  Elevado grado de especialización en limpiezas técnicas. La importante tarea realizada por nuestro departamento técnico y de desarrollo, sumada a la puesta en práctica de productos y métodos de limpieza, nos permite disfrutar de un elevado valor añadido ofreciendo a nuestros clientes las soluciones técnicas más adelantadas y ventajosas para sus características particulares.
+                </p>
+              </div>
+
+              <!-- Card 5 -->
+              <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-500 transition shadow-sm space-y-3">
+                <div class="w-12 h-12 bg-red-100 text-red-600 rounded-xl flex items-center justify-center text-xl font-bold">
+                  <i class="fa-solid fa-clock"></i>
                 </div>
+                <h4 class="font-black text-[#003366] text-base uppercase">Servicio durante las 24 horas</h4>
+                <p class="text-xs text-slate-700 leading-relaxed font-medium">
+                  Teléfono directo de atención continuada las 24 horas para todos nuestros clientes.
+                </p>
+              </div>
+
+              <!-- Card 6 -->
+              <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-500 transition shadow-sm space-y-3">
+                <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center text-xl font-bold">
+                  <i class="fa-solid fa-bolt"></i>
+                </div>
+                <h4 class="font-black text-[#003366] text-base uppercase">Elevada capacidad de reacción</h4>
+                <p class="text-xs text-slate-700 leading-relaxed font-medium">
+                  Elevada capacidad de reacción ante cualquier tipo de necesidad urgente de nuestros clientes, a través de brigadas para atender urgencias y servicios puntuales.
+                </p>
+              </div>
+
+              <!-- Card 7 -->
+              <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-500 transition shadow-sm space-y-3 md:col-span-2">
+                <div class="w-12 h-12 bg-blue-100 text-[#003366] rounded-xl flex items-center justify-center text-xl font-bold">
+                  <i class="fa-solid fa-user-tie"></i>
+                </div>
+                <h4 class="font-black text-[#003366] text-base uppercase">Elevada profesionalidad</h4>
+                <p class="text-xs text-slate-700 leading-relaxed font-medium">
+                  Todo nuestro personal, tanto desde Gerencia General como los distintos mandos, tiene una vasta experiencia en limpieza. Esta empresa se inició con el compromiso de servir y no de hacer un negocio meramente lucrativo.<br><br>
+                  Disponemos de una elevada especialización en nuestra gerencia operativa y jefes de limpiezas técnicas altamente formados, cualificados y experimentados. Además, nuestros supervisores de contratos y demás personal se van formando con los mismos principios con los cuales se formaron los jefes operativos.
+                </p>
+              </div>
+
+              <!-- Card 8 -->
+              <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-500 transition shadow-sm space-y-3">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center text-xl font-bold">
+                  <i class="fa-solid fa-clipboard-check"></i>
+                </div>
+                <h4 class="font-black text-[#003366] text-base uppercase">Estricto control de calidad y supervisión</h4>
+                <p class="text-xs text-slate-700 leading-relaxed font-medium">
+                  Disponemos de un riguroso y sólido sistema de control de calidad del servicio, detección y solución de incidencias. Este sistema está estrictamente documentado, y el seguimiento por parte de la Gerencia Operativa y posteriormente por la Gerencia General nos garantiza un servicio de primera calidad.
+                </p>
+              </div>
+
+              <!-- Card 9 -->
+              <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-500 transition shadow-sm space-y-3">
+                <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center text-xl font-bold">
+                  <i class="fa-solid fa-list-check"></i>
+                </div>
+                <h4 class="font-black text-[#003366] text-base uppercase">Planes de trabajo personalizados</h4>
+                <p class="text-xs text-slate-700 leading-relaxed font-medium">
+                  Planes de trabajo personalizados para cada tipo de cliente, con un estudio muy serio del tipo de actividad y particularidades de cada dependencia.
+                </p>
+              </div>
+
+              <!-- Card 10 -->
+              <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-500 transition shadow-sm space-y-3">
+                <div class="w-12 h-12 bg-red-100 text-red-600 rounded-xl flex items-center justify-center text-xl font-bold">
+                  <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <h4 class="font-black text-[#003366] text-base uppercase">Reclutamiento exigente</h4>
+                <p class="text-xs text-slate-700 leading-relaxed font-medium">
+                  Las personas que entran a trabajar a LIM BOLIVIA deben venir a eso: a trabajar. Por ello, no solamente observamos su experiencia y destrezas, sino también su solvencia moral, su ética y su ausencia de antecedentes negativos.
+                </p>
+              </div>
+
+              <!-- Card 11 -->
+              <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-500 transition shadow-sm space-y-3">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center text-xl font-bold">
+                  <i class="fa-solid fa-gift"></i>
+                </div>
+                <h4 class="font-black text-[#003366] text-base uppercase">Política de incentivos</h4>
+                <p class="text-xs text-slate-700 leading-relaxed font-medium">
+                  Somos los primeros y últimos responsables de nuestro personal, tanto para lo bueno como para lo malo. Premiar a los empleados en aspectos como la puntualidad, calidad de trabajo, rapidez o amabilidad supone una satisfacción para ambas partes.
+                </p>
+              </div>
+
+              <!-- Card 12 -->
+              <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-500 transition shadow-sm space-y-3 md:col-span-2">
+                <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center text-xl font-bold">
+                  <i class="fa-solid fa-shirt"></i>
+                </div>
+                <h4 class="font-black text-[#003366] text-base uppercase">La profesionalidad en la presentación personal</h4>
+                <p class="text-xs text-slate-700 leading-relaxed font-medium">
+                  La profesionalidad también se muestra en la manera de vestir y el aseo personal. Nuestro personal va equipado con un uniforme de trabajo para hacerlo visible y buscar la comodidad en la labor diaria. También es muy importante que nuestros empleados tengan una impecable higiene personal.
+                </p>
               </div>
 
             </div>
           </div>
 
+          <!-- Botones de Acción -->
+          <div class="flex flex-col sm:flex-row gap-4 pt-2">
+            <button onclick="selectServiceTab('Casas'); showView('view-cotizador');"
+              class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-xs uppercase tracking-wider cursor-pointer">
+              <i class="fa-solid fa-calculator text-base"></i> Cotizar Servicio Residencial
+            </button>
+            <a href="https://wa.me/59179684700?text=Hola,%20deseo%20solicitar%20informaci%C3%B3n%20sobre%20Servicios%20Residenciales" target="_blank"
+              class="bg-[#003366] hover:bg-[#002244] text-white font-extrabold py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-xs uppercase tracking-wider">
+              <i class="fa-brands fa-whatsapp text-base text-green-400"></i> Contactar a un Asesor
+            </a>
+          </div>
+
         </div>
 
         <!-- ================= VISTA COTIZADOR ================= -->
-        <div id="view-cotizador"
-          class="view-section hidden p-6 bg-slate-50 border border-slate-200 rounded-2xl shadow-sm animate-fade-in">
+        <div id="view-cotizador" class="view-section hidden p-6 bg-slate-50 border border-slate-200 rounded-2xl shadow-sm animate-fade-in">
           <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
             <i class="fa-solid fa-calculator text-emerald-600"></i> Cotizador Rápido de Servicios
           </h2>
@@ -874,14 +753,10 @@
                   class="w-full sm:w-40 h-28 object-cover rounded-lg shadow shrink-0"
                   onerror="this.onerror=null; this.src='https://via.placeholder.com/160x112?text=Servicio';">
                 <div>
-                  <h4 id="serviceTitle" class="font-bold text-slate-800 text-base mb-1">Lavado Profesional de Alfombra
-                    Fija</h4>
-                  <p id="serviceDescription" class="text-xs text-gray-600 leading-relaxed mb-2">Seleccione la superficie
-                    en metros cuadrados.</p>
-                  <div
-                    class="text-[11px] bg-emerald-100 text-emerald-900 font-semibold px-2.5 py-1 rounded-md inline-block border border-emerald-200">
-                    <i class="fa-solid fa-gears text-emerald-700 mr-1"></i> <span id="serviceMachine">Maquinaria:
-                      Inyectora / Extractora Profesional</span>
+                  <h4 id="serviceTitle" class="font-bold text-slate-800 text-base mb-1">Lavado Profesional de Alfombra Fija</h4>
+                  <p id="serviceDescription" class="text-xs text-gray-600 leading-relaxed mb-2">Seleccione la superficie en metros cuadrados.</p>
+                  <div class="text-[11px] bg-emerald-100 text-emerald-900 font-semibold px-2.5 py-1 rounded-md inline-block border border-emerald-200">
+                    <i class="fa-solid fa-gears text-emerald-700 mr-1"></i> <span id="serviceMachine">Maquinaria: Inyectora / Extractora Profesional</span>
                   </div>
                 </div>
               </div>
@@ -890,23 +765,18 @@
                 <div class="flex justify-between items-center">
                   <label class="font-semibold text-gray-700">2. Cantidad en Metros Cuadrados (m²):</label>
                   <div class="flex items-center gap-2">
-                    <span id="m2Value"
-                      class="font-black text-emerald-600 text-xl bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200">15
-                      m²</span>
+                    <span id="m2Value" class="font-black text-emerald-600 text-xl bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200">15 m²</span>
                     <span id="m2Subtotal" class="font-bold text-slate-600 text-sm">(Bs 225)</span>
                   </div>
                 </div>
 
                 <div class="flex items-center gap-3">
                   <button onclick="changeM2Step(-1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0 cursor-pointer"><i
-                      class="fa-solid fa-minus"></i></button>
+                    class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0 cursor-pointer"><i class="fa-solid fa-minus"></i></button>
                   <input type="range" id="m2Slider" min="1" max="300" step="1" value="15"
-                    class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
-                    oninput="onSliderChange()">
+                    class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg" oninput="onSliderChange()">
                   <button onclick="changeM2Step(1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0 cursor-pointer"><i
-                      class="fa-solid fa-plus"></i></button>
+                    class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0 cursor-pointer"><i class="fa-solid fa-plus"></i></button>
                 </div>
 
                 <button onclick="addCurrentMainService()"
@@ -916,8 +786,7 @@
               </div>
             </div>
 
-            <div
-              class="bg-slate-900 text-white p-6 rounded-xl flex flex-col justify-between shadow-xl border border-slate-800">
+            <div class="bg-slate-900 text-white p-6 rounded-xl flex flex-col justify-between shadow-xl border border-slate-800">
               <div>
                 <span class="text-xs uppercase font-bold tracking-widest text-emerald-400">Resumen Detallado</span>
                 <h3 class="text-lg font-bold mt-1 text-white border-b border-slate-700 pb-2">Servicios Confirmados</h3>
