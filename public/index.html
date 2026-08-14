@@ -78,7 +78,7 @@
           </ul>
         </div>
 
-        <!-- Dropdown Desplegable de SERVICIOS DE LIMPIEZA (ACTUALIZADO SEGÚN LA IMAGEN) -->
+        <!-- Dropdown Desplegable de SERVICIOS DE LIMPIEZA -->
         <div class="dropdown relative group">
           <button
             class="dropbtn bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5 px-3 py-1 rounded cursor-pointer">
@@ -360,7 +360,6 @@
         <div id="view-alfombras-tapizados"
           class="view-section hidden bg-white p-6 md:p-8 rounded-2xl shadow-md border border-slate-200 space-y-8 animate-fade-in">
 
-          <!-- Encabezado Principal -->
           <div class="border-b border-slate-200 pb-5 space-y-2">
             <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-800 text-xs font-black uppercase px-3 py-1 rounded-full border border-emerald-200">
               <i class="fa-solid fa-sparkles text-emerald-600"></i> Servicio Especializado
@@ -445,7 +444,6 @@
               </span>
             </div>
 
-            <!-- Grilla completa de ribeteados restaurada -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
               <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
                 <img src="/img/ribeteado.png" alt="Ribeteado de Alfombras 1" class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado.png';">
@@ -489,7 +487,6 @@
             </div>
           </div>
 
-          <!-- Botón Directo al Cotizador o WhatsApp -->
           <div class="pt-4 flex flex-col sm:flex-row gap-3">
             <button onclick="selectServiceTab('Alfombras'); showView('view-cotizador');"
               class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow text-xs uppercase tracking-wider cursor-pointer">
@@ -669,43 +666,227 @@
 
         </div>
 
-        <!-- ================= VISTA 3: SERVICIOS RESIDENCIALES (MEJORADO) ================= -->
+        <!-- ================= VISTA 3: SERVICIOS RESIDENCIALES (ACTUALIZADO CON ¿POR QUÉ ESCOGERNOS? E IMÁGENES) ================= -->
         <div id="view-residenciales" class="view-section hidden bg-white p-6 md:p-8 rounded-2xl shadow-md border border-slate-200 space-y-8 animate-fade-in">
+          
+          <!-- Encabezado Principal -->
           <div class="border-b border-slate-200 pb-5 space-y-2">
             <div class="inline-flex items-center gap-2 bg-amber-100 text-amber-800 text-xs font-black uppercase px-3 py-1 rounded-full border border-amber-200">
               <i class="fa-solid fa-house-chimney text-amber-600"></i> Limpiezas Técnicas en Hogares
             </div>
             <h2 class="text-2xl md:text-3xl font-black text-[#003366] uppercase tracking-wide">
-              SERVICIOS RESIDENCIALES DE LIMPIEZA
+              SERVICIOS RESIDENCIALES Y LIMPIEZAS TÉCNICAS
             </h2>
             <p class="text-sm text-gray-600 leading-relaxed font-medium">
               Ofrecemos soluciones integrales de desinfección y mantenimiento especializado para departamentos, casas y residencias. Garantizamos espacios pulcros y libres de alérgenos.
             </p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3 hover:shadow-md transition">
-              <div class="w-10 h-10 bg-amber-500 text-white rounded-xl flex items-center justify-center text-lg font-bold shadow">
-                <i class="fa-solid fa-sparkles"></i>
-              </div>
-              <h3 class="font-black text-[#003366] uppercase text-base">Limpieza Fina de Obras y Post-Construcción</h3>
-              <p class="text-xs text-gray-600 leading-relaxed">
-                Remoción minuciosa de restos de pintura, yeso, cemento y polvo en vidrios, marcos y pavimentos para dejar la propiedad lista para habitar.
-              </p>
+          <!-- GALERÍA DE IMÁGENES RESIDENCIALES -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-black text-[#003366] uppercase flex items-center gap-2">
+                <i class="fa-solid fa-camera-retro text-amber-500"></i> Galería de Operativos Residenciales
+              </h3>
+              <span class="text-[10px] bg-slate-100 text-slate-600 font-bold px-2.5 py-1 rounded-full border border-slate-200">
+                Trabajos Reales
+              </span>
             </div>
-
-            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3 hover:shadow-md transition">
-              <div class="w-10 h-10 bg-emerald-600 text-white rounded-xl flex items-center justify-center text-lg font-bold shadow">
-                <i class="fa-solid fa-spray-can-sparkles"></i>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
+                <img src="/img/residencial.png" alt="Servicio Residencial 1" class="w-full h-40 object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/003366/FFFFFF?text=residencial.png';">
+                <p class="p-2.5 text-xs font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">Higienización de Espacios</p>
               </div>
-              <h3 class="font-black text-[#003366] uppercase text-base">Lavado e Higienización de Colchones y Sillones</h3>
-              <p class="text-xs text-gray-600 leading-relaxed">
-                Extracción profunda de ácaros, bacterias y manchas orgánicas en juegos de living y colchones mediante inyección de vapor y champuneado.
-              </p>
+              <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
+                <img src="/img/residencial1.png" alt="Servicio Residencial 2" class="w-full h-40 object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/003366/FFFFFF?text=residencial1.png';">
+                <p class="p-2.5 text-xs font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">Limpieza Técnica Residencial</p>
+              </div>
+              <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
+                <img src="/img/residencial2.png" alt="Servicio Residencial 3" class="w-full h-40 object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/003366/FFFFFF?text=residencial2.png';">
+                <p class="p-2.5 text-xs font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">Mantenimiento de Interiores</p>
+              </div>
             </div>
           </div>
 
-          <div class="pt-4 flex flex-col sm:flex-row gap-3">
+          <!-- SECCIÓN: ¿POR QUÉ ESCOGERNOS? (CON ESTILO ELEGANTE Y IMPACTANTE) -->
+          <div class="bg-slate-50 p-6 md:p-8 rounded-2xl border border-slate-200 space-y-6 shadow-inner">
+            <div class="text-center space-y-2 border-b border-slate-200 pb-4">
+              <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest bg-emerald-100 px-3 py-1 rounded-full border border-emerald-200">
+                Nuestra Diferencia Competitiva
+              </span>
+              <h3 class="text-2xl md:text-3xl font-black text-[#003366] uppercase tracking-tight">
+                ¿POR QUÉ ESCOGERNOS?
+              </h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+              <!-- Card 1 -->
+              <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-l-4 border-emerald-600">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-lg font-bold shrink-0">
+                    <i class="fa-solid fa-face-smile"></i>
+                  </div>
+                  <h4 class="font-bold text-[#003366] text-base">Despreocúpese</h4>
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed pl-13">
+                  Permitimos que nuestros clientes concentren todas sus fuerzas en el objetivo principal de su actividad y que, por lo tanto, puedan conseguir un nivel de tranquilidad que derive en ventajas operativas y económicas para sus negocios.
+                </p>
+              </div>
+
+              <!-- Card 2 -->
+              <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-l-4 border-blue-600">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center text-lg font-bold shrink-0">
+                    <i class="fa-solid fa-layer-group"></i>
+                  </div>
+                  <h4 class="font-bold text-[#003366] text-base">Un amplio abanico de servicios</h4>
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed pl-13">
+                  Las posibilidades que ofrecen a nuestros clientes el amplio abanico de servicios ofrecidos, tanto en el área de limpieza como en la de mantenimiento y servicios auxiliares, dotan a LIM BOLIVIA de un elevado valor añadido.
+                </p>
+              </div>
+
+              <!-- Card 3 -->
+              <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-l-4 border-amber-500">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-lg font-bold shrink-0">
+                    <i class="fa-solid fa-calendar-check"></i>
+                  </div>
+                  <h4 class="font-bold text-[#003366] text-base">Desde 1999</h4>
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed pl-13">
+                  Contamos con una amplia trayectoria y sólida experiencia en el sector de la limpieza profesional en Bolivia desde el año 1999.
+                </p>
+              </div>
+
+              <!-- Card 4 -->
+              <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-l-4 border-emerald-600">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-lg font-bold shrink-0">
+                    <i class="fa-solid fa-microscope"></i>
+                  </div>
+                  <h4 class="font-bold text-[#003366] text-base">Especializados en limpieza técnica</h4>
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed pl-13">
+                  Elevado grado de especialización en limpiezas técnicas. La importante tarea realizada por nuestro departamento técnico y de desarrollo, sumada a la puesta en práctica de productos y métodos de limpieza, nos permite disfrutar de un elevado valor añadido ofreciendo a nuestros clientes las soluciones técnicas más adelantadas y ventajosas para sus características particulares.
+                </p>
+              </div>
+
+              <!-- Card 5 -->
+              <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-l-4 border-red-600">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-red-100 text-red-600 flex items-center justify-center text-lg font-bold shrink-0">
+                    <i class="fa-solid fa-clock"></i>
+                  </div>
+                  <h4 class="font-bold text-[#003366] text-base">Servicio durante las 24 horas</h4>
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed pl-13">
+                  Disponemos de teléfono de atención permanente las 24 horas del día para responder con inmediatez a nuestros clientes.
+                </p>
+              </div>
+
+              <!-- Card 6 -->
+              <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-l-4 border-orange-500">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center text-lg font-bold shrink-0">
+                    <i class="fa-solid fa-bolt-lightning"></i>
+                  </div>
+                  <h4 class="font-bold text-[#003366] text-base">Elevada capacidad de reacción</h4>
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed pl-13">
+                  Elevada capacidad de reacción ante cualquier tipo de necesidad urgente de nuestros clientes, a través de brigadas para atender urgencias y servicios puntuales.
+                </p>
+              </div>
+
+              <!-- Card 7 -->
+              <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-l-4 border-indigo-600 md:col-span-2">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center text-lg font-bold shrink-0">
+                    <i class="fa-solid fa-user-tie"></i>
+                  </div>
+                  <h4 class="font-bold text-[#003366] text-base">Elevada profesionalidad</h4>
+                </div>
+                <div class="text-xs text-gray-600 leading-relaxed space-y-2 pl-13">
+                  <p>
+                    Todo nuestro personal, tanto desde Gerencia General como los distintos mandos, tiene una vasta experiencia en limpieza. Esta empresa se inició con el compromiso de servir y no de hacer un negocio meramente lucrativo.
+                  </p>
+                  <p>
+                    Disponemos de una elevada especialización en nuestra gerencia operativa y jefes de limpiezas técnicas altamente formados, cualificados y experimentados. Además, nuestros supervisores de contratos y demás personal se van formando con los mismos principios con los cuales se formaron los jefes operativos.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Card 8 -->
+              <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-l-4 border-teal-600">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-teal-100 text-teal-700 flex items-center justify-center text-lg font-bold shrink-0">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                  </div>
+                  <h4 class="font-bold text-[#003366] text-base">Estricto control de calidad y supervisión</h4>
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed pl-13">
+                  Disponemos de un riguroso y sólido sistema de control de calidad del servicio, detección y solución de incidencias. Este sistema está estrictamente documentado, y el seguimiento por parte de la Gerencia Operativa y posteriormente por la Gerencia General nos garantiza un servicio de primera calidad.
+                </p>
+              </div>
+
+              <!-- Card 9 -->
+              <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-l-4 border-purple-600">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-lg font-bold shrink-0">
+                    <i class="fa-solid fa-sliders"></i>
+                  </div>
+                  <h4 class="font-bold text-[#003366] text-base">Planes de trabajo personalizados</h4>
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed pl-13">
+                  Planes de trabajo personalizados para cada tipo de cliente, con un estudio muy serio del tipo de actividad y particularidades de cada dependencia.
+                </p>
+              </div>
+
+              <!-- Card 10 -->
+              <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-l-4 border-rose-600">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center text-lg font-bold shrink-0">
+                    <i class="fa-solid fa-user-shield"></i>
+                  </div>
+                  <h4 class="font-bold text-[#003366] text-base">Reclutamiento exigente</h4>
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed pl-13">
+                  Las personas que entran a trabajar a LIM BOLIVIA deben venir a eso: a trabajar. Por ello, no solamente observamos su experiencia y destrezas, sino también su solvencia moral, su ética y su ausencia de antecedentes negativos.
+                </p>
+              </div>
+
+              <!-- Card 11 -->
+              <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-l-4 border-emerald-600">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-lg font-bold shrink-0">
+                    <i class="fa-solid fa-gift"></i>
+                  </div>
+                  <h4 class="font-bold text-[#003366] text-base">Política de incentivos</h4>
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed pl-13">
+                  Somos los primeros y últimos responsables de nuestro personal, tanto para lo bueno como para lo malo. Premiar a los empleados en aspectos como la puntualidad, calidad de trabajo, rapidez o amabilidad supone una satisfacción para ambas partes.
+                </p>
+              </div>
+
+            </div>
+
+            <!-- Destacado Final: Uniformidad e Higiene -->
+            <div class="bg-[#001845] text-white p-5 rounded-xl flex items-center gap-4 shadow">
+              <div class="w-12 h-12 rounded-full bg-amber-500 text-slate-900 flex items-center justify-center text-xl font-black shrink-0">
+                <i class="fa-solid fa-shirt"></i>
+              </div>
+              <div class="space-y-1">
+                <h4 class="font-bold text-sm uppercase text-amber-300">Imagen, Uniformidad e Higiene Impecable</h4>
+                <p class="text-xs text-slate-200 leading-relaxed">
+                  La profesionalidad también se muestra en la manera de vestir y el aseo personal. Nuestro personal va equipado con un uniforme de trabajo para hacerlo visible y buscar la comodidad en la labor diaria. También es muy importante que nuestros empleados tengan una impecable higiene personal.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botones de Acción -->
+          <div class="pt-2 flex flex-col sm:flex-row gap-3">
             <button onclick="selectServiceTab('Casas'); showView('view-cotizador');"
               class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow text-xs uppercase tracking-wider cursor-pointer">
               <i class="fa-solid fa-calculator"></i> Cotizar Servicio Residencial
@@ -715,6 +896,7 @@
               <i class="fa-brands fa-whatsapp text-base"></i> Consultar por WhatsApp
             </a>
           </div>
+
         </div>
 
         <!-- ================= VISTA COTIZADOR ================= -->
