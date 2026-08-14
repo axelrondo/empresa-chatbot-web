@@ -1,4 +1,16 @@
 /* ==========================================
+   0. CONFIGURACIÓN E INICIALIZACIÓN DE SUPABASE
+   ========================================== */
+
+// Sustituye con tus credenciales reales de tu proyecto de Supabase
+const SUPABASE_URL = 'https://TU_PROYECTO.supabase.co';
+const SUPABASE_ANON_KEY = 'TU_ANON_KEY_DE_SUPABASE';
+
+const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+let isAdminAuthenticated = false;
+
+/* ==========================================
    1. CONTROL DE VISTAS (NAVEGACIÓN SPA)
    ========================================== */
 
@@ -20,6 +32,11 @@ function showView(viewId) {
     
     // Smooth scroll superior
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Cargar catálogo de maquinaria si se accede a dicha vista
+  if (viewId === 'view-venta-maquinaria') {
+    loadMachineryProducts();
   }
 }
 
@@ -286,16 +303,185 @@ function sendToWhatsApp() {
 }
 
 /* ==========================================
-   4. CHAT Y ASISTENTE IA
+   4. MODALES Y GESTIÓN DE MAQUINARIA (SUPABASE)
    ========================================== */
 
-function toggleChat() {
-  // Puedes sustituir esto por la apertura de un modal o widget conversacional real
-  console.log('Iniciando asistente interactivo...');
+function closeModal(id) {
+  const modal = document.getElementById(id);
+  if (modal) modal.classList.add('hidden');
+}
+
+function checkAdminAuth() {
+  if (isAdminAuthenticated) {
+    document.getElementById('modalUploadMachine').classList.remove('hidden');
+  } else {
+    document.getElementById('modalAdminLogin').classList.remove('hidden');
+  }
+}
+
+// Iniciar Sesión de Administrador con Supabase Auth
+async function handleAdminLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('adminEmail').value;
+  const password = document.getElementById('adminPassword').value;
+  const errorMsg = document.getElementById('loginErrorMsg');
+
+  if (!supabase) {
+    alert('Error: Supabase no está configurado correctamente.');
+    return;
+  }
+
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if (error) throw error;
+
+    isAdminAuthenticated = true;
+    errorMsg.classList.add('hidden');
+    closeModal('modalAdminLogin');
+    document.getElementById('modalUploadMachine').classList.remove('hidden');
+  } catch (err) {
+    errorMsg.textContent = "Error de autenticación: " + err.message;
+    errorMsg.classList.remove('hidden');
+  }
+}
+
+// Subir Imagen y Guardar Producto en Supabase
+async function handleMachineUpload(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btnSubmitMachine');
+  btn.disabled = true;
+  btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Subiendo...`;
+
+  const title = document.getElementById('machineTitle').value;
+  const price = document.getElementById('machinePrice').value;
+  const description = document.getElementById('machineDescription').value;
+  const fileInput = document.getElementById('machineImage');
+  const file = fileInput.files[0];
+
+  if (!supabase) {
+    alert('Error: Supabase no está configurado.');
+    btn.disabled = false;
+    btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Publicar`;
+    return;
+  }
+
+  try {
+    // Subir Imagen al Bucket de Storage ('maquinarias')
+    const fileName = `${Date.now()}_${file.name}`;
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from('maquinarias')
+      .upload(fileName, file);
+
+    if (uploadError) throw uploadError;
+
+    // Obtener URL Pública de la Imagen
+    const { data: publicUrlData } = supabase.storage
+      .from('maquinarias')
+      .getPublicUrl(fileName);
+
+    const imageUrl = publicUrlData.publicUrl;
+
+    // Guardar registro en la tabla 'maquinarias'
+    const { error: insertError } = await supabase
+      .from('maquinarias')
+      .insert([
+        {
+          titulo: title,
+          precio: parseFloat(price),
+          descripcion: description,
+          imagen_url: imageUrl
+        }
+      ]);
+
+    if (insertError) throw insertError;
+
+    alert('¡Producto publicado con éxito!');
+    document.getElementById('formUploadMachine').reset();
+    closeModal('modalUploadMachine');
+    loadMachineryProducts();
+  } catch (err) {
+    alert('Error al publicar el producto: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Publicar`;
+  }
+}
+
+// Cargar y Mostrar Productos desde Supabase
+async function loadMachineryProducts() {
+  const container = document.getElementById('machineryGrid');
+  if (!container) return;
+
+  if (!supabase) {
+    container.innerHTML = `
+      <div class="col-span-full text-center py-8 text-amber-600 text-xs font-bold">
+        Por favor configura las credenciales de Supabase en script.js para cargar la maquinaria.
+      </div>
+    `;
+    return;
+  }
+  
+  try {
+    const { data: products, error } = await supabase
+      .from('maquinarias')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    if (!products || products.length === 0) {
+      container.innerHTML = `
+        <div class="col-span-full text-center py-8 text-gray-500">
+          <p class="text-sm">No hay maquinaria ni productos publicados en este momento.</p>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = products.map(prod => `
+      <div class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+        <div class="h-48 bg-slate-200 overflow-hidden relative">
+          <img src="${prod.imagen_url}" alt="${prod.titulo}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://via.placeholder.com/300x200?text=Producto';">
+          <span class="absolute top-2 right-2 bg-amber-500 text-slate-900 font-black text-xs px-2.5 py-1 rounded-md shadow">
+            Bs. ${parseFloat(prod.precio).toFixed(2)}
+          </span>
+        </div>
+        <div class="p-4 space-y-2 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-[#003366] text-base mb-1">${prod.titulo}</h3>
+            <p class="text-xs text-gray-600 leading-relaxed">${prod.descripcion}</p>
+          </div>
+          <a href="https://wa.me/59171506930?text=${encodeURIComponent('Hola, estoy interesado en comprar: ' + prod.titulo)}" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 rounded-lg text-center block transition shadow mt-3">
+            <i class="fa-brands fa-whatsapp mr-1"></i> Consultar por WhatsApp
+          </a>
+        </div>
+      </div>
+    `).join('');
+
+  } catch (err) {
+    container.innerHTML = `
+      <div class="col-span-full text-center py-8 text-red-500 text-xs">
+        Error al cargar los productos. Verifique la conexión a Supabase.
+      </div>
+    `;
+  }
 }
 
 /* ==========================================
-   5. INICIALIZACIÓN AL CARGAR LA PÁGINA
+   5. CHAT Y ASISTENTE IA (MÓDULO BASE)
+   ========================================== */
+
+function toggleChat() {
+  console.log('Iniciando asistente interactivo IA...');
+  alert('El Asistente Virtual LIM-BOLIVIA se iniciará aquí en el siguiente módulo.');
+}
+
+/* ==========================================
+   6. INICIALIZACIÓN AL CARGAR LA PÁGINA
    ========================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
