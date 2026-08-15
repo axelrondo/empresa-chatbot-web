@@ -104,13 +104,7 @@
                 1. LAVADO DE ALFOMBRAS Y TAPIZADOS
               </a>
             </li>
-            <li>
-              <a href="javascript:void(0)" onclick="showView('view-24horas')"
-                class="block px-4 py-2.5 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-red-600">
-                <i class="fa-solid fa-clock text-red-600 group-hover:text-white mr-2 text-sm"></i>
-                2. SERVICIO 24 HORAS
-              </a>
-            </li>
+          
             <li>
               <a href="javascript:void(0)" onclick="showView('view-residenciales')"
                 class="block px-4 py-2.5 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-amber-600">
@@ -120,6 +114,26 @@
             </li>
           </ul>
         </div>
+
+        <!-- DROPDOWN 24 horas -->
+        <div class="dropdown relative group">
+          <button
+            class="dropbtn bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5 px-3 py-1 rounded cursor-pointer">
+            <i class="fa-solid fa-sparkles"></i> 24 HORAS (Emergencias) <i
+              class="fa-solid fa-chevron-down text-[10px]"></i>
+          </button>
+          <li>
+            <a href="javascript:void(0)" onclick="showView('view-24horas')"
+              class="block px-4 py-2.5 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-red-600">
+              <i class="fa-solid fa-clock text-red-600 group-hover:text-white mr-2 text-sm"></i>
+              2. SERVICIO 24 HORAS
+            </a>
+          </li>
+        </div>
+
+
+
+
 
         <!-- DROPDOWN OTROS SERVICIOS -->
         <div class="dropdown relative group">
@@ -1341,7 +1355,9 @@
                 M. Limpieza Interior de Vehículos
               </h2>
               <p class="text-slate-200 text-xs md:text-sm font-medium leading-relaxed max-w-2xl">
-                <strong class="text-amber-300">LIMBOLIVIA</strong> es experta en la limpieza profunda e higienización de vehículos. Utilizamos maquinaria experta e insumos especializados de primera línea para garantizar la eliminación de manchas, gérmenes y malos olores en tapices, asientos y alfombras.
+                <strong class="text-amber-300">LIMBOLIVIA</strong> es experta en la limpieza profunda e higienización de
+                vehículos. Utilizamos maquinaria experta e insumos especializados de primera línea para garantizar la
+                eliminación de manchas, gérmenes y malos olores en tapices, asientos y alfombras.
               </p>
             </div>
           </div>
@@ -1355,9 +1371,11 @@
             <div class="space-y-3">
 
               <!-- Item 1: Automóvil -->
-              <div class="bg-slate-50 border border-slate-200 hover:border-amber-500 rounded-xl p-4 flex items-center justify-between transition shadow-sm">
+              <div
+                class="bg-slate-50 border border-slate-200 hover:border-amber-500 rounded-xl p-4 flex items-center justify-between transition shadow-sm">
                 <div class="flex items-center gap-4">
-                  <img src="/img/automovil.png" alt="Automóvil" class="w-24 h-16 object-contain rounded-md" onerror="this.onerror=null; this.src='https://via.placeholder.com/120x80?text=Automovil';">
+                  <img src="/img/automovil.png" alt="Automóvil" class="w-24 h-16 object-contain rounded-md"
+                    onerror="this.onerror=null; this.src='https://via.placeholder.com/120x80?text=Automovil';">
                   <div>
                     <h4 class="font-black text-slate-800 text-base">Automóvil</h4>
                     <p class="text-xs text-gray-500">Limpieza profunda de interiores y tapicería.</p>
@@ -1369,9 +1387,11 @@
               </div>
 
               <!-- Item 2: Vagoneta -->
-              <div class="bg-slate-50 border border-slate-200 hover:border-amber-500 rounded-xl p-4 flex items-center justify-between transition shadow-sm">
+              <div
+                class="bg-slate-50 border border-slate-200 hover:border-amber-500 rounded-xl p-4 flex items-center justify-between transition shadow-sm">
                 <div class="flex items-center gap-4">
-                  <img src="/img/vagoneta.png" alt="Vagoneta" class="w-24 h-16 object-contain rounded-md" onerror="this.onerror=null; this.src='https://via.placeholder.com/120x80?text=Vagoneta';">
+                  <img src="/img/vagoneta.png" alt="Vagoneta" class="w-24 h-16 object-contain rounded-md"
+                    onerror="this.onerror=null; this.src='https://via.placeholder.com/120x80?text=Vagoneta';">
                   <div>
                     <h4 class="font-black text-slate-800 text-base">Vagoneta</h4>
                     <p class="text-xs text-gray-500">Lavado técnico e higienización completa.</p>
@@ -1383,9 +1403,11 @@
               </div>
 
               <!-- Item 3: 4X4 o Camioneta -->
-              <div class="bg-slate-50 border border-slate-200 hover:border-amber-500 rounded-xl p-4 flex items-center justify-between transition shadow-sm">
+              <div
+                class="bg-slate-50 border border-slate-200 hover:border-amber-500 rounded-xl p-4 flex items-center justify-between transition shadow-sm">
                 <div class="flex items-center gap-4">
-                  <img src="/img/camioneta.png" alt="4X4 o Camioneta" class="w-24 h-16 object-contain rounded-md" onerror="this.onerror=null; this.src='https://via.placeholder.com/120x80?text=Camioneta';">
+                  <img src="/img/camioneta.png" alt="4X4 o Camioneta" class="w-24 h-16 object-contain rounded-md"
+                    onerror="this.onerror=null; this.src='https://via.placeholder.com/120x80?text=Camioneta';">
                   <div>
                     <h4 class="font-black text-slate-800 text-base">4X4 o Camioneta</h4>
                     <p class="text-xs text-gray-500">Tratamiento para camionetas y cabinas dobles.</p>
@@ -1397,9 +1419,11 @@
               </div>
 
               <!-- Item 4: Montero / Otro -->
-              <div class="bg-slate-50 border border-slate-200 hover:border-amber-500 rounded-xl p-4 flex items-center justify-between transition shadow-sm">
+              <div
+                class="bg-slate-50 border border-slate-200 hover:border-amber-500 rounded-xl p-4 flex items-center justify-between transition shadow-sm">
                 <div class="flex items-center gap-4">
-                  <img src="/img/montero.png" alt="Montero / Otro" class="w-24 h-16 object-contain rounded-md" onerror="this.onerror=null; this.src='https://via.placeholder.com/120x80?text=Montero';">
+                  <img src="/img/montero.png" alt="Montero / Otro" class="w-24 h-16 object-contain rounded-md"
+                    onerror="this.onerror=null; this.src='https://via.placeholder.com/120x80?text=Montero';">
                   <div>
                     <h4 class="font-black text-slate-800 text-base">Montero / Otro</h4>
                     <p class="text-xs text-gray-500">Limpieza especializada para SUVs de gran tamaño.</p>
@@ -1411,9 +1435,11 @@
               </div>
 
               <!-- Item 5: Minibus -->
-              <div class="bg-slate-50 border border-slate-200 hover:border-amber-500 rounded-xl p-4 flex items-center justify-between transition shadow-sm">
+              <div
+                class="bg-slate-50 border border-slate-200 hover:border-amber-500 rounded-xl p-4 flex items-center justify-between transition shadow-sm">
                 <div class="flex items-center gap-4">
-                  <img src="/img/minibus.png" alt="Minibus" class="w-24 h-16 object-contain rounded-md" onerror="this.onerror=null; this.src='https://via.placeholder.com/120x80?text=Minibus';">
+                  <img src="/img/minibus.png" alt="Minibus" class="w-24 h-16 object-contain rounded-md"
+                    onerror="this.onerror=null; this.src='https://via.placeholder.com/120x80?text=Minibus';">
                   <div>
                     <h4 class="font-black text-slate-800 text-base">Minibus</h4>
                     <p class="text-xs text-gray-500">Higienización integral de transporte de pasajeros.</p>
@@ -1425,9 +1451,11 @@
               </div>
 
               <!-- Item 6: Bus -->
-              <div class="bg-slate-50 border border-slate-200 hover:border-amber-500 rounded-xl p-4 flex items-center justify-between transition shadow-sm">
+              <div
+                class="bg-slate-50 border border-slate-200 hover:border-amber-500 rounded-xl p-4 flex items-center justify-between transition shadow-sm">
                 <div class="flex items-center gap-4">
-                  <img src="/img/bus.png" alt="Bus" class="w-24 h-16 object-contain rounded-md" onerror="this.onerror=null; this.src='https://via.placeholder.com/120x80?text=Bus';">
+                  <img src="/img/bus.png" alt="Bus" class="w-24 h-16 object-contain rounded-md"
+                    onerror="this.onerror=null; this.src='https://via.placeholder.com/120x80?text=Bus';">
                   <div>
                     <h4 class="font-black text-slate-800 text-base">Bus</h4>
                     <p class="text-xs text-gray-500">Limpieza profunda industrial para flota masiva.</p>
