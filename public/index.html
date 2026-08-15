@@ -114,7 +114,7 @@
           </ul>
         </div>
 
-        <!-- BOTÓN / SECCIÓN DE EMERGENCIA 24 HORAS (UBICADO AL LADO DERECHO DE SERVICIOS DE LIMPIEZA) -->
+        <!-- BOTÓN / SECCIÓN DE EMERGENCIA 24 HORAS -->
         <button onclick="showView('view-24horas')"
           class="bg-red-600 hover:bg-red-700 text-white transition flex items-center gap-1.5 px-3 py-1 rounded cursor-pointer font-bold animate-pulse">
           <i class="fa-solid fa-clock"></i> EMERGENCIA 24 HORAS
@@ -224,7 +224,7 @@
               </div>
               <h3 class="font-black text-[#003366] text-lg uppercase">Lavado de Alfombras</h3>
               <p class="text-xs text-gray-600 leading-relaxed">Limpieza profunda, champuneado, espuma seca e inyección-extracción para todo tipo de tapices.</p>
-              <button onclick="showView('view-alfombras-tapizados')" class="text-xs font-bold text-emerald-600 hover:underline flex items-center gap-1">Ver detalles <i class="fa-solid fa-arrow-right"></i></button>
+              <button onclick="showView('view-alfombras-tapizados')" class="text-xs font-bold text-emerald-600 hover:underline flex items-center gap-1 cursor-pointer">Ver detalles <i class="fa-solid fa-arrow-right"></i></button>
             </div>
 
             <div class="bg-white p-5 rounded-2xl shadow-md border border-slate-200 hover:border-red-500 transition space-y-3">
@@ -233,7 +233,7 @@
               </div>
               <h3 class="font-black text-[#003366] text-lg uppercase">Atención 24 Horas</h3>
               <p class="text-xs text-gray-600 leading-relaxed">Atención inmediata de emergencias por inundaciones, secado urgente y limpiezas nocturnas.</p>
-              <button onclick="showView('view-24horas')" class="text-xs font-bold text-red-600 hover:underline flex items-center gap-1">Ver detalles <i class="fa-solid fa-arrow-right"></i></button>
+              <button onclick="showView('view-24horas')" class="text-xs font-bold text-red-600 hover:underline flex items-center gap-1 cursor-pointer">Ver detalles <i class="fa-solid fa-arrow-right"></i></button>
             </div>
 
             <div class="bg-white p-5 rounded-2xl shadow-md border border-slate-200 hover:border-blue-500 transition space-y-3">
@@ -242,7 +242,7 @@
               </div>
               <h3 class="font-black text-[#003366] text-lg uppercase">Vidrios en Altura</h3>
               <p class="text-xs text-gray-600 leading-relaxed">Lavado e higienización de fachadas vidriadas con personal certificado y arneses de seguridad.</p>
-              <button onclick="showView('view-vidrios-altura')" class="text-xs font-bold text-blue-600 hover:underline flex items-center gap-1">Ver detalles <i class="fa-solid fa-arrow-right"></i></button>
+              <button onclick="showView('view-vidrios-altura')" class="text-xs font-bold text-blue-600 hover:underline flex items-center gap-1 cursor-pointer">Ver detalles <i class="fa-solid fa-arrow-right"></i></button>
             </div>
 
             <div class="bg-white p-5 rounded-2xl shadow-md border border-slate-200 hover:border-amber-500 transition space-y-3">
@@ -251,7 +251,7 @@
               </div>
               <h3 class="font-black text-[#003366] text-lg uppercase">Lavado de Vehículos</h3>
               <p class="text-xs text-gray-600 leading-relaxed">Limpieza técnica interior de automóviles, vagonetas, camionetas, minibuses y buses.</p>
-              <button onclick="showView('view-lavado-vehiculos')" class="text-xs font-bold text-amber-600 hover:underline flex items-center gap-1">Ver detalles <i class="fa-solid fa-arrow-right"></i></button>
+              <button onclick="showView('view-lavado-vehiculos')" class="text-xs font-bold text-amber-600 hover:underline flex items-center gap-1 cursor-pointer">Ver detalles <i class="fa-solid fa-arrow-right"></i></button>
             </div>
           </div>
         </div>
@@ -1184,7 +1184,7 @@
               </h2>
               <p class="text-slate-200 text-xs md:text-sm font-medium leading-relaxed max-w-2xl">
                 Líderes en el lavado e higienización de fachadas vidriadas, edificios residenciales y corporativos.
-                Contamos con personal altamente capacitado, arneses de seguridad certificados y equipo de protección
+                Contamos con personal highly capacitado, arneses de seguridad certificados y equipo de protección
                 extremo.
               </p>
             </div>
@@ -1358,7 +1358,7 @@
                 <i class="fa-solid fa-car-side text-amber-400"></i> LIM BOLIVIA - División Limpieza
               </div>
               <h2 class="text-2xl md:text-4xl font-black uppercase tracking-wide text-white">
-                M. Limpieza Interior de Vehículos
+                Limpieza Interior de Vehículos
               </h2>
               <p class="text-slate-200 text-xs md:text-sm font-medium leading-relaxed max-w-2xl">
                 <strong class="text-amber-300">LIMBOLIVIA</strong> es experta en la limpieza profunda e higienización de vehículos. Utilizamos maquinaria experta e insumos especializados de primera línea para garantizar la eliminación de manchas, gérmenes y malos olores en tapices, asientos y alfombras.
@@ -1513,133 +1513,106 @@
                   <button onclick="selectServiceTab('Oficinas')" id="btn-Oficinas"
                     class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200 cursor-pointer">
                     <i class="fa-solid fa-building text-xl text-emerald-600"></i>
-                    <span class="text-xs font-bold">Limpieza Oficinas</span>
+                    <span class="text-xs font-bold">Oficinas</span>
                   </button>
                   <button onclick="selectServiceTab('Casas')" id="btn-Casas"
                     class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200 cursor-pointer">
-                    <i class="fa-solid fa-house-chimney text-xl text-emerald-600"></i>
-                    <span class="text-xs font-bold">Limpieza Casas</span>
+                    <i class="fa-solid fa-house text-xl text-emerald-600"></i>
+                    <span class="text-xs font-bold">Casas / Dptos</span>
                   </button>
                 </div>
               </div>
 
-              <div id="serviceDetailCard"
-                class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-4 transition-all">
-                <img id="serviceImage" src="/img/banner1.png" alt="Servicio"
-                  class="w-full sm:w-40 h-28 object-cover rounded-lg shadow shrink-0"
-                  onerror="this.onerror=null; this.src='https://via.placeholder.com/160x112?text=Servicio';">
-                <div>
-                  <h4 id="serviceTitle" class="font-bold text-slate-800 text-base mb-1">Lavado Profesional de Alfombra Fija</h4>
-                  <p id="serviceDescription" class="text-xs text-gray-600 leading-relaxed mb-2">Seleccione la superficie en metros cuadrados.</p>
-                  <div
-                    class="text-[11px] bg-emerald-100 text-emerald-900 font-semibold px-2.5 py-1 rounded-md inline-block border border-emerald-200">
-                    <i class="fa-solid fa-gears text-emerald-700 mr-1"></i> <span id="serviceMachine">Maquinaria: Inyectora / Extractora Profesional</span>
-                  </div>
-                </div>
+              <!-- OPCIONES DINÁMICAS DEL COTIZADOR -->
+              <div id="dynamicQuoteOptions" class="space-y-4 pt-4 border-t">
+                <!-- Se llena dinámicamente mediante JS -->
               </div>
 
-              <div class="space-y-3">
+              <!-- RESUMEN DE COTIZACIÓN -->
+              <div class="bg-slate-900 text-white p-5 rounded-xl space-y-3 shadow-md">
                 <div class="flex justify-between items-center">
-                  <label class="font-semibold text-gray-700">2. Cantidad en Metros Cuadrados (m²):</label>
-                  <div class="flex items-center gap-2">
-                    <span id="m2Value"
-                      class="font-black text-emerald-600 text-xl bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200">15 m²</span>
-                    <span id="m2Subtotal" class="font-bold text-slate-600 text-sm">(Bs 225)</span>
-                  </div>
+                  <span class="text-xs uppercase font-bold text-slate-400">Total Estimado</span>
+                  <span id="calculatedTotal" class="text-2xl font-black text-amber-400">0.00 Bs.</span>
                 </div>
-
-                <div class="flex items-center gap-3">
-                  <button onclick="changeM2Step(-1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0 cursor-pointer"><i
-                      class="fa-solid fa-minus"></i></button>
-                  <input type="range" id="m2Slider" min="1" max="300" step="1" value="15"
-                    class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
-                    oninput="onSliderChange()">
-                  <button onclick="changeM2Step(1)"
-                    class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0 cursor-pointer"><i
-                      class="fa-solid fa-plus"></i></button>
-                </div>
+                <p class="text-[11px] text-slate-400">
+                  * Este monto es una estimación referencial basada en los datos proporcionados.
+                </p>
+                <button onclick="sendQuoteToWhatsApp()"
+                  class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition shadow text-xs uppercase cursor-pointer">
+                  <i class="fa-brands fa-whatsapp text-lg"></i> Enviar Cotización por WhatsApp
+                </button>
               </div>
 
-              <div class="pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div>
-                  <span class="text-xs text-gray-500 block uppercase font-bold">Total Estimado:</span>
-                  <span id="totalPrice" class="text-3xl font-black text-[#003366]">Bs 225.00</span>
-                </div>
-                <a id="whatsappQuoteBtn" href="#" target="_blank"
-                  class="w-full sm:w-auto bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2 transition shadow">
-                  <i class="fa-brands fa-whatsapp text-xl"></i> Enviar Cotización por WhatsApp
-                </a>
-              </div>
             </div>
           </div>
         </div>
 
       </div>
 
-      <!-- COLUMNA DERECHA: SIDEBAR INSTITUCIONAL Y CONTACTO (1 COLUMNA) -->
+      <!-- COLUMNA DERECHA: SIDEBAR INSTITUCIONAL (1 COLUMNA) -->
       <aside class="space-y-6">
 
-        <!-- CARD ATENCIÓN 24 HORAS EN SIDEBAR -->
-        <div class="bg-gradient-to-br from-[#003366] to-[#001845] text-white p-5 rounded-2xl shadow-md space-y-4 border border-blue-900">
-          <div class="flex items-center gap-3 border-b border-blue-800/80 pb-3">
-            <div class="bg-red-600 text-white w-10 h-10 rounded-xl flex items-center justify-center text-xl shadow shrink-0">
-              <i class="fa-solid fa-phone"></i>
-            </div>
-            <div>
-              <h3 class="font-black text-sm uppercase tracking-wide">Líneas de Atención</h3>
-              <p class="text-[11px] text-blue-200">Disponibilidad las 24 Horas</p>
-            </div>
-          </div>
-
-          <div class="space-y-3 text-xs">
-            <a href="https://wa.me/59179684700" target="_blank" class="flex items-center justify-between p-2.5 bg-white/10 hover:bg-white/20 rounded-xl transition border border-white/10">
-              <div class="flex items-center gap-2">
-                <i class="fa-brands fa-whatsapp text-green-400 text-base"></i>
-                <span class="font-bold">Limpiezas Técnicas:</span>
+        <!-- TARJETA CONTACTO RÁPIDO -->
+        <div class="bg-white p-5 rounded-2xl shadow-md border border-slate-200 space-y-4">
+          <h3 class="font-black text-[#003366] text-base uppercase border-b pb-2 flex items-center gap-2">
+            <i class="fa-solid fa-phone-volume text-red-600"></i> Atención Inmediata
+          </h3>
+          <div class="space-y-3">
+            <a href="https://wa.me/59179684700" target="_blank"
+              class="flex items-center gap-3 p-3 bg-slate-50 hover:bg-emerald-50 rounded-xl border transition group">
+              <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-lg font-bold group-hover:bg-emerald-600 group-hover:text-white transition">
+                <i class="fa-brands fa-whatsapp"></i>
               </div>
-              <span class="font-black text-amber-300">79684700</span>
+              <div>
+                <p class="text-[10px] text-gray-500 font-bold uppercase">Limpieza Técnica</p>
+                <p class="text-sm font-black text-slate-800">79684700</p>
+              </div>
             </a>
 
-            <a href="https://wa.me/59171506930" target="_blank" class="flex items-center justify-between p-2.5 bg-white/10 hover:bg-white/20 rounded-xl transition border border-white/10">
-              <div class="flex items-center gap-2">
-                <i class="fa-brands fa-whatsapp text-green-400 text-base"></i>
-                <span class="font-bold">Mantenimiento:</span>
+            <a href="https://wa.me/59171506930" target="_blank"
+              class="flex items-center gap-3 p-3 bg-slate-50 hover:bg-blue-50 rounded-xl border transition group">
+              <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-lg font-bold group-hover:bg-blue-600 group-hover:text-white transition">
+                <i class="fa-solid fa-headset"></i>
               </div>
-              <span class="font-black text-amber-300">71506930</span>
-            </a>
-
-            <a href="https://wa.me/59173017175" target="_blank" class="flex items-center justify-between p-2.5 bg-white/10 hover:bg-white/20 rounded-xl transition border border-white/10">
-              <div class="flex items-center gap-2">
-                <i class="fa-brands fa-whatsapp text-green-400 text-base"></i>
-                <span class="font-bold">Vidrios / Vehículos:</span>
+              <div>
+                <p class="text-[10px] text-gray-500 font-bold uppercase">Mantenimiento General</p>
+                <p class="text-sm font-black text-slate-800">71506930</p>
               </div>
-              <span class="font-black text-amber-300">73017175</span>
             </a>
           </div>
         </div>
 
-        <!-- CARD INFORMACIÓN CORPORATIVA -->
-        <div class="bg-white p-5 rounded-2xl shadow-md border border-slate-200 space-y-4">
-          <h3 class="font-black text-[#003366] text-sm uppercase flex items-center gap-2 border-b pb-2">
-            <i class="fa-solid fa-circle-info text-emerald-600"></i> LIM-BOLIVIA
+        <!-- TARJETA HORARIOS -->
+        <div class="bg-[#001845] text-white p-5 rounded-2xl shadow-md space-y-3">
+          <h3 class="font-black text-amber-400 text-sm uppercase flex items-center gap-2">
+            <i class="fa-solid fa-clock"></i> Horarios de Atención
           </h3>
-          <p class="text-xs text-gray-600 leading-relaxed">
-            Empresa pionera en servicios profesionales de limpieza técnica, corporativa y residencial en Bolivia desde 1999.
-          </p>
-          <div class="space-y-2 text-xs font-medium text-slate-700">
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-location-dot text-red-500"></i>
-              <span>La Paz - Bolivia</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-clock text-emerald-600"></i>
-              <span>Lunes a Domingo 24/7</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-check-double text-blue-600"></i>
-              <span>Garantía de Satisfacción</span>
-            </div>
+          <ul class="text-xs space-y-2 text-slate-200">
+            <li class="flex justify-between border-b border-slate-700/50 pb-1">
+              <span>Lunes a Viernes:</span>
+              <span class="font-bold">08:00 - 19:00</span>
+            </li>
+            <li class="flex justify-between border-b border-slate-700/50 pb-1">
+              <span>Sábados:</span>
+              <span class="font-bold">08:00 - 14:00</span>
+            </li>
+            <li class="flex justify-between text-red-400 font-bold">
+              <span>Emergencias:</span>
+              <span>24 Horas / 7 Días</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- FACEBOOK EMBEDDED -->
+        <div class="bg-white p-4 rounded-2xl shadow-md border border-slate-200 space-y-3">
+          <h3 class="font-black text-[#003366] text-sm uppercase flex items-center gap-2">
+            <i class="fa-brands fa-facebook text-blue-600"></i> Síguenos en Facebook
+          </h3>
+          <div class="w-full overflow-hidden rounded-xl bg-slate-100 text-center py-6 border border-slate-200">
+            <a href="https://www.facebook.com/limbolivia?ref=embed_page" target="_blank"
+              class="inline-flex items-center gap-2 bg-blue-600 text-white font-bold text-xs px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+              <i class="fa-brands fa-facebook text-base"></i> Visitar Página Oficial
+            </a>
           </div>
         </div>
 
@@ -1650,48 +1623,38 @@
   </main>
 
   <!-- FOOTER PRINCIPAL -->
-  <footer class="bg-[#001845] text-white mt-12 border-t-4 border-amber-500">
-    <div class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
-      <div class="space-y-2">
-        <h4 class="font-black text-sm uppercase text-amber-300">LIM-BOLIVIA</h4>
-        <p class="text-slate-300 leading-relaxed">Servicios profesionales e integrales de limpieza técnica, mantenimientos institucionales y desinfección profunda.</p>
+  <footer class="w-full bg-[#001122] text-white mt-12 border-t-4 border-amber-500 py-8">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-xs">
+      <div class="space-y-3">
+        <h4 class="font-black text-amber-400 uppercase text-sm">LIMBOLIVIA - Servicios Profesionales</h4>
+        <p class="text-slate-400 leading-relaxed">
+          Líderes en servicios integrales de limpieza, desinfección, lavado de alfombras y mantenimiento institucional en La Paz, Bolivia desde 1999.
+        </p>
       </div>
-      <div class="space-y-2">
-        <h4 class="font-black text-sm uppercase text-amber-300">Enlaces Rápidos</h4>
-        <ul class="space-y-1">
-          <li><a href="javascript:void(0)" onclick="showView('view-inicio')" class="hover:underline">Inicio</a></li>
-          <li><a href="javascript:void(0)" onclick="showView('view-alfombras-tapizados')" class="hover:underline">Lavado de Alfombras</a></li>
-          <li><a href="javascript:void(0)" onclick="showView('view-24horas')" class="hover:underline">Servicio 24 Horas</a></li>
-          <li><a href="javascript:void(0)" onclick="showView('view-vidrios-altura')" class="hover:underline">Vidrios en Altura</a></li>
-          <li><a href="javascript:void(0)" onclick="showView('view-lavado-vehiculos')" class="hover:underline">Lavado de Vehículos</a></li>
-        </ul>
+      <div class="space-y-3">
+        <h4 class="font-black text-amber-400 uppercase text-sm">Cobertura Principal</h4>
+        <p class="text-slate-400 leading-relaxed">
+          • La Paz - El Alto - Zona Sur<br>
+          • Atención técnica a nivel nacional previa coordinación.
+        </p>
       </div>
-      <div class="space-y-2">
-        <h4 class="font-black text-sm uppercase text-amber-300">Contacto Directo</h4>
-        <p><i class="fa-solid fa-phone mr-1"></i> Central: 79684700 - 71506930 - 73017175</p>
-        <p><i class="fa-solid fa-location-dot mr-1"></i> La Paz, Bolivia</p>
+      <div class="space-y-3">
+        <h4 class="font-black text-amber-400 uppercase text-sm">Contacto</h4>
+        <p class="text-slate-400 leading-relaxed">
+          Teléfonos: 79684700 / 71506930 / 73017175<br>
+          Email: info@limbolivia.com
+        </p>
       </div>
     </div>
-    <div class="bg-[#000f2e] py-3 text-center text-[11px] text-slate-400 border-t border-slate-800">
-      <p>© 1999 - 2026 LIM-BOLIVIA. Todos los derechos reservados.</p>
+    <div class="max-w-7xl mx-auto px-4 mt-8 pt-4 border-t border-slate-800 text-center text-[10px] text-slate-500">
+      © 1999 - 2026 LIMBOLIVIA. Todos los derechos reservados.
     </div>
   </footer>
 
-  <!-- SCRIPT LÓGICO COMPLETO -->
+  <!-- ================= SCRIPTS JS INTEGRADOS ================= -->
   <script>
-    // Configuración de vistas
-    function showView(viewId) {
-      const views = document.querySelectorAll('.view-section');
-      views.forEach(v => v.classList.add('hidden'));
-      const activeView = document.getElementById(viewId);
-      if (activeView) {
-        activeView.classList.remove('hidden');
-      }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Configuración Carrusel
-    const banners = [
+    // --- CARRUSEL DE BANNERS ---
+    const slideImages = [
       '/img/banner1.png',
       '/img/banner2.png',
       '/img/banner3.png'
@@ -1702,138 +1665,165 @@
       const container = document.getElementById('slideIndicatorsContainer');
       if (!container) return;
       container.innerHTML = '';
-      banners.forEach((_, idx) => {
+      slideImages.forEach((_, idx) => {
         const dot = document.createElement('button');
-        dot.className = `w-2.5 h-2.5 rounded-full transition-all cursor-pointer ${idx === 0 ? 'bg-amber-400 w-6' : 'bg-white/60'}`;
+        dot.className = `w-2.5 h-2.5 rounded-full transition-all cursor-pointer ${idx === currentSlide ? 'bg-amber-400 w-6' : 'bg-white/60'}`;
         dot.onclick = () => goToSlide(idx);
         container.appendChild(dot);
       });
     }
 
-    function updateSlide() {
+    function updateSlider() {
       const img = document.getElementById('mainSliderImg');
-      if (img) img.src = banners[currentSlide];
-      const dots = document.querySelectorAll('#slideIndicatorsContainer button');
-      dots.forEach((dot, idx) => {
-        if (idx === currentSlide) {
-          dot.className = 'w-2.5 h-2.5 rounded-full transition-all cursor-pointer bg-amber-400 w-6';
-        } else {
-          dot.className = 'w-2.5 h-2.5 rounded-full transition-all cursor-pointer bg-white/60';
-        }
-      });
+      if (img) img.src = slideImages[currentSlide];
+      initCarousel();
     }
 
     function nextSlide() {
-      currentSlide = (currentSlide + 1) % banners.length;
-      updateSlide();
+      currentSlide = (currentSlide + 1) % slideImages.length;
+      updateSlider();
     }
 
     function prevSlide() {
-      currentSlide = (currentSlide - 1 + banners.length) % banners.length;
-      updateSlide();
+      currentSlide = (currentSlide - 1 + slideImages.length) % slideImages.length;
+      updateSlider();
     }
 
-    function goToSlide(idx) {
-      currentSlide = idx;
-      updateSlide();
+    function goToSlide(index) {
+      currentSlide = index;
+      updateSlider();
     }
 
-    // Intervalo de carrusel
     setInterval(nextSlide, 5000);
 
-    // Lógica del Cotizador
-    const servicesData = {
+    // --- NAVEGACIÓN Y CAMBIO DE VISTAS ---
+    function showView(viewId) {
+      const views = document.querySelectorAll('.view-section');
+      views.forEach(v => v.classList.add('hidden'));
+
+      const target = document.getElementById(viewId);
+      if (target) {
+        target.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // --- LÓGICA DEL COTIZADOR ---
+    let activeService = 'Alfombras';
+
+    const serviceConfigs = {
       'Alfombras': {
-        title: 'Lavado Profesional de Alfombra Fija',
-        description: 'Servicio especializado con inyección y extracción para alfombras pared a pared.',
-        pricePerM2: 15,
-        image: '/img/banner1.png',
-        machine: 'Maquinaria: Inyectora / Extractora Profesional'
+        title: 'Lavado de Alfombra Fija',
+        pricePerUnit: 15, // Bs por m2
+        unitLabel: 'Metros Cuadrados (m²)',
+        hasOptions: false
       },
       'AlfombraSuelta': {
-        title: 'Lavado de Alfombra Suelta / Tapiz',
-        description: 'Tratamiento delicado y secado controlado para alfombras decorativas.',
-        pricePerM2: 18,
-        image: '/img/ribeteado.png',
-        machine: 'Maquinaria: Champuneadora / Espuma Seca'
+        title: 'Lavado de Alfombra Suelta',
+        pricePerUnit: 18, // Bs por m2
+        unitLabel: 'Metros Cuadrados (m²)',
+        hasOptions: false
       },
       'Oficinas': {
-        title: 'Limpieza Integral de Oficinas',
-        description: 'Desinfección de mobiliario, pisos, vidrios e higienización general.',
-        pricePerM2: 12,
-        image: '/img/general.png',
-        machine: 'Equipo: Industrial de Mantenimiento'
+        title: 'Limpieza de Oficinas / Empresas',
+        pricePerUnit: 12, // Bs por m2
+        unitLabel: 'Superficie Estimada (m²)',
+        hasOptions: true
       },
       'Casas': {
-        title: 'Limpieza Residencial Profunda',
-        description: 'Higienización integral técnica para hogares, departamentos y residencias.',
-        pricePerM2: 14,
-        image: '/img/residencial.png',
-        machine: 'Equipo: Limpieza Técnica Residencial'
+        title: 'Limpieza Residencial (Casas/Dptos)',
+        pricePerUnit: 10, // Bs por m2
+        unitLabel: 'Superficie Total (m²)',
+        hasOptions: true
       }
     };
 
-    let selectedService = 'Alfombras';
+    function selectServiceTab(serviceKey) {
+      activeService = serviceKey;
 
-    function selectServiceTab(key) {
-      selectedService = key;
-      const data = servicesData[key];
-      if (!data) return;
-
-      document.getElementById('serviceTitle').innerText = data.title;
-      document.getElementById('serviceDescription').innerText = data.description;
-      document.getElementById('serviceImage').src = data.image;
-      document.getElementById('serviceMachine').innerText = data.machine;
-
-      // Actualizar estilo botones tab
-      Object.keys(servicesData).forEach(k => {
-        const btn = document.getElementById(`btn-${k}`);
+      // Actualizar estilo de botones
+      ['Alfombras', 'AlfombraSuelta', 'Oficinas', 'Casas'].forEach(key => {
+        const btn = document.getElementById(`btn-${key}`);
         if (btn) {
-          if (k === key) {
-            btn.classList.add('border-emerald-600', 'bg-emerald-50');
+          if (key === serviceKey) {
+            btn.classList.add('bg-emerald-100', 'border-emerald-600', 'text-emerald-800');
             btn.classList.remove('border-gray-200');
           } else {
-            btn.classList.remove('border-emerald-600', 'bg-emerald-50');
+            btn.classList.remove('bg-emerald-100', 'border-emerald-600', 'text-emerald-800');
             btn.classList.add('border-gray-200');
           }
         }
       });
 
+      renderQuoteOptions();
       calculateTotal();
     }
 
-    function onSliderChange() {
-      calculateTotal();
-    }
+    function renderQuoteOptions() {
+      const config = serviceConfigs[activeService];
+      const container = document.getElementById('dynamicQuoteOptions');
+      if (!container) return;
 
-    function changeM2Step(delta) {
-      const slider = document.getElementById('m2Slider');
-      let val = parseInt(slider.value) + delta;
-      if (val < 1) val = 1;
-      if (val > 300) val = 300;
-      slider.value = val;
-      calculateTotal();
+      let html = `
+        <h3 class="font-bold text-[#003366] text-sm">${config.title}</h3>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">${config.unitLabel}</label>
+          <input type="number" id="inputQuantity" value="20" min="1" oninput="calculateTotal()"
+            class="w-full p-2.5 border rounded-lg text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-emerald-500 outline-none">
+        </div>
+      `;
+
+      if (config.hasOptions) {
+        html += `
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1">Tipo de Servicio Requerido</label>
+            <select id="selectServiceType" onchange="calculateTotal()" class="w-full p-2.5 border rounded-lg text-sm bg-slate-50 focus:bg-white outline-none">
+              <option value="1">Limpieza Profunda Estándar</option>
+              <option value="1.25">Limpieza Pre/Post Mudanza (+25%)</option>
+              <option value="1.4">Limpieza Fina de Fin de Obra (+40%)</option>
+            </select>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
     }
 
     function calculateTotal() {
-      const slider = document.getElementById('m2Slider');
-      const m2 = parseInt(slider.value);
-      const data = servicesData[selectedService];
-      const total = m2 * data.pricePerM2;
+      const config = serviceConfigs[activeService];
+      const quantityInput = document.getElementById('inputQuantity');
+      const quantity = quantityInput ? parseFloat(quantityInput.value) || 0 : 0;
 
-      document.getElementById('m2Value').innerText = `${m2} m²`;
-      document.getElementById('m2Subtotal').innerText = `(Bs ${total})`;
-      document.getElementById('totalPrice').innerText = `Bs ${total.toFixed(2)}`;
+      let multiplier = 1;
+      const serviceTypeSelect = document.getElementById('selectServiceType');
+      if (serviceTypeSelect) {
+        multiplier = parseFloat(serviceTypeSelect.value) || 1;
+      }
 
-      const msg = encodeURIComponent(`Hola LIM-BOLIVIA, quisiera cotizar el servicio de ${data.title} para ${m2} m². Total estimado: Bs ${total.toFixed(2)}.`);
-      document.getElementById('whatsappQuoteBtn').href = `https://wa.me/59179684700?text=${msg}`;
+      const total = quantity * config.pricePerUnit * multiplier;
+      const totalDisplay = document.getElementById('calculatedTotal');
+      if (totalDisplay) {
+        totalDisplay.innerText = `${total.toFixed(2)} Bs.`;
+      }
     }
 
-    // Inicialización al cargar la página
-    window.onload = function() {
+    function sendQuoteToWhatsApp() {
+      const config = serviceConfigs[activeService];
+      const quantityInput = document.getElementById('inputQuantity');
+      const quantity = quantityInput ? quantityInput.value : 0;
+      const totalDisplay = document.getElementById('calculatedTotal');
+      const total = totalDisplay ? totalDisplay.innerText : '0.00 Bs.';
+
+      const message = `Hola LIMBOLIVIA, solicito cotización:\n- Servicio: ${config.title}\n- Cantidad/M²: ${quantity}\n- Estimado: ${total}`;
+      const url = `https://wa.me/59179684700?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+
+    // Inicialización al cargar el DOM
+    document.addEventListener('DOMContentLoaded', () => {
       initCarousel();
       selectServiceTab('Alfombras');
-    };
+    });
   </script>
 </body>
 
