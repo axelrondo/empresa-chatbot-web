@@ -1,0 +1,6 @@
+{
+  "alfombras": { "precioM2": 12, "base": 80 },
+  "oficinas": { "precioM2": 8, "base": 120 },
+  "casas": { "precioM2": 7, "base": 100 },
+  "postObra": { "precioM2": 15, "base": 180 }
+}
