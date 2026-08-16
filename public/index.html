@@ -2249,6 +2249,7 @@
         };
 
         // ==========================================
+        // ==========================================
         // 🟢 CARGAR PRODUCTOS CON MODAL HORIZONTAL
         // ==========================================
         function cargarMaquinarias(filtroCategoria) {
@@ -2302,7 +2303,7 @@
                     }
 
                     var html = '';
-                    var modalesHtml = ''; // ← Acumulamos los modales aquí
+                    var modalesHtml = '';
 
                     products.forEach(function (prod) {
                         var modalId = 'productModal_' + prod.id;
@@ -2322,7 +2323,7 @@
                             imagenesExtra = [prod.imagen_url];
                         }
 
-                        // CARD DEL PRODUCTO (solo la card)
+                        // CARD DEL PRODUCTO
                         html += `
                     <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col group">
                         <div class="h-52 bg-slate-100 overflow-hidden relative">
@@ -2359,7 +2360,7 @@
                     </div>
                 `;
 
-                        // MODAL INDEPENDIENTE (fuera del grid)
+                        // MODAL INDEPENDIENTE
                         modalesHtml += `
                     <div id="${modalId}" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100000] flex items-center justify-center hidden p-2 sm:p-4">
                         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden animate-fade-in">
@@ -2466,10 +2467,8 @@
                 `;
                     });
 
-                    // Insertar cards y modales
                     container.innerHTML = html;
 
-                    // Agregar modales al final del body (independientes)
                     var modalesContainer = document.getElementById('modalesContainer');
                     if (!modalesContainer) {
                         modalesContainer = document.createElement('div');
@@ -2514,12 +2513,18 @@
         // ==========================================
         // 🟢 ABRIR MODAL DE DETALLE
         // ==========================================
-        function openProductDetail(productId, modalId) {
-            console.log('🔍 Abriendo detalle del producto:', productId);
+        // ==========================================
+        // 🟢 ABRIR MODAL DE DETALLE (CORREGIDO)
+        // ==========================================
+        function openProductDetail(modalId) {
+            console.log('🔍 Abriendo detalle del producto:', modalId);
             var modal = document.getElementById(modalId);
             if (modal) {
                 modal.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
+
+                // Buscar el ID del producto desde el modalId
+                var productId = modalId.replace('productModal_', '');
                 var adminActions = document.getElementById('adminActions_' + productId);
                 if (adminActions) {
                     if (isAdminAuthenticated) {
@@ -2529,6 +2534,31 @@
                     }
                 }
             }
+        }
+
+        // ==========================================
+        // 🟢 CAMBIAR IMAGEN PRINCIPAL EN EL MODAL (CORREGIDO)
+        // ==========================================
+        function cambiarImagenPrincipal(modalId, nuevaImagen) {
+            console.log('🖼️ Cambiando imagen principal para:', modalId);
+            var modal = document.getElementById(modalId);
+            if (!modal) return;
+
+            var imgPrincipal = modal.querySelector('.lg\\:w-1\\/2 .bg-slate-100 img');
+            if (imgPrincipal) {
+                imgPrincipal.src = nuevaImagen;
+            }
+
+            // Actualizar borde de miniaturas
+            var thumbnails = modal.querySelectorAll('.grid-cols-3 .border-2');
+            thumbnails.forEach(function (thumb) {
+                thumb.classList.remove('border-blue-500');
+                thumb.classList.add('border-transparent');
+                if (thumb.querySelector('img') && thumb.querySelector('img').src === nuevaImagen) {
+                    thumb.classList.remove('border-transparent');
+                    thumb.classList.add('border-blue-500');
+                }
+            });
         }
 
         // ==========================================
