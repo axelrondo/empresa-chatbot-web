@@ -1,23 +1,41 @@
 <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-slate-200/80 space-y-6 animate-fade-in">
   
-  <!-- Encabezado -->
-  <div class="border-b border-slate-200 pb-4 flex justify-between items-center flex-wrap gap-2">
-    <div>
-      <h2 class="text-2xl font-black text-[#003366] uppercase tracking-wide drop-shadow-sm flex items-center gap-2">
-        <i class="fa-solid fa-industry text-amber-500"></i> MAQUINARIA Y PRODUCTOS DE LIMPIEZA
-      </h2>
-      <p class="text-xs font-semibold text-slate-600 mt-1">Equipos industriales y productos especializados para limpieza profesional.</p>
+  <!-- Encabezado con botones de filtro -->
+  <div class="border-b border-slate-200 pb-4 space-y-4">
+    <div class="flex justify-between items-center flex-wrap gap-2">
+      <div>
+        <h2 class="text-2xl font-black text-[#003366] uppercase tracking-wide drop-shadow-sm flex items-center gap-2">
+          <i class="fa-solid fa-industry text-amber-500"></i> MAQUINARIA Y PRODUCTOS DE LIMPIEZA
+        </h2>
+        <p class="text-xs font-semibold text-slate-600 mt-1">Equipos industriales y productos especializados para limpieza profesional.</p>
+      </div>
+      <button onclick="checkAdminAuth()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 transition flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer border border-slate-300">
+        <i class="fa-solid fa-user-shield text-amber-600"></i> Acceso Admin
+      </button>
     </div>
-    <!-- Botón Admin (dentro de la sección) -->
-    <button onclick="checkAdminAuth()" 
-      class="bg-slate-200 hover:bg-slate-300 text-slate-700 transition flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer border border-slate-300">
-      <i class="fa-solid fa-user-shield text-amber-600"></i> Acceso Admin
-    </button>
+    
+    <!-- BOTONES DE FILTRO POR CATEGORÍA -->
+    <div class="flex flex-wrap gap-2">
+      <button onclick="filtrarCategoria('Todas')" 
+        id="filtroTodas"
+        class="bg-[#003366] text-white hover:bg-[#002244] transition px-4 py-2 rounded-lg text-xs font-bold cursor-pointer shadow-sm">
+        <i class="fa-solid fa-th-list mr-1"></i> Todas
+      </button>
+      <button onclick="filtrarCategoria('MAQUINARIA')" 
+        id="filtroMAQUINARIA"
+        class="bg-blue-100 text-blue-700 hover:bg-blue-200 transition px-4 py-2 rounded-lg text-xs font-bold cursor-pointer border border-blue-200">
+        <i class="fa-solid fa-industry mr-1"></i> 🔧 MAQUINARIA
+      </button>
+      <button onclick="filtrarCategoria('PRODUCTO')" 
+        id="filtroPRODUCTO"
+        class="bg-purple-100 text-purple-700 hover:bg-purple-200 transition px-4 py-2 rounded-lg text-xs font-bold cursor-pointer border border-purple-200">
+        <i class="fa-solid fa-box mr-1"></i> 📦 PRODUCTO
+      </button>
+    </div>
   </div>
 
   <!-- Grid de Productos -->
   <div id="machineryGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- Las cards se generan dinámicamente con JavaScript -->
     <div class="col-span-full text-center py-12 text-gray-400">
       <i class="fa-solid fa-spinner fa-spin text-3xl"></i>
       <p class="text-xs mt-3">Cargando catálogo de maquinaria...</p>
