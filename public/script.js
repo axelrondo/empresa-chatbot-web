@@ -598,3 +598,134 @@ document.addEventListener('click', function(e) {
     }
   });
 });
+
+/* ==========================================
+   FUNCIONES PARA ADMIN (MODALES Y LOGIN)
+   ========================================== */
+
+// Cerrar modal
+window.closeModal = function(id) {
+  const modal = document.getElementById(id);
+  if (modal) modal.classList.add('hidden');
+};
+
+// Verificar autenticación de admin
+window.checkAdminAuth = function() {
+  if (!supabaseClient) {
+    alert('⚠️ Error: Supabase no está configurado.\nRevisa las credenciales en script.js');
+    return;
+  }
+  
+  if (isAdminAuthenticated) {
+    document.getElementById('modalUploadMachine').classList.remove('hidden');
+  } else {
+    document.getElementById('modalAdminLogin').classList.remove('hidden');
+  }
+};
+
+// Iniciar Sesión de Administrador
+window.handleAdminLogin = async function(e) {
+  e.preventDefault();
+  const email = document.getElementById('adminEmail').value;
+  const password = document.getElementById('adminPassword').value;
+  const errorMsg = document.getElementById('loginErrorMsg');
+
+  if (!supabaseClient) {
+    alert('Error: Supabase no está configurado correctamente.');
+    return;
+  }
+
+  try {
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if (error) throw error;
+
+    isAdminAuthenticated = true;
+    errorMsg.classList.add('hidden');
+    closeModal('modalAdminLogin');
+    document.getElementById('modalUploadMachine').classList.remove('hidden');
+    
+    console.log('✅ Admin autenticado correctamente');
+  } catch (err) {
+    errorMsg.textContent = "❌ Error de autenticación: " + err.message;
+    errorMsg.classList.remove('hidden');
+  }
+};
+
+// Subir nueva maquinaria
+window.handleMachineUpload = async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btnSubmitMachine');
+  btn.disabled = true;
+  btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Publicando...`;
+
+  const codigo = document.getElementById('machineCodigo').value;
+  const nombre = document.getElementById('machineNombre').value;
+  const descripcion = document.getElementById('machineDescripcion').value;
+  const precio_bs = parseFloat(document.getElementById('machinePrecio').value);
+  const fileInput = document.getElementById('machineImage');
+  const file = fileInput.files[0];
+
+  if (!supabaseClient) {
+    alert('Error: Supabase no está configurado.');
+    btn.disabled = false;
+    btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Publicar Producto`;
+    return;
+  }
+
+  if (!file) {
+    alert('Por favor selecciona una imagen.');
+    btn.disabled = false;
+    btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Publicar Producto`;
+    return;
+  }
+
+  try {
+    // 1. Subir la imagen al bucket 'maquinarias'
+    const filePath = `equipos/${Date.now()}_${file.name}`;
+    const { data: uploadData, error: uploadError } = await supabaseClient.storage
+      .from('maquinarias')
+      .upload(filePath, file);
+
+    if (uploadError) throw uploadError;
+
+    // 2. Obtener URL pública
+    const { data: urlData } = supabaseClient.storage
+      .from('maquinarias')
+      .getPublicUrl(filePath);
+
+    const imagen_url = urlData.publicUrl;
+
+    // 3. Insertar registro en la tabla 'maquinarias'
+    const { error: insertError } = await supabaseClient
+      .from('maquinarias')
+      .insert([
+        {
+          codigo: codigo,
+          nombre: nombre,
+          descripcion: descripcion,
+          precio_bs: precio_bs,
+          imagen_url: imagen_url
+        }
+      ]);
+
+    if (insertError) throw insertError;
+
+    alert('✅ ¡Producto publicado con éxito!');
+    document.getElementById('formUploadMachine').reset();
+    closeModal('modalUploadMachine');
+    
+    // Recargar el catálogo
+    cargarMaquinarias();
+    
+  } catch (err) {
+    console.error('Error:', err);
+    alert('❌ Error al publicar el producto: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Publicar Producto`;
+  }
+};
