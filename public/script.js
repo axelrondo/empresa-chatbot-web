@@ -11,37 +11,115 @@ const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SU
 let isAdminAuthenticated = false;
 
 /* ==========================================
-   1. CONTROL DE VISTAS (NAVEGACIÓN SPA)
+   1. CARGA DINÁMICA DE SECCIONES (NUEVO)
    ========================================== */
 
-/**
- * Muestra la vista seleccionada y oculta las demás de forma fluida.
- * @param {string} viewId - ID de la sección a mostrar
- */
-function showView(viewId) {
-  // Ocultar todas las secciones
-  const sections = document.querySelectorAll('.view-section');
-  sections.forEach(section => {
-    section.classList.add('hidden');
-  });
+// Mapeo de IDs de vista a nombres de archivos
+const SECTION_MAP = {
+  // Vistas principales
+  'view-inicio': 'view-inicio',
+  'view-mision-vision': 'view-mision-vision',
+  'view-quienes-somos': 'view-quienes-somos',
+  'view-principios': 'view-principios',
+  'view-24horas': 'view-24horas',
+  'view-alfombras-tapizados': 'view-alfombras-tapizados',
+  'view-cotizador': 'view-cotizador',
+  
+  // Servicios (sec-1 a sec-18)
+  'sec-1': 'sec-1',
+  'sec-2': 'sec-2',
+  'sec-3': 'sec-3',
+  'sec-4': 'sec-4',
+  'sec-5': 'sec-5',
+  'sec-6': 'sec-6',
+  'sec-7': 'sec-7',
+  'sec-8': 'sec-8',
+  'sec-9': 'sec-9',
+  'sec-10': 'sec-10',
+  'sec-11': 'sec-11',
+  'sec-12': 'sec-12',
+  'sec-13': 'sec-13',
+  'sec-14': 'sec-14',
+  'sec-15': 'sec-15',
+  'sec-16': 'sec-16',
+  'sec-17': 'sec-17',
+  'sec-18': 'sec-18',
+};
 
-  // Mostrar la vista seleccionada
-  const targetView = document.getElementById(viewId);
-  if (targetView) {
-    targetView.classList.remove('hidden');
-    
-    // Smooth scroll superior
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+// Cache de secciones ya cargadas
+const sectionCache = new Map();
+
+async function loadSection(viewId) {
+  const sectionKey = SECTION_MAP[viewId];
+  if (!sectionKey) {
+    console.warn('Sección no encontrada:', viewId);
+    return;
   }
 
-  // Cargar catálogo de maquinaria si se accede a dicha vista
-  if (viewId === 'view-venta-maquinaria') {
-    loadMachineryProducts();
+  // Verificar si ya está cargada en caché
+  if (sectionCache.has(sectionKey)) {
+    const content = sectionCache.get(sectionKey);
+    const container = document.getElementById(viewId);
+    if (container) {
+      container.innerHTML = content;
+      container.classList.remove('hidden');
+      container.classList.add('animate-fade-in');
+    }
+    return;
+  }
+
+  try {
+    // Cargar desde archivo HTML
+    const response = await fetch(`/sections/${sectionKey}.html`);
+    if (!response.ok) throw new Error(`Error loading ${sectionKey}: ${response.status}`);
+    
+    const content = await response.text();
+    sectionCache.set(sectionKey, content);
+
+    const container = document.getElementById(viewId);
+    if (container) {
+      container.innerHTML = content;
+      container.classList.remove('hidden');
+      container.classList.add('animate-fade-in');
+    }
+  } catch (error) {
+    console.error('Error loading section:', error);
+    const container = document.getElementById(viewId);
+    if (container) {
+      container.innerHTML = `<div class="bg-white p-8 rounded-2xl shadow-md border border-red-200 text-center">
+        <i class="fa-solid fa-triangle-exclamation text-3xl text-red-500"></i>
+        <p class="mt-2 text-red-600 font-bold">Error al cargar la sección</p>
+        <p class="text-xs text-gray-500 mt-1">Por favor, recargue la página</p>
+      </div>`;
+    }
   }
 }
 
+// Función showView UNIFICADA
+window.showView = function(viewId) {
+  // Ocultar todas las vistas
+  document.querySelectorAll('.view-section').forEach(v => {
+    v.classList.add('hidden');
+    v.classList.remove('animate-fade-in');
+  });
+  
+  // Cargar la vista solicitada
+  loadSection(viewId);
+  
+  // Cerrar todos los dropdowns
+  document.querySelectorAll('.dropdown-content').forEach(el => el.classList.add('hidden'));
+  
+  // Scroll suave con offset
+  window.scrollTo({ top: 80, behavior: 'smooth' });
+
+  // Cargar catálogo de maquinaria si se accede a dicha vista
+  if (viewId === 'view-venta-maquinaria') {
+    setTimeout(loadMachineryProducts, 300);
+  }
+};
+
 /* ==========================================
-   2. CARRUSEL / SLIDER PRINCIPAL
+   2. CARRUSEL / SLIDER PRINCIPAL (MEJORADO)
    ========================================== */
 
 const slideImages = [
@@ -90,7 +168,7 @@ function updateIndicators() {
   });
 }
 
-// Rotación automática del slider cada 5 segundos (solo activa si Inicio está visible)
+// Rotación automática del slider cada 5 segundos (solo si Inicio está visible)
 setInterval(() => {
   const inicioSection = document.getElementById('view-inicio');
   if (inicioSection && !inicioSection.classList.contains('hidden')) {
@@ -164,7 +242,8 @@ const servicesData = {
 let currentSelectedKey = 'Alfombras';
 let selectedCartItems = [];
 
-function selectServiceTab(serviceKey) {
+// Versión corregida de selectServiceTab (evita conflictos)
+window.selectServiceTab = function(serviceKey) {
   currentSelectedKey = serviceKey;
   const data = servicesData[serviceKey];
   if (!data) return;
@@ -195,7 +274,7 @@ function selectServiceTab(serviceKey) {
   if (imgEl) imgEl.src = data.image;
 
   onSliderChange();
-}
+};
 
 function onSliderChange() {
   const slider = document.getElementById('m2Slider');
@@ -472,12 +551,79 @@ async function loadMachineryProducts() {
 }
 
 /* ==========================================
-   5. CHAT Y ASISTENTE IA (MÓDULO BASE)
+   5. ASISTENTE IA (INTEGRACIÓN FUTURA)
    ========================================== */
 
+/**
+ * Función para abrir/cerrar el chat con IA
+ * Aquí puedes conectar tu backend de IA o usar una API externa
+ */
 function toggleChat() {
-  console.log('Iniciando asistente interactivo IA...');
-  alert('El Asistente Virtual LIM-BOLIVIA se iniciará aquí en el siguiente módulo.');
+  console.log('🟢 Asistente IA activado');
+  
+  // Ejemplo de integración: abrir un modal de chat
+  // o cargar un iframe con tu chatbot personalizado
+  
+  // Por ahora, mostramos un mensaje interactivo
+  const chatContainer = document.getElementById('chatContainer');
+  if (chatContainer) {
+    if (chatContainer.classList.contains('hidden')) {
+      chatContainer.classList.remove('hidden');
+      // Opcional: cargar el chat dinámicamente
+      loadChatWidget();
+    } else {
+      chatContainer.classList.add('hidden');
+    }
+  } else {
+    // Si no hay contenedor, usamos un alert (temporal)
+    alert('🤖 Asistente Virtual LIM-BOLIVIA\n\n' +
+          'Próximamente podrás chatear con nuestra IA para:\n' +
+          '• Cotizar servicios en tiempo real\n' +
+          '• Consultar disponibilidad de maquinaria\n' +
+          '• Resolver dudas técnicas\n\n' +
+          '📱 Mientras tanto, contáctanos por WhatsApp: 71506930');
+  }
+}
+
+/**
+ * Función para cargar el widget de chat (ejemplo con iframe)
+ * Puedes conectar aquí con:
+ * - Dialogflow
+ * - OpenAI API
+ * - Un chatbot personalizado en tu backend
+ */
+function loadChatWidget() {
+  const container = document.getElementById('chatContainer');
+  if (!container) return;
+  
+  // Ejemplo: cargar un iframe con tu chatbot
+  container.innerHTML = `
+    <div class="fixed bottom-24 right-4 w-80 md:w-96 max-h-[500px] bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-50">
+      <div class="bg-[#003366] text-white p-3 flex justify-between items-center">
+        <span class="font-bold text-sm flex items-center gap-2">
+          <i class="fa-solid fa-robot text-amber-400"></i> Asistente LIM-BOLIVIA
+        </span>
+        <button onclick="toggleChat()" class="text-white/70 hover:text-white">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="p-4 h-80 overflow-y-auto bg-gray-50">
+        <div class="text-center text-xs text-gray-400 mb-4">
+          <i class="fa-regular fa-message"></i> Escribe tu consulta
+        </div>
+        <!-- Aquí irían los mensajes del chat -->
+        <div class="bg-white p-3 rounded-lg shadow-sm mb-2">
+          <p class="text-xs text-gray-700">👋 ¡Hola! Soy el asistente virtual de LIM-BOLIVIA. ¿En qué puedo ayudarte hoy?</p>
+        </div>
+      </div>
+      <div class="p-3 bg-white border-t border-slate-200 flex gap-2">
+        <input type="text" placeholder="Escribe tu mensaje..." class="flex-1 text-xs border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500" />
+        <button class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-xs font-bold transition">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  `;
 }
 
 /* ==========================================
@@ -485,7 +631,31 @@ function toggleChat() {
    ========================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Mostrar Inicio por defecto
   showView('view-inicio');
+  
+  // Inicializar carrusel
   updateIndicators();
+  
+  // Inicializar cotizador
   selectServiceTab('Alfombras');
+  
+  // Cargar productos de maquinaria (si la vista está disponible)
+  const machineryView = document.getElementById('view-venta-maquinaria');
+  if (machineryView) {
+    setTimeout(loadMachineryProducts, 500);
+  }
+  
+  // Cerrar dropdowns al hacer clic fuera
+  document.addEventListener('click', function(e) {
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dd => {
+      if (!dd.contains(e.target)) {
+        const content = dd.querySelector('.dropdown-content');
+        if (content) content.classList.add('hidden');
+      }
+    });
+  });
+  
+  console.log('✅ LIM-BOLIVIA WebApp inicializada correctamente');
 });
