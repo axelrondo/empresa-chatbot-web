@@ -2,21 +2,22 @@
    0. CONFIGURACIÓN E INICIALIZACIÓN DE SUPABASE
    ========================================== */
 
-// Sustituye con tus credenciales reales de tu proyecto de Supabase
+// 🔑 CONFIGURA CON TUS CREDENCIALES REALES
 const SUPABASE_URL = 'https://TU_PROYECTO.supabase.co';
 const SUPABASE_ANON_KEY = 'TU_ANON_KEY_DE_SUPABASE';
 
-const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+// Inicializar Supabase
+const supabaseClient = window.supabase 
+  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) 
+  : null;
 
 let isAdminAuthenticated = false;
 
 /* ==========================================
-   1. CARGA DINÁMICA DE SECCIONES (NUEVO)
+   1. CARGA DINÁMICA DE SECCIONES
    ========================================== */
 
-// Mapeo de IDs de vista a nombres de archivos
 const SECTION_MAP = {
-  // Vistas principales
   'view-inicio': 'view-inicio',
   'view-mision-vision': 'view-mision-vision',
   'view-quienes-somos': 'view-quienes-somos',
@@ -24,8 +25,7 @@ const SECTION_MAP = {
   'view-24horas': 'view-24horas',
   'view-alfombras-tapizados': 'view-alfombras-tapizados',
   'view-cotizador': 'view-cotizador',
-  
-  // Servicios (sec-1 a sec-18)
+  'sec-maquinarias': 'sec-maquinarias',  // 🆕 NUEVA SECCIÓN
   'sec-1': 'sec-1',
   'sec-2': 'sec-2',
   'sec-3': 'sec-3',
@@ -46,7 +46,6 @@ const SECTION_MAP = {
   'sec-18': 'sec-18',
 };
 
-// Cache de secciones ya cargadas
 const sectionCache = new Map();
 
 async function loadSection(viewId) {
@@ -56,7 +55,6 @@ async function loadSection(viewId) {
     return;
   }
 
-  // Verificar si ya está cargada en caché
   if (sectionCache.has(sectionKey)) {
     const content = sectionCache.get(sectionKey);
     const container = document.getElementById(viewId);
@@ -65,11 +63,14 @@ async function loadSection(viewId) {
       container.classList.remove('hidden');
       container.classList.add('animate-fade-in');
     }
+    // Si es la sección de maquinarias, cargar productos
+    if (viewId === 'sec-maquinarias') {
+      setTimeout(cargarMaquinarias, 200);
+    }
     return;
   }
 
   try {
-    // Cargar desde archivo HTML
     const response = await fetch(`/sections/${sectionKey}.html`);
     if (!response.ok) throw new Error(`Error loading ${sectionKey}: ${response.status}`);
     
@@ -81,6 +82,11 @@ async function loadSection(viewId) {
       container.innerHTML = content;
       container.classList.remove('hidden');
       container.classList.add('animate-fade-in');
+    }
+    
+    // Si es la sección de maquinarias, cargar productos
+    if (viewId === 'sec-maquinarias') {
+      setTimeout(cargarMaquinarias, 300);
     }
   } catch (error) {
     console.error('Error loading section:', error);
@@ -97,29 +103,19 @@ async function loadSection(viewId) {
 
 // Función showView UNIFICADA
 window.showView = function(viewId) {
-  // Ocultar todas las vistas
   document.querySelectorAll('.view-section').forEach(v => {
     v.classList.add('hidden');
     v.classList.remove('animate-fade-in');
   });
   
-  // Cargar la vista solicitada
   loadSection(viewId);
   
-  // Cerrar todos los dropdowns
   document.querySelectorAll('.dropdown-content').forEach(el => el.classList.add('hidden'));
-  
-  // Scroll suave con offset
   window.scrollTo({ top: 80, behavior: 'smooth' });
-
-  // Cargar catálogo de maquinaria si se accede a dicha vista
-  if (viewId === 'view-venta-maquinaria') {
-    setTimeout(loadMachineryProducts, 300);
-  }
 };
 
 /* ==========================================
-   2. CARRUSEL / SLIDER PRINCIPAL (MEJORADO)
+   2. CARRUSEL PRINCIPAL
    ========================================== */
 
 const slideImages = [
@@ -138,15 +134,15 @@ function updateSlide() {
   updateIndicators();
 }
 
-function nextSlide() {
+window.nextSlide = function() {
   currentSlideIndex = (currentSlideIndex + 1) % slideImages.length;
   updateSlide();
-}
+};
 
-function prevSlide() {
+window.prevSlide = function() {
   currentSlideIndex = (currentSlideIndex - 1 + slideImages.length) % slideImages.length;
   updateSlide();
-}
+};
 
 function setSlide(index) {
   currentSlideIndex = index;
@@ -168,87 +164,36 @@ function updateIndicators() {
   });
 }
 
-// Rotación automática del slider cada 5 segundos (solo si Inicio está visible)
 setInterval(() => {
   const inicioSection = document.getElementById('view-inicio');
   if (inicioSection && !inicioSection.classList.contains('hidden')) {
-    nextSlide();
+    window.nextSlide();
   }
 }, 5000);
 
 /* ==========================================
-   3. LÓGICA DEL COTIZADOR DE SERVICIOS
+   3. LOGICA DEL COTIZADOR
    ========================================== */
 
 const servicesData = {
-  'Alfombras': {
-    title: 'Lavado Profesional de Alfombra Fija',
-    description: 'Limpieza profunda de alfombra pared a pared con sistema de inyección y extracción.',
-    machine: 'Inyectora / Extractora Profesional',
-    pricePerM2: 15,
-    image: '/img/banner1.png'
-  },
-  'AlfombraSuelta': {
-    title: 'Lavado de Alfombra Suelta / Tapete',
-    description: 'Tratamiento delicado y remoción de manchas profundas en taller o a domicilio.',
-    machine: 'Lavadora Rotativa + Secado Controlado',
-    pricePerM2: 18,
-    image: '/img/banner2.png'
-  },
-  'Oficinas': {
-    title: 'Limpieza Integral de Oficinas',
-    description: 'Desinfección de mobiliario, equipos, escritorios y pisos institucionales.',
-    machine: 'Aspiradoras Industriales HEPA',
-    pricePerM2: 12,
-    image: '/img/banner3.png'
-  },
-  'Casas': {
-    title: 'Limpieza Profunda de Casas y Dptos.',
-    description: 'Higienización total de áreas comunes, cocina, baños y dormitorios.',
-    machine: 'Vaporizadores + Pulidoras',
-    pricePerM2: 14,
-    image: '/img/banner1.png'
-  },
-  'LustradoFrio': {
-    title: 'Lustrado y Brillado de Piso Frío',
-    description: 'Aseo, desengrasado y aplicación de cera/sellador en cerámica, granito o mármol.',
-    machine: 'Lustradora de Alta Velocidad',
-    pricePerM2: 10,
-    image: '/img/banner2.png'
-  },
-  'LustradoMadera': {
-    title: 'Tratamiento y Lustrado de Piso de Madera',
-    description: 'Protección con ceras especiales para preservar la madera y restaurar el brillo.',
-    machine: 'Lustradora Profesional con Felpa',
-    pricePerM2: 16,
-    image: '/img/banner3.png'
-  },
-  'Fumigado': {
-    title: 'Fumigación y Control de Plagas',
-    description: 'Desinsectación y control de plagas con químicos biodegradables y seguros.',
-    machine: 'Termonebulizadora / Aspersor de Presión',
-    pricePerM2: 8,
-    image: '/img/banner1.png'
-  },
-  'Tanques': {
-    title: 'Limpieza y Desinfección de Tanques',
-    description: 'Lavado y desinfección química de tanques elevados y cisternas de agua.',
-    machine: 'Bomba de Achique + Hidrolavadora',
-    pricePerM2: 20,
-    image: '/img/banner2.png'
-  }
+  'Alfombras': { title: 'Lavado Profesional de Alfombra Fija', description: 'Limpieza profunda de alfombra pared a pared con sistema de inyección y extracción.', machine: 'Inyectora / Extractora Profesional', pricePerM2: 15, image: '/img/banner1.png' },
+  'AlfombraSuelta': { title: 'Lavado de Alfombra Suelta / Tapete', description: 'Tratamiento delicado y remoción de manchas profundas en taller o a domicilio.', machine: 'Lavadora Rotativa + Secado Controlado', pricePerM2: 18, image: '/img/banner2.png' },
+  'Oficinas': { title: 'Limpieza Integral de Oficinas', description: 'Desinfección de mobiliario, equipos, escritorios y pisos institucionales.', machine: 'Aspiradoras Industriales HEPA', pricePerM2: 12, image: '/img/banner3.png' },
+  'Casas': { title: 'Limpieza Profunda de Casas y Dptos.', description: 'Higienización total de áreas comunes, cocina, baños y dormitorios.', machine: 'Vaporizadores + Pulidoras', pricePerM2: 14, image: '/img/banner1.png' },
+  'LustradoFrio': { title: 'Lustrado y Brillado de Piso Frío', description: 'Aseo, desengrasado y aplicación de cera/sellador en cerámica, granito o mármol.', machine: 'Lustradora de Alta Velocidad', pricePerM2: 10, image: '/img/banner2.png' },
+  'LustradoMadera': { title: 'Tratamiento y Lustrado de Piso de Madera', description: 'Protección con ceras especiales para preservar la madera y restaurar el brillo.', machine: 'Lustradora Profesional con Felpa', pricePerM2: 16, image: '/img/banner3.png' },
+  'Fumigado': { title: 'Fumigación y Control de Plagas', description: 'Desinsectación y control de plagas con químicos biodegradables y seguros.', machine: 'Termonebulizadora / Aspersor de Presión', pricePerM2: 8, image: '/img/banner1.png' },
+  'Tanques': { title: 'Limpieza y Desinfección de Tanques', description: 'Lavado y desinfección química de tanques elevados y cisternas de agua.', machine: 'Bomba de Achique + Hidrolavadora', pricePerM2: 20, image: '/img/banner2.png' }
 };
 
 let currentSelectedKey = 'Alfombras';
 let selectedCartItems = [];
 
-// Versión corregida de selectServiceTab (evita conflictos)
 window.selectServiceTab = function(serviceKey) {
   currentSelectedKey = serviceKey;
   const data = servicesData[serviceKey];
   if (!data) return;
 
-  // Actualizar resaltado de botones
   Object.keys(servicesData).forEach(key => {
     const btn = document.getElementById(`btn-${key}`);
     if (btn) {
@@ -262,7 +207,6 @@ window.selectServiceTab = function(serviceKey) {
     }
   });
 
-  // Actualizar textos en la tarjeta de detalle
   const titleEl = document.getElementById('serviceTitle');
   const descEl = document.getElementById('serviceDescription');
   const machineEl = document.getElementById('serviceMachine');
@@ -291,7 +235,7 @@ function onSliderChange() {
   if (m2SubEl) m2SubEl.textContent = `(Bs ${subtotal})`;
 }
 
-function changeM2Step(delta) {
+window.changeM2Step = function(delta) {
   const slider = document.getElementById('m2Slider');
   if (!slider) return;
   
@@ -300,9 +244,9 @@ function changeM2Step(delta) {
   if (current > 300) current = 300;
   slider.value = current;
   onSliderChange();
-}
+};
 
-function addCurrentMainService() {
+window.addCurrentMainService = function() {
   const slider = document.getElementById('m2Slider');
   if (!slider) return;
   
@@ -317,12 +261,12 @@ function addCurrentMainService() {
   });
 
   renderCart();
-}
+};
 
-function removeCartItem(index) {
+window.removeCartItem = function(index) {
   selectedCartItems.splice(index, 1);
   renderCart();
-}
+};
 
 function renderCart() {
   const container = document.getElementById('servicesBreakdown');
@@ -358,7 +302,7 @@ function renderCart() {
   totalEl.textContent = `Bs ${grandTotal}`;
 }
 
-function sendToWhatsApp() {
+window.sendToWhatsApp = function() {
   if (selectedCartItems.length === 0) {
     alert('Por favor agrega al menos un servicio a tu cotización.');
     return;
@@ -379,39 +323,46 @@ function sendToWhatsApp() {
   const numeroTelefono = '59171506930';
   const url = `https://wa.me/${numeroTelefono}?text=${encodeURIComponent(mensaje)}`;
   window.open(url, '_blank');
-}
+};
 
 /* ==========================================
-   4. MODALES Y GESTIÓN DE MAQUINARIA (SUPABASE)
+   4. 🆕 GESTIÓN DE MAQUINARIA (SUPABASE)
    ========================================== */
 
-function closeModal(id) {
+// Cerrar modal
+window.closeModal = function(id) {
   const modal = document.getElementById(id);
   if (modal) modal.classList.add('hidden');
-}
+};
 
-function checkAdminAuth() {
+// Verificar autenticación de admin
+window.checkAdminAuth = function() {
+  if (!supabaseClient) {
+    alert('⚠️ Error: Supabase no está configurado.\nRevisa las credenciales en script.js');
+    return;
+  }
+  
   if (isAdminAuthenticated) {
     document.getElementById('modalUploadMachine').classList.remove('hidden');
   } else {
     document.getElementById('modalAdminLogin').classList.remove('hidden');
   }
-}
+};
 
-// Iniciar Sesión de Administrador con Supabase Auth
-async function handleAdminLogin(e) {
+// Iniciar Sesión de Administrador
+window.handleAdminLogin = async function(e) {
   e.preventDefault();
   const email = document.getElementById('adminEmail').value;
   const password = document.getElementById('adminPassword').value;
   const errorMsg = document.getElementById('loginErrorMsg');
 
-  if (!supabase) {
+  if (!supabaseClient) {
     alert('Error: Supabase no está configurado correctamente.');
     return;
   }
 
   try {
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
       email: email,
       password: password
     });
@@ -422,181 +373,180 @@ async function handleAdminLogin(e) {
     errorMsg.classList.add('hidden');
     closeModal('modalAdminLogin');
     document.getElementById('modalUploadMachine').classList.remove('hidden');
+    
+    console.log('✅ Admin autenticado correctamente');
   } catch (err) {
     errorMsg.textContent = "Error de autenticación: " + err.message;
     errorMsg.classList.remove('hidden');
   }
-}
+};
 
-// Subir Imagen y Guardar Producto en Supabase
-async function handleMachineUpload(e) {
+// Subir nueva maquinaria
+window.handleMachineUpload = async function(e) {
   e.preventDefault();
   const btn = document.getElementById('btnSubmitMachine');
   btn.disabled = true;
-  btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Subiendo...`;
+  btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Publicando...`;
 
-  const title = document.getElementById('machineTitle').value;
-  const price = document.getElementById('machinePrice').value;
-  const description = document.getElementById('machineDescription').value;
+  const codigo = document.getElementById('machineCodigo').value;
+  const nombre = document.getElementById('machineNombre').value;
+  const descripcion = document.getElementById('machineDescripcion').value;
+  const precio_bs = parseFloat(document.getElementById('machinePrecio').value);
   const fileInput = document.getElementById('machineImage');
   const file = fileInput.files[0];
 
-  if (!supabase) {
+  if (!supabaseClient) {
     alert('Error: Supabase no está configurado.');
     btn.disabled = false;
-    btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Publicar`;
+    btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Publicar Producto`;
+    return;
+  }
+
+  if (!file) {
+    alert('Por favor selecciona una imagen.');
+    btn.disabled = false;
+    btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Publicar Producto`;
     return;
   }
 
   try {
-    // Subir Imagen al Bucket de Storage ('maquinarias')
-    const fileName = `${Date.now()}_${file.name}`;
-    const { data: uploadData, error: uploadError } = await supabase.storage
+    // 1. Subir la imagen al bucket 'maquinarias'
+    const filePath = `equipos/${Date.now()}_${file.name}`;
+    const { data: uploadData, error: uploadError } = await supabaseClient.storage
       .from('maquinarias')
-      .upload(fileName, file);
+      .upload(filePath, file);
 
     if (uploadError) throw uploadError;
 
-    // Obtener URL Pública de la Imagen
-    const { data: publicUrlData } = supabase.storage
+    // 2. Obtener URL pública
+    const { data: urlData } = supabaseClient.storage
       .from('maquinarias')
-      .getPublicUrl(fileName);
+      .getPublicUrl(filePath);
 
-    const imageUrl = publicUrlData.publicUrl;
+    const imagen_url = urlData.publicUrl;
 
-    // Guardar registro en la tabla 'maquinarias'
-    const { error: insertError } = await supabase
+    // 3. Insertar registro en la tabla 'maquinarias'
+    const { error: insertError } = await supabaseClient
       .from('maquinarias')
       .insert([
         {
-          titulo: title,
-          precio: parseFloat(price),
-          descripcion: description,
-          imagen_url: imageUrl
+          codigo: codigo,
+          nombre: nombre,
+          descripcion: descripcion,
+          precio_bs: precio_bs,
+          imagen_url: imagen_url
         }
       ]);
 
     if (insertError) throw insertError;
 
-    alert('¡Producto publicado con éxito!');
+    alert('✅ ¡Producto publicado con éxito!');
     document.getElementById('formUploadMachine').reset();
     closeModal('modalUploadMachine');
-    loadMachineryProducts();
+    
+    // Recargar el catálogo
+    cargarMaquinarias();
+    
   } catch (err) {
-    alert('Error al publicar el producto: ' + err.message);
+    console.error('Error:', err);
+    alert('❌ Error al publicar el producto: ' + err.message);
   } finally {
     btn.disabled = false;
-    btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Publicar`;
+    btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Publicar Producto`;
   }
-}
+};
 
-// Cargar y Mostrar Productos desde Supabase
-async function loadMachineryProducts() {
+// Cargar y mostrar maquinarias desde Supabase
+async function cargarMaquinarias() {
   const container = document.getElementById('machineryGrid');
   if (!container) return;
 
-  if (!supabase) {
+  if (!supabaseClient) {
     container.innerHTML = `
       <div class="col-span-full text-center py-8 text-amber-600 text-xs font-bold">
-        Por favor configura las credenciales de Supabase en script.js para cargar la maquinaria.
+        ⚠️ Por favor configura las credenciales de Supabase en script.js
       </div>
     `;
     return;
   }
   
   try {
-    const { data: products, error } = await supabase
+    const { data: products, error } = await supabaseClient
       .from('maquinarias')
       .select('*')
-      .order('created_at', { ascending: false });
+      .order('id', { ascending: false });
 
     if (error) throw error;
 
     if (!products || products.length === 0) {
       container.innerHTML = `
-        <div class="col-span-full text-center py-8 text-gray-500">
-          <p class="text-sm">No hay maquinaria ni productos publicados en este momento.</p>
+        <div class="col-span-full text-center py-12 text-gray-500">
+          <i class="fa-solid fa-box-open text-4xl text-gray-300 mb-3 block"></i>
+          <p class="text-sm font-medium">No hay maquinaria publicada en este momento.</p>
+          <p class="text-xs text-gray-400 mt-1">El administrador puede agregar productos desde el panel de control.</p>
         </div>
       `;
       return;
     }
 
     container.innerHTML = products.map(prod => `
-      <div class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
-        <div class="h-48 bg-slate-200 overflow-hidden relative">
-          <img src="${prod.imagen_url}" alt="${prod.titulo}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://via.placeholder.com/300x200?text=Producto';">
-          <span class="absolute top-2 right-2 bg-amber-500 text-slate-900 font-black text-xs px-2.5 py-1 rounded-md shadow">
-            Bs. ${parseFloat(prod.precio).toFixed(2)}
+      <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+        <div class="h-52 bg-slate-100 overflow-hidden relative">
+          <img src="${prod.imagen_url}" alt="${prod.nombre}" 
+            class="w-full h-full object-cover hover:scale-105 transition duration-500" 
+            onerror="this.src='https://via.placeholder.com/400x300/003366/FFFFFF?text=Sin+Imagen';">
+          <span class="absolute top-3 left-3 bg-[#003366] text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-lg shadow-md">
+            ${prod.codigo || 'N/A'}
+          </span>
+          <span class="absolute top-3 right-3 bg-amber-500 text-slate-900 font-black text-sm px-3 py-1 rounded-lg shadow-md">
+            Bs. ${parseFloat(prod.precio_bs).toFixed(2)}
           </span>
         </div>
-        <div class="p-4 space-y-2 flex-1 flex flex-col justify-between">
+        <div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
           <div>
-            <h3 class="font-bold text-[#003366] text-base mb-1">${prod.titulo}</h3>
-            <p class="text-xs text-gray-600 leading-relaxed">${prod.descripcion}</p>
+            <h3 class="font-bold text-[#003366] text-lg leading-tight">${prod.nombre}</h3>
+            <p class="text-xs text-gray-600 leading-relaxed mt-1 line-clamp-3">${prod.descripcion || 'Sin descripción'}</p>
           </div>
-          <a href="https://wa.me/59171506930?text=${encodeURIComponent('Hola, estoy interesado en comprar: ' + prod.titulo)}" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 rounded-lg text-center block transition shadow mt-3">
-            <i class="fa-brands fa-whatsapp mr-1"></i> Consultar por WhatsApp
+          <a href="https://wa.me/59171506930?text=${encodeURIComponent('Hola, deseo más información sobre la máquina: ' + prod.nombre + ' (Código: ' + (prod.codigo || 'N/A') + ')')}" 
+            target="_blank" 
+            class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2.5 rounded-lg text-center block transition shadow-md hover:shadow-lg mt-2">
+            <i class="fa-brands fa-whatsapp mr-1.5"></i> Consultar por WhatsApp
           </a>
         </div>
       </div>
     `).join('');
 
   } catch (err) {
+    console.error('Error cargando maquinarias:', err);
     container.innerHTML = `
       <div class="col-span-full text-center py-8 text-red-500 text-xs">
-        Error al cargar los productos. Verifique la conexión a Supabase.
+        ❌ Error al cargar los productos. Verifique la conexión a Supabase.
+        <br><span class="text-gray-400">${err.message}</span>
       </div>
     `;
   }
 }
 
 /* ==========================================
-   5. ASISTENTE IA (INTEGRACIÓN FUTURA)
+   5. ASISTENTE IA (placeholder)
    ========================================== */
 
-/**
- * Función para abrir/cerrar el chat con IA
- * Aquí puedes conectar tu backend de IA o usar una API externa
- */
-function toggleChat() {
-  console.log('🟢 Asistente IA activado');
-  
-  // Ejemplo de integración: abrir un modal de chat
-  // o cargar un iframe con tu chatbot personalizado
-  
-  // Por ahora, mostramos un mensaje interactivo
+window.toggleChat = function() {
   const chatContainer = document.getElementById('chatContainer');
   if (chatContainer) {
-    if (chatContainer.classList.contains('hidden')) {
-      chatContainer.classList.remove('hidden');
-      // Opcional: cargar el chat dinámicamente
-      loadChatWidget();
-    } else {
-      chatContainer.classList.add('hidden');
+    chatContainer.classList.toggle('hidden');
+    if (!chatContainer.classList.contains('hidden')) {
+      cargarChatWidget();
     }
   } else {
-    // Si no hay contenedor, usamos un alert (temporal)
-    alert('🤖 Asistente Virtual LIM-BOLIVIA\n\n' +
-          'Próximamente podrás chatear con nuestra IA para:\n' +
-          '• Cotizar servicios en tiempo real\n' +
-          '• Consultar disponibilidad de maquinaria\n' +
-          '• Resolver dudas técnicas\n\n' +
-          '📱 Mientras tanto, contáctanos por WhatsApp: 71506930');
+    alert('🤖 Asistente Virtual LIM-BOLIVIA\n\nPróximamente podrás chatear con nuestra IA.');
   }
-}
+};
 
-/**
- * Función para cargar el widget de chat (ejemplo con iframe)
- * Puedes conectar aquí con:
- * - Dialogflow
- * - OpenAI API
- * - Un chatbot personalizado en tu backend
- */
-function loadChatWidget() {
+function cargarChatWidget() {
   const container = document.getElementById('chatContainer');
   if (!container) return;
   
-  // Ejemplo: cargar un iframe con tu chatbot
   container.innerHTML = `
     <div class="fixed bottom-24 right-4 w-80 md:w-96 max-h-[500px] bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-50">
       <div class="bg-[#003366] text-white p-3 flex justify-between items-center">
@@ -608,10 +558,6 @@ function loadChatWidget() {
         </button>
       </div>
       <div class="p-4 h-80 overflow-y-auto bg-gray-50">
-        <div class="text-center text-xs text-gray-400 mb-4">
-          <i class="fa-regular fa-message"></i> Escribe tu consulta
-        </div>
-        <!-- Aquí irían los mensajes del chat -->
         <div class="bg-white p-3 rounded-lg shadow-sm mb-2">
           <p class="text-xs text-gray-700">👋 ¡Hola! Soy el asistente virtual de LIM-BOLIVIA. ¿En qué puedo ayudarte hoy?</p>
         </div>
@@ -627,35 +573,28 @@ function loadChatWidget() {
 }
 
 /* ==========================================
-   6. INICIALIZACIÓN AL CARGAR LA PÁGINA
+   6. INICIALIZACIÓN
    ========================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Mostrar Inicio por defecto
   showView('view-inicio');
-  
-  // Inicializar carrusel
   updateIndicators();
-  
-  // Inicializar cotizador
   selectServiceTab('Alfombras');
   
-  // Cargar productos de maquinaria (si la vista está disponible)
-  const machineryView = document.getElementById('view-venta-maquinaria');
-  if (machineryView) {
-    setTimeout(loadMachineryProducts, 500);
-  }
-  
-  // Cerrar dropdowns al hacer clic fuera
-  document.addEventListener('click', function(e) {
-    const dropdowns = document.querySelectorAll('.dropdown');
-    dropdowns.forEach(dd => {
-      if (!dd.contains(e.target)) {
-        const content = dd.querySelector('.dropdown-content');
-        if (content) content.classList.add('hidden');
-      }
-    });
-  });
+  // Si la sección de maquinarias está visible al inicio (no es el caso), cargar productos
+  // Normalmente se carga cuando se navega a ella.
   
   console.log('✅ LIM-BOLIVIA WebApp inicializada correctamente');
+  console.log('📦 Supabase:', supabaseClient ? 'Conectado' : 'No configurado');
+});
+
+// Cerrar dropdowns al hacer clic fuera
+document.addEventListener('click', function(e) {
+  const dropdowns = document.querySelectorAll('.dropdown');
+  dropdowns.forEach(dd => {
+    if (!dd.contains(e.target)) {
+      const content = dd.querySelector('.dropdown-content');
+      if (content) content.classList.add('hidden');
+    }
+  });
 });
