@@ -2,410 +2,684 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LIM-BOLIVIA | Servicios de Limpieza Profesional</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LIM-BOLIVIA | Servicios de Limpieza Profesional</title>
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Awesome Icons CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- Estilos -->
-  <link rel="stylesheet" href="css/styles.css" />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
 
-  <style>
-    .view-section {
-      transition: all 0.3s ease-in-out;
-    }
-    .view-section.hidden {
-      display: none;
-    }
-    .animate-fade-in {
-      animation: fadeIn 0.4s ease-out forwards;
-    }
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+    <style>
+        .view-section {
+            transition: all 0.3s ease-in-out;
+        }
+        .view-section.hidden {
+            display: none;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100 font-sans text-gray-800 antialiased">
 
-  <!-- HEADER CON LOGO SUPERIOR -->
-  <header class="w-full bg-[#003366] text-white">
-    <div class="w-full">
-      <div class="race-track-container w-full">
-        <img id="headerLogo" src="/img/logo-limbolivia.png" alt="LIMBOLIVIA Servicios de Limpieza"
-          class="race-track-img w-full h-auto max-h-36 md:max-h-48 object-contain md:object-fill mx-auto"
-          onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x120?text=LIMBOLIVIA+Servicios+de+Limpieza';" />
-      </div>
-    </div>
-
-    <!-- Menú de Navegación -->
-    <nav class="navbar bg-[#002244] border-t border-[#004488] text-white text-xs font-bold uppercase">
-      <div class="max-w-7xl mx-auto px-4 flex flex-wrap gap-2 sm:gap-4 py-2 items-center">
-
-        <!-- INICIO -->
-        <button onclick="showView('view-inicio')"
-          class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
-          <i class="fa-solid fa-house"></i> Inicio
-        </button>
-
-        <!-- DROPDOWN EMPRESA -->
-        <div class="dropdown relative group">
-          <button class="dropbtn hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
-            <i class="fa-solid fa-building"></i> Empresa <i class="fa-solid fa-chevron-down text-[10px]"></i>
-          </button>
-          <ul
-            class="dropdown-content absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-md py-2 w-52 z-50 mt-0 border border-slate-200">
-            <li><a href="javascript:void(0)" onclick="showView('view-mision-vision')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">Misión / Visión</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('view-quienes-somos')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">¿Quiénes somos?</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('view-principios')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">Nuestros principios</a></li>
-          </ul>
+    <!-- HEADER CON LOGO SUPERIOR -->
+    <header class="w-full bg-[#003366] text-white">
+        <div class="w-full">
+            <div class="race-track-container w-full">
+                <img id="headerLogo" src="/img/logo-limbolivia.png" alt="LIMBOLIVIA Servicios de Limpieza"
+                class="race-track-img w-full h-auto max-h-36 md:max-h-48 object-contain md:object-fill mx-auto"
+                onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x120?text=LIMBOLIVIA+Servicios+de+Limpieza';" />
+            </div>
         </div>
 
-        <!-- DROPDOWN SERVICIOS DE LIMPIEZA -->
-        <div class="dropdown relative group">
-          <button
-            class="dropbtn bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5 px-3 py-1 rounded cursor-pointer">
-            <i class="fa-solid fa-sparkles"></i> SERVICIOS DE LIMPIEZA <i class="fa-solid fa-chevron-down text-[10px]"></i>
-          </button>
-          <ul
-            class="dropdown-content absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-md py-2 w-80 z-50 mt-0 border border-slate-200 max-h-96 overflow-y-auto">
-            <li><a href="javascript:void(0)" onclick="showView('sec-1')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">1. D. ASPIRADO</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('sec-2')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">2. E. APLICACIÓN PROTECTOR DE ALFOMBRAS</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('sec-3')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">3. I. PERSIANAS VERTICALES</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('sec-4')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">4. J., K., L. PERSIANAS HORIZONTALES Y RIELES</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('sec-5')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">5. LL. LIMPIEZA DE VIDRIOS Y ALTURA</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('sec-6')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">6. M. LIMPIEZA INTERIOR DE VEHÍCULOS</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('sec-7')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">7. N. LIMPIEZA DE JUEGO DE LIVING – SILLONES</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('sec-8')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">8. Ñ. ABRILLANTADO DE MUEBLES</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('sec-9')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">9. S. SANITIZADO DE BAÑOS</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('sec-10')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">10. T. SANITIZADO DE COCINAS</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('sec-11')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">11. U. APLICACIÓN DE DESBACTERICIDAS - SANITIZANTES</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('sec-12')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">12. V. FUMIGADO</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('sec-13')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">13. W. EXTRACCIÓN DE AGUAS EN INUNDACIONES</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('sec-14')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">14. X. Y. MANTENIMIENTO Y REPARACIÓN DE EQUIPOS</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('sec-15')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">15. O. LUSTRADO DE PISOS FRÍOS</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('sec-16')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">16. Z. LIMPIEZA DE ROPA Y AFINES</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('sec-17')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">17. OTROS SERVICIOS ESPECIALIZADOS</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('sec-18')"
-                class="block px-4 py-2.5 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-amber-600 border-t border-slate-200">
-                <i class="fa-solid fa-house-chimney text-amber-500 group-hover:text-white mr-2 text-sm"></i>
-                18. SERVICIOS RESIDENCIALES (LIMPIEZAS TÉCNICAS)
-              </a></li>
-          </ul>
+        <!-- Menú de Navegación -->
+        <nav class="navbar bg-[#002244] border-t border-[#004488] text-white text-xs font-bold uppercase">
+            <div class="max-w-7xl mx-auto px-4 flex flex-wrap gap-2 sm:gap-4 py-2 items-center">
+
+                <!-- INICIO -->
+                <button onclick="showView('view-inicio')"
+                class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
+                <i class="fa-solid fa-house"></i> Inicio
+            </button>
+
+            <!-- DROPDOWN EMPRESA -->
+            <div class="dropdown relative group">
+                <button class="dropbtn hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
+                    <i class="fa-solid fa-building"></i> Empresa <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                </button>
+                <ul class="dropdown-content absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-md py-2 w-52 z-50 mt-0 border border-slate-200">
+                    <li><a href="javascript:void(0)" onclick="showView('view-mision-vision')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">Misión / Visión</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('view-quienes-somos')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">¿Quiénes somos?</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('view-principios')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">Nuestros principios</a></li>
+                </ul>
+            </div>
+
+            <!-- DROPDOWN SERVICIOS DE LIMPIEZA -->
+            <div class="dropdown relative group">
+                <button class="dropbtn bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5 px-3 py-1 rounded cursor-pointer">
+                    <i class="fa-solid fa-sparkles"></i> SERVICIOS DE LIMPIEZA <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                </button>
+                <ul class="dropdown-content absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-md py-2 w-80 z-50 mt-0 border border-slate-200 max-h-96 overflow-y-auto">
+                    <li><a href="javascript:void(0)" onclick="showView('sec-1')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">1. D. ASPIRADO</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('sec-2')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">2. E. APLICACIÓN PROTECTOR DE ALFOMBRAS</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('sec-3')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">3. I. PERSIANAS VERTICALES</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('sec-4')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">4. J., K., L. PERSIANAS HORIZONTALES Y RIELES</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('sec-5')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">5. LL. LIMPIEZA DE VIDRIOS Y ALTURA</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('sec-6')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">6. M. LIMPIEZA INTERIOR DE VEHÍCULOS</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('sec-7')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">7. N. LIMPIEZA DE JUEGO DE LIVING – SILLONES</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('sec-8')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">8. Ñ. ABRILLANTADO DE MUEBLES</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('sec-9')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">9. S. SANITIZADO DE BAÑOS</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('sec-10')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">10. T. SANITIZADO DE COCINAS</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('sec-11')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">11. U. APLICACIÓN DE DESBACTERICIDAS - SANITIZANTES</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('sec-12')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">12. V. FUMIGADO</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('sec-13')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">13. W. EXTRACCIÓN DE AGUAS EN INUNDACIONES</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('sec-14')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">14. X. Y. MANTENIMIENTO Y REPARACIÓN DE EQUIPOS</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('sec-15')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">15. O. LUSTRADO DE PISOS FRÍOS</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('sec-16')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">16. Z. LIMPIEZA DE ROPA Y AFINES</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('sec-17')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">17. OTROS SERVICIOS ESPECIALIZADOS</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('sec-18')" class="block px-4 py-2.5 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-amber-600 border-t border-slate-200">
+                        <i class="fa-solid fa-house-chimney text-amber-500 group-hover:text-white mr-2 text-sm"></i>
+                        18. SERVICIOS RESIDENCIALES (LIMPIEZAS TÉCNICAS)
+                    </a></li>
+                </ul>
+            </div>
+
+            <!-- EMERGENCIA 24 HORAS -->
+            <button onclick="showView('view-24horas')" class="bg-red-600 hover:bg-red-700 text-white transition flex items-center gap-1.5 px-3 py-1 rounded cursor-pointer font-bold animate-pulse">
+                <i class="fa-solid fa-clock"></i> EMERGENCIA 24 HORAS
+            </button>
+
+            <!-- VIDEOS -->
+            <button onclick="showView('view-alfombras-tapizados')" class="bg-purple-600 hover:bg-purple-700 text-white transition flex items-center gap-1.5 px-3 py-1 rounded cursor-pointer font-bold">
+                <i class="fa-solid fa-video"></i> VIDEOS
+            </button>
+
+            <!-- DROPDOWN OTROS SERVICIOS -->
+            <div class="dropdown relative group">
+                <button class="dropbtn hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
+                    <i class="fa-solid fa-list-check"></i> Otros Servicios <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                </button>
+                <ul class="dropdown-content absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-md py-2 w-64 z-50 mt-0 border border-slate-200">
+                    <li><a href="javascript:void(0)" onclick="showView('sec-5')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition"><i class="fa-solid fa-building-user text-blue-600 mr-2"></i> Limpieza de Vidrios en Altura</a></li>
+                    <li><a href="javascript:void(0)" onclick="showView('sec-6')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition"><i class="fa-solid fa-car text-amber-500 mr-2"></i> Lavado e Higienización de Vehículos</a></li>
+                </ul>
+            </div>
+
+            <!-- DROPDOWN VENTA DE MÁQUINAS -->
+            <div class="dropdown relative group">
+                <button class="dropbtn hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
+                    <i class="fa-solid fa-store"></i> Venta de Máquinas <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                </button>
+                <ul class="dropdown-content absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-md py-2 w-64 z-50 mt-0 border border-slate-200">
+                    <li>
+                        <a href="javascript:void(0)" onclick="showView('sec-maquinarias')" class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
+                            <i class="fa-solid fa-plug text-red-500 mr-2"></i> MAQUINARIA Y PRODUCTOS DE LIMPIEZA
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- COTIZADOR -->
+            <button onclick="showView('view-cotizador')" class="text-amber-300 hover:text-white transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
+                <i class="fa-solid fa-calculator"></i> Cotizador
+            </button>
+
+            <!-- CONTÁCTESE -->
+            <a href="https://www.facebook.com/limbolivia?ref=embed_page" target="_blank" class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1">
+                <i class="fa-solid fa-envelope"></i> Contáctese
+            </a>
+
         </div>
-
-        <!-- EMERGENCIA 24 HORAS -->
-        <button onclick="showView('view-24horas')"
-          class="bg-red-600 hover:bg-red-700 text-white transition flex items-center gap-1.5 px-3 py-1 rounded cursor-pointer font-bold animate-pulse">
-          <i class="fa-solid fa-clock"></i> EMERGENCIA 24 HORAS
-        </button>
-
-        <!-- VIDEOS -->
-        <button onclick="showView('view-alfombras-tapizados')"
-          class="bg-purple-600 hover:bg-purple-700 text-white transition flex items-center gap-1.5 px-3 py-1 rounded cursor-pointer font-bold">
-          <i class="fa-solid fa-video"></i> VIDEOS
-        </button>
-
-        <!-- DROPDOWN OTROS SERVICIOS -->
-        <div class="dropdown relative group">
-          <button class="dropbtn hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
-            <i class="fa-solid fa-list-check"></i> Otros Servicios <i class="fa-solid fa-chevron-down text-[10px]"></i>
-          </button>
-          <ul
-            class="dropdown-content absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-md py-2 w-64 z-50 mt-0 border border-slate-200">
-            <li><a href="javascript:void(0)" onclick="showView('sec-5')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition"><i class="fa-solid fa-building-user text-blue-600 mr-2"></i> Limpieza de Vidrios en Altura</a></li>
-            <li><a href="javascript:void(0)" onclick="showView('sec-6')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition"><i class="fa-solid fa-car text-amber-500 mr-2"></i> Lavado e Higienización de Vehículos</a></li>
-          </ul>
-        </div>
-
-        <!-- DROPDOWN VENTA DE MÁQUINAS -->
-        <div class="dropdown relative group">
-          <button class="dropbtn hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
-            <i class="fa-solid fa-store"></i> Venta de Máquinas <i class="fa-solid fa-chevron-down text-[10px]"></i>
-          </button>
-          <ul class="dropdown-content absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-md py-2 w-64 z-50 mt-0 border border-slate-200">
-            <li>
-              <a href="javascript:void(0)" onclick="showView('sec-maquinarias')"
-                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition">
-                <i class="fa-solid fa-plug text-red-500 mr-2"></i> MAQUINARIA Y PRODUCTOS DE LIMPIEZA
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <!-- COTIZADOR -->
-        <button onclick="showView('view-cotizador')"
-          class="text-amber-300 hover:text-white transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
-          <i class="fa-solid fa-calculator"></i> Cotizador
-        </button>
-
-        <!-- CONTÁCTESE -->
-        <a href="https://www.facebook.com/limbolivia?ref=embed_page" target="_blank"
-          class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1">
-          <i class="fa-solid fa-envelope"></i> Contáctese
-        </a>
-
-      </div>
     </nav>
-  </header>
+</header>
 
-  <!-- CONTENEDOR PRINCIPAL -->
-  <main class="max-w-7xl mx-auto py-6 px-4 space-y-6">
+<!-- CONTENEDOR PRINCIPAL -->
+<main class="max-w-7xl mx-auto py-6 px-4 space-y-6">
 
-    <!-- CARRUSEL SUPERIOR DE BANNERS -->
+    <!-- CARRUSEL -->
     <div id="carousel-header-container" class="w-full">
-      <section class="relative w-full overflow-hidden bg-slate-200 rounded-xl shadow-md border border-slate-300">
-        <div class="relative w-full h-[280px] sm:h-[380px] md:h-[450px]">
-          <img id="mainSliderImg" src="/img/banner1.png" alt="Servicios LIMBOLIVIA"
-            class="w-full h-full object-cover transition-all duration-500"
-            onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x450?text=LIMBOLIVIA+BANNER';" />
-          <button onclick="prevSlide()"
-            class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition shadow-lg z-10 cursor-pointer">
-            <i class="fa-solid fa-chevron-left text-xl"></i>
-          </button>
-          <button onclick="nextSlide()"
-            class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition shadow-lg z-10 cursor-pointer">
-            <i class="fa-solid fa-chevron-right text-xl"></i>
-          </button>
-          <div id="slideIndicatorsContainer"
-            class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 bg-black/50 p-1.5 rounded-md z-10"></div>
-        </div>
-      </section>
+        <section class="relative w-full overflow-hidden bg-slate-200 rounded-xl shadow-md border border-slate-300">
+            <div class="relative w-full h-[280px] sm:h-[380px] md:h-[450px]">
+                <img id="mainSliderImg" src="/img/banner1.png" alt="Servicios LIMBOLIVIA"
+                class="w-full h-full object-cover transition-all duration-500"
+                onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x450?text=LIMBOLIVIA+BANNER';" />
+                <button onclick="prevSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition shadow-lg z-10 cursor-pointer">
+                    <i class="fa-solid fa-chevron-left text-xl"></i>
+                </button>
+                <button onclick="nextSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition shadow-lg z-10 cursor-pointer">
+                    <i class="fa-solid fa-chevron-right text-xl"></i>
+                </button>
+                <div id="slideIndicatorsContainer" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 bg-black/50 p-1.5 rounded-md z-10"></div>
+            </div>
+        </section>
     </div>
 
     <!-- CONTENEDOR DE 2 COLUMNAS -->
     <div id="institutional-wrapper" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-      <!-- COLUMNA IZQUIERDA: CONTENEDORES VACÍOS -->
-      <div class="lg:col-span-2 space-y-6">
-        <div id="view-inicio" class="view-section hidden"></div>
-        <div id="view-mision-vision" class="view-section hidden"></div>
-        <div id="view-quienes-somos" class="view-section hidden"></div>
-        <div id="view-principios" class="view-section hidden"></div>
-        <div id="view-alfombras-tapizados" class="view-section hidden"></div>
-        <div id="view-24horas" class="view-section hidden"></div>
-        <div id="view-cotizador" class="view-section hidden"></div>
-        <div id="sec-maquinarias" class="view-section hidden"></div>
-        <div id="sec-1" class="view-section hidden"></div>
-        <div id="sec-2" class="view-section hidden"></div>
-        <div id="sec-3" class="view-section hidden"></div>
-        <div id="sec-4" class="view-section hidden"></div>
-        <div id="sec-5" class="view-section hidden"></div>
-        <div id="sec-6" class="view-section hidden"></div>
-        <div id="sec-7" class="view-section hidden"></div>
-        <div id="sec-8" class="view-section hidden"></div>
-        <div id="sec-9" class="view-section hidden"></div>
-        <div id="sec-10" class="view-section hidden"></div>
-        <div id="sec-11" class="view-section hidden"></div>
-        <div id="sec-12" class="view-section hidden"></div>
-        <div id="sec-13" class="view-section hidden"></div>
-        <div id="sec-14" class="view-section hidden"></div>
-        <div id="sec-15" class="view-section hidden"></div>
-        <div id="sec-16" class="view-section hidden"></div>
-        <div id="sec-17" class="view-section hidden"></div>
-        <div id="sec-18" class="view-section hidden"></div>
-      </div>
-
-      <!-- COLUMNA DERECHA: SIDEBAR -->
-      <aside class="space-y-6">
-        <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-4">
-          <h3 class="font-black text-[#003366] text-lg uppercase border-b pb-2 flex items-center gap-2">
-            <i class="fa-solid fa-address-card text-emerald-600"></i> Contacto Directo
-          </h3>
-          <ul class="space-y-3 text-xs text-gray-700">
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-location-dot text-red-500 mt-1"></i>
-              <span><strong>Oficina Central:</strong> La Paz - Bolivia</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-phone text-emerald-600 mt-1"></i>
-              <span><strong>Atención al Cliente:</strong> 71506930</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-headset text-red-600 mt-1"></i>
-              <span><strong>Emergencias 24/7:</strong> 79684700</span>
-            </li>
-          </ul>
+        <!-- COLUMNA IZQUIERDA -->
+        <div class="lg:col-span-2 space-y-6">
+            <div id="view-inicio" class="view-section hidden"></div>
+            <div id="view-mision-vision" class="view-section hidden"></div>
+            <div id="view-quienes-somos" class="view-section hidden"></div>
+            <div id="view-principios" class="view-section hidden"></div>
+            <div id="view-alfombras-tapizados" class="view-section hidden"></div>
+            <div id="view-24horas" class="view-section hidden"></div>
+            <div id="view-cotizador" class="view-section hidden"></div>
+            <div id="sec-maquinarias" class="view-section hidden"></div>
+            <div id="sec-1" class="view-section hidden"></div>
+            <div id="sec-2" class="view-section hidden"></div>
+            <div id="sec-3" class="view-section hidden"></div>
+            <div id="sec-4" class="view-section hidden"></div>
+            <div id="sec-5" class="view-section hidden"></div>
+            <div id="sec-6" class="view-section hidden"></div>
+            <div id="sec-7" class="view-section hidden"></div>
+            <div id="sec-8" class="view-section hidden"></div>
+            <div id="sec-9" class="view-section hidden"></div>
+            <div id="sec-10" class="view-section hidden"></div>
+            <div id="sec-11" class="view-section hidden"></div>
+            <div id="sec-12" class="view-section hidden"></div>
+            <div id="sec-13" class="view-section hidden"></div>
+            <div id="sec-14" class="view-section hidden"></div>
+            <div id="sec-15" class="view-section hidden"></div>
+            <div id="sec-16" class="view-section hidden"></div>
+            <div id="sec-17" class="view-section hidden"></div>
+            <div id="sec-18" class="view-section hidden"></div>
         </div>
 
-        <div class="bg-[#003366] text-white p-6 rounded-2xl shadow-md space-y-3">
-          <h4 class="font-bold uppercase text-amber-300 text-sm">¿Necesita Asesoría Personalizada?</h4>
-          <p class="text-xs text-slate-200 leading-relaxed">Coordine una visita técnica de evaluación sin costo en sus instalaciones.</p>
-          <a href="https://wa.me/59171506930" target="_blank"
-            class="block text-center bg-amber-500 hover:bg-amber-600 text-slate-900 font-black text-xs py-2.5 rounded-lg uppercase tracking-wider transition">
-            Contactar Asesor
-          </a>
-        </div>
-      </aside>
+        <!-- COLUMNA DERECHA: SIDEBAR -->
+        <aside class="space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-4">
+                <h3 class="font-black text-[#003366] text-lg uppercase border-b pb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-address-card text-emerald-600"></i> Contacto Directo
+                </h3>
+                <ul class="space-y-3 text-xs text-gray-700">
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-location-dot text-red-500 mt-1"></i>
+                        <span><strong>Oficina Central:</strong> La Paz - Bolivia</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-phone text-emerald-600 mt-1"></i>
+                        <span><strong>Atención al Cliente:</strong> 71506930</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-headset text-red-600 mt-1"></i>
+                        <span><strong>Emergencias 24/7:</strong> 79684700</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-[#003366] text-white p-6 rounded-2xl shadow-md space-y-3">
+                <h4 class="font-bold uppercase text-amber-300 text-sm">¿Necesita Asesoría Personalizada?</h4>
+                <p class="text-xs text-slate-200 leading-relaxed">Coordine una visita técnica de evaluación sin costo en sus instalaciones.</p>
+                <a href="https://wa.me/59171506930" target="_blank" class="block text-center bg-amber-500 hover:bg-amber-600 text-slate-900 font-black text-xs py-2.5 rounded-lg uppercase tracking-wider transition">
+                    Contactar Asesor
+                </a>
+            </div>
+        </aside>
 
     </div>
-  </main>
+</main>
 
-  <!-- FOOTER -->
-  <footer class="bg-[#001845] text-white text-center py-6 mt-12 border-t border-slate-800">
+<!-- FOOTER -->
+<footer class="bg-[#001845] text-white text-center py-6 mt-12 border-t border-slate-800">
     <p class="text-xs text-slate-400">&copy; 2026 LIM-BOLIVIA - Todos los derechos reservados.</p>
-  </footer>
+</footer>
 
-  <!-- ========================================== -->
-  <!-- 🟢 BOTÓN ADMIN FLOTANTE (SIEMPRE VISIBLE)   -->
-  <!-- ========================================== -->
-  <div class="fixed bottom-6 right-6 z-[9999]">
+<!-- ========================================== -->
+<!-- 🟢 BOTÓN ADMIN FLOTANTE -->
+<!-- ========================================== -->
+<div class="fixed bottom-6 right-6 z-[9999]">
     <button onclick="checkAdminAuth()" 
-      class="group bg-gradient-to-r from-[#003366] to-[#001845] hover:from-emerald-700 hover:to-emerald-800 text-white transition-all duration-300 flex items-center gap-2.5 px-5 py-3 rounded-full shadow-2xl border-2 border-white/20 hover:border-amber-400/50 text-xs font-bold cursor-pointer hover:scale-105 transform">
-      <i class="fa-solid fa-user-shield text-amber-400 group-hover:text-amber-300 text-base"></i>
-      <span class="tracking-wider">ADMIN</span>
-      <span class="bg-amber-500 text-slate-900 text-[9px] font-black px-1.5 py-0.5 rounded-full">🔒</span>
-    </button>
-  </div>
+    class="group bg-gradient-to-r from-[#003366] to-[#001845] hover:from-emerald-700 hover:to-emerald-800 text-white transition-all duration-300 flex items-center gap-2.5 px-5 py-3 rounded-full shadow-2xl border-2 border-white/20 hover:border-amber-400/50 text-xs font-bold cursor-pointer hover:scale-105 transform">
+    <i class="fa-solid fa-user-shield text-amber-400 group-hover:text-amber-300 text-base"></i>
+    <span class="tracking-wider">ADMIN</span>
+    <span class="bg-amber-500 text-slate-900 text-[9px] font-black px-1.5 py-0.5 rounded-full">🔒</span>
+</button>
+</div>
 
-  <!-- ========================================== -->
-  <!-- MODAL DE LOGIN ADMIN                        -->
-  <!-- ========================================== -->
-  <div id="modalAdminLogin" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[10000] flex items-center justify-center hidden">
+<!-- MODAL DE LOGIN -->
+<div id="modalAdminLogin" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[10000] flex items-center justify-center hidden">
     <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6 md:p-8 border border-slate-200 animate-fade-in">
-      <div class="flex justify-between items-center border-b border-slate-200 pb-3 mb-4">
-        <h3 class="font-black text-[#003366] text-lg uppercase flex items-center gap-2">
-          <i class="fa-solid fa-lock text-amber-500"></i> Acceso Administrador
-        </h3>
-        <button onclick="closeModal('modalAdminLogin')" class="text-slate-400 hover:text-slate-600 text-xl transition">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-      
-      <form id="formAdminLogin" onsubmit="handleAdminLogin(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Correo Electrónico</label>
-          <input type="email" id="adminEmail" required 
-            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
-            placeholder="admin@limbolivia.com" />
+        <div class="flex justify-between items-center border-b border-slate-200 pb-3 mb-4">
+            <h3 class="font-black text-[#003366] text-lg uppercase flex items-center gap-2">
+                <i class="fa-solid fa-lock text-amber-500"></i> Acceso Administrador
+            </h3>
+            <button onclick="closeModal('modalAdminLogin')" class="text-slate-400 hover:text-slate-600 text-xl transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Contraseña</label>
-          <input type="password" id="adminPassword" required 
-            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
-            placeholder="••••••••" />
-        </div>
-        <p id="loginErrorMsg" class="text-red-500 text-xs font-bold hidden">❌ Credenciales incorrectas. Intenta nuevamente.</p>
-        <button type="submit" 
-          class="w-full bg-[#003366] hover:bg-[#002244] text-white font-bold py-2.5 rounded-lg transition text-sm uppercase tracking-wider">
-          <i class="fa-solid fa-arrow-right-to-bracket mr-2"></i> Iniciar Sesión
-        </button>
-      </form>
-    </div>
-  </div>
 
-  <!-- ========================================== -->
-  <!-- MODAL DE CARGA DE MAQUINARIA                -->
-  <!-- ========================================== -->
-  <div id="modalUploadMachine" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[10000] flex items-center justify-center hidden">
+        <form id="formAdminLogin" onsubmit="handleAdminLogin(event)" class="space-y-4">
+            <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Correo Electrónico</label>
+                <input type="email" id="adminEmail" required 
+                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+                placeholder="admin@limbolivia.com" />
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Contraseña</label>
+                <input type="password" id="adminPassword" required 
+                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+                placeholder="••••••••" />
+            </div>
+            <p id="loginErrorMsg" class="text-red-500 text-xs font-bold hidden">❌ Credenciales incorrectas.</p>
+            <button type="submit" class="w-full bg-[#003366] hover:bg-[#002244] text-white font-bold py-2.5 rounded-lg transition text-sm uppercase tracking-wider">
+                <i class="fa-solid fa-arrow-right-to-bracket mr-2"></i> Iniciar Sesión
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL DE CARGA -->
+<div id="modalUploadMachine" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[10000] flex items-center justify-center hidden">
     <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full mx-4 p-6 md:p-8 border border-slate-200 max-h-[90vh] overflow-y-auto animate-fade-in">
-      <div class="flex justify-between items-center border-b border-slate-200 pb-3 mb-4">
-        <h3 class="font-black text-[#003366] text-lg uppercase flex items-center gap-2">
-          <i class="fa-solid fa-cloud-arrow-up text-emerald-500"></i> Publicar Maquinaria
-        </h3>
-        <button onclick="closeModal('modalUploadMachine')" class="text-slate-400 hover:text-slate-600 text-xl transition">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-      
-      <form id="formUploadMachine" onsubmit="handleMachineUpload(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Código *</label>
-          <input type="text" id="machineCodigo" required 
-            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
-            placeholder="Ej: MAQ-001" />
+        <div class="flex justify-between items-center border-b border-slate-200 pb-3 mb-4">
+            <h3 class="font-black text-[#003366] text-lg uppercase flex items-center gap-2">
+                <i class="fa-solid fa-cloud-arrow-up text-emerald-500"></i> Publicar Maquinaria
+            </h3>
+            <button onclick="closeModal('modalUploadMachine')" class="text-slate-400 hover:text-slate-600 text-xl transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nombre del Producto *</label>
-          <input type="text" id="machineNombre" required 
-            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
-            placeholder="Ej: Hidrolavadora Profesional" />
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Descripción</label>
-          <textarea id="machineDescripcion" rows="3" 
-            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
-            placeholder="Características técnicas, especificaciones, etc."></textarea>
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Precio (Bs) *</label>
-          <input type="number" id="machinePrecio" required step="0.01" min="0"
-            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
-            placeholder="Ej: 1250.50" />
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Imagen del Equipo *</label>
-          <input type="file" id="machineImage" accept="image/*" required
-            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100" />
-        </div>
-        <button type="submit" id="btnSubmitMachine"
-          class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg transition text-sm uppercase tracking-wider">
-          <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Publicar Producto
-        </button>
-      </form>
+
+        <form id="formUploadMachine" onsubmit="handleMachineUpload(event)" class="space-y-4">
+            <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Código *</label>
+                <input type="text" id="machineCodigo" required 
+                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+                placeholder="Ej: MAQ-001" />
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nombre *</label>
+                <input type="text" id="machineNombre" required 
+                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+                placeholder="Ej: Hidrolavadora" />
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Descripción</label>
+                <textarea id="machineDescripcion" rows="3" 
+                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+                placeholder="Características técnicas..."></textarea>
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Precio (Bs) *</label>
+                <input type="number" id="machinePrecio" required step="0.01" min="0"
+                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+                placeholder="1250.50" />
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Imagen *</label>
+                <input type="file" id="machineImage" accept="image/*" required
+                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100" />
+            </div>
+            <button type="submit" id="btnSubmitMachine" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg transition text-sm uppercase tracking-wider">
+                <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Publicar Producto
+            </button>
+        </form>
     </div>
-  </div>
+</div>
 
-  <!-- SCRIPTS -->
-  <!-- ✅ SOLO UN SCRIPT: script.js (contiene TODO) -->
-  <script src="js/script.js"></script>
+<!-- ========================================== -->
+<!-- TODO EL JAVASCRIPT AQUÍ (INLINE) -->
+<!-- ========================================== -->
+<script>
+    // ==========================================
+    // CONFIGURACIÓN DE SUPABASE (CON TUS DATOS REALES)
+    // ==========================================
 
-  <!-- Scripts del carrusel -->
-  <script>
-    const sliderImages = ['/img/banner1.png', '/img/banner2.png', '/img/banner3.png'];
-    let currentSlide = 0;
+    // 🔑 TU PROJECT URL (de General Settings)
+    const SUPABASE_URL = 'https://hnoatmqybkwrloeitqkq.supabase.co';
+
+    // 🔑 TU PUBLISHABLE KEY (de API Keys - reemplaza con la tuya)
+    const SUPABASE_ANON_KEY = 'sb_publishable_9Rnzjfp2r8yLN3Fiqecd6g_QQoPQ2I2';
+
+    let supabaseClient = null;
+    if (typeof supabase !== 'undefined') {
+        supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        console.log('✅ Supabase inicializado');
+    } else {
+        console.warn('⚠️ Supabase SDK no encontrado');
+    }
+
+    let isAdminAuthenticated = false;
+
+    // ==========================================
+    // FUNCIONES PRINCIPALES
+    // ==========================================
+
+    // Mostrar vista
+    window.showView = function(viewId) {
+        console.log('📱 showView:', viewId);
+
+        // Ocultar todas
+        document.querySelectorAll('.view-section').forEach(function(v) {
+            v.classList.add('hidden');
+        });
+
+        // Mostrar la seleccionada
+        var target = document.getElementById(viewId);
+        if (target) {
+            target.classList.remove('hidden');
+            if (viewId === 'sec-maquinarias') {
+                setTimeout(cargarMaquinarias, 300);
+            }
+        }
+
+        // Cerrar dropdowns
+        document.querySelectorAll('.dropdown-content').forEach(function(el) {
+            el.classList.add('hidden');
+        });
+
+        window.scrollTo({ top: 80, behavior: 'smooth' });
+    };
+
+    // Cerrar modal
+    window.closeModal = function(id) {
+        console.log('🔒 Cerrando modal:', id);
+        var modal = document.getElementById(id);
+        if (modal) modal.classList.add('hidden');
+    };
+
+    // Verificar autenticación de admin
+    window.checkAdminAuth = function() {
+        console.log('🔑 ADMIN presionado');
+        alert('✅ Botón ADMIN funciona!');
+
+        if (!supabaseClient) {
+            alert('⚠️ Supabase no configurado. Revisa las credenciales.');
+            return;
+        }
+
+        if (isAdminAuthenticated) {
+            var modal = document.getElementById('modalUploadMachine');
+            if (modal) modal.classList.remove('hidden');
+        } else {
+            var modal = document.getElementById('modalAdminLogin');
+            if (modal) modal.classList.remove('hidden');
+        }
+    };
+
+    // Iniciar Sesión de Administrador
+    window.handleAdminLogin = async function(e) {
+        e.preventDefault();
+        console.log('🔐 Intentando login...');
+
+        var email = document.getElementById('adminEmail').value;
+        var password = document.getElementById('adminPassword').value;
+        var errorMsg = document.getElementById('loginErrorMsg');
+
+        if (!supabaseClient) {
+            alert('Error: Supabase no está configurado.');
+            return;
+        }
+
+        try {
+            var result = await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+
+            if (result.error) throw result.error;
+
+            isAdminAuthenticated = true;
+            errorMsg.classList.add('hidden');
+            closeModal('modalAdminLogin');
+
+            var modal = document.getElementById('modalUploadMachine');
+            if (modal) modal.classList.remove('hidden');
+
+            console.log('✅ Admin autenticado correctamente');
+            alert('✅ Login exitoso!');
+        } catch (err) {
+            console.error('❌ Error de login:', err);
+            errorMsg.textContent = '❌ Error de autenticación: ' + err.message;
+            errorMsg.classList.remove('hidden');
+        }
+    };
+
+    // Subir nueva maquinaria
+    window.handleMachineUpload = async function(e) {
+        e.preventDefault();
+        console.log('📤 Subiendo producto...');
+
+        var btn = document.getElementById('btnSubmitMachine');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Publicando...';
+
+        var codigo = document.getElementById('machineCodigo').value;
+        var nombre = document.getElementById('machineNombre').value;
+        var descripcion = document.getElementById('machineDescripcion').value;
+        var precio_bs = parseFloat(document.getElementById('machinePrecio').value);
+        var fileInput = document.getElementById('machineImage');
+        var file = fileInput.files[0];
+
+        if (!supabaseClient) {
+            alert('Error: Supabase no está configurado.');
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Publicar Producto';
+            return;
+        }
+
+        if (!file) {
+            alert('⚠️ Por favor selecciona una imagen.');
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Publicar Producto';
+            return;
+        }
+
+        try {
+            // 1. Subir imagen
+            var filePath = 'equipos/' + Date.now() + '_' + file.name;
+            var uploadResult = await supabaseClient.storage
+                .from('maquinarias')
+                .upload(filePath, file);
+
+            if (uploadResult.error) throw uploadResult.error;
+
+            // 2. Obtener URL pública
+            var urlResult = supabaseClient.storage
+                .from('maquinarias')
+                .getPublicUrl(filePath);
+
+            var imagen_url = urlResult.data.publicUrl;
+
+            // 3. Insertar en la tabla
+            var insertResult = await supabaseClient
+                .from('maquinarias')
+                .insert([{
+                    codigo: codigo,
+                    nombre: nombre,
+                    descripcion: descripcion,
+                    precio_bs: precio_bs,
+                    imagen_url: imagen_url
+                }]);
+
+            if (insertResult.error) throw insertResult.error;
+
+            alert('✅ ¡Producto publicado con éxito!');
+            document.getElementById('formUploadMachine').reset();
+            closeModal('modalUploadMachine');
+
+            setTimeout(cargarMaquinarias, 500);
+
+        } catch (err) {
+            console.error('❌ Error:', err);
+            alert('❌ Error al publicar el producto: ' + err.message);
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Publicar Producto';
+        }
+    };
+
+    // Cargar maquinarias
+    function cargarMaquinarias() {
+        console.log('📦 Cargando maquinarias...');
+
+        var container = document.getElementById('machineryGrid');
+        if (!container) {
+            console.warn('⚠️ No se encontró machineryGrid');
+            return;
+        }
+
+        if (!supabaseClient) {
+            container.innerHTML = `
+                    <div class="col-span-full text-center py-8 text-amber-600 text-xs font-bold">
+                        ⚠️ Configura Supabase con tus credenciales
+                    </div>
+                `;
+            return;
+        }
+
+        supabaseClient
+            .from('maquinarias')
+            .select('*')
+            .order('id', { ascending: false })
+            .then(function(result) {
+                if (result.error) throw result.error;
+
+                var products = result.data;
+
+                if (!products || products.length === 0) {
+                    container.innerHTML = `
+                            <div class="col-span-full text-center py-12 text-gray-500">
+                                <i class="fa-solid fa-box-open text-5xl text-gray-300 mb-4 block"></i>
+                                <p class="text-sm font-medium">No hay maquinaria publicada</p>
+                                <button onclick="checkAdminAuth()" class="mt-4 bg-[#003366] text-white text-xs font-bold px-4 py-2 rounded-lg">
+                                    <i class="fa-solid fa-plus mr-1"></i> Agregar Producto
+                                </button>
+                            </div>
+                        `;
+                    return;
+                }
+
+                var html = '';
+                products.forEach(function(prod) {
+                    html += `
+                            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col group">
+                                <div class="h-52 bg-slate-100 overflow-hidden relative">
+                                    <img src="${prod.imagen_url}" alt="${prod.nombre}" 
+                                        class="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
+                                        onerror="this.src='https://via.placeholder.com/400x300/003366/FFFFFF?text=Sin+Imagen';">
+                                    <span class="absolute top-3 left-3 bg-[#003366] text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-lg shadow-md">
+                                        ${prod.codigo || 'N/A'}
+                                    </span>
+                                    <span class="absolute top-3 right-3 bg-amber-500 text-slate-900 font-black text-sm px-3 py-1 rounded-lg shadow-md">
+                                        Bs. ${parseFloat(prod.precio_bs).toFixed(2)}
+                                    </span>
+                                </div>
+                                <div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
+                                    <div>
+                                        <h3 class="font-bold text-[#003366] text-lg leading-tight">${prod.nombre}</h3>
+                                        <p class="text-xs text-gray-600 leading-relaxed mt-1">${prod.descripcion || 'Sin descripción'}</p>
+                                    </div>
+                                    <a href="https://wa.me/59171506930?text=${encodeURIComponent('Hola, deseo más información sobre la máquina: ' + prod.nombre + ' (Código: ' + (prod.codigo || 'N/A') + ')')}" 
+                                        target="_blank" 
+                                        class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2.5 rounded-lg text-center block transition shadow-md hover:shadow-lg mt-2">
+                                        <i class="fa-brands fa-whatsapp mr-1.5"></i> Consultar por WhatsApp
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                });
+
+                container.innerHTML = html;
+            })
+            .catch(function(err) {
+                console.error('❌ Error cargando maquinarias:', err);
+                container.innerHTML = `
+                        <div class="col-span-full text-center py-8 text-red-500 text-xs">
+                            ❌ Error: ${err.message}
+                        </div>
+                    `;
+            });
+    }
+
+    // ==========================================
+    // CARRUSEL
+    // ==========================================
+    var slideImages = ['/img/banner1.png', '/img/banner2.png', '/img/banner3.png'];
+    var currentSlide = 0;
 
     function updateSlide() {
-      const imgElem = document.getElementById('mainSliderImg');
-      if (imgElem && sliderImages.length > 0) {
-        imgElem.src = sliderImages[currentSlide];
-      }
+        var img = document.getElementById('mainSliderImg');
+        if (img) img.src = slideImages[currentSlide];
+        updateIndicators();
     }
 
     window.nextSlide = function() {
-      currentSlide = (currentSlide + 1) % sliderImages.length;
-      updateSlide();
+        currentSlide = (currentSlide + 1) % slideImages.length;
+        updateSlide();
     };
 
     window.prevSlide = function() {
-      currentSlide = (currentSlide - 1 + sliderImages.length) % sliderImages.length;
-      updateSlide();
+        currentSlide = (currentSlide - 1 + slideImages.length) % slideImages.length;
+        updateSlide();
     };
 
-    setInterval(window.nextSlide, 5000);
-  </script>
-</body>
+    function updateIndicators() {
+        var container = document.getElementById('slideIndicatorsContainer');
+        if (!container) return;
+        container.innerHTML = '';
+        slideImages.forEach(function(_, idx) {
+            var dot = document.createElement('div');
+            dot.className = 'h-2.5 rounded-full cursor-pointer transition-all duration-300 ' +
+                (idx === currentSlide ? 'bg-amber-400 w-6' : 'bg-white/60 hover:bg-white w-2.5');
+            dot.onclick = function() {
+                currentSlide = idx;
+                updateSlide();
+            };
+            container.appendChild(dot);
+        });
+    }
 
+    setInterval(window.nextSlide, 5000);
+
+    // ==========================================
+    // INICIALIZACIÓN
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('🚀 LIM-BOLIVIA WebApp iniciada');
+        console.log('📦 Supabase:', supabaseClient ? '✅ Conectado' : '❌ No configurado');
+
+        // Mostrar Inicio
+        var inicio = document.getElementById('view-inicio');
+        if (inicio) inicio.classList.remove('hidden');
+
+        // Cargar maquinarias (si existe)
+        setTimeout(cargarMaquinarias, 500);
+    });
+
+    // Cerrar dropdowns
+    document.addEventListener('click', function(e) {
+        var dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(function(dd) {
+            if (!dd.contains(e.target)) {
+                var content = dd.querySelector('.dropdown-content');
+                if (content) content.classList.add('hidden');
+            }
+        });
+    });
+
+    console.log('✅ JavaScript inline cargado correctamente');
+</script>
+
+</body>
 </html>
