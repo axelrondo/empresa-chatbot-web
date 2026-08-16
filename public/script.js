@@ -1,8 +1,8 @@
 /* ==========================================
-   0. CONFIGURACIÓN E INICIALIZACIÓN DE SUPABASE
+   0. CONFIGURACIÓN DE SUPABASE
    ========================================== */
 
-// 🔑 CONFIGURA CON TUS CREDENCIALES REALES
+// 🔑 CAMBIA ESTOS DATOS CON LOS TUYOS
 const SUPABASE_URL = 'https://TU_PROYECTO.supabase.co';
 const SUPABASE_ANON_KEY = 'TU_ANON_KEY_DE_SUPABASE';
 
@@ -25,7 +25,7 @@ const SECTION_MAP = {
   'view-24horas': 'view-24horas',
   'view-alfombras-tapizados': 'view-alfombras-tapizados',
   'view-cotizador': 'view-cotizador',
-  'sec-maquinarias': 'sec-maquinarias',  // 🆕 NUEVA SECCIÓN
+  'sec-maquinarias': 'sec-maquinarias',
   'sec-1': 'sec-1',
   'sec-2': 'sec-2',
   'sec-3': 'sec-3',
@@ -63,9 +63,8 @@ async function loadSection(viewId) {
       container.classList.remove('hidden');
       container.classList.add('animate-fade-in');
     }
-    // Si es la sección de maquinarias, cargar productos
     if (viewId === 'sec-maquinarias') {
-      setTimeout(cargarMaquinarias, 200);
+      setTimeout(cargarMaquinarias, 300);
     }
     return;
   }
@@ -84,9 +83,8 @@ async function loadSection(viewId) {
       container.classList.add('animate-fade-in');
     }
     
-    // Si es la sección de maquinarias, cargar productos
     if (viewId === 'sec-maquinarias') {
-      setTimeout(cargarMaquinarias, 300);
+      setTimeout(cargarMaquinarias, 400);
     }
   } catch (error) {
     console.error('Error loading section:', error);
@@ -115,15 +113,10 @@ window.showView = function(viewId) {
 };
 
 /* ==========================================
-   2. CARRUSEL PRINCIPAL
+   2. CARRUSEL
    ========================================== */
 
-const slideImages = [
-  '/img/banner1.png',
-  '/img/banner2.png',
-  '/img/banner3.png'
-];
-
+const slideImages = ['/img/banner1.png', '/img/banner2.png', '/img/banner3.png'];
 let currentSlideIndex = 0;
 
 function updateSlide() {
@@ -152,7 +145,6 @@ function setSlide(index) {
 function updateIndicators() {
   const container = document.getElementById('slideIndicatorsContainer');
   if (!container) return;
-  
   container.innerHTML = '';
   slideImages.forEach((_, idx) => {
     const dot = document.createElement('div');
@@ -172,157 +164,11 @@ setInterval(() => {
 }, 5000);
 
 /* ==========================================
-   3. LOGICA DEL COTIZADOR
+   3. COTIZADOR (BÁSICO)
    ========================================== */
 
-const servicesData = {
-  'Alfombras': { title: 'Lavado Profesional de Alfombra Fija', description: 'Limpieza profunda de alfombra pared a pared con sistema de inyección y extracción.', machine: 'Inyectora / Extractora Profesional', pricePerM2: 15, image: '/img/banner1.png' },
-  'AlfombraSuelta': { title: 'Lavado de Alfombra Suelta / Tapete', description: 'Tratamiento delicado y remoción de manchas profundas en taller o a domicilio.', machine: 'Lavadora Rotativa + Secado Controlado', pricePerM2: 18, image: '/img/banner2.png' },
-  'Oficinas': { title: 'Limpieza Integral de Oficinas', description: 'Desinfección de mobiliario, equipos, escritorios y pisos institucionales.', machine: 'Aspiradoras Industriales HEPA', pricePerM2: 12, image: '/img/banner3.png' },
-  'Casas': { title: 'Limpieza Profunda de Casas y Dptos.', description: 'Higienización total de áreas comunes, cocina, baños y dormitorios.', machine: 'Vaporizadores + Pulidoras', pricePerM2: 14, image: '/img/banner1.png' },
-  'LustradoFrio': { title: 'Lustrado y Brillado de Piso Frío', description: 'Aseo, desengrasado y aplicación de cera/sellador en cerámica, granito o mármol.', machine: 'Lustradora de Alta Velocidad', pricePerM2: 10, image: '/img/banner2.png' },
-  'LustradoMadera': { title: 'Tratamiento y Lustrado de Piso de Madera', description: 'Protección con ceras especiales para preservar la madera y restaurar el brillo.', machine: 'Lustradora Profesional con Felpa', pricePerM2: 16, image: '/img/banner3.png' },
-  'Fumigado': { title: 'Fumigación y Control de Plagas', description: 'Desinsectación y control de plagas con químicos biodegradables y seguros.', machine: 'Termonebulizadora / Aspersor de Presión', pricePerM2: 8, image: '/img/banner1.png' },
-  'Tanques': { title: 'Limpieza y Desinfección de Tanques', description: 'Lavado y desinfección química de tanques elevados y cisternas de agua.', machine: 'Bomba de Achique + Hidrolavadora', pricePerM2: 20, image: '/img/banner2.png' }
-};
-
-let currentSelectedKey = 'Alfombras';
-let selectedCartItems = [];
-
-window.selectServiceTab = function(serviceKey) {
-  currentSelectedKey = serviceKey;
-  const data = servicesData[serviceKey];
-  if (!data) return;
-
-  Object.keys(servicesData).forEach(key => {
-    const btn = document.getElementById(`btn-${key}`);
-    if (btn) {
-      if (key === serviceKey) {
-        btn.classList.add('bg-emerald-100', 'border-emerald-600', 'text-emerald-900', 'shadow-sm');
-        btn.classList.remove('border-gray-200');
-      } else {
-        btn.classList.remove('bg-emerald-100', 'border-emerald-600', 'text-emerald-900', 'shadow-sm');
-        btn.classList.add('border-gray-200');
-      }
-    }
-  });
-
-  const titleEl = document.getElementById('serviceTitle');
-  const descEl = document.getElementById('serviceDescription');
-  const machineEl = document.getElementById('serviceMachine');
-  const imgEl = document.getElementById('serviceImage');
-
-  if (titleEl) titleEl.textContent = data.title;
-  if (descEl) descEl.textContent = data.description;
-  if (machineEl) machineEl.textContent = `Maquinaria: ${data.machine}`;
-  if (imgEl) imgEl.src = data.image;
-
-  onSliderChange();
-};
-
-function onSliderChange() {
-  const slider = document.getElementById('m2Slider');
-  if (!slider) return;
-  
-  const m2Val = parseInt(slider.value, 10);
-  const data = servicesData[currentSelectedKey];
-
-  const m2ValEl = document.getElementById('m2Value');
-  const m2SubEl = document.getElementById('m2Subtotal');
-
-  if (m2ValEl) m2ValEl.textContent = `${m2Val} m²`;
-  const subtotal = m2Val * data.pricePerM2;
-  if (m2SubEl) m2SubEl.textContent = `(Bs ${subtotal})`;
-}
-
-window.changeM2Step = function(delta) {
-  const slider = document.getElementById('m2Slider');
-  if (!slider) return;
-  
-  let current = parseInt(slider.value, 10) + delta;
-  if (current < 1) current = 1;
-  if (current > 300) current = 300;
-  slider.value = current;
-  onSliderChange();
-};
-
-window.addCurrentMainService = function() {
-  const slider = document.getElementById('m2Slider');
-  if (!slider) return;
-  
-  const m2 = parseInt(slider.value, 10);
-  const data = servicesData[currentSelectedKey];
-  const totalItem = m2 * data.pricePerM2;
-
-  selectedCartItems.push({
-    title: data.title,
-    m2: m2,
-    subtotal: totalItem
-  });
-
-  renderCart();
-};
-
-window.removeCartItem = function(index) {
-  selectedCartItems.splice(index, 1);
-  renderCart();
-};
-
-function renderCart() {
-  const container = document.getElementById('servicesBreakdown');
-  const totalEl = document.getElementById('summaryTotal');
-  if (!container || !totalEl) return;
-
-  if (selectedCartItems.length === 0) {
-    container.innerHTML = '<p class="text-xs text-gray-400 italic text-center py-4">No has agregado ningún servicio todavía.</p>';
-    totalEl.textContent = 'Bs 0';
-    return;
-  }
-
-  let html = '';
-  let grandTotal = 0;
-
-  selectedCartItems.forEach((item, idx) => {
-    grandTotal += item.subtotal;
-    html += `
-      <div class="flex justify-between items-center bg-slate-800 p-2.5 rounded-lg mb-2 text-xs border border-slate-700">
-        <div class="pr-2">
-          <p class="font-bold text-white">${item.title}</p>
-          <p class="text-gray-400">${item.m2} m² x tarifa base</p>
-        </div>
-        <div class="text-right shrink-0">
-          <p class="font-bold text-emerald-400">Bs ${item.subtotal}</p>
-          <button onclick="removeCartItem(${idx})" class="text-red-400 hover:text-red-300 text-[10px] underline cursor-pointer">Quitar</button>
-        </div>
-      </div>
-    `;
-  });
-
-  container.innerHTML = html;
-  totalEl.textContent = `Bs ${grandTotal}`;
-}
-
-window.sendToWhatsApp = function() {
-  if (selectedCartItems.length === 0) {
-    alert('Por favor agrega al menos un servicio a tu cotización.');
-    return;
-  }
-
-  let total = 0;
-  let mensaje = 'Hola *LIM-BOLIVIA*, me gustaría solicitar una cotización con el siguiente detalle:\n\n';
-
-  selectedCartItems.forEach((item, i) => {
-    mensaje += `*${i + 1}. ${item.title}*\n`;
-    mensaje += `   - Superficie: ${item.m2} m²\n`;
-    mensaje += `   - Subtotal estimado: Bs ${item.subtotal}\n\n`;
-    total += item.subtotal;
-  });
-
-  mensaje += `*TOTAL ESTIMADO: Bs ${total}*\n\nQuedo a la espera de su confirmación. ¡Muchas gracias!`;
-
-  const numeroTelefono = '59171506930';
-  const url = `https://wa.me/${numeroTelefono}?text=${encodeURIComponent(mensaje)}`;
-  window.open(url, '_blank');
+window.selectServiceTab = function(tab) {
+  console.log('📋 Tab seleccionada:', tab);
 };
 
 /* ==========================================
@@ -331,33 +177,50 @@ window.sendToWhatsApp = function() {
 
 // Cerrar modal
 window.closeModal = function(id) {
+  console.log('🔒 Cerrando modal:', id);
   const modal = document.getElementById(id);
   if (modal) modal.classList.add('hidden');
 };
 
 // Verificar autenticación de admin
 window.checkAdminAuth = function() {
+  console.log('🔑 Botón ADMIN presionado');
+  
   if (!supabaseClient) {
-    alert('⚠️ Error: Supabase no está configurado.\nRevisa las credenciales en script.js');
+    alert('⚠️ Error: Supabase no está configurado.\n\nRevisa las credenciales en script.js');
     return;
   }
   
   if (isAdminAuthenticated) {
-    document.getElementById('modalUploadMachine').classList.remove('hidden');
+    const modal = document.getElementById('modalUploadMachine');
+    if (modal) {
+      modal.classList.remove('hidden');
+      console.log('✅ Modal de upload abierto');
+    } else {
+      alert('⚠️ No se encontró el modal de carga. Revisa el index.html');
+    }
   } else {
-    document.getElementById('modalAdminLogin').classList.remove('hidden');
+    const modal = document.getElementById('modalAdminLogin');
+    if (modal) {
+      modal.classList.remove('hidden');
+      console.log('✅ Modal de login abierto');
+    } else {
+      alert('⚠️ No se encontró el modal de login. Revisa el index.html');
+    }
   }
 };
 
 // Iniciar Sesión de Administrador
 window.handleAdminLogin = async function(e) {
   e.preventDefault();
+  console.log('🔐 Intentando login...');
+  
   const email = document.getElementById('adminEmail').value;
   const password = document.getElementById('adminPassword').value;
   const errorMsg = document.getElementById('loginErrorMsg');
 
   if (!supabaseClient) {
-    alert('Error: Supabase no está configurado correctamente.');
+    alert('Error: Supabase no está configurado.');
     return;
   }
 
@@ -372,11 +235,14 @@ window.handleAdminLogin = async function(e) {
     isAdminAuthenticated = true;
     errorMsg.classList.add('hidden');
     closeModal('modalAdminLogin');
-    document.getElementById('modalUploadMachine').classList.remove('hidden');
+    
+    const modal = document.getElementById('modalUploadMachine');
+    if (modal) modal.classList.remove('hidden');
     
     console.log('✅ Admin autenticado correctamente');
   } catch (err) {
-    errorMsg.textContent = "Error de autenticación: " + err.message;
+    console.error('❌ Error de login:', err);
+    errorMsg.textContent = "❌ Error de autenticación: " + err.message;
     errorMsg.classList.remove('hidden');
   }
 };
@@ -384,6 +250,8 @@ window.handleAdminLogin = async function(e) {
 // Subir nueva maquinaria
 window.handleMachineUpload = async function(e) {
   e.preventDefault();
+  console.log('📤 Subiendo producto...');
+  
   const btn = document.getElementById('btnSubmitMachine');
   btn.disabled = true;
   btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Publicando...`;
@@ -403,15 +271,17 @@ window.handleMachineUpload = async function(e) {
   }
 
   if (!file) {
-    alert('Por favor selecciona una imagen.');
+    alert('⚠️ Por favor selecciona una imagen.');
     btn.disabled = false;
     btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Publicar Producto`;
     return;
   }
 
   try {
-    // 1. Subir la imagen al bucket 'maquinarias'
+    // 1. Subir la imagen al bucket
     const filePath = `equipos/${Date.now()}_${file.name}`;
+    console.log('📤 Subiendo imagen:', filePath);
+    
     const { data: uploadData, error: uploadError } = await supabaseClient.storage
       .from('maquinarias')
       .upload(filePath, file);
@@ -424,8 +294,9 @@ window.handleMachineUpload = async function(e) {
       .getPublicUrl(filePath);
 
     const imagen_url = urlData.publicUrl;
+    console.log('✅ Imagen subida:', imagen_url);
 
-    // 3. Insertar registro en la tabla 'maquinarias'
+    // 3. Insertar en la tabla
     const { error: insertError } = await supabaseClient
       .from('maquinarias')
       .insert([
@@ -445,10 +316,10 @@ window.handleMachineUpload = async function(e) {
     closeModal('modalUploadMachine');
     
     // Recargar el catálogo
-    cargarMaquinarias();
+    setTimeout(cargarMaquinarias, 500);
     
   } catch (err) {
-    console.error('Error:', err);
+    console.error('❌ Error:', err);
     alert('❌ Error al publicar el producto: ' + err.message);
   } finally {
     btn.disabled = false;
@@ -458,13 +329,19 @@ window.handleMachineUpload = async function(e) {
 
 // Cargar y mostrar maquinarias desde Supabase
 async function cargarMaquinarias() {
+  console.log('📦 Cargando maquinarias...');
+  
   const container = document.getElementById('machineryGrid');
-  if (!container) return;
+  if (!container) {
+    console.warn('⚠️ No se encontró el contenedor machineryGrid');
+    return;
+  }
 
   if (!supabaseClient) {
     container.innerHTML = `
       <div class="col-span-full text-center py-8 text-amber-600 text-xs font-bold">
         ⚠️ Por favor configura las credenciales de Supabase en script.js
+        <br><span class="text-gray-400 text-[10px]">SUPABASE_URL y SUPABASE_ANON_KEY</span>
       </div>
     `;
     return;
@@ -481,19 +358,24 @@ async function cargarMaquinarias() {
     if (!products || products.length === 0) {
       container.innerHTML = `
         <div class="col-span-full text-center py-12 text-gray-500">
-          <i class="fa-solid fa-box-open text-4xl text-gray-300 mb-3 block"></i>
+          <i class="fa-solid fa-box-open text-5xl text-gray-300 mb-4 block"></i>
           <p class="text-sm font-medium">No hay maquinaria publicada en este momento.</p>
           <p class="text-xs text-gray-400 mt-1">El administrador puede agregar productos desde el panel de control.</p>
+          <button onclick="checkAdminAuth()" class="mt-4 bg-[#003366] hover:bg-[#002244] text-white text-xs font-bold px-4 py-2 rounded-lg transition">
+            <i class="fa-solid fa-plus mr-1"></i> Agregar Producto (Admin)
+          </button>
         </div>
       `;
       return;
     }
 
+    console.log(`✅ ${products.length} productos cargados`);
+
     container.innerHTML = products.map(prod => `
-      <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+      <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col group">
         <div class="h-52 bg-slate-100 overflow-hidden relative">
           <img src="${prod.imagen_url}" alt="${prod.nombre}" 
-            class="w-full h-full object-cover hover:scale-105 transition duration-500" 
+            class="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
             onerror="this.src='https://via.placeholder.com/400x300/003366/FFFFFF?text=Sin+Imagen';">
           <span class="absolute top-3 left-3 bg-[#003366] text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-lg shadow-md">
             ${prod.codigo || 'N/A'}
@@ -517,11 +399,11 @@ async function cargarMaquinarias() {
     `).join('');
 
   } catch (err) {
-    console.error('Error cargando maquinarias:', err);
+    console.error('❌ Error cargando maquinarias:', err);
     container.innerHTML = `
       <div class="col-span-full text-center py-8 text-red-500 text-xs">
-        ❌ Error al cargar los productos. Verifique la conexión a Supabase.
-        <br><span class="text-gray-400">${err.message}</span>
+        ❌ Error al cargar los productos: ${err.message}
+        <br><span class="text-gray-400 text-[10px]">Verifica la conexión a Supabase</span>
       </div>
     `;
   }
@@ -532,60 +414,29 @@ async function cargarMaquinarias() {
    ========================================== */
 
 window.toggleChat = function() {
-  const chatContainer = document.getElementById('chatContainer');
-  if (chatContainer) {
-    chatContainer.classList.toggle('hidden');
-    if (!chatContainer.classList.contains('hidden')) {
-      cargarChatWidget();
-    }
-  } else {
-    alert('🤖 Asistente Virtual LIM-BOLIVIA\n\nPróximamente podrás chatear con nuestra IA.');
-  }
+  alert('🤖 Asistente Virtual LIM-BOLIVIA\n\nPróximamente podrás chatear con nuestra IA.');
 };
-
-function cargarChatWidget() {
-  const container = document.getElementById('chatContainer');
-  if (!container) return;
-  
-  container.innerHTML = `
-    <div class="fixed bottom-24 right-4 w-80 md:w-96 max-h-[500px] bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-50">
-      <div class="bg-[#003366] text-white p-3 flex justify-between items-center">
-        <span class="font-bold text-sm flex items-center gap-2">
-          <i class="fa-solid fa-robot text-amber-400"></i> Asistente LIM-BOLIVIA
-        </span>
-        <button onclick="toggleChat()" class="text-white/70 hover:text-white">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-      <div class="p-4 h-80 overflow-y-auto bg-gray-50">
-        <div class="bg-white p-3 rounded-lg shadow-sm mb-2">
-          <p class="text-xs text-gray-700">👋 ¡Hola! Soy el asistente virtual de LIM-BOLIVIA. ¿En qué puedo ayudarte hoy?</p>
-        </div>
-      </div>
-      <div class="p-3 bg-white border-t border-slate-200 flex gap-2">
-        <input type="text" placeholder="Escribe tu mensaje..." class="flex-1 text-xs border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500" />
-        <button class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-xs font-bold transition">
-          <i class="fa-solid fa-paper-plane"></i>
-        </button>
-      </div>
-    </div>
-  `;
-}
 
 /* ==========================================
    6. INICIALIZACIÓN
    ========================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('🚀 LIM-BOLIVIA WebApp iniciada');
+  console.log('📦 Supabase:', supabaseClient ? '✅ Conectado' : '❌ No configurado');
+  
   showView('view-inicio');
   updateIndicators();
-  selectServiceTab('Alfombras');
   
-  // Si la sección de maquinarias está visible al inicio (no es el caso), cargar productos
-  // Normalmente se carga cuando se navega a ella.
+  // Verificar si los modales existen
+  const loginModal = document.getElementById('modalAdminLogin');
+  const uploadModal = document.getElementById('modalUploadMachine');
   
-  console.log('✅ LIM-BOLIVIA WebApp inicializada correctamente');
-  console.log('📦 Supabase:', supabaseClient ? 'Conectado' : 'No configurado');
+  if (loginModal) console.log('✅ Modal de login encontrado');
+  else console.warn('⚠️ Modal de login NO encontrado en el DOM');
+  
+  if (uploadModal) console.log('✅ Modal de upload encontrado');
+  else console.warn('⚠️ Modal de upload NO encontrado en el DOM');
 });
 
 // Cerrar dropdowns al hacer clic fuera
@@ -598,134 +449,3 @@ document.addEventListener('click', function(e) {
     }
   });
 });
-
-/* ==========================================
-   FUNCIONES PARA ADMIN (MODALES Y LOGIN)
-   ========================================== */
-
-// Cerrar modal
-window.closeModal = function(id) {
-  const modal = document.getElementById(id);
-  if (modal) modal.classList.add('hidden');
-};
-
-// Verificar autenticación de admin
-window.checkAdminAuth = function() {
-  if (!supabaseClient) {
-    alert('⚠️ Error: Supabase no está configurado.\nRevisa las credenciales en script.js');
-    return;
-  }
-  
-  if (isAdminAuthenticated) {
-    document.getElementById('modalUploadMachine').classList.remove('hidden');
-  } else {
-    document.getElementById('modalAdminLogin').classList.remove('hidden');
-  }
-};
-
-// Iniciar Sesión de Administrador
-window.handleAdminLogin = async function(e) {
-  e.preventDefault();
-  const email = document.getElementById('adminEmail').value;
-  const password = document.getElementById('adminPassword').value;
-  const errorMsg = document.getElementById('loginErrorMsg');
-
-  if (!supabaseClient) {
-    alert('Error: Supabase no está configurado correctamente.');
-    return;
-  }
-
-  try {
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-      email: email,
-      password: password
-    });
-
-    if (error) throw error;
-
-    isAdminAuthenticated = true;
-    errorMsg.classList.add('hidden');
-    closeModal('modalAdminLogin');
-    document.getElementById('modalUploadMachine').classList.remove('hidden');
-    
-    console.log('✅ Admin autenticado correctamente');
-  } catch (err) {
-    errorMsg.textContent = "❌ Error de autenticación: " + err.message;
-    errorMsg.classList.remove('hidden');
-  }
-};
-
-// Subir nueva maquinaria
-window.handleMachineUpload = async function(e) {
-  e.preventDefault();
-  const btn = document.getElementById('btnSubmitMachine');
-  btn.disabled = true;
-  btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Publicando...`;
-
-  const codigo = document.getElementById('machineCodigo').value;
-  const nombre = document.getElementById('machineNombre').value;
-  const descripcion = document.getElementById('machineDescripcion').value;
-  const precio_bs = parseFloat(document.getElementById('machinePrecio').value);
-  const fileInput = document.getElementById('machineImage');
-  const file = fileInput.files[0];
-
-  if (!supabaseClient) {
-    alert('Error: Supabase no está configurado.');
-    btn.disabled = false;
-    btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Publicar Producto`;
-    return;
-  }
-
-  if (!file) {
-    alert('Por favor selecciona una imagen.');
-    btn.disabled = false;
-    btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Publicar Producto`;
-    return;
-  }
-
-  try {
-    // 1. Subir la imagen al bucket 'maquinarias'
-    const filePath = `equipos/${Date.now()}_${file.name}`;
-    const { data: uploadData, error: uploadError } = await supabaseClient.storage
-      .from('maquinarias')
-      .upload(filePath, file);
-
-    if (uploadError) throw uploadError;
-
-    // 2. Obtener URL pública
-    const { data: urlData } = supabaseClient.storage
-      .from('maquinarias')
-      .getPublicUrl(filePath);
-
-    const imagen_url = urlData.publicUrl;
-
-    // 3. Insertar registro en la tabla 'maquinarias'
-    const { error: insertError } = await supabaseClient
-      .from('maquinarias')
-      .insert([
-        {
-          codigo: codigo,
-          nombre: nombre,
-          descripcion: descripcion,
-          precio_bs: precio_bs,
-          imagen_url: imagen_url
-        }
-      ]);
-
-    if (insertError) throw insertError;
-
-    alert('✅ ¡Producto publicado con éxito!');
-    document.getElementById('formUploadMachine').reset();
-    closeModal('modalUploadMachine');
-    
-    // Recargar el catálogo
-    cargarMaquinarias();
-    
-  } catch (err) {
-    console.error('Error:', err);
-    alert('❌ Error al publicar el producto: ' + err.message);
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Publicar Producto`;
-  }
-};
