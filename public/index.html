@@ -1984,6 +1984,18 @@
                         *</label><input type="number" id="machinePrecio" required step="0.01" min="0"
                         class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
                         placeholder="1250.50" /></div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Categoría
+                        *</label>
+                    <select id="machineCategoria" required
+                        class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition">
+                        <option value="MAQUINARIA">🔧 MAQUINARIA</option>
+                        <option value="PRODUCTO">📦 PRODUCTO</option>
+                    </select>
+                </div>
+
+
                 <div><label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Imagen
                         *</label><input type="file" id="machineImage" accept="image/*" required
                         class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100" />
@@ -2116,6 +2128,9 @@
         // ==========================================
         // 🟢 SUBIR PRODUCTO REAL CON SUPABASE
         // ==========================================
+        // ==========================================
+        // 🟢 SUBIR PRODUCTO REAL CON SUPABASE
+        // ==========================================
         window.handleMachineUpload = async function (e) {
             e.preventDefault();
             console.log('📤 Subiendo producto...');
@@ -2144,23 +2159,25 @@
                 return;
             }
 
+            // Limpiar nombre del archivo
+            var cleanName = file.name
+                .replace(/[{}()\[\]]/g, '')
+                .replace(/[^a-zA-Z0-9._-]/g, '_')
+                .replace(/_+/g, '_');
+            var filePath = 'equipos/' + Date.now() + '_' + cleanName;
+
             btn.disabled = true;
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Publicando...';
 
             try {
-                var cleanName = file.name
-                    .replace(/[{}()\[\]]/g, '')
-                    .replace(/[^a-zA-Z0-9._-]/g, '_')
-                    .replace(/_+/g, '_');
-                var filePath = 'equipos/' + Date.now() + '_' + cleanName;
-                console.log('📤 Subiendo imagen:', filePath);
-
+                // 1. Subir imagen al bucket
                 var uploadResult = await supabaseClient.storage
                     .from('maquinarias')
                     .upload(filePath, file);
 
                 if (uploadResult.error) throw uploadResult.error;
 
+                // 2. Obtener URL pública
                 var urlResult = supabaseClient.storage
                     .from('maquinarias')
                     .getPublicUrl(filePath);
@@ -2168,6 +2185,7 @@
                 var imagen_url = urlResult.data.publicUrl;
                 console.log('✅ Imagen subida:', imagen_url);
 
+                // 3. Insertar en la tabla 'maquinarias' (CON CATEGORÍA)
                 var insertResult = await supabaseClient
                     .from('maquinarias')
                     .insert([{
@@ -2175,7 +2193,7 @@
                         nombre: nombre,
                         descripcion: descripcion,
                         precio_bs: precio_bs,
-                        categoria: categoria,
+                        categoria: categoria,  // ✅ Aquí se guarda la categoría
                         imagen_url: imagen_url
                     }]);
 
@@ -2185,6 +2203,7 @@
                 document.getElementById('formUploadMachine').reset();
                 closeModal('modalUploadMachine');
 
+                // Recargar el catálogo
                 setTimeout(function () { cargarMaquinarias('Todas'); }, 500);
 
             } catch (err) {
@@ -2679,6 +2698,80 @@
 
         console.log('✅ JavaScript cargado');
     </script>
+
+    <!-- ========================================== -->
+    <!-- MODAL DE EDICIÓN DE PRODUCTO               -->
+    <!-- ========================================== -->
+    <div id="modalEditProduct"
+        class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100000] flex items-center justify-center hidden">
+        <div
+            class="bg-white rounded-2xl shadow-2xl max-w-lg w-full mx-4 p-6 md:p-8 border border-slate-200 max-h-[90vh] overflow-y-auto animate-fade-in">
+            <div class="flex justify-between items-center border-b border-slate-200 pb-3 mb-4">
+                <h3 class="font-black text-[#003366] text-lg uppercase flex items-center gap-2">
+                    <i class="fa-solid fa-pencil text-amber-500"></i> Editar Producto
+                </h3>
+                <button onclick="closeModal('modalEditProduct')"
+                    class="text-slate-400 hover:text-slate-600 text-xl transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="formEditProduct" onsubmit="event.preventDefault(); guardarEdicionProducto();" class="space-y-4">
+                <input type="hidden" id="editProductId" />
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Código</label>
+                    <input type="text" id="editCodigo"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+                        placeholder="Ej: MAQ-001" />
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nombre *</label>
+                    <input type="text" id="editNombre" required
+                        class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+                        placeholder="Nombre del producto" />
+                </div>
+                <div>
+                    <label
+                        class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Descripción</label>
+                    <textarea id="editDescripcion" rows="3"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+                        placeholder="Descripción del producto..."></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Precio (Bs)
+                        *</label>
+                    <input type="number" id="editPrecio" required step="0.01" min="0"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+                        placeholder="1250.50" />
+                </div>
+                <div>
+                    <label
+                        class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Categoría</label>
+                    <select id="editCategoria"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition">
+                        <option value="MAQUINARIA">🔧 MAQUINARIA</option>
+                        <option value="PRODUCTO">📦 PRODUCTO</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Imagen (dejar
+                        vacío para mantener la actual)</label>
+                    <input type="file" id="editImage" accept="image/*"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100" />
+                    <div class="mt-2">
+                        <img id="editImagePreview" src="" alt="Imagen actual"
+                            class="hidden h-24 object-contain rounded-lg border border-slate-200">
+                        <span id="editImageText" class="text-xs text-gray-400">Imagen actual</span>
+                    </div>
+                </div>
+                <button type="submit" id="btnSaveEdit"
+                    class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg transition text-sm uppercase tracking-wider">
+                    <i class="fa-solid fa-floppy-disk mr-2"></i> Guardar Cambios
+                </button>
+            </form>
+        </div>
+    </div>
 
 </body>
 
