@@ -383,23 +383,27 @@
         <!-- ========================================== -->
         <!-- CONTENEDOR DE 2 COLUMNAS                   -->
         <!-- ========================================== -->
+        <!-- ========================================== -->
+        <!-- CONTENEDOR DE 2 COLUMNAS                   -->
+        <!-- ========================================== -->
         <div id="institutional-wrapper" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
             <!-- COLUMNA IZQUIERDA -->
             <div class="lg:col-span-2 space-y-6">
 
                 <!-- ================================ -->
-                <!-- 1. VIEW INICIO (SOLO COTIZADOR)   -->
+                <!-- 1. VIEW INICIO (SIN SIDEBAR)      -->
                 <!-- ================================ -->
                 <div id="view-inicio" class="view-section">
+                    <!-- COTIZADOR COMPLETO (OCUPA TODA LA COLUMNA) -->
                     <section class="p-6 bg-slate-50 border rounded-2xl shadow-sm" id="cotizador">
                         <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
                             <i class="fa-solid fa-calculator text-emerald-600"></i> Cotizador Rápido de Servicios
                         </h2>
 
                         <div class="grid lg:grid-cols-3 gap-6 items-start">
+                            <!-- IZQUIERDA: Servicios y Extras -->
                             <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border space-y-6">
-
                                 <!-- Pestañas de Servicios (8 BOTONES) -->
                                 <div>
                                     <label class="block font-semibold text-gray-700 mb-2">1. Selecciona un
@@ -618,7 +622,7 @@
                                 </div>
                             </div>
 
-                            <!-- RESUMEN DERECHA -->
+                            <!-- RESUMEN DERECHA (dentro del cotizador) -->
                             <div
                                 class="bg-slate-900 text-white p-6 rounded-xl flex flex-col justify-between shadow-xl sticky top-6 z-10 border border-slate-800">
                                 <div>
@@ -685,6 +689,50 @@
                             <p class="uppercase tracking-widest text-[#003366]">SALUD Y BIENESTAR NUESTRO OBJETIVO</p>
                         </div>
                     </div>
+                    <div class="pt-6 border-t border-slate-200 space-y-4">
+                        <h3 class="text-lg md:text-xl font-black text-[#003366] uppercase flex items-center gap-2"><i
+                                class="fa-solid fa-images text-amber-500"></i> Galería de Trabajos Realizados</h3>
+                        <div class="bg-slate-50 p-4 md:p-5 rounded-xl border border-slate-200 shadow-inner">
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
+                                <div
+                                    class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
+                                    <img src="/img/img1.png" alt="Servicio LIMBOLIVIA 1"
+                                        class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img1.png';" />
+                                </div>
+                                <div
+                                    class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
+                                    <img src="/img/img2.png" alt="Servicio LIMBOLIVIA 2"
+                                        class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img2.png';" />
+                                </div>
+                                <div
+                                    class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
+                                    <img src="/img/img3.png" alt="Servicio LIMBOLIVIA 3"
+                                        class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img3.png';" />
+                                </div>
+                                <div
+                                    class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
+                                    <img src="/img/img4.png" alt="Servicio LIMBOLIVIA 4"
+                                        class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img4.png';" />
+                                </div>
+                                <div
+                                    class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
+                                    <img src="/img/img5.png" alt="Servicio LIMBOLIVIA 5"
+                                        class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img5.png';" />
+                                </div>
+                                <div
+                                    class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
+                                    <img src="/img/img6.png" alt="Servicio LIMBOLIVIA 6"
+                                        class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img6.png';" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- ================================ -->
@@ -705,6 +753,51 @@
                             class="font-medium text-slate-800 bg-emerald-50/60 p-4 rounded-xl border-l-4 border-emerald-600 shadow-sm">
                             Actualmente hemos incursionado con gran éxito en el campo del Servicio Corporativo e
                             Institucional...</p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-200 space-y-6">
+                        <div class="text-center md:text-left"><span
+                                class="text-xs font-bold text-emerald-600 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-block mb-1">Trayectoria
+                                Garantizada</span>
+                            <h3 class="text-xl font-black text-[#003366] uppercase">Instituciones y Empresas que Confían
+                                en Nosotros</h3>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div
+                                class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2 flex items-center"><i
+                                        class="fa-solid fa-landmark text-emerald-600 mr-2"></i>Gobierno & Diplomacia
+                                </h4>
+                                <ul class="space-y-1 text-xs text-gray-700">
+                                    <li>• Casa del Pueblo</li>
+                                    <li>• Embajada de Brasil</li>
+                                </ul>
+                            </div>
+                            <div
+                                class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2 flex items-center"><i
+                                        class="fa-solid fa-industry text-emerald-600 mr-2"></i>Sector Minero e
+                                    Industrial</h4>
+                                <ul class="space-y-1 text-xs text-gray-700">
+                                    <li>• Minera San Cristóbal</li>
+                                </ul>
+                            </div>
+                            <div
+                                class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2 flex items-center"><i
+                                        class="fa-solid fa-tv text-emerald-600 mr-2"></i>Medios de Comunicación</h4>
+                                <ul class="space-y-1 text-xs text-gray-700">
+                                    <li>• Canal RTP / Bolivisión / ATB</li>
+                                </ul>
+                            </div>
+                            <div
+                                class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                                <h4 class="font-bold text-[#003366] text-sm uppercase mb-2 flex items-center"><i
+                                        class="fa-solid fa-hospital text-emerald-600 mr-2"></i>Salud & Clínicas</h4>
+                                <ul class="space-y-1 text-xs text-gray-700">
+                                    <li>• Clínica Uyuni / Villa Dolores / 6 de Agosto</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -768,6 +861,60 @@
                                 <source src="/img/video.mp4" type="video/mp4" />
                                 Tu navegador no soporta la reproducción de video.
                             </video>
+                        </div>
+                    </div>
+                    <div class="pt-6 border-t border-slate-200 space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <h3
+                                    class="text-lg md:text-xl font-black text-[#003366] uppercase flex items-center gap-2">
+                                    <i class="fa-solid fa-scissors text-amber-500"></i> Ribeteado y Colocado de
+                                    Alfombras
+                                </h3>
+                                <p class="text-xs text-gray-500">Instalación técnica, corte a medida y ribeteado
+                                    protector en pisos y gradas.</p>
+                            </div>
+                            <span
+                                class="text-[10px] bg-slate-100 text-slate-700 font-bold px-3 py-1 rounded-full border border-slate-300 w-max">Trabajos
+                                Terminados</span>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
+                            <div
+                                class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
+                                <img src="/img/ribeteado.png" alt="Ribeteado 1"
+                                    class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300"
+                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado.png';" />
+                                <p
+                                    class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">
+                                    Ribeteado Profesional</p>
+                            </div>
+                            <div
+                                class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
+                                <img src="/img/ribeteado1.png" alt="Ribeteado 2"
+                                    class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300"
+                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado1.png';" />
+                                <p
+                                    class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">
+                                    Corte e Instalación</p>
+                            </div>
+                            <div
+                                class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
+                                <img src="/img/ribeteado2.png" alt="Ribeteado 3"
+                                    class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300"
+                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado2.png';" />
+                                <p
+                                    class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">
+                                    Fijación en Pisos</p>
+                            </div>
+                            <div
+                                class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
+                                <img src="/img/ribeteado3.png" alt="Ribeteado 4"
+                                    class="w-full h-32 md:h-36 object-cover group-hover:scale-105 transition duration-300"
+                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=ribeteado3.png';" />
+                                <p
+                                    class="p-2 text-[10px] font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">
+                                    Colocado en Gradas</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2181,7 +2328,8 @@
                                 <div class="flex items-center gap-3">
                                     <div
                                         class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-lg font-bold shrink-0">
-                                        <i class="fa-solid fa-face-smile"></i></div>
+                                        <i class="fa-solid fa-face-smile"></i>
+                                    </div>
                                     <h4 class="font-bold text-[#003366] text-base">Despreocúpese</h4>
                                 </div>
                                 <p class="text-xs text-gray-600 leading-relaxed pl-13">Permitimos que nuestros clientes
@@ -2192,7 +2340,8 @@
                                 <div class="flex items-center gap-3">
                                     <div
                                         class="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center text-lg font-bold shrink-0">
-                                        <i class="fa-solid fa-layer-group"></i></div>
+                                        <i class="fa-solid fa-layer-group"></i>
+                                    </div>
                                     <h4 class="font-bold text-[#003366] text-base">Un amplio abanico de servicios</h4>
                                 </div>
                                 <p class="text-xs text-gray-600 leading-relaxed pl-13">Las posibilidades que ofrecen a
@@ -2204,7 +2353,8 @@
                                 <div class="flex items-center gap-3">
                                     <div
                                         class="w-10 h-10 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-lg font-bold shrink-0">
-                                        <i class="fa-solid fa-calendar-check"></i></div>
+                                        <i class="fa-solid fa-calendar-check"></i>
+                                    </div>
                                     <h4 class="font-bold text-[#003366] text-base">Desde 1999</h4>
                                 </div>
                                 <p class="text-xs text-gray-600 leading-relaxed pl-13">Contamos con una amplia
@@ -2216,7 +2366,8 @@
                                 <div class="flex items-center gap-3">
                                     <div
                                         class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-lg font-bold shrink-0">
-                                        <i class="fa-solid fa-microscope"></i></div>
+                                        <i class="fa-solid fa-microscope"></i>
+                                    </div>
                                     <h4 class="font-bold text-[#003366] text-base">Especializados en limpieza técnica
                                     </h4>
                                 </div>
@@ -2228,7 +2379,8 @@
                                 <div class="flex items-center gap-3">
                                     <div
                                         class="w-10 h-10 rounded-lg bg-red-100 text-red-600 flex items-center justify-center text-lg font-bold shrink-0">
-                                        <i class="fa-solid fa-clock"></i></div>
+                                        <i class="fa-solid fa-clock"></i>
+                                    </div>
                                     <h4 class="font-bold text-[#003366] text-base">Servicio durante las 24 horas</h4>
                                 </div>
                                 <p class="text-xs text-gray-600 leading-relaxed pl-13">Disponemos de teléfono de
@@ -2239,7 +2391,8 @@
                                 <div class="flex items-center gap-3">
                                     <div
                                         class="w-10 h-10 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center text-lg font-bold shrink-0">
-                                        <i class="fa-solid fa-bolt-lightning"></i></div>
+                                        <i class="fa-solid fa-bolt-lightning"></i>
+                                    </div>
                                     <h4 class="font-bold text-[#003366] text-base">Elevada capacidad de reacción</h4>
                                 </div>
                                 <p class="text-xs text-gray-600 leading-relaxed pl-13">Elevada capacidad de reacción
@@ -2260,7 +2413,10 @@
 
                 <!-- COLUMNA DERECHA: SIDEBAR -->
                 <aside class="space-y-6">
-                    <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-4">
+                    <!-- El sidebar SOLO se muestra en vistas que NO sean "view-inicio" -->
+                    <!-- Por eso usamos display: block por defecto, y lo ocultamos con JS en view-inicio -->
+                    <div id="sidebarContacto"
+                        class="bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-4">
                         <h3 class="font-black text-[#003366] text-lg uppercase border-b pb-2 flex items-center gap-2"><i
                                 class="fa-solid fa-address-card text-emerald-600"></i> Contacto Directo</h3>
                         <ul class="space-y-3 text-xs text-gray-700">
@@ -2275,7 +2431,7 @@
                                         24/7:</strong> 79684700</span></li>
                         </ul>
                     </div>
-                    <div class="bg-[#003366] text-white p-6 rounded-2xl shadow-md space-y-3">
+                    <div id="sidebarAsesoria" class="bg-[#003366] text-white p-6 rounded-2xl shadow-md space-y-3">
                         <h4 class="font-bold uppercase text-amber-300 text-sm">¿Necesita Asesoría?</h4>
                         <p class="text-xs text-slate-200 leading-relaxed">Coordine una visita técnica de evaluación sin
                             costo.</p>
@@ -2286,6 +2442,8 @@
                 </aside>
 
             </div>
+
+        </div>
     </main>
 
     <!-- FOOTER -->
@@ -3452,6 +3610,38 @@
         });
 
         console.log('✅ JavaScript cargado');
+
+
+        // ==========================================
+        // CONTROL DE SIDEBAR (OCULTAR EN INICIO)
+        // ==========================================
+
+        // Modificar showView para ocultar/mostrar sidebar
+        const originalShowView = window.showView;
+        window.showView = function (viewId) {
+            // Llamar a la función original
+            originalShowView(viewId);
+
+            // Ocultar sidebar en view-inicio
+            const sidebarContacto = document.getElementById('sidebarContacto');
+            const sidebarAsesoria = document.getElementById('sidebarAsesoria');
+
+            if (viewId === 'view-inicio') {
+                if (sidebarContacto) sidebarContacto.style.display = 'none';
+                if (sidebarAsesoria) sidebarAsesoria.style.display = 'none';
+            } else {
+                if (sidebarContacto) sidebarContacto.style.display = 'block';
+                if (sidebarAsesoria) sidebarAsesoria.style.display = 'block';
+            }
+        };
+
+        // Inicializar: ocultar sidebar en inicio
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebarContacto = document.getElementById('sidebarContacto');
+            const sidebarAsesoria = document.getElementById('sidebarAsesoria');
+            if (sidebarContacto) sidebarContacto.style.display = 'none';
+            if (sidebarAsesoria) sidebarAsesoria.style.display = 'none';
+        });
     </script>
 
 </body>
