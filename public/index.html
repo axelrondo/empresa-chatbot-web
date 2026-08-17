@@ -3384,7 +3384,21 @@
         function guardarEdicionProducto() {
             console.log('💾 Iniciando guardado de edición...');
 
-            // 1. Obtener todos los valores del formulario
+            // Verificar autenticación primero
+            if (!isAdminAuthenticated) {
+                alert('⚠️ Debes iniciar sesión como administrador.');
+                closeModal('modalEditProduct');
+                document.getElementById('modalAdminLogin').classList.remove('hidden');
+                return;
+            }
+
+            if (!supabaseClient) {
+                alert('❌ Error de conexión con la base de datos.');
+                console.error('❌ Supabase no está inicializado');
+                return;
+            }
+
+            // Obtener valores del formulario
             var id = document.getElementById('editProductId').value;
             var codigo = document.getElementById('editCodigo').value.trim();
             var nombre = document.getElementById('editNombre').value.trim();
@@ -3394,7 +3408,7 @@
             var fileInput = document.getElementById('editImage');
             var file = fileInput.files[0];
 
-            // 2. Validaciones mejoradas
+            // Validaciones
             if (!id) {
                 alert('⚠️ Error: No se encontró el ID del producto.');
                 console.error('❌ ID del producto vacío');
@@ -3413,58 +3427,41 @@
                 return;
             }
 
-            // 3. Verificar autenticación
-            if (!isAdminAuthenticated) {
-                alert('⚠️ Debes iniciar sesión como administrador.');
-                closeModal('modalEditProduct');
-                document.getElementById('modalAdminLogin').classList.remove('hidden');
-                return;
-            }
-
-            // 4. Verificar conexión a Supabase
-            if (!supabaseClient) {
-                alert('❌ Error de conexión con la base de datos.');
-                console.error('❌ Supabase no está inicializado');
-                return;
-            }
-
-            // 5. Preparar UI para carga
+            // Preparar UI para carga
             var btn = document.getElementById('btnSaveEdit');
             var btnOriginalText = btn.innerHTML;
             btn.disabled = true;
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando cambios...';
 
-            // 6. Preparar datos para actualizar
+            // Preparar datos - QUITAR updated_at
             var updateData = {
                 codigo: codigo || 'N/A',
                 nombre: nombre,
                 descripcion: descripcion || 'Sin descripción',
                 precio_bs: precio_bs,
-                categoria: categoria || 'MAQUINARIA',
-                updated_at: new Date().toISOString() // Opcional: agregar timestamp
+                categoria: categoria || 'MAQUINARIA'
+                // ELIMINADO: updated_at: new Date().toISOString()
             };
 
             console.log('📦 Datos a actualizar:', updateData);
 
-            // 7. Función para manejar la actualización
+            // Función para actualizar
             function realizarActualizacion(imagenUrl) {
                 if (imagenUrl) {
                     updateData.imagen_url = imagenUrl;
                 }
-
                 return supabaseClient
                     .from('maquinarias')
                     .update(updateData)
                     .eq('id', id);
             }
 
-            // 8. Procesar según si hay nueva imagen o no
+            // Proceso de actualización
             var procesoActualizacion;
 
             if (file) {
                 console.log('📸 Subiendo nueva imagen:', file.name);
 
-                // Limpiar nombre del archivo
                 var cleanName = file.name
                     .replace(/[{}()\[\]]/g, '')
                     .replace(/[^a-zA-Z0-9._-]/g, '_')
@@ -3473,9 +3470,6 @@
                 var randomSuffix = Math.random().toString(36).substring(2, 6);
                 var filePath = 'equipos/' + timestamp + '_' + randomSuffix + '_' + cleanName;
 
-                console.log('📁 Ruta del archivo:', filePath);
-
-                // Subir imagen primero
                 procesoActualizacion = supabaseClient.storage
                     .from('maquinarias')
                     .upload(filePath, file, {
@@ -3490,7 +3484,6 @@
 
                         console.log('✅ Imagen subida correctamente');
 
-                        // Obtener URL pública
                         var urlResult = supabaseClient.storage
                             .from('maquinarias')
                             .getPublicUrl(filePath);
@@ -3502,7 +3495,6 @@
                         var publicUrl = urlResult.data.publicUrl;
                         console.log('🔗 URL pública:', publicUrl);
 
-                        // Actualizar producto con la nueva imagen
                         return realizarActualizacion(publicUrl);
                     });
             } else {
@@ -3510,7 +3502,7 @@
                 procesoActualizacion = realizarActualizacion(null);
             }
 
-            // 9. Ejecutar la actualización
+            // Ejecutar actualización
             procesoActualizacion
                 .then(function (updateResult) {
                     if (updateResult.error) {
@@ -3521,10 +3513,8 @@
                     console.log('✅ Producto actualizado exitosamente');
                     alert('✅ ¡Producto actualizado correctamente!');
 
-                    // Cerrar modal y recargar
                     closeModal('modalEditProduct');
 
-                    // Recargar la lista de productos
                     setTimeout(function () {
                         cargarMaquinarias('Todas');
                     }, 300);
@@ -3532,18 +3522,22 @@
                 .catch(function (err) {
                     console.error('❌ Error en el proceso:', err);
 
-                    // Mensaje de error más amigable
                     var errorMsg = err.message || 'Error desconocido';
                     if (errorMsg.includes('permission')) {
                         errorMsg = 'No tienes permisos para realizar esta acción. Verifica tu autenticación.';
                     } else if (errorMsg.includes('duplicate')) {
                         errorMsg = 'Ya existe un producto con este código.';
+                    } else if (errorMsg.includes('JWT')) {
+                        errorMsg = 'Tu sesión ha expirado. Por favor, inicia sesión nuevamente.';
+                        isAdminAuthenticated = false;
+                        setTimeout(function () {
+                            document.getElementById('modalAdminLogin').classList.remove('hidden');
+                        }, 500);
                     }
 
                     alert('❌ Error al actualizar: ' + errorMsg);
                 })
                 .finally(function () {
-                    // Restaurar botón
                     btn.disabled = false;
                     btn.innerHTML = btnOriginalText || '<i class="fa-solid fa-floppy-disk mr-2"></i> Guardar Cambios';
                     console.log('🔓 Proceso finalizado');
