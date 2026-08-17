@@ -929,7 +929,8 @@
                             <div class="flex items-center gap-3">
                                 <div
                                     class="w-12 h-12 bg-red-100 group-hover:bg-red-600 text-red-600 group-hover:text-white rounded-xl flex items-center justify-center text-xl transition-colors duration-300 shrink-0 shadow">
-                                    <i class="fa-solid fa-phone-volume animate-bounce"></i></div>
+                                    <i class="fa-solid fa-phone-volume animate-bounce"></i>
+                                </div>
                                 <div class="space-y-0.5">
                                     <span
                                         class="text-[10px] font-bold text-red-600 uppercase tracking-wider block">Emergencias
@@ -948,7 +949,8 @@
                             <div class="flex items-center gap-3">
                                 <div
                                     class="w-12 h-12 bg-emerald-100 group-hover:bg-emerald-600 text-emerald-600 group-hover:text-white rounded-xl flex items-center justify-center text-xl transition-colors duration-300 shrink-0 shadow">
-                                    <i class="fa-solid fa-headset"></i></div>
+                                    <i class="fa-solid fa-headset"></i>
+                                </div>
                                 <div class="space-y-0.5">
                                     <span
                                         class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider block">Atención
@@ -2806,7 +2808,7 @@
                     class="text-slate-400 hover:text-slate-600 text-xl transition"><i
                         class="fa-solid fa-xmark"></i></button>
             </div>
-            <form id="formEditProduct" onsubmit="event.preventDefault(); guardarEdicionProducto();" class="space-y-4">
+            <form id="formEditProduct" onsubmit="guardarEdicionProducto(); return false;" class="space-y-4">
                 <input type="hidden" id="editProductId" />
                 <div><label
                         class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Código</label><input
@@ -2938,17 +2940,24 @@
                     password: password
                 });
                 if (result.error) throw result.error;
+
+                // IMPORTANTE: Actualizar la variable global
                 isAdminAuthenticated = true;
+                console.log('✅ Admin autenticado correctamente, isAdminAuthenticated =', isAdminAuthenticated);
+
                 errorMsg.classList.add('hidden');
                 closeModal('modalAdminLogin');
+
+                // Mostrar el modal de subida
                 var modal = document.getElementById('modalUploadMachine');
                 if (modal) modal.classList.remove('hidden');
-                console.log('✅ Admin autenticado correctamente');
+
                 alert('✅ ¡Login exitoso!');
             } catch (err) {
                 console.error('❌ Error de login:', err);
                 errorMsg.textContent = '❌ Error: ' + err.message;
                 errorMsg.classList.remove('hidden');
+                isAdminAuthenticated = false;
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket mr-2"></i> Iniciar Sesión';
@@ -3175,11 +3184,16 @@
                 var productId = modalId.replace('productModal_', '');
                 var adminActions = document.getElementById('adminActions_' + productId);
                 if (adminActions) {
+                    console.log('🔑 Estado admin:', isAdminAuthenticated);
                     if (isAdminAuthenticated) {
                         adminActions.classList.remove('hidden');
+                        console.log('✅ Mostrando botones de admin para producto:', productId);
                     } else {
                         adminActions.classList.add('hidden');
+                        console.log('❌ Ocultando botones de admin');
                     }
+                } else {
+                    console.warn('⚠️ No se encontraron adminActions para:', productId);
                 }
             }
         }
@@ -3204,14 +3218,34 @@
         }
 
         function eliminarProducto(productId) {
+            console.log('🗑️ Intentando eliminar producto:', productId);
+            console.log('🔑 Estado admin:', isAdminAuthenticated);
+
             if (!isAdminAuthenticated) {
                 alert('⚠️ Debes iniciar sesión como administrador.');
+                // Mostrar el modal de login
+                var modal = document.getElementById('modalAdminLogin');
+                if (modal) modal.classList.remove('hidden');
                 return;
             }
+
             if (!confirm('⚠️ ¿Estás seguro de eliminar este producto?\nEsta acción no se puede deshacer.')) {
                 return;
             }
-            console.log('🗑️ Eliminando producto:', productId);
+
+            if (!supabaseClient) {
+                alert('Error: Supabase no está configurado.');
+                return;
+            }
+
+            // Mostrar loading
+            var btn = document.querySelector(`#adminActions_${productId} button:last-child`);
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+            }
+
+            // Primero obtener las imágenes para eliminar del storage
             supabaseClient
                 .from('maquinarias')
                 .select('imagen_url, imagenes_extra')
@@ -3219,40 +3253,91 @@
                 .single()
                 .then(function (result) {
                     if (result.error) throw result.error;
+                    var data = result.data;
                     var imagenes = [];
-                    if (result.data.imagen_url) imagenes.push(result.data.imagen_url);
+
+                    if (data.imagen_url) {
+                        imagenes.push(data.imagen_url);
+                    }
+
                     try {
-                        if (result.data.imagenes_extra) {
-                            var extra = JSON.parse(result.data.imagenes_extra);
-                            imagenes = imagenes.concat(extra);
+                        if (data.imagenes_extra) {
+                            var extra = JSON.parse(data.imagenes_extra);
+                            if (Array.isArray(extra)) {
+                                imagenes = imagenes.concat(extra);
+                            }
                         }
-                    } catch (e) { }
+                    } catch (e) {
+                        console.warn('Error parsing imagenes_extra:', e);
+                    }
+
+                    // Eliminar imágenes del storage
                     var deletePromises = imagenes.map(function (url) {
-                        var path = url.split('/').pop();
-                        var fullPath = 'equipos/' + path;
-                        return supabaseClient.storage.from('maquinarias').remove([fullPath]);
+                        try {
+                            var path = url.split('/').pop();
+                            var fullPath = 'equipos/' + path;
+                            console.log('🗑️ Eliminando imagen:', fullPath);
+                            return supabaseClient.storage.from('maquinarias').remove([fullPath]);
+                        } catch (e) {
+                            console.warn('Error eliminando imagen:', url, e);
+                            return Promise.resolve();
+                        }
                     });
+
                     return Promise.all(deletePromises).then(function () {
+                        // Eliminar el registro de la base de datos
+                        console.log('🗑️ Eliminando registro de la BD:', productId);
                         return supabaseClient.from('maquinarias').delete().eq('id', productId);
                     });
                 })
                 .then(function (result) {
                     if (result.error) throw result.error;
                     alert('✅ Producto eliminado correctamente.');
+                    console.log('✅ Producto eliminado, recargando lista...');
                     cargarMaquinarias('Todas');
+
+                    // Cerrar el modal de detalle
+                    var modal = document.getElementById('productModal_' + productId);
+                    if (modal) {
+                        modal.classList.add('hidden');
+                        document.body.style.overflow = 'auto';
+                    }
                 })
                 .catch(function (err) {
                     console.error('❌ Error eliminando:', err);
                     alert('❌ Error al eliminar: ' + err.message);
+                })
+                .finally(function () {
+                    if (btn) {
+                        btn.disabled = false;
+                        btn.innerHTML = '<i class="fa-solid fa-trash mr-1"></i> Eliminar';
+                    }
                 });
         }
 
         function editarProducto(productId) {
+            console.log('✏️ Editando producto:', productId);
+            console.log('🔑 Estado admin:', isAdminAuthenticated);
+
             if (!isAdminAuthenticated) {
                 alert('⚠️ Debes iniciar sesión como administrador.');
+                var modal = document.getElementById('modalAdminLogin');
+                if (modal) modal.classList.remove('hidden');
                 return;
             }
-            console.log('✏️ Editando producto:', productId);
+
+            if (!supabaseClient) {
+                alert('Error: Supabase no está configurado.');
+                return;
+            }
+
+            // Mostrar loading
+            var btn = document.querySelector(`#adminActions_${productId} button:first-child`);
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+            }
+
             supabaseClient
                 .from('maquinarias')
                 .select('*')
@@ -3261,97 +3346,208 @@
                 .then(function (result) {
                     if (result.error) throw result.error;
                     var prod = result.data;
+                    console.log('📦 Datos cargados:', prod);
+
                     document.getElementById('editProductId').value = prod.id;
                     document.getElementById('editCodigo').value = prod.codigo || '';
                     document.getElementById('editNombre').value = prod.nombre || '';
                     document.getElementById('editDescripcion').value = prod.descripcion || '';
                     document.getElementById('editPrecio').value = prod.precio_bs || '';
                     document.getElementById('editCategoria').value = prod.categoria || 'MAQUINARIA';
+
                     var imgPreview = document.getElementById('editImagePreview');
-                    if (imgPreview) {
+                    var imgText = document.getElementById('editImageText');
+                    if (imgPreview && prod.imagen_url) {
                         imgPreview.src = prod.imagen_url;
                         imgPreview.classList.remove('hidden');
+                        if (imgText) imgText.textContent = 'Imagen actual: ' + prod.imagen_url.split('/').pop();
+                    } else if (imgPreview) {
+                        imgPreview.classList.add('hidden');
+                        if (imgText) imgText.textContent = 'Sin imagen actual';
                     }
+
                     document.getElementById('modalEditProduct').classList.remove('hidden');
+                    console.log('✅ Modal de edición abierto');
                 })
                 .catch(function (err) {
-                    console.error('❌ Error:', err);
+                    console.error('❌ Error cargando producto:', err);
                     alert('❌ Error al cargar datos: ' + err.message);
+                })
+                .finally(function () {
+                    if (btn) {
+                        btn.disabled = false;
+                        btn.innerHTML = '<i class="fa-solid fa-pencil mr-1"></i> Editar';
+                    }
                 });
         }
 
         function guardarEdicionProducto() {
+            console.log('💾 Iniciando guardado de edición...');
+
+            // 1. Obtener todos los valores del formulario
             var id = document.getElementById('editProductId').value;
-            var codigo = document.getElementById('editCodigo').value;
-            var nombre = document.getElementById('editNombre').value;
-            var descripcion = document.getElementById('editDescripcion').value;
+            var codigo = document.getElementById('editCodigo').value.trim();
+            var nombre = document.getElementById('editNombre').value.trim();
+            var descripcion = document.getElementById('editDescripcion').value.trim();
             var precio_bs = parseFloat(document.getElementById('editPrecio').value);
             var categoria = document.getElementById('editCategoria').value;
             var fileInput = document.getElementById('editImage');
             var file = fileInput.files[0];
-            if (!nombre || !precio_bs) {
-                alert('⚠️ Nombre y precio son obligatorios.');
+
+            // 2. Validaciones mejoradas
+            if (!id) {
+                alert('⚠️ Error: No se encontró el ID del producto.');
+                console.error('❌ ID del producto vacío');
                 return;
             }
+
+            if (!nombre) {
+                alert('⚠️ El nombre del producto es obligatorio.');
+                document.getElementById('editNombre').focus();
+                return;
+            }
+
+            if (isNaN(precio_bs) || precio_bs <= 0) {
+                alert('⚠️ Por favor ingresa un precio válido mayor a 0.');
+                document.getElementById('editPrecio').focus();
+                return;
+            }
+
+            // 3. Verificar autenticación
+            if (!isAdminAuthenticated) {
+                alert('⚠️ Debes iniciar sesión como administrador.');
+                closeModal('modalEditProduct');
+                document.getElementById('modalAdminLogin').classList.remove('hidden');
+                return;
+            }
+
+            // 4. Verificar conexión a Supabase
+            if (!supabaseClient) {
+                alert('❌ Error de conexión con la base de datos.');
+                console.error('❌ Supabase no está inicializado');
+                return;
+            }
+
+            // 5. Preparar UI para carga
             var btn = document.getElementById('btnSaveEdit');
+            var btnOriginalText = btn.innerHTML;
             btn.disabled = true;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando cambios...';
+
+            // 6. Preparar datos para actualizar
             var updateData = {
-                codigo: codigo,
+                codigo: codigo || 'N/A',
                 nombre: nombre,
-                descripcion: descripcion,
+                descripcion: descripcion || 'Sin descripción',
                 precio_bs: precio_bs,
-                categoria: categoria
+                categoria: categoria || 'MAQUINARIA',
+                updated_at: new Date().toISOString() // Opcional: agregar timestamp
             };
+
+            console.log('📦 Datos a actualizar:', updateData);
+
+            // 7. Función para manejar la actualización
+            function realizarActualizacion(imagenUrl) {
+                if (imagenUrl) {
+                    updateData.imagen_url = imagenUrl;
+                }
+
+                return supabaseClient
+                    .from('maquinarias')
+                    .update(updateData)
+                    .eq('id', id);
+            }
+
+            // 8. Procesar según si hay nueva imagen o no
+            var procesoActualizacion;
+
             if (file) {
+                console.log('📸 Subiendo nueva imagen:', file.name);
+
+                // Limpiar nombre del archivo
                 var cleanName = file.name
                     .replace(/[{}()\[\]]/g, '')
                     .replace(/[^a-zA-Z0-9._-]/g, '_')
                     .replace(/_+/g, '_');
-                var filePath = 'equipos/' + Date.now() + '_' + cleanName;
-                supabaseClient.storage
+                var timestamp = Date.now();
+                var randomSuffix = Math.random().toString(36).substring(2, 6);
+                var filePath = 'equipos/' + timestamp + '_' + randomSuffix + '_' + cleanName;
+
+                console.log('📁 Ruta del archivo:', filePath);
+
+                // Subir imagen primero
+                procesoActualizacion = supabaseClient.storage
                     .from('maquinarias')
-                    .upload(filePath, file)
+                    .upload(filePath, file, {
+                        cacheControl: '3600',
+                        upsert: false
+                    })
                     .then(function (uploadResult) {
-                        if (uploadResult.error) throw uploadResult.error;
-                        var urlResult = supabaseClient.storage.from('maquinarias').getPublicUrl(filePath);
-                        updateData.imagen_url = urlResult.data.publicUrl;
-                        return supabaseClient.from('maquinarias').update(updateData).eq('id', id);
-                    })
-                    .then(function (updateResult) {
-                        if (updateResult.error) throw updateResult.error;
-                        alert('✅ Producto actualizado correctamente.');
-                        closeModal('modalEditProduct');
-                        cargarMaquinarias('Todas');
-                    })
-                    .catch(function (err) {
-                        console.error('❌ Error:', err);
-                        alert('❌ Error al actualizar: ' + err.message);
-                    })
-                    .finally(function () {
-                        btn.disabled = false;
-                        btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i> Guardar Cambios';
+                        if (uploadResult.error) {
+                            console.error('❌ Error al subir imagen:', uploadResult.error);
+                            throw new Error('Error al subir la imagen: ' + uploadResult.error.message);
+                        }
+
+                        console.log('✅ Imagen subida correctamente');
+
+                        // Obtener URL pública
+                        var urlResult = supabaseClient.storage
+                            .from('maquinarias')
+                            .getPublicUrl(filePath);
+
+                        if (!urlResult.data || !urlResult.data.publicUrl) {
+                            throw new Error('No se pudo obtener la URL de la imagen');
+                        }
+
+                        var publicUrl = urlResult.data.publicUrl;
+                        console.log('🔗 URL pública:', publicUrl);
+
+                        // Actualizar producto con la nueva imagen
+                        return realizarActualizacion(publicUrl);
                     });
             } else {
-                supabaseClient
-                    .from('maquinarias')
-                    .update(updateData)
-                    .eq('id', id)
-                    .then(function (updateResult) {
-                        if (updateResult.error) throw updateResult.error;
-                        alert('✅ Producto actualizado correctamente.');
-                        closeModal('modalEditProduct');
-                        cargarMaquinarias('Todas');
-                    })
-                    .catch(function (err) {
-                        console.error('❌ Error:', err);
-                        alert('❌ Error al actualizar: ' + err.message);
-                    })
-                    .finally(function () {
-                        btn.disabled = false;
-                        btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-2"></i> Guardar Cambios';
-                    });
+                console.log('📝 Actualizando sin cambiar imagen');
+                procesoActualizacion = realizarActualizacion(null);
             }
+
+            // 9. Ejecutar la actualización
+            procesoActualizacion
+                .then(function (updateResult) {
+                    if (updateResult.error) {
+                        console.error('❌ Error de Supabase:', updateResult.error);
+                        throw new Error(updateResult.error.message);
+                    }
+
+                    console.log('✅ Producto actualizado exitosamente');
+                    alert('✅ ¡Producto actualizado correctamente!');
+
+                    // Cerrar modal y recargar
+                    closeModal('modalEditProduct');
+
+                    // Recargar la lista de productos
+                    setTimeout(function () {
+                        cargarMaquinarias('Todas');
+                    }, 300);
+                })
+                .catch(function (err) {
+                    console.error('❌ Error en el proceso:', err);
+
+                    // Mensaje de error más amigable
+                    var errorMsg = err.message || 'Error desconocido';
+                    if (errorMsg.includes('permission')) {
+                        errorMsg = 'No tienes permisos para realizar esta acción. Verifica tu autenticación.';
+                    } else if (errorMsg.includes('duplicate')) {
+                        errorMsg = 'Ya existe un producto con este código.';
+                    }
+
+                    alert('❌ Error al actualizar: ' + errorMsg);
+                })
+                .finally(function () {
+                    // Restaurar botón
+                    btn.disabled = false;
+                    btn.innerHTML = btnOriginalText || '<i class="fa-solid fa-floppy-disk mr-2"></i> Guardar Cambios';
+                    console.log('🔓 Proceso finalizado');
+                });
         }
 
         // ==========================================
