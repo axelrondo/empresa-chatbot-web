@@ -3632,38 +3632,61 @@
 
 
 
-        // Modificar showView para ocultar/mostrar sidebar
         // ==========================================
-        // CONTROL DE SIDEBAR (OCULTAR EN INICIO)
+        // CONTROL DE SIDEBAR Y PANEL DE RESUMEN
         // ==========================================
 
-        // Modificar showView para ocultar/mostrar sidebar
+        // Función para controlar la visibilidad del panel de resumen
+        function actualizarPanelResumen(viewId) {
+            const panelResumen = document.getElementById('panelResumen');
+            if (!panelResumen) return;
+
+            // Mostrar panel SOLO en view-inicio
+            if (viewId === 'view-inicio') {
+                panelResumen.style.display = 'flex';
+            } else {
+                panelResumen.style.display = 'none';
+            }
+        }
+
+        // Modificar showView para controlar panel y sidebar
         const originalShowView = window.showView;
         window.showView = function (viewId) {
             // Llamar a la función original
             originalShowView(viewId);
 
-            // Ocultar/mostrar sidebar según la vista
-            const sidebarContainer = document.getElementById('sidebarContainer');
+            // Controlar visibilidad del panel de resumen
+            actualizarPanelResumen(viewId);
 
-            if (viewId === 'view-inicio') {
-                if (sidebarContainer) sidebarContainer.classList.add('hidden-sidebar');
-            } else {
-                if (sidebarContainer) sidebarContainer.classList.remove('hidden-sidebar');
+            // Controlar visibilidad del sidebar (ocultar en inicio)
+            const sidebarContainer = document.getElementById('sidebarContainer');
+            if (sidebarContainer) {
+                if (viewId === 'view-inicio') {
+                    sidebarContainer.classList.remove('hidden-sidebar');
+                } else {
+                    sidebarContainer.classList.remove('hidden-sidebar');
+                }
             }
         };
 
-        // Inicializar: ocultar sidebar en inicio al cargar la página
+        // Inicializar al cargar la página
         document.addEventListener('DOMContentLoaded', function () {
+            // Mostrar panel de resumen en inicio
+            actualizarPanelResumen('view-inicio');
+
+            // Asegurar que el sidebar esté visible
             const sidebarContainer = document.getElementById('sidebarContainer');
-            if (sidebarContainer) sidebarContainer.classList.add('hidden-sidebar');
+            if (sidebarContainer) {
+                sidebarContainer.classList.remove('hidden-sidebar');
+            }
         });
 
-        // También ocultar sidebar cuando se hace clic en "Inicio" desde el menú
+        // También controlar cuando se hace clic en "Inicio" desde el menú
         document.querySelectorAll('[onclick="showView(\'view-inicio\')"]').forEach(function (el) {
             el.addEventListener('click', function () {
+                actualizarPanelResumen('view-inicio');
                 const sidebarContainer = document.getElementById('sidebarContainer');
-                if (sidebarContainer) sidebarContainer.classList.add('hidden-sidebar');
+                if (sidebarContainer) sidebarContainer.classList.remove('hidden-sidebar');
             });
         });
     </script>
