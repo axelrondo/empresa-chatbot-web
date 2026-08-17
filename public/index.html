@@ -199,6 +199,11 @@
                 --track-angle: 360deg;
             }
         }
+
+        /* Ocultar sidebar en Inicio */
+        #sidebarContainer.hidden-sidebar {
+            display: none !important;
+        }
     </style>
 </head>
 
@@ -2412,32 +2417,39 @@
                 </div>
 
                 <!-- COLUMNA DERECHA: SIDEBAR -->
-                <aside class="space-y-6">
-                    <!-- El sidebar SOLO se muestra en vistas que NO sean "view-inicio" -->
-                    <!-- Por eso usamos display: block por defecto, y lo ocultamos con JS en view-inicio -->
+                <!-- ================================ -->
+                <!-- COLUMNA DERECHA: SIDEBAR          -->
+                <!-- ================================ -->
+                <aside class="space-y-6" id="sidebarContainer">
                     <div id="sidebarContacto"
                         class="bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-4">
-                        <h3 class="font-black text-[#003366] text-lg uppercase border-b pb-2 flex items-center gap-2"><i
-                                class="fa-solid fa-address-card text-emerald-600"></i> Contacto Directo</h3>
+                        <h3 class="font-black text-[#003366] text-lg uppercase border-b pb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-address-card text-emerald-600"></i> Contacto Directo
+                        </h3>
                         <ul class="space-y-3 text-xs text-gray-700">
-                            <li class="flex items-start gap-2"><i
-                                    class="fa-solid fa-location-dot text-red-500 mt-1"></i><span><strong>Oficina
-                                        Central:</strong> La Paz - Bolivia</span></li>
-                            <li class="flex items-start gap-2"><i
-                                    class="fa-solid fa-phone text-emerald-600 mt-1"></i><span><strong>Atención al
-                                        Cliente:</strong> 71506930</span></li>
-                            <li class="flex items-start gap-2"><i
-                                    class="fa-solid fa-headset text-red-600 mt-1"></i><span><strong>Emergencias
-                                        24/7:</strong> 79684700</span></li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-location-dot text-red-500 mt-1"></i>
+                                <span><strong>Oficina Central:</strong> La Paz - Bolivia</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-phone text-emerald-600 mt-1"></i>
+                                <span><strong>Atención al Cliente:</strong> 71506930</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-headset text-red-600 mt-1"></i>
+                                <span><strong>Emergencias 24/7:</strong> 79684700</span>
+                            </li>
                         </ul>
                     </div>
+
                     <div id="sidebarAsesoria" class="bg-[#003366] text-white p-6 rounded-2xl shadow-md space-y-3">
                         <h4 class="font-bold uppercase text-amber-300 text-sm">¿Necesita Asesoría?</h4>
                         <p class="text-xs text-slate-200 leading-relaxed">Coordine una visita técnica de evaluación sin
-                            costo.</p>
+                            costo en sus instalaciones.</p>
                         <a href="https://wa.me/59171506930" target="_blank"
-                            class="block text-center bg-amber-500 hover:bg-amber-600 text-slate-900 font-black text-xs py-2.5 rounded-lg uppercase tracking-wider transition">Contactar
-                            Asesor</a>
+                            class="block text-center bg-amber-500 hover:bg-amber-600 text-slate-900 font-black text-xs py-2.5 rounded-lg uppercase tracking-wider transition">
+                            Contactar Asesor
+                        </a>
                     </div>
                 </aside>
 
@@ -3616,6 +3628,10 @@
         // CONTROL DE SIDEBAR (OCULTAR EN INICIO)
         // ==========================================
 
+        // ==========================================
+        // CONTROL DE SIDEBAR (OCULTAR EN INICIO)
+        // ==========================================
+
         // Modificar showView para ocultar/mostrar sidebar
         const originalShowView = window.showView;
         window.showView = function (viewId) {
@@ -3623,24 +3639,19 @@
             originalShowView(viewId);
 
             // Ocultar sidebar en view-inicio
-            const sidebarContacto = document.getElementById('sidebarContacto');
-            const sidebarAsesoria = document.getElementById('sidebarAsesoria');
+            const sidebarContainer = document.getElementById('sidebarContainer');
 
             if (viewId === 'view-inicio') {
-                if (sidebarContacto) sidebarContacto.style.display = 'none';
-                if (sidebarAsesoria) sidebarAsesoria.style.display = 'none';
+                if (sidebarContainer) sidebarContainer.classList.add('hidden-sidebar');
             } else {
-                if (sidebarContacto) sidebarContacto.style.display = 'block';
-                if (sidebarAsesoria) sidebarAsesoria.style.display = 'block';
+                if (sidebarContainer) sidebarContainer.classList.remove('hidden-sidebar');
             }
         };
 
         // Inicializar: ocultar sidebar en inicio
         document.addEventListener('DOMContentLoaded', function () {
-            const sidebarContacto = document.getElementById('sidebarContacto');
-            const sidebarAsesoria = document.getElementById('sidebarAsesoria');
-            if (sidebarContacto) sidebarContacto.style.display = 'none';
-            if (sidebarAsesoria) sidebarAsesoria.style.display = 'none';
+            const sidebarContainer = document.getElementById('sidebarContainer');
+            if (sidebarContainer) sidebarContainer.classList.add('hidden-sidebar');
         });
     </script>
 
