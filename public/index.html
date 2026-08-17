@@ -890,38 +890,215 @@
                 <!-- ================================ -->
                 <!-- 6. VIEW 24 HORAS                  -->
                 <!-- ================================ -->
+                <!-- 6. VIEW 24 HORAS (COMPLETO)      -->
+                <!-- ================================ -->
                 <div id="view-24horas" class="view-section hidden space-y-6 animate-fade-in">
+
+                    <!-- HEADER ROJO -->
                     <div
                         class="relative overflow-hidden bg-gradient-to-r from-red-700 via-red-600 to-red-800 text-white p-6 rounded-2xl shadow-xl border-2 border-red-500">
-                        <h2 class="text-xl md:text-3xl font-black uppercase">Servicio 24 Horas a Clientes</h2>
-                        <p class="text-red-100 text-xs md:text-sm font-medium">Todos los clientes de LIM-BOLIVIA pueden
-                            disponer de un teléfono las 24 horas para atender emergencias.</p>
+                        <div
+                            class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl animate-pulse">
+                        </div>
+                        <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-4">
+                            <div class="space-y-2 text-center md:text-left">
+                                <div
+                                    class="inline-flex items-center gap-2 bg-red-900/60 text-red-200 text-xs font-black uppercase px-3 py-1 rounded-full border border-red-400/40 tracking-widest animate-pulse">
+                                    <span class="w-2.5 h-2.5 bg-red-400 rounded-full animate-ping"></span> Atención
+                                    Inmediata 24/7
+                                </div>
+                                <h2 class="text-xl md:text-3xl font-black uppercase tracking-tight drop-shadow-md">
+                                    Servicio 24 Horas a Clientes</h2>
+                                <p class="text-red-100 text-xs md:text-sm font-medium leading-relaxed">Todos los
+                                    clientes de <strong class="text-amber-300">LIM-BOLIVIA</strong> pueden disponer de
+                                    un teléfono las 24 horas (Lunes a Domingo) para atender emergencias.</p>
+                            </div>
+                            <div
+                                class="shrink-0 bg-white/10 p-4 rounded-xl backdrop-blur-md border border-white/20 shadow-inner flex items-center justify-center">
+                                <i class="fa-solid fa-clock-rotate-left text-4xl text-amber-300 animate-spin"
+                                    style="animation-duration: 12s;"></i>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- BOTONES DE CONTACTO -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <a href="https://wa.me/59179684700" target="_blank"
-                            class="bg-white p-4 rounded-xl shadow border border-slate-200 hover:border-red-500 transition">
+                        <a href="https://wa.me/59179684700?text=Hola,%20requiero%20atenci%C3%B3n%20de%20emergencia%2024H%20para%20Limpieza%20T%C3%A9cnica"
+                            target="_blank"
+                            class="group relative bg-white p-4 rounded-xl shadow border border-slate-200 hover:border-red-500 transition-all duration-300">
                             <div class="flex items-center gap-3">
                                 <div
-                                    class="w-12 h-12 bg-red-100 text-red-600 rounded-xl flex items-center justify-center text-xl">
-                                    <i class="fa-solid fa-phone-volume animate-bounce"></i>
-                                </div>
-                                <div><span class="text-[10px] font-bold text-red-600 uppercase">Emergencias</span>
-                                    <h3 class="text-xl font-black">79684700</h3>
+                                    class="w-12 h-12 bg-red-100 group-hover:bg-red-600 text-red-600 group-hover:text-white rounded-xl flex items-center justify-center text-xl transition-colors duration-300 shrink-0 shadow">
+                                    <i class="fa-solid fa-phone-volume animate-bounce"></i></div>
+                                <div class="space-y-0.5">
+                                    <span
+                                        class="text-[10px] font-bold text-red-600 uppercase tracking-wider block">Emergencias
+                                        Técnicas</span>
+                                    <h3
+                                        class="text-xl font-black text-slate-800 group-hover:text-red-600 transition-colors">
+                                        79684700</h3>
+                                    <p class="text-[11px] text-gray-500 font-medium">Limpiezas Técnicas Especializadas
+                                    </p>
                                 </div>
                             </div>
                         </a>
-                        <a href="https://wa.me/59171506930" target="_blank"
-                            class="bg-white p-4 rounded-xl shadow border border-slate-200 hover:border-emerald-500 transition">
+                        <a href="https://wa.me/59171506930?text=Hola,%20requiero%20atenci%C3%B3n%2024H%20para%20Limpieza%20de%20Mantenimiento"
+                            target="_blank"
+                            class="group relative bg-white p-4 rounded-xl shadow border border-slate-200 hover:border-emerald-500 transition-all duration-300">
                             <div class="flex items-center gap-3">
                                 <div
-                                    class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl">
-                                    <i class="fa-solid fa-headset"></i>
-                                </div>
-                                <div><span class="text-[10px] font-bold text-emerald-600 uppercase">Atención</span>
-                                    <h3 class="text-xl font-black">71506930</h3>
+                                    class="w-12 h-12 bg-emerald-100 group-hover:bg-emerald-600 text-emerald-600 group-hover:text-white rounded-xl flex items-center justify-center text-xl transition-colors duration-300 shrink-0 shadow">
+                                    <i class="fa-solid fa-headset"></i></div>
+                                <div class="space-y-0.5">
+                                    <span
+                                        class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider block">Atención
+                                        Continuada</span>
+                                    <h3
+                                        class="text-xl font-black text-slate-800 group-hover:text-emerald-600 transition-colors">
+                                        71506930</h3>
+                                    <p class="text-[11px] text-gray-500 font-medium">Limpiezas de Mantenimiento e
+                                        Institucional</p>
                                 </div>
                             </div>
                         </a>
+                    </div>
+
+                    <!-- SERVICIOS 24H MÁS REQUERIDOS -->
+                    <div class="bg-white p-5 md:p-6 rounded-2xl shadow border border-slate-200 space-y-5">
+                        <div
+                            class="border-b border-slate-100 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <h3 class="text-lg font-black text-[#003366] uppercase flex items-center gap-2"><i
+                                        class="fa-solid fa-bolt text-amber-500"></i> Servicios 24H Más Requeridos</h3>
+                            </div>
+                            <span
+                                class="text-[10px] bg-amber-100 text-amber-900 font-bold px-2.5 py-0.5 rounded-full w-max border border-amber-300">Disponibilidad
+                                Inmediata</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                            <!-- CARD 1: INUNDACIONES -->
+                            <div
+                                class="group bg-slate-50 rounded-xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
+                                <div class="relative h-36 overflow-hidden bg-blue-900">
+                                    <div class="flex h-full w-full">
+                                        <img src="/img/inundacion1.png" alt="Inundaciones 1"
+                                            class="w-1/2 h-full object-cover group-hover:scale-110 transition duration-500"
+                                            onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200/003366/FFFFFF?text=Inundacion+1';" />
+                                        <img src="/img/inundacion2.png" alt="Inundaciones 2"
+                                            class="w-1/2 h-full object-cover group-hover:scale-110 transition duration-500"
+                                            onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200/002244/FFFFFF?text=Inundacion+2';" />
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent">
+                                    </div>
+                                    <span
+                                        class="absolute bottom-2 left-2 bg-red-600 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded shadow"><i
+                                            class="fa-solid fa-water-lower animate-pulse"></i> URGENCIA</span>
+                                </div>
+                                <div class="p-4 space-y-2 flex-1 flex flex-col justify-between">
+                                    <div>
+                                        <h4
+                                            class="font-bold text-slate-800 text-sm group-hover:text-red-600 transition-colors">
+                                            Extracción de Agua en Inundaciones</h4>
+                                        <p class="text-[11px] text-gray-600 mt-1">Absorción y bombeo rápido de agua por
+                                            fugas o lluvias.</p>
+                                    </div>
+                                    <a href="https://wa.me/59179684700?text=Requiero%20Servicio%20de%20Extracci%C3%B3n%20de%20Agua%20en%20Inundaci%C3%B3n"
+                                        target="_blank"
+                                        class="w-full bg-red-600 hover:bg-red-700 text-white text-xs font-bold py-2 rounded-lg text-center block transition shadow">Solicitar
+                                        Auxilio 24/7</a>
+                                </div>
+                            </div>
+
+                            <!-- CARD 2: SECADO DE ALFOMBRAS -->
+                            <div
+                                class="group bg-slate-50 rounded-xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
+                                <div class="relative h-36 overflow-hidden bg-slate-800">
+                                    <img src="/img/secado.png" alt="Secado de Alfombras"
+                                        class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200/1e293b/FFFFFF?text=Secado+de+Alfombras';" />
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent">
+                                    </div>
+                                    <span
+                                        class="absolute bottom-2 left-2 bg-blue-600 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded shadow"><i
+                                            class="fa-solid fa-fan animate-spin"></i> SECADO RÁPIDO</span>
+                                </div>
+                                <div class="p-4 space-y-2 flex-1 flex flex-col justify-between">
+                                    <div>
+                                        <h4
+                                            class="font-bold text-slate-800 text-sm group-hover:text-blue-600 transition-colors">
+                                            Secado de Alfombras</h4>
+                                        <p class="text-[11px] text-gray-600 mt-1">Deshumidificación e inyección de aire
+                                            para evitar hongos.</p>
+                                    </div>
+                                    <a href="https://wa.me/59179684700?text=Requiero%20Servicio%20Urgente%20de%20Secado%20de%20Alfombras"
+                                        target="_blank"
+                                        class="w-full bg-[#003366] hover:bg-[#002244] text-white text-xs font-bold py-2 rounded-lg text-center block transition shadow">Pedir
+                                        Secado Urgente</a>
+                                </div>
+                            </div>
+
+                            <!-- CARD 3: MUDANZAS -->
+                            <div
+                                class="group bg-slate-50 rounded-xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
+                                <div class="relative h-36 overflow-hidden bg-emerald-900">
+                                    <img src="/img/mudanza.png" alt="Limpieza Mudanza"
+                                        class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200/065f46/FFFFFF?text=Limpieza+Mudanza';" />
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent">
+                                    </div>
+                                    <span
+                                        class="absolute bottom-2 left-2 bg-emerald-600 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded shadow"><i
+                                            class="fa-solid fa-truck-ramp-box"></i> MUDANZAS</span>
+                                </div>
+                                <div class="p-4 space-y-2 flex-1 flex flex-col justify-between">
+                                    <div>
+                                        <h4
+                                            class="font-bold text-slate-800 text-sm group-hover:text-emerald-600 transition-colors">
+                                            Limpieza Pre y Post Mudanza</h4>
+                                        <p class="text-[11px] text-gray-600 mt-1">Acondicionamiento y desinfección antes
+                                            de ocupar o entregar el espacio.</p>
+                                    </div>
+                                    <a href="https://wa.me/59171506930?text=Requiero%20Limpieza%20Pre/Post%20Mudanza"
+                                        target="_blank"
+                                        class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 rounded-lg text-center block transition shadow">Programar
+                                        Mudanza</a>
+                                </div>
+                            </div>
+
+                            <!-- CARD 4: INSTITUCIONAL -->
+                            <div
+                                class="group bg-slate-50 rounded-xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
+                                <div class="relative h-36 overflow-hidden bg-amber-900">
+                                    <img src="/img/general.png" alt="Limpieza General Instituciones"
+                                        class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200/78350f/FFFFFF?text=Limpieza+General+Instituciones';" />
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent">
+                                    </div>
+                                    <span
+                                        class="absolute bottom-2 left-2 bg-amber-500 text-slate-900 text-[9px] font-black uppercase px-2 py-0.5 rounded shadow"><i
+                                            class="fa-solid fa-calendar-week"></i> FIN DE SEMANA</span>
+                                </div>
+                                <div class="p-4 space-y-2 flex-1 flex flex-col justify-between">
+                                    <div>
+                                        <h4
+                                            class="font-bold text-slate-800 text-sm group-hover:text-amber-600 transition-colors">
+                                            Limpieza General Institucional</h4>
+                                        <p class="text-[11px] text-gray-600 mt-1">Mantenimiento masivo a instituciones
+                                            en días no hábiles.</p>
+                                    </div>
+                                    <a href="https://wa.me/59171506930?text=Requiero%20Limpieza%20Institucional%20Fin%20de%20Semana"
+                                        target="_blank"
+                                        class="w-full bg-amber-500 hover:bg-amber-600 text-slate-900 text-xs font-black py-2 rounded-lg text-center block transition shadow">Cotizar
+                                        Fin de Semana</a>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
