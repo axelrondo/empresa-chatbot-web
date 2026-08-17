@@ -2416,7 +2416,7 @@
                     </div>
                 </div>
 
-            
+
 
             </div>
 
@@ -2456,6 +2456,42 @@
             </aside>
 
         </div>
+
+        <!-- RESUMEN DERECHA (Panel Azul Cotizador) -->
+        <div
+            class="bg-[#003366] text-white p-6 rounded-xl flex flex-col justify-between shadow-xl sticky top-6 z-10 border border-[#004488]">
+            <div>
+                <span class="text-xs uppercase font-bold tracking-widest text-emerald-400">Resumen</span>
+                <h3 class="text-lg font-bold mt-1 text-white border-b border-[#004488] pb-2">
+                    Servicios
+                </h3>
+                <!-- Contenedor dinámico de servicios -->
+                <div id="servicesBreakdown" class="my-4 max-h-[45vh] overflow-y-auto pr-1">
+                    <p class="text-xs text-gray-300 italic text-center py-4">No has agregado ningún servicio.</p>
+                </div>
+            </div>
+
+            <div class="border-t border-[#004488] pt-4 space-y-3">
+                <div class="flex justify-between items-baseline">
+                    <span class="text-xs text-gray-300 uppercase font-semibold">Total estimado</span>
+                    <!-- Monto total dinámico -->
+                    <div id="summaryTotal" class="text-3xl font-black text-amber-400">Bs 0</div>
+                </div>
+
+                <!-- Botón de WhatsApp -->
+                <button onclick="sendToWhatsApp()"
+                    class="w-full bg-green-600 hover:bg-green-500 active:bg-green-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> Reservar por WhatsApp
+                </button>
+
+                <!-- Botón de Audio -->
+                <button onclick="talkQuote()"
+                    class="w-full bg-[#002244] hover:bg-slate-800 text-emerald-400 font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition border border-[#004488] text-xs">
+                    <i class="fa-solid fa-volume-high"></i> Escuchar Cotización
+                </button>
+            </div>
+        </div>
+        <!-- FIN RESUMEN DERECHA -->
 
         </div>
     </main>
