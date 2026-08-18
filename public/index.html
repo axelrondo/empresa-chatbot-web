@@ -257,6 +257,51 @@
                 radial-gradient(ellipse at 80% 50%, rgba(200, 225, 255, 0.3) 0%, transparent 70%),
                 linear-gradient(180deg, #f0f5fa 0%, #e8eef5 50%, #f0f5fa 100%);
         }
+
+        /* Fuente serif para el mensaje */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+        .font-serif {
+            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+        }
+
+        /* Animación de entrada para las tarjetas */
+        .view-section.animate-fade-in .group {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .view-section.animate-fade-in .group:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .view-section.animate-fade-in .group:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .view-section.animate-fade-in .group:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .view-section.animate-fade-in .group:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .view-section.animate-fade-in .group:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 
@@ -1216,7 +1261,7 @@
                                         <li class="flex items-center gap-2"><span
                                                 class="w-1.5 h-1.5 rounded-full bg-blue-400"></span> <span
                                                 class="font-semibold text-blue-700">CANAL 7 LA PAZ - TVB</span></li>
-                                    </ul>  
+                                    </ul>
                                 </div>
 
                                 <!-- 4. SALUD & CLÍNICAS -->
@@ -1301,46 +1346,258 @@
                     </div>
                 </div>
                 <!-- ================================ -->
-                <!-- 4. VIEW PRINCIPIOS                -->
+                <!-- 4. VIEW PRINCIPIOS (REDISEÑADO) -->
                 <!-- ================================ -->
                 <div id="view-principios"
-                    class="view-section hidden bg-white p-6 md:p-8 rounded-2xl shadow-md border border-slate-200 space-y-8 animate-fade-in">
-                    <div class="border-b border-slate-200 pb-4">
-                        <h2
-                            class="text-2xl md:text-3xl font-black text-[#003366] tracking-wide uppercase flex items-center gap-3">
-                            <i class="fa-solid fa-award text-amber-500"></i> NUESTROS PRINCIPIOS
-                        </h2>
+                    class="view-section hidden rounded-2xl overflow-hidden shadow-xl border border-blue-200/50 animate-fade-in bg-white">
+
+                    <!-- ENCABEZADO -->
+                    <div
+                        class="relative bg-gradient-to-r from-[#003366] via-blue-800 to-[#003366] p-8 md:p-10 overflow-hidden">
+                        <!-- Decoración de fondo -->
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-amber-400/5 rounded-full blur-3xl"></div>
+                        <div class="absolute bottom-0 left-0 w-64 h-64 bg-emerald-400/5 rounded-full blur-3xl"></div>
+
+                        <!-- Estrellas decorativas -->
+                        <div class="absolute top-4 left-10 text-amber-400/20 text-2xl">✦</div>
+                        <div class="absolute bottom-4 right-10 text-amber-400/20 text-2xl">✦</div>
+
+                        <div class="relative z-10 text-center">
+                            <div
+                                class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm px-5 py-2 rounded-full border border-white/20 mb-4">
+                                <i class="fa-solid fa-award text-amber-400 text-sm"></i>
+                                <span class="text-white/80 text-[10px] font-bold uppercase tracking-[0.2em]">Nuestra
+                                    Filosofía</span>
+                            </div>
+                            <h2 class="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white tracking-tight">
+                                Nuestros Principios
+                            </h2>
+                            <p class="text-blue-200/70 text-sm mt-2 max-w-2xl mx-auto">Los pilares que sostienen nuestra
+                                razón de ser y guían cada acción que emprendemos</p>
+                            <div
+                                class="w-20 h-1 bg-gradient-to-r from-amber-400 to-emerald-400 rounded-full mx-auto mt-4">
+                            </div>
+                        </div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                    <!-- CONTENIDO PRINCIPAL -->
+                    <div class="p-6 md:p-8 lg:p-10 bg-gradient-to-b from-slate-50 to-white">
+
+                        <!-- PRINCIPIOS EN TARJETAS (5 COLUMNAS) -->
                         <div
-                            class="p-5 rounded-xl bg-slate-50 border-t-4 border-[#003366] shadow-sm hover:shadow-md transition space-y-2">
+                            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 max-w-7xl mx-auto">
+
+                            <!-- 1. CLIENTE -->
                             <div
-                                class="w-10 h-10 bg-blue-100 text-[#003366] rounded-lg flex items-center justify-center text-lg font-bold">
-                                <i class="fa-solid fa-user-check"></i>
+                                class="group bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-amber-400/50">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
+                                        <i class="fa-solid fa-user-check text-white text-lg"></i>
+                                    </div>
+                                    <h3 class="font-black text-[#003366] text-sm uppercase tracking-wide">CLIENTE</h3>
+                                </div>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    Orientamos todos nuestros esfuerzos en aumentar su satisfacción y cumplir con los
+                                    requisitos convenidos, agregando valor al servicio que le prestamos con un óptimo
+                                    costo-beneficio.
+                                </p>
+                                <div class="mt-3 flex items-center gap-2 text-[10px] text-emerald-600 font-medium">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    <span>Siempre primero</span>
+                                </div>
                             </div>
-                            <h3 class="font-black text-[#003366] uppercase text-sm tracking-wide">CLIENTE</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed">Orientamos nuestros esfuerzos en aumentar
-                                continuamente su satisfacción...</p>
+
+                            <!-- 2. LIDERAZGO -->
+                            <div
+                                class="group bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-amber-400/50">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
+                                        <i class="fa-solid fa-trophy text-white text-lg"></i>
+                                    </div>
+                                    <h3 class="font-black text-[#003366] text-sm uppercase tracking-wide">LIDERAZGO</h3>
+                                </div>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    Nuestra trayectoria y experiencia en el mercado nos permiten ser flexibles, dentro
+                                    del marco legal y reglamentario aplicable, así como mantener una actitud proactiva
+                                    para seguir siendo la primera elección de cada cliente.
+                                </p>
+                                <div class="mt-3 flex items-center gap-2 text-[10px] text-amber-600 font-medium">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    <span>Excelencia en acción</span>
+                                </div>
+                            </div>
+
+                            <!-- 3. SERVICIOS -->
+                            <div
+                                class="group bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-amber-400/50">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
+                                        <i class="fa-solid fa-gears text-white text-lg"></i>
+                                    </div>
+                                    <h3 class="font-black text-[#003366] text-sm uppercase tracking-wide">SERVICIOS</h3>
+                                </div>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    La constante investigación y nuestro permanente desarrollo interno, a través de la
+                                    actualización realizada a nivel nacional e internacional, nos permiten generar y
+                                    mejorar continuamente nuestros operativos tecnológicos.
+                                </p>
+                                <div class="mt-3 flex items-center gap-2 text-[10px] text-emerald-600 font-medium">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    <span>Innovación constante</span>
+                                </div>
+                            </div>
+
+                            <!-- 4. PERSONAL -->
+                            <div
+                                class="group bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-amber-400/50">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
+                                        <i class="fa-solid fa-users text-white text-lg"></i>
+                                    </div>
+                                    <h3 class="font-black text-[#003366] text-sm uppercase tracking-wide">PERSONAL</h3>
+                                </div>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    El compromiso que nuestro personal posee en las tareas brindadas reflejan su
+                                    identificación con los valores de nuestra empresa y demuestra la continua
+                                    capacitación y motivación que recibe.
+                                </p>
+                                <div class="mt-3 flex items-center gap-2 text-[10px] text-purple-600 font-medium">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    <span>Talento y compromiso</span>
+                                </div>
+                            </div>
+
+                            <!-- 5. SEGURIDAD -->
+                            <div
+                                class="group bg-white rounded-xl p-5 border border-slate-200/60 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-amber-400/50">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
+                                        <i class="fa-solid fa-shield-halved text-white text-lg"></i>
+                                    </div>
+                                    <h3 class="font-black text-[#003366] text-sm uppercase tracking-wide">SEGURIDAD</h3>
+                                </div>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    Resguardamos la salud y la integridad física de nuestro personal, la de nuestros
+                                    clientes y de todo aquel que interactúa con los servicios que brindamos.
+                                    Concientizamos a nuestro personal sobre los riesgos inherentes a sus tareas.
+                                </p>
+                                <div class="mt-3 flex items-center gap-2 text-[10px] text-red-600 font-medium">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    <span>Compromiso con la vida</span>
+                                </div>
+                            </div>
+
                         </div>
-                        <div
-                            class="p-5 rounded-xl bg-slate-50 border-t-4 border-amber-500 shadow-sm hover:shadow-md transition space-y-2">
+
+                        <!-- MENSAJE DE REFLEXIÓN (ESTILO FÁBULA) -->
+                        <div class="max-w-4xl mx-auto mt-12">
                             <div
-                                class="w-10 h-10 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-lg font-bold">
-                                <i class="fa-solid fa-trophy"></i>
+                                class="relative bg-gradient-to-br from-slate-50/80 to-blue-50/60 rounded-2xl p-8 md:p-10 border border-blue-200/40 shadow-lg overflow-hidden">
+
+                                <!-- Decoración de esquinas -->
+                                <div
+                                    class="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-amber-400/30 rounded-tl-2xl">
+                                </div>
+                                <div
+                                    class="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-amber-400/30 rounded-br-2xl">
+                                </div>
+
+                                <!-- Icono de cita/fábula -->
+                                <div class="absolute top-4 right-6 text-amber-400/20 text-6xl font-serif">"</div>
+                                <div class="absolute bottom-4 left-6 text-amber-400/20 text-6xl font-serif">"</div>
+
+                                <div class="relative z-10 text-center">
+                                    <!-- Pequeño título -->
+                                    <div
+                                        class="inline-flex items-center gap-2 bg-amber-100/50 px-4 py-1.5 rounded-full border border-amber-200/50 mb-4">
+                                        <i class="fa-solid fa-feather-pointed text-amber-500 text-xs"></i>
+                                        <span
+                                            class="text-[10px] font-bold text-amber-700 uppercase tracking-widest">Reflexión
+                                            y Legado</span>
+                                    </div>
+
+                                    <!-- Historia del fundador -->
+                                    <div class="space-y-4">
+                                        <p class="text-slate-700 leading-relaxed text-sm md:text-base italic">
+                                            <span class="text-amber-600 text-xl font-serif">"</span>
+                                            <span class="font-medium">Un hombre con visión, con la mente puesta en crear
+                                                oportunidades para los bolivianos.</span>
+                                        </p>
+
+                                        <p class="text-slate-600 leading-relaxed text-sm">
+                                            <span class="text-[#003366] font-bold">Su historia comenzó en Electrolux La
+                                                Paz</span>, donde trabajó y aprendió los fundamentos del servicio y la
+                                            excelencia.
+                                            Aquella experiencia fue <span class="text-amber-600 font-semibold">la
+                                                antorcha y guía</span> que iluminó el camino para formar una gran
+                                            empresa.
+                                        </p>
+
+                                        <div class="relative py-4">
+                                            <div
+                                                class="absolute left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-transparent via-amber-300/30 to-transparent">
+                                            </div>
+                                            <p class="text-slate-600 leading-relaxed text-sm max-w-lg mx-auto">
+                                                <span class="text-[#003366] font-bold">Motivación, dedicación y
+                                                    constancia</span>,
+                                                palabras que lo reflejan en el transcurso de su vida y que hoy son los
+                                                cimientos de
+                                                <span class="text-amber-600 font-semibold">LIM-BOLIVIA</span>.
+                                            </p>
+                                        </div>
+
+                                        <div
+                                            class="bg-gradient-to-r from-amber-50/80 to-blue-50/80 p-4 rounded-xl border border-amber-200/30">
+                                            <p class="text-[#003366] font-serif font-bold text-sm md:text-base">
+                                                "La grandeza de una empresa no se mide por el dinero que gana,
+                                                sino por las vidas que transforma y los sueños que construye."
+                                            </p>
+                                            <p class="text-[10px] text-amber-600 font-medium mt-1">— Fundador de
+                                                LIM-BOLIVIA</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Decoración inferior -->
+                                    <div class="flex justify-center gap-2 mt-6">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400/40"></span>
+                                        <span class="w-1.5 h-1.5 rounded-full bg-blue-400/40"></span>
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400/40"></span>
+                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400/40"></span>
+                                        <span class="w-1.5 h-1.5 rounded-full bg-blue-400/40"></span>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 class="font-black text-[#003366] uppercase text-sm tracking-wide">LIDERAZGO</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed">Mantenemos una actitud proactiva e
-                                innovadora...</p>
                         </div>
-                        <div
-                            class="p-5 rounded-xl bg-slate-50 border-t-4 border-emerald-600 shadow-sm hover:shadow-md transition space-y-2">
-                            <div
-                                class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-lg font-bold">
-                                <i class="fa-solid fa-shield-halved"></i>
+
+                        <!-- SELLO DE VALORES -->
+                        <div class="max-w-4xl mx-auto mt-8">
+                            <div class="flex flex-wrap justify-center gap-3">
+                                <span
+                                    class="inline-flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-full text-[10px] font-bold text-slate-600 border border-slate-200/50">
+                                    <i class="fa-solid fa-check-circle text-emerald-500"></i> Integridad
+                                </span>
+                                <span
+                                    class="inline-flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-full text-[10px] font-bold text-slate-600 border border-slate-200/50">
+                                    <i class="fa-solid fa-check-circle text-emerald-500"></i> Responsabilidad
+                                </span>
+                                <span
+                                    class="inline-flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-full text-[10px] font-bold text-slate-600 border border-slate-200/50">
+                                    <i class="fa-solid fa-check-circle text-emerald-500"></i> Calidad
+                                </span>
+                                <span
+                                    class="inline-flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-full text-[10px] font-bold text-slate-600 border border-slate-200/50">
+                                    <i class="fa-solid fa-check-circle text-emerald-500"></i> Respeto
+                                </span>
+                                <span
+                                    class="inline-flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-full text-[10px] font-bold text-slate-600 border border-slate-200/50">
+                                    <i class="fa-solid fa-check-circle text-emerald-500"></i> Compromiso
+                                </span>
                             </div>
-                            <h3 class="font-black text-[#003366] uppercase text-sm tracking-wide">SEGURIDAD</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed">Resguardamos la salud, la confidencialidad
-                                y la integridad física...</p>
                         </div>
                     </div>
                 </div>
