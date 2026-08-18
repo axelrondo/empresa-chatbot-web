@@ -662,18 +662,20 @@
                     class="view-section hidden rounded-2xl overflow-hidden shadow-xl border border-slate-200/50 animate-fade-in bg-white">
 
                     <!-- BANNER SUPERIOR CON LOGO3.PNG -->
-                    <div
-                        class="relative w-full h-48 md:h-64 lg:h-72 overflow-hidden bg-gradient-to-r from-slate-100 to-slate-200">
-                        <!-- Imagen de fondo: logo3.png -->
+                    <!-- BANNER SUPERIOR CON LOGO3.PNG - OCUPA TODO EL ESPACIO -->
+                    <div class="relative w-full h-56 md:h-72 lg:h-80 overflow-hidden bg-[#003366]">
+                        <!-- Imagen que ocupa TODO el espacio -->
                         <img src="/img/logo3.png" alt="LIM-BOLIVIA"
-                            class="w-full h-full object-contain object-center p-4 md:p-8"
-                            onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center text-slate-400\'><i class=\'fa-solid fa-image text-6xl opacity-20\'></i></div>';">
+                            class="absolute inset-0 w-full h-full object-cover object-center"
+                            onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center text-white/20 bg-[#003366]\'><i class=\'fa-solid fa-image text-8xl opacity-30\'></i></div>';">
 
-                        <!-- Sutil gradiente de superposición -->
-                        <div class="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-white/20"></div>
+                        <!-- Overlay suave para mejorar legibilidad -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-[#003366]/30 via-transparent to-[#003366]/30">
+                        </div>
 
-                        <!-- Texto superpuesto -->
-                        <div class="absolute bottom-4 left-0 right-0 text-center">
+                        <!-- Opcional: Texto superpuesto -->
+                        <div class="absolute bottom-4 left-0 right-0 text-center z-10">
                             <span
                                 class="inline-block bg-black/30 backdrop-blur-sm text-white/90 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-white/20">
                                 <i class="fa-solid fa-flag text-amber-400 mr-2"></i> Nuestra Identidad
