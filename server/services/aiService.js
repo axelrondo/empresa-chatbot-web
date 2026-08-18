@@ -8,11 +8,15 @@ const __dirname = path.dirname(__filename);
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
+// 🔴 MODELO DISPONIBLE EN TU CUENTA
+const MODELO = 'openai/gpt-oss-120b';
+
 export async function askGemini(userQuery, chatHistory = []) {
     console.log('📨 askGemini llamado');
     console.log('📝 Mensaje:', userQuery);
     console.log('📚 Historial:', chatHistory?.length || 0);
     console.log('🔑 API Key configurada:', process.env.GROQ_API_KEY ? '✅ SI' : '❌ NO');
+    console.log('📤 Modelo a usar:', MODELO);
 
     try {
         // 1. Cargar archivo de información
@@ -73,19 +77,22 @@ REGLAS DE MEMORIA Y ATENCIÓN:
             { role: 'user', content: userQuery.trim() }
         ];
 
-        console.log('📤 Modelo: llama-3.1-8b-instant');
+        console.log('📤 Enviando a Groq con modelo:', MODELO);
         console.log('📤 Mensajes:', JSON.stringify(messages, null, 2));
 
-        // 7. ✅ LLAMADA CORRECTA A GROQ CON MODELO DISPONIBLE
+        // 7. ✅ LLAMADA CORRECTA A GROQ
         const chatCompletion = await groq.chat.completions.create({
             messages: messages,
-            model: 'llama-3.1-8b-instant',  // ← Modelo que SÍ está disponible
+            model: MODELO,  // ← openai/gpt-oss-120b
             temperature: 0.4,
-            max_tokens: 500
+            max_tokens: 500,
+            // 🔴 IMPORTANTE: Para modelos OpenAI en Groq, puede necesitar estos parámetros
+            top_p: 1,
+            stream: false
         });
 
         const response = chatCompletion.choices[0]?.message?.content;
-        console.log('✅ Respuesta de Groq:', response?.substring(0, 100));
+        console.log('✅ Respuesta de Groq:', response?.substring(0, 200));
 
         return response || '¡Hola! ¿En qué puedo ayudarte hoy?';
 
@@ -93,12 +100,13 @@ REGLAS DE MEMORIA Y ATENCIÓN:
         console.error('❌ ERROR EN askGemini:');
         console.error('Mensaje:', error?.message);
         console.error('Stack:', error?.stack);
+        console.error('Error completo:', error);
 
         // 🔴 Mensajes de error específicos
         if (error?.message?.includes('API key')) {
-            return "❌ Error de configuración: La API Key no es válida. Contacta al administrador.";
+            return "❌ Error: La API Key no es válida. Contacta al administrador.";
         } else if (error?.message?.includes('model')) {
-            return `❌ Error: El modelo 'llama-3.1-8b-instant' no está disponible. Contacta al administrador.`;
+            return `❌ Error: El modelo '${MODELO}' no está disponible. Contacta al administrador.`;
         } else if (error?.message?.includes('rate limit')) {
             return "⏳ Demasiadas solicitudes. Espera un momento e intenta nuevamente.";
         } else if (error?.message?.includes('timeout')) {
