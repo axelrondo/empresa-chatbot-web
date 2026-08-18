@@ -9,87 +9,102 @@ const __dirname = path.dirname(__filename);
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 export async function askGemini(userQuery, chatHistory = []) {
-  try {
-    // 1. Carga del archivo de información
-    let infoEmpresa = '';
-    const txtPath = path.join(__dirname, '../data/informacion.txt');
+    console.log('📨 askGemini llamado');
+    console.log('📝 Mensaje:', userQuery);
+    console.log('📚 Historial:', chatHistory?.length || 0);
+    console.log('🔑 API Key configurada:', process.env.GROQ_API_KEY ? '✅ SI' : '❌ NO');
 
-    if (fs.existsSync(txtPath)) {
-      infoEmpresa = fs.readFileSync(txtPath, 'utf-8');
-    } else {
-      infoEmpresa = 'Lim Bolivia: Empresa de limpieza profesional en La Paz y El Alto, Bolivia. WhatsApp: 71506930.';
-    }
+    try {
+        // 1. Cargar archivo de información
+        let infoEmpresa = '';
+        const txtPath = path.join(__dirname, '../data/informacion.txt');
+        console.log('📁 Ruta archivo:', txtPath);
 
-    const systemPrompt = `${infoEmpresa}
+        if (fs.existsSync(txtPath)) {
+            infoEmpresa = fs.readFileSync(txtPath, 'utf-8');
+            console.log('✅ Archivo cargado correctamente');
+        } else {
+            console.warn('⚠️ Archivo no encontrado, usando texto por defecto');
+            infoEmpresa = 'Lim Bolivia: Empresa de limpieza profesional en La Paz y El Alto, Bolivia. WhatsApp: 71506930.';
+        }
+
+        const systemPrompt = `${infoEmpresa}
 
 REGLAS DE MEMORIA Y ATENCIÓN:
 - Mantén SIEMPRE la continuidad de la conversación y el contexto de las cotizaciones previas.
-- Si el usuario responde con datos adicionales (ej: "ambas caras", "4 sillas", "sí"), NO los saludes de nuevo como un chat nuevo. Usa los datos del historial y da la cotización final acumulada de inmediato.
+- Si el usuario responde con datos adicionales, NO los saludes de nuevo como un chat nuevo.
+- Usa los datos del historial y da la cotización final acumulada de inmediato.
 - Solo ofrece WhatsApp si el usuario pide agendar o confirmar el servicio.`;
 
-    // 2. Normalización de historial a formatos válidos para Groq (user / assistant)
-    const formattedHistory = [];
+        // 2. Formatear historial
+        const formattedHistory = (chatHistory || []).map(msg => ({
+            role: msg.role === 'user' ? 'user' : 'assistant',
+            content: msg.content
+        }));
 
-    chatHistory.forEach(msg => {
-      let role = msg.role;
-      if (role === 'model' || role === 'bot') role = 'assistant';
-      if (role !== 'user' && role !== 'assistant') role = 'user';
-
-      let textContent = '';
-      if (typeof msg.content === 'string') textContent = msg.content;
-      else if (msg.parts && Array.isArray(msg.parts) && msg.parts[0]?.text) textContent = msg.parts[0].text;
-      else if (typeof msg.text === 'string') textContent = msg.text;
-
-      if (textContent.trim() !== '') {
-        formattedHistory.push({
-          role: role,
-          content: textContent.trim()
+        // 3. Limpiar roles duplicados
+        const cleanHistory = [];
+        formattedHistory.forEach(msg => {
+            if (cleanHistory.length === 0) {
+                cleanHistory.push(msg);
+            } else {
+                const last = cleanHistory[cleanHistory.length - 1];
+                if (last.role !== msg.role || last.content !== msg.content) {
+                    cleanHistory.push(msg);
+                }
+            }
         });
-      }
-    });
 
-    // 3. Filtrar roles duplicados consecutivos para evitar errores 400
-    const cleanHistory = [];
-    formattedHistory.forEach(msg => {
-      if (cleanHistory.length === 0) {
-        cleanHistory.push(msg);
-      } else {
-        const lastMsg = cleanHistory[cleanHistory.length - 1];
-        if (lastMsg.role !== msg.role || lastMsg.content !== msg.content) {
-          cleanHistory.push(msg);
+        // 4. Asegurar que el último mensaje no esté duplicado
+        if (cleanHistory.length > 0) {
+            const last = cleanHistory[cleanHistory.length - 1];
+            if (last.role === 'user' && last.content === userQuery.trim()) {
+                cleanHistory.pop();
+            }
         }
-      }
-    });
 
-    // 4. Asegurar que el último mensaje no esté duplicado con userQuery
-    if (cleanHistory.length > 0) {
-      const last = cleanHistory[cleanHistory.length - 1];
-      if (last.role === 'user' && last.content === userQuery.trim()) {
-        cleanHistory.pop();
-      }
+        // 5. Últimos 8 mensajes
+        const recentHistory = cleanHistory.slice(-8);
+
+        // 6. Construir mensajes
+        const messages = [
+            { role: 'system', content: systemPrompt },
+            ...recentHistory,
+            { role: 'user', content: userQuery.trim() }
+        ];
+
+        console.log('📤 Modelo: mixtral-8x7b-32768');
+        console.log('📤 Mensajes:', JSON.stringify(messages, null, 2));
+
+        // 7. ✅ LLAMADA CORRECTA A GROQ
+        const chatCompletion = await groq.chat.completions.create({
+            messages: messages,
+            model: 'mixtral-8x7b-32768',  // ← Modelo estable
+            temperature: 0.4,
+            max_tokens: 500
+        });
+
+        const response = chatCompletion.choices[0]?.message?.content;
+        console.log('✅ Respuesta de Groq:', response?.substring(0, 100));
+
+        return response || '¡Hola! ¿En qué puedo ayudarte hoy?';
+
+    } catch (error) {
+        console.error('❌ ERROR EN askGemini:');
+        console.error('Mensaje:', error?.message);
+        console.error('Stack:', error?.stack);
+
+        // 🔴 Mensajes de error específicos
+        if (error?.message?.includes('API key')) {
+            return "❌ Error de configuración: La API Key no es válida. Contacta al administrador.";
+        } else if (error?.message?.includes('model')) {
+            return "❌ Error: El modelo no está disponible. Contacta al administrador.";
+        } else if (error?.message?.includes('rate limit')) {
+            return "⏳ Demasiadas solicitudes. Espera un momento e intenta nuevamente.";
+        } else if (error?.message?.includes('timeout')) {
+            return "⏱️ El servidor está tardando en responder. Intenta nuevamente.";
+        } else {
+            return "¡Hola! Tuve un inconveniente momentáneo. ¿Podrías indicarme nuevamente qué servicio deseas cotizar?";
+        }
     }
-
-    // 5. Mantener únicamente los últimos 8 mensajes para ahorrar tokens y evitar 429
-    const recentHistory = cleanHistory.slice(-8);
-
-    // 6. Ensamblado del payload
-    const messages = [
-      { role: 'system', content: systemPrompt },
-      ...recentHistory,
-      { role: 'user', content: userQuery.trim() }
-    ];
-
-    // Llamada con modelo liviano 'llama-3.1-8b-instant'
-    const chatCompletion = await groq.chat.completions.create({
-      messages: messages,
-      model: 'llama-3.1-8b-instant',
-      temperature: 0.4
-    });
-
-    return chatCompletion.choices[0]?.message?.content || '¡Hola! ¿En qué puedo ayudarte hoy?';
-
-  } catch (error) {
-    console.error('❌ DETALLE DEL ERROR EN GROQ/AI-SERVICE:', error?.message || error);
-    return "¡Hola! Tuve un inconveniente momentáneo. ¿Podrías indicarme nuevamente qué servicio deseas cotizar?";
-  }
 }
