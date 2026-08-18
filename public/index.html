@@ -506,108 +506,45 @@
                             <div>
                                 <label class="block font-semibold text-gray-700 mb-2">1. Selecciona un Servicio:</label>
                                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="serviceTabContainer">
-
-                                    <!-- FILA 1: Servicios de Limpieza -->
                                     <button onclick="selectServiceTab('Alfombras')" id="btn-Alfombras"
                                         class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                                         <i class="fa-solid fa-rug text-xl text-emerald-600"></i>
                                         <span class="text-xs font-bold">Alfombra Fija</span>
                                     </button>
-
                                     <button onclick="selectServiceTab('AlfombraSuelta')" id="btn-AlfombraSuelta"
                                         class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                                         <i class="fa-solid fa-scroll text-xl text-emerald-600"></i>
                                         <span class="text-xs font-bold">Alfombra Suelta</span>
                                     </button>
-
                                     <button onclick="selectServiceTab('Oficinas')" id="btn-Oficinas"
                                         class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                                         <i class="fa-solid fa-building text-xl text-emerald-600"></i>
                                         <span class="text-xs font-bold">Limpieza Oficinas</span>
                                     </button>
-
                                     <button onclick="selectServiceTab('Casas')" id="btn-Casas"
                                         class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                                         <i class="fa-solid fa-house-chimney text-xl text-emerald-600"></i>
                                         <span class="text-xs font-bold">Limpieza Casas</span>
                                     </button>
-
-                                    <!-- FILA 2: Servicios de Pisos -->
                                     <button onclick="selectServiceTab('LustradoFrio')" id="btn-LustradoFrio"
                                         class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                                         <i class="fa-solid fa-border-all text-xl text-emerald-600"></i>
                                         <span class="text-xs font-bold">Lustrado Piso Frío</span>
                                     </button>
-
                                     <button onclick="selectServiceTab('LustradoMadera')" id="btn-LustradoMadera"
                                         class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                                         <i class="fa-solid fa-tree text-xl text-emerald-600"></i>
                                         <span class="text-xs font-bold">Lustrado Piso Madera</span>
                                     </button>
-
-                                    <button onclick="selectServiceTab('Sillones')" id="btn-Sillones"
-                                        class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
-                                        <i class="fa-solid fa-couch text-xl text-emerald-600"></i>
-                                        <span class="text-xs font-bold">Lavado Sillones</span>
-                                    </button>
-
-                                    <button onclick="selectServiceTab('AbrillantadoMuebles')"
-                                        id="btn-AbrillantadoMuebles"
-                                        class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
-                                        <i class="fa-solid fa-chair text-xl text-emerald-600"></i>
-                                        <span class="text-xs font-bold">Abrillantado Muebles</span>
-                                    </button>
-
-                                    <!-- FILA 3: Servicios Especiales -->
-                                    <button onclick="selectServiceTab('SanitizadoBanos')" id="btn-SanitizadoBanos"
-                                        class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
-                                        <i class="fa-solid fa-toilet text-xl text-emerald-600"></i>
-                                        <span class="text-xs font-bold">Sanitizado Baños</span>
-                                    </button>
-
-                                    <button onclick="selectServiceTab('SanitizadoCocinas')" id="btn-SanitizadoCocinas"
-                                        class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
-                                        <i class="fa-solid fa-kitchen-set text-xl text-emerald-600"></i>
-                                        <span class="text-xs font-bold">Sanitizado Cocinas</span>
-                                    </button>
-
                                     <button onclick="selectServiceTab('Fumigado')" id="btn-Fumigado"
                                         class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                                         <i class="fa-solid fa-spray-can-sparkles text-xl text-emerald-600"></i>
-                                        <span class="text-xs font-bold">Fumigado</span>
+                                        <span class="text-xs font-bold">Fumigado General</span>
                                     </button>
-
                                     <button onclick="selectServiceTab('Tanques')" id="btn-Tanques"
                                         class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
                                         <i class="fa-solid fa-faucet-drip text-xl text-emerald-600"></i>
                                         <span class="text-xs font-bold">Limpieza Tanques</span>
-                                    </button>
-
-                                    <!-- FILA 4: Servicios de Vehículos y Vidrios -->
-                                    <button onclick="selectServiceTab('VidriosAltura')" id="btn-VidriosAltura"
-                                        class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
-                                        <i class="fa-solid fa-building-user text-xl text-emerald-600"></i>
-                                        <span class="text-xs font-bold">Vidrios en Altura</span>
-                                    </button>
-
-                                    <button onclick="selectServiceTab('LimpiezaVehiculos')" id="btn-LimpiezaVehiculos"
-                                        class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
-                                        <i class="fa-solid fa-car text-xl text-emerald-600"></i>
-                                        <span class="text-xs font-bold">Lavado Vehículos</span>
-                                    </button>
-
-                                    <button onclick="selectServiceTab('PersianasVerticales')"
-                                        id="btn-PersianasVerticales"
-                                        class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
-                                        <i class="fa-solid fa-window-maximize text-xl text-emerald-600"></i>
-                                        <span class="text-xs font-bold">Persianas Verticales</span>
-                                    </button>
-
-                                    <button onclick="selectServiceTab('PersianasHorizontales')"
-                                        id="btn-PersianasHorizontales"
-                                        class="p-3 border rounded-xl flex flex-col items-center gap-2 hover:bg-emerald-50 transition border-gray-200">
-                                        <i class="fa-solid fa-border-all text-xl text-emerald-600"></i>
-                                        <span class="text-xs font-bold">Persianas Horizontales</span>
                                     </button>
                                 </div>
                             </div>
@@ -661,7 +598,7 @@
                                 </button>
                             </div>
 
-                            <!-- Extras y Servicios Adicionales -->
+                            <!-- Extras Opcionales y Servicios Adicionales -->
                             <div class="mt-6 space-y-4">
                                 <h4 class="font-bold text-gray-800 text-base flex items-center gap-2">
                                     <i class="fa-solid fa-plus-circle text-emerald-600"></i>
@@ -743,41 +680,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- 3. O. LUSTRADO DE PISOS FRÍOS -->
-                                    <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2 mb-3">
-                                        <label
-                                            class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                                            <input type="checkbox" id="check-lustradoPiso"
-                                                class="w-4 h-4 accent-emerald-600 rounded"
-                                                onchange="toggleExtra('lustradoPiso')">
-                                            <span>✨ O. Lustrado de Pisos Fríos (Bs 7.50 / m²)</span>
-                                        </label>
-                                        <p class="text-[10px] text-gray-400 pl-7">* Descuento a Bs 7.00/m² para más de
-                                            50 m²</p>
-                                        <div id="panel-lustradoPiso"
-                                            class="hidden pt-3 border-t border-gray-200 space-y-3">
-                                            <div class="flex justify-between items-center">
-                                                <span class="text-xs font-semibold text-gray-600">Metros
-                                                    cuadrados:</span>
-                                                <span id="label-lustradoPiso"
-                                                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">10
-                                                    m² (Bs 75)</span>
-                                            </div>
-                                            <div class="flex items-center gap-2">
-                                                <button onclick="changeExtraQty('lustradoPiso', -1)"
-                                                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                                                        class="fa-solid fa-minus"></i></button>
-                                                <input type="range" id="range-lustradoPiso" min="1" max="200" step="1"
-                                                    value="10"
-                                                    class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
-                                                    oninput="updateExtraValue('lustradoPiso')">
-                                                <button onclick="changeExtraQty('lustradoPiso', 1)"
-                                                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                                                        class="fa-solid fa-plus"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <!-- ========================================== -->
@@ -787,7 +689,7 @@
                                     <h5 class="text-xs font-bold text-purple-700 uppercase tracking-wider mb-2">🛋️
                                         Limpieza de Muebles y Tapicería</h5>
 
-                                    <!-- 4. SILLONES -->
+                                    <!-- 3. SILLONES -->
                                     <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2 mb-3">
                                         <label
                                             class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
@@ -858,7 +760,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- 5. COJINES SUELTOS -->
+                                    <!-- 4. COJINES SUELTOS -->
                                     <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2 mb-3">
                                         <label
                                             class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
@@ -901,155 +803,16 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- 6. ALMOHADONES SUELTOS -->
-                                    <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2 mb-3">
-                                        <label
-                                            class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                                            <input type="checkbox" id="check-almohadones"
-                                                class="w-4 h-4 accent-emerald-600 rounded"
-                                                onchange="toggleExtra('almohadones')">
-                                            <span>🟦 Almohadones Sueltos (Grande: Bs 25 / Pequeño: Bs 20)</span>
-                                        </label>
-                                        <div id="panel-almohadones"
-                                            class="hidden pt-3 border-t border-gray-200 space-y-3">
-                                            <div class="flex items-center gap-4">
-                                                <div class="flex items-center gap-2">
-                                                    <input type="radio" name="tipo-almohadon" value="25"
-                                                        id="almohadon-grande" checked>
-                                                    <label for="almohadon-grande" class="text-xs text-slate-700">Grande
-                                                        (Bs 25)</label>
-                                                </div>
-                                                <div class="flex items-center gap-2">
-                                                    <input type="radio" name="tipo-almohadon" value="20"
-                                                        id="almohadon-pequeno">
-                                                    <label for="almohadon-pequeno"
-                                                        class="text-xs text-slate-700">Pequeño (Bs 20)</label>
-                                                </div>
-                                            </div>
-                                            <div class="flex justify-between items-center">
-                                                <span class="text-xs font-semibold text-gray-600">Cantidad:</span>
-                                                <span id="label-almohadones"
-                                                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1
-                                                    unid. (Bs 25)</span>
-                                            </div>
-                                            <div class="flex items-center gap-2">
-                                                <button onclick="changeExtraQty('almohadones', -1)"
-                                                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                                                        class="fa-solid fa-minus"></i></button>
-                                                <input type="range" id="range-almohadones" min="1" max="20" step="1"
-                                                    value="1"
-                                                    class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
-                                                    oninput="updateExtraValue('almohadones')">
-                                                <button onclick="changeExtraQty('almohadones', 1)"
-                                                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                                                        class="fa-solid fa-plus"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- 7. Ñ. ABRILLANTADO DE MUEBLES -->
-                                    <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
-                                        <label
-                                            class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                                            <input type="checkbox" id="check-abrillantado"
-                                                class="w-4 h-4 accent-emerald-600 rounded"
-                                                onchange="toggleExtra('abrillantado')">
-                                            <span>✨ Ñ. Abrillantado de Muebles (Bs 25 / mueble)</span>
-                                        </label>
-                                        <div id="panel-abrillantado"
-                                            class="hidden pt-3 border-t border-gray-200 space-y-3">
-                                            <div class="flex justify-between items-center">
-                                                <span class="text-xs font-semibold text-gray-600">Cantidad de
-                                                    muebles:</span>
-                                                <span id="label-abrillantado"
-                                                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1
-                                                    mueble (Bs 25)</span>
-                                            </div>
-                                            <div class="flex items-center gap-2">
-                                                <button onclick="changeExtraQty('abrillantado', -1)"
-                                                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                                                        class="fa-solid fa-minus"></i></button>
-                                                <input type="range" id="range-abrillantado" min="1" max="50" step="1"
-                                                    value="1"
-                                                    class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
-                                                    oninput="updateExtraValue('abrillantado')">
-                                                <button onclick="changeExtraQty('abrillantado', 1)"
-                                                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                                                        class="fa-solid fa-plus"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <!-- ========================================== -->
-                                <!-- CATEGORÍA 3: VIDRIOS, PERSIANAS Y RIELES -->
+                                <!-- CATEGORÍA 3: VIDRIOS Y PERSIANAS -->
                                 <!-- ========================================== -->
                                 <div class="border-l-4 border-blue-500 pl-3 mt-4">
-                                    <h5 class="text-xs font-bold text-blue-700 uppercase tracking-wider mb-2">🪟
-                                        Vidrios, Persianas y Rieles</h5>
+                                    <h5 class="text-xs font-bold text-blue-700 uppercase tracking-wider mb-2">🪟 Vidrios
+                                        y Persianas</h5>
 
-                                    <!-- 8. LL. LIMPIEZA DE VIDRIOS (Por m²) -->
-                                    <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2 mb-3">
-                                        <label
-                                            class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                                            <input type="checkbox" id="check-vidriosLimpieza"
-                                                class="w-4 h-4 accent-emerald-600 rounded"
-                                                onchange="toggleExtra('vidriosLimpieza')">
-                                            <span>🪟 LL. Limpieza de Vidrios (Bs 8.50 / m²)</span>
-                                        </label>
-                                        <p class="text-[10px] text-gray-400 pl-7">* Descuento a Bs 8.00/m² para más de
-                                            50 m²</p>
-                                        <div id="panel-vidriosLimpieza"
-                                            class="hidden pt-3 border-t border-gray-200 space-y-3">
-                                            <div class="flex justify-between items-center">
-                                                <span class="text-xs font-semibold text-gray-600">Metros
-                                                    cuadrados:</span>
-                                                <span id="label-vidriosLimpieza"
-                                                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">10
-                                                    m² (Bs 85)</span>
-                                            </div>
-                                            <div class="flex items-center gap-2">
-                                                <button onclick="changeExtraQty('vidriosLimpieza', -1)"
-                                                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                                                        class="fa-solid fa-minus"></i></button>
-                                                <input type="range" id="range-vidriosLimpieza" min="1" max="200"
-                                                    step="1" value="10"
-                                                    class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
-                                                    oninput="updateExtraValue('vidriosLimpieza')">
-                                                <button onclick="changeExtraQty('vidriosLimpieza', 1)"
-                                                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                                                        class="fa-solid fa-plus"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- 9. LIMPIEZA DE VIDRIOS EN ALTURA (PREVIA COTIZACIÓN) -->
-                                    <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2 mb-3">
-                                        <div class="flex items-center justify-between">
-                                            <label
-                                                class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                                                <input type="checkbox" id="check-vidriosAltura"
-                                                    class="w-4 h-4 accent-emerald-600 rounded"
-                                                    onchange="toggleExtra('vidriosAltura')">
-                                                <span>🏗️ Limpieza de Vidrios en Altura</span>
-                                            </label>
-                                            <span
-                                                class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Previa
-                                                Cotización</span>
-                                        </div>
-                                        <p class="text-[10px] text-gray-400 pl-7">* Personal certificado con equipo de
-                                            seguridad (costo global)</p>
-                                        <div id="panel-vidriosAltura" class="hidden pt-3 border-t border-gray-200">
-                                            <a href="https://wa.me/59173017175?text=Hola,%20requiero%20una%20cotización%20para%20Limpieza%20de%20Vidrios%20en%20Altura"
-                                                target="_blank"
-                                                class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg text-xs transition flex items-center justify-center gap-2">
-                                                <i class="fa-brands fa-whatsapp text-sm"></i> Contactar para Cotización
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <!-- 10. I. PERSIANAS VERTICALES -->
+                                    <!-- 5. PERSIANAS VERTICALES -->
                                     <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2 mb-3">
                                         <label
                                             class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
@@ -1084,107 +847,24 @@
                                         </div>
                                     </div>
 
-                                    <!-- 11. J. PERSIANAS HORIZONTALES METÁLICAS -->
-                                    <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2 mb-3">
-                                        <label
-                                            class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                                            <input type="checkbox" id="check-persianasH"
-                                                class="w-4 h-4 accent-emerald-600 rounded"
-                                                onchange="toggleExtra('persianasH')">
-                                            <span>🔲 J. Persianas Horizontales Metálicas</span>
-                                        </label>
-                                        <div id="panel-persianasH"
-                                            class="hidden pt-3 border-t border-gray-200 space-y-3">
-                                            <div class="space-y-2">
-                                                <div
-                                                    class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200">
-                                                    <input type="radio" name="tipo-persianaH" value="4.50"
-                                                        id="persianaH-1" checked>
-                                                    <label for="persianaH-1"
-                                                        class="text-xs text-slate-700 flex-1 cursor-pointer">Tira de
-                                                        1.00 m a 1.50 m</label>
-                                                    <span class="text-xs font-bold text-emerald-600">Bs 4.50</span>
-                                                </div>
-                                                <div
-                                                    class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200">
-                                                    <input type="radio" name="tipo-persianaH" value="5.00"
-                                                        id="persianaH-2">
-                                                    <label for="persianaH-2"
-                                                        class="text-xs text-slate-700 flex-1 cursor-pointer">Tira de
-                                                        1.50 m a 2.00 m</label>
-                                                    <span class="text-xs font-bold text-emerald-600">Bs 5.00</span>
-                                                </div>
-                                                <div
-                                                    class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200">
-                                                    <input type="radio" name="tipo-persianaH" value="5.50"
-                                                        id="persianaH-3">
-                                                    <label for="persianaH-3"
-                                                        class="text-xs text-slate-700 flex-1 cursor-pointer">Tira mayor
-                                                        a 2.00 m</label>
-                                                    <span class="text-xs font-bold text-emerald-600">Bs 5.50</span>
-                                                </div>
-                                            </div>
-                                            <div class="flex justify-between items-center pt-2 border-t">
-                                                <span class="text-xs font-semibold text-gray-600">Número de
-                                                    tiras:</span>
-                                                <span id="label-persianasH"
-                                                    class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">10
-                                                    tiras (Bs 45)</span>
-                                            </div>
-                                            <div class="flex items-center gap-2">
-                                                <button onclick="changeExtraQty('persianasH', -1)"
-                                                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                                                        class="fa-solid fa-minus"></i></button>
-                                                <input type="range" id="range-persianasH" min="1" max="200" step="1"
-                                                    value="10"
-                                                    class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
-                                                    oninput="updateExtraValue('persianasH')">
-                                                <button onclick="changeExtraQty('persianasH', 1)"
-                                                    class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
-                                                        class="fa-solid fa-plus"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- 12. K. ARREGLO DE RIELES (PREVIA COTIZACIÓN) -->
-                                    <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2 mb-3">
-                                        <div class="flex items-center justify-between">
-                                            <label
-                                                class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                                                <input type="checkbox" id="check-arregloRieles"
-                                                    class="w-4 h-4 accent-emerald-600 rounded"
-                                                    onchange="toggleExtra('arregloRieles')">
-                                                <span>🔧 K. Arreglo de Rieles de Cortinas y Persianas Verticales</span>
-                                            </label>
-                                            <span
-                                                class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Previa
-                                                Cotización</span>
-                                        </div>
-                                        <div id="panel-arregloRieles" class="hidden pt-3 border-t border-gray-200">
-                                            <a href="https://wa.me/59173017175?text=Hola,%20requiero%20una%20cotización%20para%20Arreglo%20de%20Rieles%20de%20Cortinas"
-                                                target="_blank"
-                                                class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg text-xs transition flex items-center justify-center gap-2">
-                                                <i class="fa-brands fa-whatsapp text-sm"></i> Contactar para Cotización
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <!-- 13. L. ARREGLO DE RIELES HORIZONTALES (PREVIA COTIZACIÓN) -->
+                                    <!-- 6. VIDRIOS EN ALTURA (PREVIA COTIZACIÓN) -->
                                     <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
                                         <div class="flex items-center justify-between">
                                             <label
                                                 class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                                                <input type="checkbox" id="check-arregloRielesH"
+                                                <input type="checkbox" id="check-vidriosAltura"
                                                     class="w-4 h-4 accent-emerald-600 rounded"
-                                                    onchange="toggleExtra('arregloRielesH')">
-                                                <span>🔧 L. Arreglo de Rieles Horizontales</span>
+                                                    onchange="toggleExtra('vidriosAltura')">
+                                                <span>🏗️ Limpieza de Vidrios en Altura</span>
                                             </label>
                                             <span
                                                 class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Previa
                                                 Cotización</span>
                                         </div>
-                                        <div id="panel-arregloRielesH" class="hidden pt-3 border-t border-gray-200">
-                                            <a href="https://wa.me/59173017175?text=Hola,%20requiero%20una%20cotización%20para%20Arreglo%20de%20Rieles%20Horizontales"
+                                        <div id="panel-vidriosAltura" class="hidden pt-3 border-t border-gray-200">
+                                            <p class="text-[10px] text-gray-500 mb-2">* Personal certificado con equipo
+                                                de seguridad</p>
+                                            <a href="https://wa.me/59173017175?text=Hola,%20requiero%20una%20cotización%20para%20Limpieza%20de%20Vidrios%20en%20Altura"
                                                 target="_blank"
                                                 class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg text-xs transition flex items-center justify-center gap-2">
                                                 <i class="fa-brands fa-whatsapp text-sm"></i> Contactar para Cotización
@@ -1194,138 +874,105 @@
                                 </div>
 
                                 <!-- ========================================== -->
-                                <!-- CATEGORÍA 4: DESINFECCIÓN, SANITIZADO Y PLAGAS -->
+                                <!-- CATEGORÍA 4: VEHÍCULOS Y DESINFECCIÓN -->
                                 <!-- ========================================== -->
                                 <div class="border-l-4 border-red-500 pl-3 mt-4">
-                                    <h5 class="text-xs font-bold text-red-700 uppercase tracking-wider mb-2">🧪
-                                        Desinfección, Sanitizado y Control de Plagas</h5>
+                                    <h5 class="text-xs font-bold text-red-700 uppercase tracking-wider mb-2">🚗
+                                        Vehículos y Desinfección</h5>
 
-                                    <!-- 14. S. SANITIZADO DE BAÑOS -->
+                                    <!-- 7. LIMPIEZA DE VEHÍCULOS -->
                                     <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2 mb-3">
                                         <label
                                             class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                                            <input type="checkbox" id="check-sanitizadoBanos"
+                                            <input type="checkbox" id="check-vehiculos"
                                                 class="w-4 h-4 accent-emerald-600 rounded"
-                                                onchange="toggleExtra('sanitizadoBanos')">
-                                            <span>🧼 S. Sanitizado de Baños</span>
+                                                onchange="toggleExtra('vehiculos')">
+                                            <span>🚗 M. Limpieza Interior de Vehículos</span>
                                         </label>
-                                        <p class="text-[10px] text-gray-400 pl-7">* Selecciona el tipo de baño (duración
-                                            1½ a 3 hrs)</p>
-                                        <div id="panel-sanitizadoBanos"
+                                        <div id="panel-vehiculos"
                                             class="hidden pt-3 border-t border-gray-200 space-y-3">
                                             <div class="space-y-2">
                                                 <div
                                                     class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200">
-                                                    <input type="radio" name="tipo-bano" value="120" id="bano-1"
+                                                    <input type="radio" name="tipo-vehiculo" value="580" id="veh-auto"
                                                         checked>
-                                                    <label for="bano-1"
-                                                        class="text-xs text-slate-700 flex-1 cursor-pointer">Baño 1.20 ×
-                                                        2.50 m (1 tasa, lavamanos)</label>
-                                                    <span class="text-xs font-bold text-emerald-600">Bs 120</span>
+                                                    <label for="veh-auto"
+                                                        class="text-xs text-slate-700 flex-1 cursor-pointer">Automóvil</label>
+                                                    <span class="text-xs font-bold text-emerald-600">Bs 580</span>
                                                 </div>
                                                 <div
                                                     class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200">
-                                                    <input type="radio" name="tipo-bano" value="120" id="bano-2">
-                                                    <label for="bano-2"
-                                                        class="text-xs text-slate-700 flex-1 cursor-pointer">Baño 2.50 ×
-                                                        3.00 m – Sin tina</label>
-                                                    <span class="text-xs font-bold text-emerald-600">Bs 120</span>
+                                                    <input type="radio" name="tipo-vehiculo" value="680"
+                                                        id="veh-vagoneta">
+                                                    <label for="veh-vagoneta"
+                                                        class="text-xs text-slate-700 flex-1 cursor-pointer">Vagoneta</label>
+                                                    <span class="text-xs font-bold text-emerald-600">Bs 680</span>
                                                 </div>
                                                 <div
                                                     class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200">
-                                                    <input type="radio" name="tipo-bano" value="220" id="bano-3">
-                                                    <label for="bano-3"
-                                                        class="text-xs text-slate-700 flex-1 cursor-pointer">Baño 2.50 ×
-                                                        3.00 m – Con tina</label>
-                                                    <span class="text-xs font-bold text-emerald-600">Bs 220</span>
+                                                    <input type="radio" name="tipo-vehiculo" value="720" id="veh-4x4">
+                                                    <label for="veh-4x4"
+                                                        class="text-xs text-slate-700 flex-1 cursor-pointer">4X4 o
+                                                        Camioneta</label>
+                                                    <span class="text-xs font-bold text-emerald-600">Bs 720</span>
                                                 </div>
                                                 <div
                                                     class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200">
-                                                    <input type="radio" name="tipo-bano" value="320" id="bano-4">
-                                                    <label for="bano-4"
-                                                        class="text-xs text-slate-700 flex-1 cursor-pointer">Baño 2.50 ×
-                                                        3.00 m – Con Jacuzzi</label>
-                                                    <span class="text-xs font-bold text-emerald-600">Bs 320</span>
+                                                    <input type="radio" name="tipo-vehiculo" value="950"
+                                                        id="veh-minibus">
+                                                    <label for="veh-minibus"
+                                                        class="text-xs text-slate-700 flex-1 cursor-pointer">Minibus</label>
+                                                    <span class="text-xs font-bold text-emerald-600">Bs 950</span>
+                                                </div>
+                                                <div
+                                                    class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200">
+                                                    <input type="radio" name="tipo-vehiculo" value="2100" id="veh-bus">
+                                                    <label for="veh-bus"
+                                                        class="text-xs text-slate-700 flex-1 cursor-pointer">Bus</label>
+                                                    <span class="text-xs font-bold text-emerald-600">Bs 2,100</span>
                                                 </div>
                                             </div>
                                             <div class="flex justify-between items-center pt-2 border-t">
-                                                <span class="text-xs font-semibold text-gray-600">Cantidad de
-                                                    baños:</span>
-                                                <span id="label-sanitizadoBanos"
+                                                <span class="text-xs font-semibold text-gray-600">Cantidad:</span>
+                                                <span id="label-vehiculos"
                                                     class="font-black text-emerald-600 text-base bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1
-                                                    baño (Bs 120)</span>
+                                                    veh. (Bs 580)</span>
                                             </div>
                                             <div class="flex items-center gap-2">
-                                                <button onclick="changeExtraQty('sanitizadoBanos', -1)"
+                                                <button onclick="changeExtraQty('vehiculos', -1)"
                                                     class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
                                                         class="fa-solid fa-minus"></i></button>
-                                                <input type="range" id="range-sanitizadoBanos" min="1" max="10" step="1"
+                                                <input type="range" id="range-vehiculos" min="1" max="5" step="1"
                                                     value="1"
                                                     class="w-full accent-emerald-600 cursor-pointer h-2 bg-gray-200 rounded-lg"
-                                                    oninput="updateExtraValue('sanitizadoBanos')">
-                                                <button onclick="changeExtraQty('sanitizadoBanos', 1)"
+                                                    oninput="updateExtraValue('vehiculos')">
+                                                <button onclick="changeExtraQty('vehiculos', 1)"
                                                     class="bg-slate-200 hover:bg-slate-300 font-bold w-8 h-8 rounded-lg text-sm flex items-center justify-center shrink-0"><i
                                                         class="fa-solid fa-plus"></i></button>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <!-- 15. T. SANITIZADO DE COCINAS (PREVIA COTIZACIÓN) -->
+                                    <!-- 8. SANITIZADO DE BAÑOS -->
                                     <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2 mb-3">
                                         <div class="flex items-center justify-between">
                                             <label
                                                 class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                                                <input type="checkbox" id="check-sanitizadoCocinas"
+                                                <input type="checkbox" id="check-banos"
                                                     class="w-4 h-4 accent-emerald-600 rounded"
-                                                    onchange="toggleExtra('sanitizadoCocinas')">
-                                                <span>🍳 T. Sanitizado de Cocinas</span>
+                                                    onchange="toggleExtra('banos')">
+                                                <span>🧼 S. Sanitizado de Baños (Bs 120)</span>
                                             </label>
                                             <span
-                                                class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Previa
-                                                Cotización</span>
+                                                class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Precio
+                                                Fijo</span>
                                         </div>
-                                        <p class="text-[10px] text-gray-400 pl-7">* Incluye: Pisos, paredes, mesones,
-                                            estantes, lavaplatos, puertas, vidrios</p>
-                                        <p class="text-[10px] text-gray-400 pl-7">* No incluye electrodomésticos ni
-                                            artefactos eléctricos</p>
-                                        <div id="panel-sanitizadoCocinas" class="hidden pt-3 border-t border-gray-200">
-                                            <a href="https://wa.me/59173017175?text=Hola,%20requiero%20una%20cotización%20para%20Sanitizado%20de%20Cocinas"
-                                                target="_blank"
-                                                class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg text-xs transition flex items-center justify-center gap-2">
-                                                <i class="fa-brands fa-whatsapp text-sm"></i> Contactar para Cotización
-                                            </a>
-                                        </div>
+                                        <p class="text-[10px] text-gray-400 pl-7">* Incluye: 1 Tasa, lavamanos, otros
+                                            (1.20 × 2.50 m aprox)</p>
                                     </div>
 
-                                    <!-- 16. U. DESBACTERICIDAS (PREVIA COTIZACIÓN) -->
-                                    <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2 mb-3">
-                                        <div class="flex items-center justify-between">
-                                            <label
-                                                class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                                                <input type="checkbox" id="check-desbactericidas"
-                                                    class="w-4 h-4 accent-emerald-600 rounded"
-                                                    onchange="toggleExtra('desbactericidas')">
-                                                <span>🧪 U. Aplicación de Desbactericidas - Sanitizantes</span>
-                                            </label>
-                                            <span
-                                                class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Previa
-                                                Cotización</span>
-                                        </div>
-                                        <p class="text-[10px] text-gray-400 pl-7">* Áreas: Baños, cocinas, saunas,
-                                            restaurantes</p>
-                                        <p class="text-[10px] text-gray-400 pl-7">* Se entrega certificado oficial
-                                            válido para la Alcaldía</p>
-                                        <div id="panel-desbactericidas" class="hidden pt-3 border-t border-gray-200">
-                                            <a href="https://wa.me/59173017175?text=Hola,%20requiero%20una%20cotización%20para%20Aplicación%20de%20Desbactericidas"
-                                                target="_blank"
-                                                class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg text-xs transition flex items-center justify-center gap-2">
-                                                <i class="fa-brands fa-whatsapp text-sm"></i> Contactar para Cotización
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <!-- 17. V. FUMIGADO (PREVIA COTIZACIÓN) -->
-                                    <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2 mb-3">
+                                    <!-- 9. FUMIGADO -->
+                                    <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
                                         <div class="flex items-center justify-between">
                                             <label
                                                 class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
@@ -1338,42 +985,15 @@
                                                 class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Previa
                                                 Cotización</span>
                                         </div>
-                                        <p class="text-[10px] text-gray-400 pl-7">* Productos no contaminantes con
-                                            diagnóstico previo</p>
                                         <div id="panel-fumigado" class="hidden pt-3 border-t border-gray-200">
+                                            <p class="text-[10px] text-gray-500 mb-2">* Productos no contaminantes con
+                                                diagnóstico previo</p>
                                             <a href="https://wa.me/59173017175?text=Hola,%20requiero%20una%20cotización%20para%20Fumigado"
                                                 target="_blank"
                                                 class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg text-xs transition flex items-center justify-center gap-2">
                                                 <i class="fa-brands fa-whatsapp text-sm"></i> Contactar para Cotización
                                             </a>
                                         </div>
-                                    </div>
-
-                                    <!-- 18. W. EXTRACCIÓN DE AGUAS (PREVIA COTIZACIÓN) -->
-                                    <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
-                                        <div class="flex items-center justify-between">
-                                            <label
-                                                class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
-                                                <input type="checkbox" id="check-extraccionAgua"
-                                                    class="w-4 h-4 accent-emerald-600 rounded"
-                                                    onchange="toggleExtra('extraccionAgua')">
-                                                <span>💧 W. Extracción de Aguas en Inundaciones</span>
-                                            </label>
-                                            <span
-                                                class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Previa
-                                                Cotización</span>
-                                        </div>
-                                        <p class="text-[10px] text-gray-400 pl-7">* Con motobomba (agua >50 cm) o
-                                            aspiradoras (agua <50 cm)</p>
-                                                <div id="panel-extraccionAgua"
-                                                    class="hidden pt-3 border-t border-gray-200">
-                                                    <a href="https://wa.me/59173017175?text=Hola,%20requiero%20una%20cotización%20para%20Extracción%20de%20Aguas%20en%20Inundaciones"
-                                                        target="_blank"
-                                                        class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg text-xs transition flex items-center justify-center gap-2">
-                                                        <i class="fa-brands fa-whatsapp text-sm"></i> Contactar para
-                                                        Cotización
-                                                    </a>
-                                                </div>
                                     </div>
                                 </div>
 
@@ -1384,7 +1004,7 @@
                                     <h5 class="text-xs font-bold text-amber-700 uppercase tracking-wider mb-2">👕 Ropa y
                                         Lavandería</h5>
 
-                                    <!-- 19. Z. LIMPIEZA DE ROPA -->
+                                    <!-- 10. LIMPIEZA DE ROPA -->
                                     <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
                                         <label
                                             class="flex items-center gap-3 cursor-pointer font-bold text-sm text-gray-800">
@@ -1470,8 +1090,7 @@
                                 <!-- ========================================== -->
                                 <button onclick="addSelectedExtrasOnly()"
                                     class="w-full bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm uppercase tracking-wide">
-                                    <i class="fa-solid fa-plus-circle text-lg"></i> Agregar Extras Seleccionados al
-                                    Cotizador
+                                    <i class="fa-solid fa-plus-circle text-lg"></i> Agregar Extras Seleccionados
                                 </button>
                             </div>
                         </div>
@@ -5051,61 +4670,6 @@
                     { value: 22, label: "Frazadas (unidad)" }
                 ]
             }
-               // NUEVOS EXTRAS
-    aspirado: { pricePerUnit: 5, name: "Aspirado", descuento: { limite: 50, precio: 4.50 } },
-            protector: { pricePerUnit: 8, name: "Protector de Alfombras" },
-            lustradoPiso: { pricePerUnit: 7.50, name: "Lustrado Pisos Fríos", descuento: { limite: 50, precio: 7 } },
-            vidriosLimpieza: { pricePerUnit: 8.50, name: "Limpieza de Vidrios", descuento: { limite: 50, precio: 8 } },
-            vidriosAltura: { fixedPrice: 0, name: "Vidrios en Altura", type: 'previa' },
-            persianasV: { pricePerUnit: 5, name: "Persianas Verticales", descuento: { limite: 50, precio: 4.50 } },
-            persianasH: {
-                pricePerUnit: 4.50,
-                name: "Persianas Horizontales",
-                opciones: [
-                    { value: 4.50, label: "1.00 - 1.50 m" },
-                    { value: 5.00, label: "1.50 - 2.00 m" },
-                    { value: 5.50, label: "Mayor a 2.00 m" }
-                ]
-            },
-            arregloRieles: { fixedPrice: 0, name: "Arreglo de Rieles Verticales", type: 'previa' },
-            arregloRielesH: { fixedPrice: 0, name: "Arreglo de Rieles Horizontales", type: 'previa' },
-            sanitizadoBanos: {
-                pricePerUnit: 120,
-                name: "Sanitizado de Baños",
-                opciones: [
-                    { value: 120, label: "1.20 × 2.50 m (1 tasa)" },
-                    { value: 120, label: "2.50 × 3.00 m – Sin tina" },
-                    { value: 220, label: "2.50 × 3.00 m – Con tina" },
-                    { value: 320, label: "2.50 × 3.00 m – Con Jacuzzi" }
-                ]
-            },
-            sanitizadoCocinas: { fixedPrice: 0, name: "Sanitizado de Cocinas", type: 'previa' },
-            desbactericidas: { fixedPrice: 0, name: "Desbactericidas", type: 'previa' },
-            fumigado: { fixedPrice: 0, name: "Fumigado", type: 'previa' },
-            extraccionAgua: { fixedPrice: 0, name: "Extracción de Aguas", type: 'previa' },
-            abrillantado: { pricePerUnit: 25, name: "Abrillantado de Muebles" },
-            almohadones: {
-                pricePerUnit: 25,
-                name: "Almohadones Sueltos",
-                opciones: [
-                    { value: 25, label: "Grande" },
-                    { value: 20, label: "Pequeño" }
-                ]
-            },
-            ropa: {
-                pricePerUnit: 35,
-                name: "Limpieza de Ropa",
-                opciones: [
-                    { value: 35, label: "Edredón 1 Plaza" },
-                    { value: 45, label: "Edredón 1½ Plaza" },
-                    { value: 48, label: "Edredón 2 Plazas" },
-                    { value: 32, label: "Sleeping" },
-                    { value: 32, label: "Sábanas (juego)" },
-                    { value: 22, label: "Frazadas (unidad)" }
-                ]
-            }
-
-
         };
 
         function selectServiceTab(key) {
@@ -5134,39 +4698,9 @@
 
         function calculateBaseServiceSubtotal() {
             const sData = serviceRates[currentSelectedServiceKey];
-            if (!sData) return 0;
-
-            let subtotal = 0;
-            let unidad = 'm²';
-
-            // Si es un servicio con precio fijo (rate 0 = previa cotización)
-            if (sData.rate === 0) {
-                document.getElementById('m2Value').innerText = '📞 Previa Cotización';
-                document.getElementById('m2Subtotal').innerText = '(Contactar)';
-                // Mostrar botón de WhatsApp en lugar de slider
-                document.getElementById('btnWhatsAppCotizacion').style.display = 'block';
-                document.getElementById('btnAgregarServicio').style.display = 'none';
-                return 0;
-            }
-
-            // Si es un servicio con precio por unidad (vehículos, sillones, etc.)
-            if (sData.rate > 100) {
-                // Servicios con precio alto → se cobran por unidad, no por m²
-                unidad = 'unidad';
-                subtotal = currentM2 * sData.rate;
-                document.getElementById('m2Value').innerText = `${currentM2} ${unidad}(es)`;
-                document.getElementById('m2Subtotal').innerText = `(Bs ${subtotal})`;
-                document.getElementById('btnWhatsAppCotizacion').style.display = 'none';
-                document.getElementById('btnAgregarServicio').style.display = 'block';
-                return subtotal;
-            }
-
-            // Servicios por m² (normal)
-            subtotal = currentM2 * sData.rate;
+            const subtotal = currentM2 * sData.rate;
             document.getElementById('m2Value').innerText = `${currentM2} m²`;
             document.getElementById('m2Subtotal').innerText = `(Bs ${subtotal})`;
-            document.getElementById('btnWhatsAppCotizacion').style.display = 'none';
-            document.getElementById('btnAgregarServicio').style.display = 'block';
             return subtotal;
         }
 
@@ -5189,23 +4723,9 @@
         function toggleExtra(extraKey) {
             const chk = document.getElementById(`check-${extraKey}`);
             const panel = document.getElementById(`panel-${extraKey}`);
-            const config = extraPrices[extraKey];
-
             if (panel) {
-                if (chk && chk.checked) {
-                    panel.classList.remove('hidden');
-                    // 🔴 FORZAR ACTUALIZACIÓN DEL SLIDER AL ABRIR
-                    if (config && config.type !== 'previa' && config.type !== 'fijo') {
-                        // Asegurar que el slider existe y tiene valor
-                        const rng = document.getElementById(`range-${extraKey}`);
-                        if (rng) {
-                            // Disparar el evento de actualización
-                            updateExtraValue(extraKey);
-                        }
-                    }
-                } else {
-                    panel.classList.add('hidden');
-                }
+                if (chk && chk.checked) panel.classList.remove('hidden');
+                else panel.classList.add('hidden');
             }
         }
 
@@ -5259,35 +4779,12 @@
 
         function addCurrentMainService() {
             const sData = serviceRates[currentSelectedServiceKey];
-            if (!sData) return;
-
-            // Si es "previa cotización" (rate = 0)
-            if (sData.rate === 0) {
-                alert(`⚠️ "${sData.name}" requiere cotización previa.\nSerás redirigido a WhatsApp para solicitar tu presupuesto.`);
-                window.open(`https://wa.me/59173017175?text=Hola,%20requiero%20una%20cotización%20para%20${encodeURIComponent(sData.name)}`, '_blank');
-                return;
-            }
-
-            let subtotal = 0;
-            let titulo = sData.name;
-            let unidad = 'm²';
-
-            // Servicios por unidad (precio > 100)
-            if (sData.rate > 100) {
-                unidad = 'unidad';
-                subtotal = currentM2 * sData.rate;
-                titulo = `${sData.name} (${currentM2} ${unidad}(es))`;
-            } else {
-                subtotal = currentM2 * sData.rate;
-                titulo = `${sData.name} (${currentM2} ${unidad})`;
-            }
-
+            const subtotal = currentM2 * sData.rate;
             addedServices.push({
                 id: Date.now() + Math.random(),
-                title: titulo,
+                title: `${sData.name} (${currentM2} m²)`,
                 price: subtotal
             });
-
             renderSummary();
         }
 
