@@ -619,79 +619,308 @@
                 </div>
 
                 <!-- ================================ -->
-                <!-- 2. VIEW MISIÓN / VISIÓN           -->
+                <!-- 2. VIEW MISIÓN / VISIÓN (REDISEÑADO) -->
                 <!-- ================================ -->
                 <div id="view-mision-vision"
-                    class="view-section hidden bg-white p-6 md:p-8 rounded-2xl shadow-md border border-slate-200 space-y-8 animate-fade-in">
-                    <div class="space-y-3">
-                        <h2
-                            class="text-xl md:text-2xl font-black text-[#003366] tracking-wide uppercase flex items-center gap-2">
-                            <i class="fa-solid fa-bullseye text-emerald-600"></i> MISIÓN
-                        </h2>
-                        <p class="text-gray-700 leading-relaxed text-sm md:text-base font-medium">Diseñar, operar y
-                            administrar sistemas y servicios de limpieza de acuerdo a las más exigentes necesidades, los
-                            cuales garanticen higiene de calidad en las condiciones de tiempo, satisfacción y
-                            presupuesto acorde con nuestros clientes.</p>
-                    </div>
-                    <div class="space-y-3">
-                        <h2
-                            class="text-xl md:text-2xl font-black text-[#003366] tracking-wide uppercase flex items-center gap-2">
-                            <i class="fa-solid fa-eye text-emerald-600"></i> VISIÓN
-                        </h2>
-                        <p class="text-gray-700 leading-relaxed text-sm md:text-base font-medium">Superar la barrera del
-                            tiempo llegando a ser la más importante referencia a nivel nacional e internacional en
-                            materia de limpieza. Pensando siempre en la calidad de vida de nuestros clientes y no
-                            apartándonos de nuestros valores y principios con los cuales comenzamos este camino.</p>
-                    </div>
-                    <div class="pt-6 border-t border-gray-200 text-center space-y-3">
-                        <h2 class="text-xl md:text-2xl font-black text-[#003366] tracking-wide uppercase">LEMA</h2>
-                        <div class="flex justify-center my-1"><i
-                                class="fa-solid fa-sparkles text-2xl text-amber-500"></i></div>
-                        <div class="font-bold text-slate-800 space-y-1 text-sm md:text-base">
-                            <p class="uppercase tracking-widest text-emerald-700">LIMPIEZA ES NUESTRO LEMA</p>
-                            <p class="uppercase tracking-widest text-[#003366]">SALUD Y BIENESTAR NUESTRO OBJETIVO</p>
+                    class="view-section hidden rounded-2xl overflow-hidden shadow-2xl border-0 animate-fade-in">
+
+                    <!-- HERO CON IMAGEN DE FONDO -->
+                    <div class="relative bg-gradient-to-br from-[#003366] via-[#001845] to-[#000b1f] overflow-hidden">
+                        <!-- Imagen de fondo -->
+                        <div class="absolute inset-0 opacity-20 mix-blend-overlay">
+                            <img src="/img/logo3.png" alt="LIM-BOLIVIA Fondo" class="w-full h-full object-cover"
+                                onerror="this.onerror=null; this.style.display='none';">
+                        </div>
+
+                        <!-- Efecto de gradiente sobre la imagen -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-[#003366]/90 via-[#001845]/80 to-[#000b1f]/95">
+                        </div>
+
+                        <!-- Efecto de partículas / destellos -->
+                        <div class="absolute inset-0 overflow-hidden">
+                            <div
+                                class="absolute -top-40 -right-40 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl animate-pulse">
+                            </div>
+                            <div
+                                class="absolute -bottom-40 -left-40 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl animate-pulse delay-1000">
+                            </div>
+                            <div
+                                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl">
+                            </div>
+                        </div>
+
+                        <!-- CONTENIDO -->
+                        <div class="relative z-10 p-8 md:p-12 lg:p-16">
+
+                            <!-- TÍTULO PRINCIPAL -->
+                            <div class="text-center mb-12">
+                                <div
+                                    class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full border border-white/20 mb-4">
+                                    <i class="fa-solid fa-flag text-amber-400 text-sm"></i>
+                                    <span class="text-white/80 text-xs font-bold uppercase tracking-widest">Nuestra
+                                        Identidad</span>
+                                </div>
+                                <h2 class="text-4xl md:text-5xl font-black text-white tracking-tight">
+                                    <span
+                                        class="bg-gradient-to-r from-emerald-400 via-amber-300 to-emerald-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+                                        Conócenos
+                                    </span>
+                                </h2>
+                                <p class="text-white/50 text-sm mt-2 max-w-2xl mx-auto">Los pilares que guían nuestro
+                                    camino hacia la excelencia</p>
+                            </div>
+
+                            <!-- MISIÓN Y VISIÓN EN TARJETAS -->
+                            <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+
+                                <!-- TARJETA MISIÓN -->
+                                <div
+                                    class="group bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/10 hover:border-emerald-400/50 transition-all duration-500 hover:transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/10">
+                                    <div class="flex items-center gap-4 mb-4">
+                                        <div
+                                            class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center shadow-lg shadow-emerald-500/25 group-hover:scale-110 transition-transform duration-300">
+                                            <i class="fa-solid fa-bullseye text-2xl text-white"></i>
+                                        </div>
+                                        <div>
+                                            <span
+                                                class="text-emerald-400 text-xs font-bold uppercase tracking-widest">Norte</span>
+                                            <h3 class="text-2xl font-black text-white">MISIÓN</h3>
+                                        </div>
+                                    </div>
+                                    <div class="relative pl-4 border-l-2 border-emerald-500/30">
+                                        <p class="text-white/80 leading-relaxed text-sm md:text-base font-light">
+                                            Diseñar, operar y administrar sistemas y servicios de limpieza de acuerdo a
+                                            las más exigentes necesidades, los cuales garanticen higiene de calidad en
+                                            las condiciones de tiempo, satisfacción y presupuesto acorde con nuestros
+                                            clientes.
+                                        </p>
+                                    </div>
+                                    <div class="mt-4 flex items-center gap-2 text-emerald-400/50 text-xs">
+                                        <i class="fa-solid fa-arrow-right"></i>
+                                        <span>Compromiso con la excelencia</span>
+                                    </div>
+                                </div>
+
+                                <!-- TARJETA VISIÓN -->
+                                <div
+                                    class="group bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/10 hover:border-amber-400/50 transition-all duration-500 hover:transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-500/10">
+                                    <div class="flex items-center gap-4 mb-4">
+                                        <div
+                                            class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center shadow-lg shadow-amber-500/25 group-hover:scale-110 transition-transform duration-300">
+                                            <i class="fa-solid fa-eye text-2xl text-white"></i>
+                                        </div>
+                                        <div>
+                                            <span
+                                                class="text-amber-400 text-xs font-bold uppercase tracking-widest">Futuro</span>
+                                            <h3 class="text-2xl font-black text-white">VISIÓN</h3>
+                                        </div>
+                                    </div>
+                                    <div class="relative pl-4 border-l-2 border-amber-500/30">
+                                        <p class="text-white/80 leading-relaxed text-sm md:text-base font-light">
+                                            Superar la barrera del tiempo llegando a ser la más importante referencia a
+                                            nivel nacional e internacional en materia de limpieza. Pensando siempre en
+                                            la calidad de vida de nuestros clientes y no apartándonos de nuestros
+                                            valores y principios con los cuales comenzamos este camino.
+                                        </p>
+                                    </div>
+                                    <div class="mt-4 flex items-center gap-2 text-amber-400/50 text-xs">
+                                        <i class="fa-solid fa-arrow-right"></i>
+                                        <span>Liderazgo con propósito</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- LEMA DESTACADO CON IMAGEN DE FONDO -->
+                            <div class="relative mt-12 max-w-3xl mx-auto overflow-hidden rounded-2xl">
+                                <!-- Fondo con la imagen logo3.png -->
+                                <div class="absolute inset-0">
+                                    <img src="/img/logo3.png" alt="LIM-BOLIVIA"
+                                        class="w-full h-full object-cover opacity-30"
+                                        onerror="this.onerror=null; this.style.display='none';">
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-r from-[#003366]/95 via-[#001845]/90 to-[#000b1f]/95">
+                                    </div>
+                                </div>
+
+                                <!-- Efecto de borde brillante -->
+                                <div
+                                    class="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 via-amber-400 to-emerald-500 rounded-2xl opacity-30 blur-sm">
+                                </div>
+
+                                <div
+                                    class="relative z-10 p-8 md:p-10 text-center border border-white/10 rounded-2xl backdrop-blur-sm">
+                                    <div
+                                        class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/10 mb-4">
+                                        <i class="fa-solid fa-sparkles text-amber-400 text-xs"></i>
+                                        <span
+                                            class="text-white/60 text-[10px] font-bold uppercase tracking-widest">Nuestro
+                                            Lema</span>
+                                    </div>
+
+                                    <div class="space-y-3">
+                                        <p
+                                            class="text-2xl md:text-3xl font-black text-transparent bg-gradient-to-r from-emerald-300 via-amber-200 to-emerald-300 bg-clip-text bg-[length:200%_auto] animate-gradient">
+                                            "LIMPIEZA ES NUESTRO LEMA"
+                                        </p>
+                                        <div class="flex items-center justify-center gap-3">
+                                            <div class="h-px w-12 bg-gradient-to-r from-transparent to-emerald-400/50">
+                                            </div>
+                                            <i class="fa-solid fa-heart text-amber-400/60 text-xs"></i>
+                                            <div class="h-px w-12 bg-gradient-to-l from-transparent to-emerald-400/50">
+                                            </div>
+                                        </div>
+                                        <p class="text-xl md:text-2xl font-bold text-white/90">
+                                            "SALUD Y BIENESTAR NUESTRO OBJETIVO"
+                                        </p>
+                                    </div>
+
+                                    <!-- Decoración inferior -->
+                                    <div class="mt-6 flex justify-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400/40"></span>
+                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400/40"></span>
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400/40"></span>
+                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400/40"></span>
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400/40"></span>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                    <div class="pt-6 border-t border-slate-200 space-y-4">
-                        <h3 class="text-lg md:text-xl font-black text-[#003366] uppercase flex items-center gap-2"><i
-                                class="fa-solid fa-images text-amber-500"></i> Galería de Trabajos Realizados</h3>
-                        <div class="bg-slate-50 p-4 md:p-5 rounded-xl border border-slate-200 shadow-inner">
-                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
-                                <div
-                                    class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
-                                    <img src="/img/img1.png" alt="Servicio LIMBOLIVIA 1"
-                                        class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300"
-                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img1.png';" />
+
+                    <!-- GALERÍA DE TRABAJOS (sección inferior) -->
+                    <div class="bg-slate-50/95 backdrop-blur-sm p-6 md:p-8 border-t border-slate-200/50">
+                        <div class="max-w-6xl mx-auto">
+                            <div class="flex items-center justify-between mb-6">
+                                <div>
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <i class="fa-solid fa-images text-amber-500 text-sm"></i>
+                                        <span
+                                            class="text-xs font-bold text-amber-600 uppercase tracking-widest">Portafolio</span>
+                                    </div>
+                                    <h3 class="text-xl md:text-2xl font-black text-[#003366]">Galería de Trabajos
+                                        Realizados</h3>
                                 </div>
+                                <span
+                                    class="text-[10px] bg-slate-200 text-slate-600 font-bold px-3 py-1 rounded-full border border-slate-300/50">
+                                    <i class="fa-regular fa-circle-check text-emerald-500 mr-1"></i> 6 proyectos
+                                </span>
+                            </div>
+
+                            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
+                                <!-- Ítem 1 -->
                                 <div
-                                    class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
-                                    <img src="/img/img2.png" alt="Servicio LIMBOLIVIA 2"
-                                        class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300"
-                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img2.png';" />
+                                    class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-500 bg-white border border-slate-200/50">
+                                    <div class="aspect-square overflow-hidden">
+                                        <img src="/img/img1.png" alt="Trabajo LIMBOLIVIA 1"
+                                            class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"
+                                            onerror="this.onerror=null; this.src='https://via.placeholder.com/300x300/003366/FFFFFF?text=+';">
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-[#003366]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                                        <span
+                                            class="text-white text-[10px] font-bold uppercase tracking-wider">Proyecto</span>
+                                    </div>
+                                    <div
+                                        class="absolute top-2 right-2 w-7 h-7 bg-emerald-500/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="fa-solid fa-check text-white text-[10px]"></i>
+                                    </div>
                                 </div>
+
+                                <!-- Ítem 2 -->
                                 <div
-                                    class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
-                                    <img src="/img/img3.png" alt="Servicio LIMBOLIVIA 3"
-                                        class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300"
-                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img3.png';" />
+                                    class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-500 bg-white border border-slate-200/50">
+                                    <div class="aspect-square overflow-hidden">
+                                        <img src="/img/img2.png" alt="Trabajo LIMBOLIVIA 2"
+                                            class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"
+                                            onerror="this.onerror=null; this.src='https://via.placeholder.com/300x300/003366/FFFFFF?text=+';">
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-[#003366]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                                        <span
+                                            class="text-white text-[10px] font-bold uppercase tracking-wider">Proyecto</span>
+                                    </div>
+                                    <div
+                                        class="absolute top-2 right-2 w-7 h-7 bg-emerald-500/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="fa-solid fa-check text-white text-[10px]"></i>
+                                    </div>
                                 </div>
+
+                                <!-- Ítem 3 -->
                                 <div
-                                    class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
-                                    <img src="/img/img4.png" alt="Servicio LIMBOLIVIA 4"
-                                        class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300"
-                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img4.png';" />
+                                    class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-500 bg-white border border-slate-200/50">
+                                    <div class="aspect-square overflow-hidden">
+                                        <img src="/img/img3.png" alt="Trabajo LIMBOLIVIA 3"
+                                            class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"
+                                            onerror="this.onerror=null; this.src='https://via.placeholder.com/300x300/003366/FFFFFF?text=+';">
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-[#003366]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                                        <span
+                                            class="text-white text-[10px] font-bold uppercase tracking-wider">Proyecto</span>
+                                    </div>
+                                    <div
+                                        class="absolute top-2 right-2 w-7 h-7 bg-emerald-500/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="fa-solid fa-check text-white text-[10px]"></i>
+                                    </div>
                                 </div>
+
+                                <!-- Ítem 4 -->
                                 <div
-                                    class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
-                                    <img src="/img/img5.png" alt="Servicio LIMBOLIVIA 5"
-                                        class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300"
-                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img5.png';" />
+                                    class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-500 bg-white border border-slate-200/50">
+                                    <div class="aspect-square overflow-hidden">
+                                        <img src="/img/img4.png" alt="Trabajo LIMBOLIVIA 4"
+                                            class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"
+                                            onerror="this.onerror=null; this.src='https://via.placeholder.com/300x300/003366/FFFFFF?text=+';">
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-[#003366]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                                        <span
+                                            class="text-white text-[10px] font-bold uppercase tracking-wider">Proyecto</span>
+                                    </div>
+                                    <div
+                                        class="absolute top-2 right-2 w-7 h-7 bg-emerald-500/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="fa-solid fa-check text-white text-[10px]"></i>
+                                    </div>
                                 </div>
+
+                                <!-- Ítem 5 -->
                                 <div
-                                    class="overflow-hidden rounded-lg shadow border border-slate-200 bg-white group hover:shadow-md transition">
-                                    <img src="/img/img6.png" alt="Servicio LIMBOLIVIA 6"
-                                        class="w-full h-28 sm:h-36 object-cover group-hover:scale-110 transition duration-300"
-                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200/003366/FFFFFF?text=img6.png';" />
+                                    class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-500 bg-white border border-slate-200/50">
+                                    <div class="aspect-square overflow-hidden">
+                                        <img src="/img/img5.png" alt="Trabajo LIMBOLIVIA 5"
+                                            class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"
+                                            onerror="this.onerror=null; this.src='https://via.placeholder.com/300x300/003366/FFFFFF?text=+';">
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-[#003366]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                                        <span
+                                            class="text-white text-[10px] font-bold uppercase tracking-wider">Proyecto</span>
+                                    </div>
+                                    <div
+                                        class="absolute top-2 right-2 w-7 h-7 bg-emerald-500/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="fa-solid fa-check text-white text-[10px]"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Ítem 6 -->
+                                <div
+                                    class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-500 bg-white border border-slate-200/50">
+                                    <div class="aspect-square overflow-hidden">
+                                        <img src="/img/img6.png" alt="Trabajo LIMBOLIVIA 6"
+                                            class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"
+                                            onerror="this.onerror=null; this.src='https://via.placeholder.com/300x300/003366/FFFFFF?text=+';">
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-[#003366]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                                        <span
+                                            class="text-white text-[10px] font-bold uppercase tracking-wider">Proyecto</span>
+                                    </div>
+                                    <div
+                                        class="absolute top-2 right-2 w-7 h-7 bg-emerald-500/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="fa-solid fa-check text-white text-[10px]"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
