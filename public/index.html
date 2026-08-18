@@ -205,6 +205,43 @@
         #sidebarContainer.hidden-sidebar {
             display: none !important;
         }
+
+        /* Animación de entrada para el modal */
+        #modalImagen:not(.hidden) {
+            animation: fadeInModal 0.3s ease-out forwards;
+        }
+
+        @keyframes fadeInModal {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Animación de gradiente */
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .animate-gradient {
+            animation: gradient 4s ease-in-out infinite;
+            background-size: 200% 200%;
+        }
     </style>
 </head>
 
@@ -622,175 +659,163 @@
                 <!-- 2. VIEW MISIÓN / VISIÓN (REDISEÑADO) -->
                 <!-- ================================ -->
                 <div id="view-mision-vision"
-                    class="view-section hidden rounded-2xl overflow-hidden shadow-2xl border-0 animate-fade-in">
+                    class="view-section hidden rounded-2xl overflow-hidden shadow-xl border border-slate-200/50 animate-fade-in bg-white">
 
-                    <!-- HERO CON IMAGEN DE FONDO -->
-                    <div class="relative bg-gradient-to-br from-[#003366] via-[#001845] to-[#000b1f] overflow-hidden">
-                        <!-- Imagen de fondo -->
-                        <div class="absolute inset-0 opacity-20 mix-blend-overlay">
-                            <img src="/img/logo3.png" alt="LIM-BOLIVIA Fondo" class="w-full h-full object-cover"
-                                onerror="this.onerror=null; this.style.display='none';">
-                        </div>
+                    <!-- BANNER SUPERIOR CON LOGO3.PNG -->
+                    <div
+                        class="relative w-full h-48 md:h-64 lg:h-72 overflow-hidden bg-gradient-to-r from-slate-100 to-slate-200">
+                        <!-- Imagen de fondo: logo3.png -->
+                        <img src="/img/logo3.png" alt="LIM-BOLIVIA"
+                            class="w-full h-full object-contain object-center p-4 md:p-8"
+                            onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center text-slate-400\'><i class=\'fa-solid fa-image text-6xl opacity-20\'></i></div>';">
 
-                        <!-- Efecto de gradiente sobre la imagen -->
-                        <div
-                            class="absolute inset-0 bg-gradient-to-br from-[#003366]/90 via-[#001845]/80 to-[#000b1f]/95">
-                        </div>
+                        <!-- Sutil gradiente de superposición -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-white/20"></div>
 
-                        <!-- Efecto de partículas / destellos -->
-                        <div class="absolute inset-0 overflow-hidden">
-                            <div
-                                class="absolute -top-40 -right-40 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl animate-pulse">
-                            </div>
-                            <div
-                                class="absolute -bottom-40 -left-40 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl animate-pulse delay-1000">
-                            </div>
-                            <div
-                                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl">
-                            </div>
-                        </div>
-
-                        <!-- CONTENIDO -->
-                        <div class="relative z-10 p-8 md:p-12 lg:p-16">
-
-                            <!-- TÍTULO PRINCIPAL -->
-                            <div class="text-center mb-12">
-                                <div
-                                    class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full border border-white/20 mb-4">
-                                    <i class="fa-solid fa-flag text-amber-400 text-sm"></i>
-                                    <span class="text-white/80 text-xs font-bold uppercase tracking-widest">Nuestra
-                                        Identidad</span>
-                                </div>
-                                <h2 class="text-4xl md:text-5xl font-black text-white tracking-tight">
-                                    <span
-                                        class="bg-gradient-to-r from-emerald-400 via-amber-300 to-emerald-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
-                                        Conócenos
-                                    </span>
-                                </h2>
-                                <p class="text-white/50 text-sm mt-2 max-w-2xl mx-auto">Los pilares que guían nuestro
-                                    camino hacia la excelencia</p>
-                            </div>
-
-                            <!-- MISIÓN Y VISIÓN EN TARJETAS -->
-                            <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-
-                                <!-- TARJETA MISIÓN -->
-                                <div
-                                    class="group bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/10 hover:border-emerald-400/50 transition-all duration-500 hover:transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/10">
-                                    <div class="flex items-center gap-4 mb-4">
-                                        <div
-                                            class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center shadow-lg shadow-emerald-500/25 group-hover:scale-110 transition-transform duration-300">
-                                            <i class="fa-solid fa-bullseye text-2xl text-white"></i>
-                                        </div>
-                                        <div>
-                                            <span
-                                                class="text-emerald-400 text-xs font-bold uppercase tracking-widest">Norte</span>
-                                            <h3 class="text-2xl font-black text-white">MISIÓN</h3>
-                                        </div>
-                                    </div>
-                                    <div class="relative pl-4 border-l-2 border-emerald-500/30">
-                                        <p class="text-white/80 leading-relaxed text-sm md:text-base font-light">
-                                            Diseñar, operar y administrar sistemas y servicios de limpieza de acuerdo a
-                                            las más exigentes necesidades, los cuales garanticen higiene de calidad en
-                                            las condiciones de tiempo, satisfacción y presupuesto acorde con nuestros
-                                            clientes.
-                                        </p>
-                                    </div>
-                                    <div class="mt-4 flex items-center gap-2 text-emerald-400/50 text-xs">
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                        <span>Compromiso con la excelencia</span>
-                                    </div>
-                                </div>
-
-                                <!-- TARJETA VISIÓN -->
-                                <div
-                                    class="group bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/10 hover:border-amber-400/50 transition-all duration-500 hover:transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-500/10">
-                                    <div class="flex items-center gap-4 mb-4">
-                                        <div
-                                            class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center shadow-lg shadow-amber-500/25 group-hover:scale-110 transition-transform duration-300">
-                                            <i class="fa-solid fa-eye text-2xl text-white"></i>
-                                        </div>
-                                        <div>
-                                            <span
-                                                class="text-amber-400 text-xs font-bold uppercase tracking-widest">Futuro</span>
-                                            <h3 class="text-2xl font-black text-white">VISIÓN</h3>
-                                        </div>
-                                    </div>
-                                    <div class="relative pl-4 border-l-2 border-amber-500/30">
-                                        <p class="text-white/80 leading-relaxed text-sm md:text-base font-light">
-                                            Superar la barrera del tiempo llegando a ser la más importante referencia a
-                                            nivel nacional e internacional en materia de limpieza. Pensando siempre en
-                                            la calidad de vida de nuestros clientes y no apartándonos de nuestros
-                                            valores y principios con los cuales comenzamos este camino.
-                                        </p>
-                                    </div>
-                                    <div class="mt-4 flex items-center gap-2 text-amber-400/50 text-xs">
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                        <span>Liderazgo con propósito</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- LEMA DESTACADO CON IMAGEN DE FONDO -->
-                            <div class="relative mt-12 max-w-3xl mx-auto overflow-hidden rounded-2xl">
-                                <!-- Fondo con la imagen logo3.png -->
-                                <div class="absolute inset-0">
-                                    <img src="/img/logo3.png" alt="LIM-BOLIVIA"
-                                        class="w-full h-full object-cover opacity-30"
-                                        onerror="this.onerror=null; this.style.display='none';">
-                                    <div
-                                        class="absolute inset-0 bg-gradient-to-r from-[#003366]/95 via-[#001845]/90 to-[#000b1f]/95">
-                                    </div>
-                                </div>
-
-                                <!-- Efecto de borde brillante -->
-                                <div
-                                    class="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 via-amber-400 to-emerald-500 rounded-2xl opacity-30 blur-sm">
-                                </div>
-
-                                <div
-                                    class="relative z-10 p-8 md:p-10 text-center border border-white/10 rounded-2xl backdrop-blur-sm">
-                                    <div
-                                        class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/10 mb-4">
-                                        <i class="fa-solid fa-sparkles text-amber-400 text-xs"></i>
-                                        <span
-                                            class="text-white/60 text-[10px] font-bold uppercase tracking-widest">Nuestro
-                                            Lema</span>
-                                    </div>
-
-                                    <div class="space-y-3">
-                                        <p
-                                            class="text-2xl md:text-3xl font-black text-transparent bg-gradient-to-r from-emerald-300 via-amber-200 to-emerald-300 bg-clip-text bg-[length:200%_auto] animate-gradient">
-                                            "LIMPIEZA ES NUESTRO LEMA"
-                                        </p>
-                                        <div class="flex items-center justify-center gap-3">
-                                            <div class="h-px w-12 bg-gradient-to-r from-transparent to-emerald-400/50">
-                                            </div>
-                                            <i class="fa-solid fa-heart text-amber-400/60 text-xs"></i>
-                                            <div class="h-px w-12 bg-gradient-to-l from-transparent to-emerald-400/50">
-                                            </div>
-                                        </div>
-                                        <p class="text-xl md:text-2xl font-bold text-white/90">
-                                            "SALUD Y BIENESTAR NUESTRO OBJETIVO"
-                                        </p>
-                                    </div>
-
-                                    <!-- Decoración inferior -->
-                                    <div class="mt-6 flex justify-center gap-1">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400/40"></span>
-                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400/40"></span>
-                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400/40"></span>
-                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400/40"></span>
-                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400/40"></span>
-                                    </div>
-                                </div>
-                            </div>
-
+                        <!-- Texto superpuesto -->
+                        <div class="absolute bottom-4 left-0 right-0 text-center">
+                            <span
+                                class="inline-block bg-black/30 backdrop-blur-sm text-white/90 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-white/20">
+                                <i class="fa-solid fa-flag text-amber-400 mr-2"></i> Nuestra Identidad
+                            </span>
                         </div>
                     </div>
 
-                    <!-- GALERÍA DE TRABAJOS (sección inferior) -->
-                    <div class="bg-slate-50/95 backdrop-blur-sm p-6 md:p-8 border-t border-slate-200/50">
+                    <!-- CONTENIDO PRINCIPAL -->
+                    <div class="p-6 md:p-8 lg:p-10 bg-white">
+
+                        <!-- TÍTULO -->
+                        <div class="text-center mb-10">
+                            <h2 class="text-3xl md:text-4xl font-black text-[#003366] tracking-tight">
+                                <span
+                                    class="bg-gradient-to-r from-[#003366] via-emerald-600 to-[#003366] bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+                                    Conócenos
+                                </span>
+                            </h2>
+                            <p class="text-slate-500 text-sm mt-2">Los pilares que guían nuestro camino hacia la
+                                excelencia</p>
+                            <div
+                                class="w-20 h-1 bg-gradient-to-r from-emerald-500 to-amber-400 rounded-full mx-auto mt-3">
+                            </div>
+                        </div>
+
+                        <!-- MISIÓN Y VISIÓN CON LOGO4.PNG -->
+                        <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+
+                            <!-- TARJETA MISIÓN -->
+                            <div
+                                class="group bg-slate-50 rounded-2xl p-6 md:p-8 border border-slate-200 hover:border-emerald-400 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-100/50 hover:-translate-y-1">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div
+                                        class="w-14 h-14 rounded-2xl overflow-hidden border-2 border-emerald-200 shadow-md shrink-0">
+                                        <img src="/img/logo4.png" alt="Misión" class="w-full h-full object-cover"
+                                            onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2256%22 height=%2256%22%3E%3Crect width=%2256%22 height=%2256%22 fill=%22%23003366%22/%3E%3Ctext x=%2228%22 y=%2236%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2224%22 font-family=%22Arial%22%3E🎯%3C/text%3E%3C/svg%3E';">
+                                    </div>
+                                    <div>
+                                        <span
+                                            class="text-emerald-600 text-xs font-bold uppercase tracking-widest">Norte</span>
+                                        <h3 class="text-2xl font-black text-[#003366]">MISIÓN</h3>
+                                    </div>
+                                </div>
+                                <div class="relative pl-4 border-l-2 border-emerald-400/30">
+                                    <p class="text-slate-700 leading-relaxed text-sm md:text-base font-medium">
+                                        Diseñar, operar y administrar sistemas y servicios de limpieza de acuerdo a las
+                                        más exigentes necesidades, los cuales garanticen higiene de calidad en las
+                                        condiciones de tiempo, satisfacción y presupuesto acorde con nuestros clientes.
+                                    </p>
+                                </div>
+                                <div class="mt-4 flex items-center gap-2 text-emerald-600/70 text-xs font-medium">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                    <span>Compromiso con la excelencia</span>
+                                </div>
+                            </div>
+
+                            <!-- TARJETA VISIÓN -->
+                            <div
+                                class="group bg-slate-50 rounded-2xl p-6 md:p-8 border border-slate-200 hover:border-amber-400 transition-all duration-300 hover:shadow-xl hover:shadow-amber-100/50 hover:-translate-y-1">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div
+                                        class="w-14 h-14 rounded-2xl overflow-hidden border-2 border-amber-200 shadow-md shrink-0">
+                                        <img src="/img/logo4.png" alt="Visión" class="w-full h-full object-cover"
+                                            onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2256%22 height=%2256%22%3E%3Crect width=%2256%22 height=%2256%22 fill=%22%23003366%22/%3E%3Ctext x=%2228%22 y=%2236%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2224%22 font-family=%22Arial%22%3E👁️%3C/text%3E%3C/svg%3E';">
+                                    </div>
+                                    <div>
+                                        <span
+                                            class="text-amber-600 text-xs font-bold uppercase tracking-widest">Futuro</span>
+                                        <h3 class="text-2xl font-black text-[#003366]">VISIÓN</h3>
+                                    </div>
+                                </div>
+                                <div class="relative pl-4 border-l-2 border-amber-400/30">
+                                    <p class="text-slate-700 leading-relaxed text-sm md:text-base font-medium">
+                                        Superar la barrera del tiempo llegando a ser la más importante referencia a
+                                        nivel nacional e internacional en materia de limpieza. Pensando siempre en la
+                                        calidad de vida de nuestros clientes y no apartándonos de nuestros valores y
+                                        principios con los cuales comenzamos este camino.
+                                    </p>
+                                </div>
+                                <div class="mt-4 flex items-center gap-2 text-amber-600/70 text-xs font-medium">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                    <span>Liderazgo con propósito</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- LEMA CON LOGO4.PNG DE FONDO -->
+                        <div class="relative mt-10 max-w-3xl mx-auto overflow-hidden rounded-2xl">
+                            <!-- Fondo con logo4.png -->
+                            <div class="absolute inset-0">
+                                <img src="/img/logo4.png" alt="Fondo Lema" class="w-full h-full object-cover opacity-10"
+                                    onerror="this.onerror=null; this.style.display='none';">
+                            </div>
+
+                            <!-- Fondo claro con gradiente sutil -->
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-emerald-50/90 via-white/95 to-amber-50/90">
+                            </div>
+
+                            <!-- Borde decorativo -->
+                            <div
+                                class="absolute -inset-0.5 bg-gradient-to-r from-emerald-400 via-amber-400 to-emerald-400 rounded-2xl opacity-20">
+                            </div>
+
+                            <div
+                                class="relative z-10 p-8 md:p-10 text-center border border-slate-200/50 rounded-2xl bg-white/80 backdrop-blur-sm">
+                                <div
+                                    class="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-100 to-amber-100 px-4 py-1.5 rounded-full border border-emerald-200/50 mb-4">
+                                    <i class="fa-solid fa-sparkles text-amber-500 text-xs"></i>
+                                    <span class="text-slate-700 text-[10px] font-bold uppercase tracking-widest">Nuestro
+                                        Lema</span>
+                                </div>
+
+                                <div class="space-y-3">
+                                    <p class="text-2xl md:text-3xl font-black text-[#003366]">
+                                        "LIMPIEZA ES NUESTRO LEMA"
+                                    </p>
+                                    <div class="flex items-center justify-center gap-3">
+                                        <div class="h-px w-12 bg-gradient-to-r from-transparent to-emerald-400/50">
+                                        </div>
+                                        <i class="fa-solid fa-heart text-emerald-400/60 text-xs"></i>
+                                        <div class="h-px w-12 bg-gradient-to-l from-transparent to-emerald-400/50">
+                                        </div>
+                                    </div>
+                                    <p class="text-xl md:text-2xl font-bold text-emerald-700">
+                                        "SALUD Y BIENESTAR NUESTRO OBJETIVO"
+                                    </p>
+                                </div>
+
+                                <div class="mt-6 flex justify-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-400/40"></span>
+                                    <span class="w-2 h-2 rounded-full bg-amber-400/40"></span>
+                                    <span class="w-2 h-2 rounded-full bg-emerald-400/40"></span>
+                                    <span class="w-2 h-2 rounded-full bg-amber-400/40"></span>
+                                    <span class="w-2 h-2 rounded-full bg-emerald-400/40"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GALERÍA DE TRABAJOS CON CLICK PARA AMPLIAR -->
+                    <div class="bg-slate-50/80 p-6 md:p-8 border-t border-slate-200/50">
                         <div class="max-w-6xl mx-auto">
                             <div class="flex items-center justify-between mb-6">
                                 <div>
@@ -801,6 +826,8 @@
                                     </div>
                                     <h3 class="text-xl md:text-2xl font-black text-[#003366]">Galería de Trabajos
                                         Realizados</h3>
+                                    <p class="text-xs text-slate-500 mt-0.5">Haz clic en cualquier imagen para ampliarla
+                                    </p>
                                 </div>
                                 <span
                                     class="text-[10px] bg-slate-200 text-slate-600 font-bold px-3 py-1 rounded-full border border-slate-300/50">
@@ -810,8 +837,8 @@
 
                             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
                                 <!-- Ítem 1 -->
-                                <div
-                                    class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-500 bg-white border border-slate-200/50">
+                                <div class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-2xl transition-all duration-500 bg-white border border-slate-200/50 cursor-pointer"
+                                    onclick="abrirImagen('/img/img1.png', 'Proyecto LIMBOLIVIA 1')">
                                     <div class="aspect-square overflow-hidden">
                                         <img src="/img/img1.png" alt="Trabajo LIMBOLIVIA 1"
                                             class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"
@@ -820,17 +847,19 @@
                                     <div
                                         class="absolute inset-0 bg-gradient-to-t from-[#003366]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
                                         <span
-                                            class="text-white text-[10px] font-bold uppercase tracking-wider">Proyecto</span>
+                                            class="text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
+                                            <i class="fa-solid fa-expand text-[8px]"></i> Ver más
+                                        </span>
                                     </div>
                                     <div
                                         class="absolute top-2 right-2 w-7 h-7 bg-emerald-500/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <i class="fa-solid fa-check text-white text-[10px]"></i>
+                                        <i class="fa-solid fa-plus text-white text-[10px]"></i>
                                     </div>
                                 </div>
 
                                 <!-- Ítem 2 -->
-                                <div
-                                    class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-500 bg-white border border-slate-200/50">
+                                <div class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-2xl transition-all duration-500 bg-white border border-slate-200/50 cursor-pointer"
+                                    onclick="abrirImagen('/img/img2.png', 'Proyecto LIMBOLIVIA 2')">
                                     <div class="aspect-square overflow-hidden">
                                         <img src="/img/img2.png" alt="Trabajo LIMBOLIVIA 2"
                                             class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"
@@ -839,17 +868,19 @@
                                     <div
                                         class="absolute inset-0 bg-gradient-to-t from-[#003366]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
                                         <span
-                                            class="text-white text-[10px] font-bold uppercase tracking-wider">Proyecto</span>
+                                            class="text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
+                                            <i class="fa-solid fa-expand text-[8px]"></i> Ver más
+                                        </span>
                                     </div>
                                     <div
                                         class="absolute top-2 right-2 w-7 h-7 bg-emerald-500/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <i class="fa-solid fa-check text-white text-[10px]"></i>
+                                        <i class="fa-solid fa-plus text-white text-[10px]"></i>
                                     </div>
                                 </div>
 
                                 <!-- Ítem 3 -->
-                                <div
-                                    class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-500 bg-white border border-slate-200/50">
+                                <div class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-2xl transition-all duration-500 bg-white border border-slate-200/50 cursor-pointer"
+                                    onclick="abrirImagen('/img/img3.png', 'Proyecto LIMBOLIVIA 3')">
                                     <div class="aspect-square overflow-hidden">
                                         <img src="/img/img3.png" alt="Trabajo LIMBOLIVIA 3"
                                             class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"
@@ -858,17 +889,19 @@
                                     <div
                                         class="absolute inset-0 bg-gradient-to-t from-[#003366]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
                                         <span
-                                            class="text-white text-[10px] font-bold uppercase tracking-wider">Proyecto</span>
+                                            class="text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
+                                            <i class="fa-solid fa-expand text-[8px]"></i> Ver más
+                                        </span>
                                     </div>
                                     <div
                                         class="absolute top-2 right-2 w-7 h-7 bg-emerald-500/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <i class="fa-solid fa-check text-white text-[10px]"></i>
+                                        <i class="fa-solid fa-plus text-white text-[10px]"></i>
                                     </div>
                                 </div>
 
                                 <!-- Ítem 4 -->
-                                <div
-                                    class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-500 bg-white border border-slate-200/50">
+                                <div class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-2xl transition-all duration-500 bg-white border border-slate-200/50 cursor-pointer"
+                                    onclick="abrirImagen('/img/img4.png', 'Proyecto LIMBOLIVIA 4')">
                                     <div class="aspect-square overflow-hidden">
                                         <img src="/img/img4.png" alt="Trabajo LIMBOLIVIA 4"
                                             class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"
@@ -877,17 +910,19 @@
                                     <div
                                         class="absolute inset-0 bg-gradient-to-t from-[#003366]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
                                         <span
-                                            class="text-white text-[10px] font-bold uppercase tracking-wider">Proyecto</span>
+                                            class="text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
+                                            <i class="fa-solid fa-expand text-[8px]"></i> Ver más
+                                        </span>
                                     </div>
                                     <div
                                         class="absolute top-2 right-2 w-7 h-7 bg-emerald-500/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <i class="fa-solid fa-check text-white text-[10px]"></i>
+                                        <i class="fa-solid fa-plus text-white text-[10px]"></i>
                                     </div>
                                 </div>
 
                                 <!-- Ítem 5 -->
-                                <div
-                                    class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-500 bg-white border border-slate-200/50">
+                                <div class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-2xl transition-all duration-500 bg-white border border-slate-200/50 cursor-pointer"
+                                    onclick="abrirImagen('/img/img5.png', 'Proyecto LIMBOLIVIA 5')">
                                     <div class="aspect-square overflow-hidden">
                                         <img src="/img/img5.png" alt="Trabajo LIMBOLIVIA 5"
                                             class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"
@@ -896,17 +931,19 @@
                                     <div
                                         class="absolute inset-0 bg-gradient-to-t from-[#003366]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
                                         <span
-                                            class="text-white text-[10px] font-bold uppercase tracking-wider">Proyecto</span>
+                                            class="text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
+                                            <i class="fa-solid fa-expand text-[8px]"></i> Ver más
+                                        </span>
                                     </div>
                                     <div
                                         class="absolute top-2 right-2 w-7 h-7 bg-emerald-500/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <i class="fa-solid fa-check text-white text-[10px]"></i>
+                                        <i class="fa-solid fa-plus text-white text-[10px]"></i>
                                     </div>
                                 </div>
 
                                 <!-- Ítem 6 -->
-                                <div
-                                    class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-500 bg-white border border-slate-200/50">
+                                <div class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-2xl transition-all duration-500 bg-white border border-slate-200/50 cursor-pointer"
+                                    onclick="abrirImagen('/img/img6.png', 'Proyecto LIMBOLIVIA 6')">
                                     <div class="aspect-square overflow-hidden">
                                         <img src="/img/img6.png" alt="Trabajo LIMBOLIVIA 6"
                                             class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"
@@ -915,11 +952,13 @@
                                     <div
                                         class="absolute inset-0 bg-gradient-to-t from-[#003366]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
                                         <span
-                                            class="text-white text-[10px] font-bold uppercase tracking-wider">Proyecto</span>
+                                            class="text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
+                                            <i class="fa-solid fa-expand text-[8px]"></i> Ver más
+                                        </span>
                                     </div>
                                     <div
                                         class="absolute top-2 right-2 w-7 h-7 bg-emerald-500/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <i class="fa-solid fa-check text-white text-[10px]"></i>
+                                        <i class="fa-solid fa-plus text-white text-[10px]"></i>
                                     </div>
                                 </div>
                             </div>
@@ -4198,7 +4237,61 @@
                 if (sidebarContainer) sidebarContainer.classList.remove('hidden-sidebar');
             });
         });
+
+        // ==========================================
+        // FUNCIONES PARA AMPLIAR IMÁGENES
+        // ==========================================
+
+        function abrirImagen(src, titulo) {
+            const modal = document.getElementById('modalImagen');
+            const img = document.getElementById('modalImagenSrc');
+            const tituloEl = document.getElementById('modalImagenTitulo');
+
+            if (modal && img) {
+                img.src = src;
+                if (tituloEl) tituloEl.textContent = titulo || 'Trabajo Realizado';
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function cerrarImagen() {
+            const modal = document.getElementById('modalImagen');
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Cerrar con tecla ESC
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                cerrarImagen();
+            }
+        });
     </script>
+
+    <!-- MODAL PARA AMPLIAR IMÁGENES -->
+    <div id="modalImagen"
+        class="fixed inset-0 bg-black/90 backdrop-blur-md z-[99999] hidden flex items-center justify-center p-4"
+        onclick="cerrarImagen()">
+        <div class="relative max-w-4xl w-full max-h-[90vh]">
+            <!-- Botón cerrar -->
+            <button onclick="cerrarImagen()"
+                class="absolute -top-12 right-0 text-white/70 hover:text-white text-3xl transition z-10">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Contenedor de la imagen -->
+            <div class="bg-white/5 rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+                <img id="modalImagenSrc" src="" alt="Imagen ampliada" class="w-full h-auto max-h-[80vh] object-contain"
+                    onerror="this.onerror=null; this.src='https://via.placeholder.com/800x600/003366/FFFFFF?text=Imagen+no+disponible';">
+                <div class="p-4 bg-black/30 text-center">
+                    <p id="modalImagenTitulo" class="text-white/80 text-sm font-medium">Título de la imagen</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 
