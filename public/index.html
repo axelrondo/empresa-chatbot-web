@@ -5189,9 +5189,23 @@
         function toggleExtra(extraKey) {
             const chk = document.getElementById(`check-${extraKey}`);
             const panel = document.getElementById(`panel-${extraKey}`);
+            const config = extraPrices[extraKey];
+
             if (panel) {
-                if (chk && chk.checked) panel.classList.remove('hidden');
-                else panel.classList.add('hidden');
+                if (chk && chk.checked) {
+                    panel.classList.remove('hidden');
+                    // 🔴 FORZAR ACTUALIZACIÓN DEL SLIDER AL ABRIR
+                    if (config && config.type !== 'previa' && config.type !== 'fijo') {
+                        // Asegurar que el slider existe y tiene valor
+                        const rng = document.getElementById(`range-${extraKey}`);
+                        if (rng) {
+                            // Disparar el evento de actualización
+                            updateExtraValue(extraKey);
+                        }
+                    }
+                } else {
+                    panel.classList.add('hidden');
+                }
             }
         }
 
