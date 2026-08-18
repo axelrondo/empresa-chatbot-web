@@ -73,13 +73,13 @@ REGLAS DE MEMORIA Y ATENCIÓN:
             { role: 'user', content: userQuery.trim() }
         ];
 
-        console.log('📤 Modelo: mixtral-8x7b-32768');
+        console.log('📤 Modelo: llama-3.1-8b-instant');
         console.log('📤 Mensajes:', JSON.stringify(messages, null, 2));
 
-        // 7. ✅ LLAMADA CORRECTA A GROQ
+        // 7. ✅ LLAMADA CORRECTA A GROQ CON MODELO DISPONIBLE
         const chatCompletion = await groq.chat.completions.create({
             messages: messages,
-            model: 'mixtral-8x7b-32768',  // ← Modelo estable
+            model: 'llama-3.1-8b-instant',  // ← Modelo que SÍ está disponible
             temperature: 0.4,
             max_tokens: 500
         });
@@ -98,7 +98,7 @@ REGLAS DE MEMORIA Y ATENCIÓN:
         if (error?.message?.includes('API key')) {
             return "❌ Error de configuración: La API Key no es válida. Contacta al administrador.";
         } else if (error?.message?.includes('model')) {
-            return "❌ Error: El modelo no está disponible. Contacta al administrador.";
+            return `❌ Error: El modelo 'llama-3.1-8b-instant' no está disponible. Contacta al administrador.`;
         } else if (error?.message?.includes('rate limit')) {
             return "⏳ Demasiadas solicitudes. Espera un momento e intenta nuevamente.";
         } else if (error?.message?.includes('timeout')) {
