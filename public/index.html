@@ -5837,15 +5837,65 @@
             alert(`✅ ${addedCount} servicio(s) agregado(s) al cotizador.\n\n${detalles.join('\n')}\n\n💰 Total parcial: Bs ${totalExtras}`);
         }
 
+        // ==========================================
+        // updateExtraValue - Actualiza el label del slider
+        // ==========================================
         function updateExtraValue(extraKey) {
             const rng = document.getElementById(`range-${extraKey}`);
             const lbl = document.getElementById(`label-${extraKey}`);
-            if (!rng || !lbl) return;
+            if (!rng || !lbl) {
+                console.warn('⚠️ Slider o label no encontrado para:', extraKey);
+                return;
+            }
+
             const qty = parseInt(rng.value) || 1;
-            const unitPrice = extraPrices[extraKey].pricePerUnit;
-            const total = qty * unitPrice;
-            lbl.innerText =
-                `${qty} ${extraKey === 'vidrios' ? 'vent.' : extraKey === 'sofas' ? 'Cuerpos' : 'unid.'} (Bs ${total})`;
+            const config = extraPrices[extraKey];
+            if (!config) {
+                console.warn('⚠️ Config no encontrada para:', extraKey);
+                return;
+            }
+
+            let unitPrice = 0;
+            let total = 0;
+            let moneda = 'Bs';
+
+            // 🔴 CASO 1: Tiene opciones (radio buttons)
+            if (config.opciones) {
+                const selectedRadio = document.querySelector(`input[name="tipo-${extraKey}"]:checked`);
+                if (selectedRadio) {
+                    unitPrice = parseFloat(selectedRadio.value) || 0;
+                    console.log('💰 Precio seleccionado:', unitPrice, 'para:', extraKey);
+                } else {
+                    // Si no hay seleccionado, usar el primero
+                    const firstRadio = document.querySelector(`input[name="tipo-${extraKey}"]`);
+                    if (firstRadio) {
+                        firstRadio.checked = true;
+                        unitPrice = parseFloat(firstRadio.value) || 0;
+                        console.log('💰 Usando primer precio:', unitPrice, 'para:', extraKey);
+                    }
+                }
+
+                total = qty * unitPrice;
+                moneda = config.opciones[0]?.moneda || 'Bs';
+                const labelText = config.opciones.find(o => o.value == unitPrice)?.label || '';
+                lbl.innerText = `${qty} unid. (${total} ${moneda})`;
+                console.log('📝 Label actualizado:', lbl.innerText);
+                return;
+            }
+
+            // 🔴 CASO 2: Tiene descuento
+            if (config.descuento) {
+                unitPrice = config.pricePerUnit || 0;
+                if (qty > config.descuento.limite) {
+                    unitPrice = config.descuento.precio;
+                }
+            } else {
+                unitPrice = config.pricePerUnit || 0;
+            }
+
+            total = qty * unitPrice;
+            lbl.innerText = `${qty} unidades (Bs ${total})`;
+            console.log('📝 Label actualizado:', lbl.innerText);
         }
 
         function changeExtraQty(extraKey, delta) {
