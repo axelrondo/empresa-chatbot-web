@@ -592,7 +592,7 @@
                                         class="bg-slate-200 hover:bg-slate-300 font-bold w-10 h-10 rounded-lg text-lg flex items-center justify-center transition border border-slate-300 shrink-0"><i
                                             class="fa-solid fa-plus"></i></button>
                                 </div>
-                                <button onclick="addCurrentMainService()"
+                                <button onclick="addCurrentMainService()" id="btnAgregarServicio"
                                     class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-sm text-xs uppercase tracking-wide">
                                     <i class="fa-solid fa-cart-plus text-emerald-400 text-sm"></i> Agregar Servicio Base
                                 </button>
@@ -5326,15 +5326,15 @@
             'Alfombras': {
                 name: "LAVADO DE ALFOMBRA - FIJA", rate: 15, img: "/img/alfombra_fija.png",
                 machine: "Inyectora / Extractora Profesional",
-                desc: "Servicio general: Ofrecen limpieza regular de alfombras y tapizados mediante un sistema exclusivo de limpieza en seco para mantenerlos en óptimas condiciones y prolongar su vida útil. -"
+                desc: "Servicio especializado a domicilio:\n• Champuneado o lavado en seco sin inundar\n• Desinfección antibacteriana y fungicida\n• Eliminación de malos olores desde la raíz\n• Secado ultra rápido en pocos minutos\n• Ideal para residencias, hoteles y oficinas."
             },
             'AlfombraSuelta': {
                 name: "ALFOMBRA - SUELTA", rate: 18, img: "/img/alfombrafija.png",
-                machine: "Lavadora Centrifuga", desc: "Aplicación de sistema champuneado , Sistema de espuma seca , Evitan el contacto directo de agua con los tejidos, previniendo el deterioro de las telas o del piso inferior (como parquet)."
+                machine: "Lavadora Centrifuga", desc: "Tratamiento intensivo a domicilio:\n• Champuneado de fibra profunda y enjuague\n• Eliminación de polvo retenido en la base\n• Desinfección antibacteriana e inodora\n• Apto para alfombras de pelo alto, lana y sintéticas\n• Protege el tejido sin alterar el tamaño ni la forma."
             },
             'Oficinas': {
                 name: "LIMPIEZA DE OFICINAS", rate: 12, img: "/img/oficina1.png",
-                machine: "Rotativa Industrial", desc: "Mantenimiento integral de escritorios y pisos, Limpieza Profunda o Periódica: Mantenimiento mensual o trimestral para el lavado industrial de alfombras, soplado de techos, abrillantado/lustrado de pisos (parquet, mármol, cerámica) y desinfección profunda"
+                machine: "Rotativa Industrial", desc: "Mantenimiento integral de escritorios y pisos, Servicio profesional para empresas:\n• Limpieza profunda de estaciones de trabajo\n• Aspirado y lavado en seco de alfombras\n• Limpieza de vidrios interiores y mamparas\n• Desinfección constante de puntos de contacto\n• Personal uniformado y capacitado"
             },
             'Casas': {
                 name: "LIMPIEZA DE CASAS", rate: 10, img: "/img/casa1.png", machine: "Generador de Vapor",
@@ -5353,8 +5353,13 @@
                 machine: "Termonebulizadora", desc: "Eliminación de plagas con biocidas autorizados, Tratamiento especializado contra plagas:\n• Desratización: Control de ratas y ratones\n• Sanetización: Eliminación de bacterias y virus\n• Control de plagas rastreras y voladoras\n• Tratamiento para chinches y termitas\n• Apto para viviendas, oficinas y restaurantes"
             },
             'Tanques': {
-                name: "LIMPIEZA DE TANQUES", rate: 25, img: "/img/img3.png", machine: "Bomba Sumergible",
-                desc: "Lavado y cloración de tanques de agua, Servicio integral para pozo y tanque:\n• Extracción de lodos con bomba\n• Desinfección y cloración\n• Control de sedimentos"
+                name: "LIMPIEZA DE TANQUES",
+                rate: 0,  // ← CAMBIAR A 0 (sin precio por m²)
+                type: 'previa',  // ← AGREGAR: indica que es previa cotización
+                img: "/img/img3.png",
+                machine: "Bomba Sumergible",
+                desc: "Lavado y cloración de tanques de agua. Servicio integral para pozo y tanque:\n• Extracción de lodos con bomba\n• Desinfección y cloración\n• Control de sedimentos",
+                whatsapp: "59173017175"  // ← AGREGAR: número para cotización
             }
         };
 
@@ -5573,9 +5578,37 @@
 
         function calculateBaseServiceSubtotal() {
             const sData = serviceRates[currentSelectedServiceKey];
+            if (!sData) return 0;
+
+            // 🔴 CASO ESPECIAL: "Limpieza Tanques" (previa cotización)
+            if (currentSelectedServiceKey === 'Tanques') {
+                // Cambiar el texto del m²
+                document.getElementById('m2Value').innerHTML = `
+            <span class="text-amber-400">📞 Previa Cotización</span>
+        `;
+                // Mostrar botón de WhatsApp en lugar del precio
+                document.getElementById('m2Subtotal').innerHTML = `
+            <a href="https://wa.me/59173017175?text=Hola,%20requiero%20una%20cotización%20para%20Limpieza%20de%20Tanques%20de%20Agua" 
+               target="_blank" 
+               class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition shadow-md">
+                <i class="fa-brands fa-whatsapp"></i> Cotizar por WhatsApp
+            </a>
+        `;
+                // Ocultar el botón de "Agregar Servicio Base"
+                const btnAgregar = document.getElementById('btnAgregarServicio');
+                if (btnAgregar) btnAgregar.style.display = 'none';
+                return 0;
+            }
+
+            // 🔴 TODOS LOS DEMÁS SERVICIOS (funcionan igual que antes)
             const subtotal = currentM2 * sData.rate;
             document.getElementById('m2Value').innerText = `${currentM2} m²`;
             document.getElementById('m2Subtotal').innerText = `(Bs ${subtotal})`;
+
+            // Asegurar que el botón "Agregar Servicio Base" esté visible
+            const btnAgregar = document.getElementById('btnAgregarServicio');
+            if (btnAgregar) btnAgregar.style.display = 'block';
+
             return subtotal;
         }
 
@@ -6064,15 +6097,38 @@
             updateExtraValue(extraKey);
         }
 
-        function addCurrentMainService() {
+        function calculateBaseServiceSubtotal() {
             const sData = serviceRates[currentSelectedServiceKey];
+            if (!sData) return 0;
+
+            // 🔴 CASO ESPECIAL: "Limpieza Tanques" (previa cotización)
+            if (currentSelectedServiceKey === 'Tanques') {
+                document.getElementById('m2Value').innerHTML = `
+            <span class="text-amber-400">📞 Previa Cotización</span>
+        `;
+                document.getElementById('m2Subtotal').innerHTML = `
+            <a href="https://wa.me/59173017175?text=Hola,%20requiero%20una%20cotización%20para%20Limpieza%20de%20Tanques%20de%20Agua" 
+               target="_blank" 
+               class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition shadow-md">
+                <i class="fa-brands fa-whatsapp"></i> Cotizar por WhatsApp
+            </a>
+        `;
+                // Ocultar el botón de "Agregar Servicio Base"
+                const btnAgregar = document.getElementById('btnAgregarServicio');
+                if (btnAgregar) btnAgregar.style.display = 'none';
+                return 0;
+            }
+
+            // 🔴 TODOS LOS DEMÁS SERVICIOS (funcionan igual que antes)
             const subtotal = currentM2 * sData.rate;
-            addedServices.push({
-                id: Date.now() + Math.random(),
-                title: `${sData.name} (${currentM2} m²)`,
-                price: subtotal
-            });
-            renderSummary();
+            document.getElementById('m2Value').innerText = `${currentM2} m²`;
+            document.getElementById('m2Subtotal').innerText = `(Bs ${subtotal})`;
+
+            // Asegurar que el botón "Agregar Servicio Base" esté visible
+            const btnAgregar = document.getElementById('btnAgregarServicio');
+            if (btnAgregar) btnAgregar.style.display = 'block';
+
+            return subtotal;
         }
 
         function addSelectedExtrasOnly() {
