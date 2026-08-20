@@ -302,6 +302,161 @@
                 transform: translateY(0);
             }
         }
+
+        /* Panel de resumen flotante */
+        #panelResumen {
+            position: fixed;
+            bottom: 100px;
+            right: 24px;
+            width: 320px;
+            max-width: 90vw;
+            max-height: 60vh;
+            z-index: 9998;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Para pantallas pequeñas */
+        @media (max-width: 1024px) {
+            #panelResumen {
+                width: 280px;
+                bottom: 80px;
+                right: 16px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            #panelResumen {
+                width: 260px;
+                bottom: 70px;
+                right: 10px;
+                max-height: 50vh;
+                padding: 12px !important;
+            }
+
+            #panelResumen h3 {
+                font-size: 14px !important;
+            }
+
+            #panelResumen .text-3xl {
+                font-size: 20px !important;
+            }
+        }
+
+        /* Cuando el panel está oculto (en otras vistas) */
+        #panelResumen.panel-hidden {
+            display: none !important;
+        }
+
+        /* Botón para minimizar/expandir */
+        #panelToggleBtn {
+            background: rgba(15, 23, 42, 0.9);
+            border: none;
+            color: #fbbf24;
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        #panelToggleBtn:hover {
+            background: rgba(30, 58, 95, 0.9);
+            color: #fff;
+        }
+
+        /* Scroll suave */
+        #servicesBreakdown::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        #servicesBreakdown::-webkit-scrollbar-track {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+
+        #servicesBreakdown::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 4px;
+        }
+
+        /* ========================================== */
+        /* PANEL FLOTANTE - ESTILOS                   */
+        /* ========================================== */
+
+        /* Para pantallas pequeñas */
+        @media (max-width: 1024px) {
+            #panelResumen {
+                width: 280px !important;
+                bottom: 80px !important;
+                right: 16px !important;
+                padding: 14px !important;
+            }
+        }
+
+        @media (max-width: 640px) {
+            #panelResumen {
+                width: 250px !important;
+                bottom: 70px !important;
+                right: 10px !important;
+                max-height: 55vh !important;
+                padding: 12px !important;
+            }
+
+            #panelResumen h3 {
+                font-size: 13px !important;
+            }
+
+            #panelResumen .text-2xl {
+                font-size: 18px !important;
+            }
+
+            #servicesBreakdown {
+                max-height: 25vh !important;
+            }
+        }
+
+        /* Scroll personalizado */
+        #servicesBreakdown::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        #servicesBreakdown::-webkit-scrollbar-track {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+
+        #servicesBreakdown::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 4px;
+        }
+
+        /* Animación de entrada */
+        #panelResumen {
+            animation: slideInRight 0.3s ease-out forwards;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Estado minimizado */
+        #panelResumen.minimized #panelContent {
+            display: none !important;
+        }
+
+        /* Ocultar completamente */
+        #panelResumen.panel-hidden {
+            display: none !important;
+        }
     </style>
 </head>
 
@@ -4528,27 +4683,55 @@
             <!-- COLUMNA DERECHA: SIDEBAR          -->
             <aside class="space-y-6" id="sidebarContainer">
 
-                <!-- PANEL AZUL - RESUMEN DEL COTIZADOR -->
+                <!-- PANEL AZUL - RESUMEN DEL COTIZADOR (FLOTANTE) -->
                 <div id="panelResumen"
-                    class="bg-slate-900 text-white p-6 rounded-xl flex flex-col shadow-xl border border-slate-800">
-                    <span class="text-xs uppercase font-bold tracking-widest text-emerald-400">Resumen</span>
-                    <h3 class="text-lg font-bold mt-1 text-white border-b border-slate-700 pb-2">Servicios</h3>
-                    <div id="servicesBreakdown" class="my-4 max-h-[45vh] overflow-y-auto pr-1">
-                        <p class="text-xs text-gray-400 italic text-center py-4">No has agregado ningún servicio.</p>
-                    </div>
-                    <div class="border-t border-slate-700 pt-4 space-y-3">
-                        <div class="flex justify-between items-baseline">
-                            <span class="text-xs text-gray-400 uppercase font-semibold">Total estimado</span>
-                            <div id="summaryTotal" class="text-3xl font-black text-amber-400">Bs 0</div>
+                    class="bg-slate-900 text-white rounded-xl flex flex-col shadow-2xl border border-slate-700"
+                    style="position:fixed; bottom:100px; right:24px; width:320px; max-width:90vw; max-height:65vh; z-index:9998; padding:16px; display:flex; flex-direction:column;">
+
+                    <!-- ENCABEZADO CON BOTÓN MINIMIZAR Y CERRAR -->
+                    <div class="flex justify-between items-center border-b border-slate-700 pb-2 mb-2 shrink-0">
+                        <div>
+                            <span
+                                class="text-[10px] uppercase font-bold tracking-widest text-emerald-400">Resumen</span>
+                            <h3 class="text-sm font-bold text-white">Servicios</h3>
                         </div>
-                        <button onclick="sendToWhatsApp()"
-                            class="w-full bg-green-600 hover:bg-green-500 active:bg-green-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md text-sm">
-                            <i class="fa-brands fa-whatsapp text-xl"></i> Reservar por WhatsApp
-                        </button>
-                        <button onclick="talkQuote()"
-                            class="w-full bg-slate-800 hover:bg-slate-700 text-emerald-400 font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition border border-slate-700 text-xs">
-                            <i class="fa-solid fa-volume-high"></i> Escuchar Cotización
-                        </button>
+                        <div class="flex items-center gap-1">
+                            <button id="panelToggleBtn" onclick="togglePanelMinimize()"
+                                class="text-slate-400 hover:text-white transition text-sm px-2 py-0.5 rounded hover:bg-slate-700"
+                                title="Minimizar/Expandir">
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+                            <button onclick="closePanel()"
+                                class="text-slate-400 hover:text-red-400 transition text-sm px-2 py-0.5 rounded hover:bg-slate-700"
+                                title="Cerrar panel">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- CONTENIDO DEL PANEL (scrollable) -->
+                    <div id="panelContent" class="flex-1 overflow-hidden">
+                        <div id="servicesBreakdown" class="max-h-[35vh] overflow-y-auto pr-1 space-y-1 mt-2">
+                            <p class="text-xs text-gray-400 italic text-center py-4">No has agregado ningún servicio.
+                            </p>
+                        </div>
+
+                        <div class="border-t border-slate-700 pt-3 mt-2 space-y-2">
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-[10px] text-gray-400 uppercase font-semibold">Total estimado</span>
+                                <div id="summaryTotal" class="text-2xl font-black text-amber-400">Bs 0</div>
+                            </div>
+
+                            <button onclick="sendToWhatsApp()"
+                                class="w-full bg-green-600 hover:bg-green-500 active:bg-green-700 text-white font-bold py-2 px-3 rounded-lg flex items-center justify-center gap-2 transition shadow-md text-xs">
+                                <i class="fa-brands fa-whatsapp text-base"></i> Reservar por WhatsApp
+                            </button>
+
+                            <button onclick="talkQuote()"
+                                class="w-full bg-slate-800 hover:bg-slate-700 text-emerald-400 font-bold py-1.5 px-3 rounded-lg flex items-center justify-center gap-2 transition border border-slate-700 text-[10px]">
+                                <i class="fa-solid fa-volume-high"></i> Escuchar Cotización
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -6849,22 +7032,28 @@
         }
 
         // Modificar showView para controlar panel y sidebar
+        // Modificar la función showView original
         const originalShowView = window.showView;
         window.showView = function (viewId) {
             // Llamar a la función original
             originalShowView(viewId);
 
-            // Controlar visibilidad del panel de resumen
-            actualizarPanelResumen(viewId);
+            const panel = document.getElementById('panelResumen');
+            if (!panel) return;
 
-            // Controlar visibilidad del sidebar (ocultar en inicio)
-            const sidebarContainer = document.getElementById('sidebarContainer');
-            if (sidebarContainer) {
-                if (viewId === 'view-inicio') {
-                    sidebarContainer.classList.remove('hidden-sidebar');
+            // Mostrar panel SOLO en view-inicio
+            if (viewId === 'view-inicio') {
+                // Si hay servicios, mostrar el panel
+                if (addedServices.length > 0) {
+                    panel.style.display = 'flex';
+                    panel.classList.remove('panel-hidden');
                 } else {
-                    sidebarContainer.classList.remove('hidden-sidebar');
+                    // Si no hay servicios, ocultar pero permitir que aparezca
+                    panel.style.display = 'none';
                 }
+            } else {
+                panel.style.display = 'none';
+                panel.classList.add('panel-hidden');
             }
         };
 
@@ -6920,6 +7109,94 @@
                 cerrarImagen();
             }
         });
+
+        // ==========================================
+        // PANEL FLOTANTE - CONTROL
+        // ==========================================
+
+        let panelMinimized = false;
+
+        function togglePanelMinimize() {
+            const panel = document.getElementById('panelResumen');
+            const panelContent = document.getElementById('panelContent');
+            const toggleBtn = document.getElementById('panelToggleBtn');
+
+            if (!panel || !panelContent || !toggleBtn) return;
+
+            panelMinimized = !panelMinimized;
+
+            if (panelMinimized) {
+                panelContent.style.display = 'none';
+                toggleBtn.innerHTML = '<i class="fa-solid fa-plus"></i>';
+                toggleBtn.title = 'Expandir panel';
+                panel.classList.add('minimized');
+            } else {
+                panelContent.style.display = 'block';
+                toggleBtn.innerHTML = '<i class="fa-solid fa-minus"></i>';
+                toggleBtn.title = 'Minimizar panel';
+                panel.classList.remove('minimized');
+            }
+        }
+
+        function closePanel() {
+            const panel = document.getElementById('panelResumen');
+            if (panel) {
+                panel.style.display = 'none';
+                panel.classList.add('panel-hidden');
+            }
+        }
+
+        function showPanel() {
+            const panel = document.getElementById('panelResumen');
+            if (panel) {
+                panel.style.display = 'flex';
+                panel.classList.remove('panel-hidden');
+                // Si estaba minimizado, expandir al agregar servicios
+                if (panelMinimized) {
+                    togglePanelMinimize();
+                }
+            }
+        }
+
+        // ==========================================
+        // MODIFICAR renderSummary PARA MOSTRAR PANEL
+        // ==========================================
+
+        // Guardar la función original
+        const originalRenderSummary = renderSummary;
+
+        // Sobrescribir renderSummary
+        renderSummary = function () {
+            // Llamar a la función original
+            originalRenderSummary();
+
+            // Si hay servicios, mostrar el panel automáticamente
+            if (addedServices.length > 0) {
+                showPanel();
+            }
+        };
+
+        // ==========================================
+        // MODIFICAR removeService PARA OCULTAR PANEL
+        // ==========================================
+
+        // Guardar la función original
+        const originalRemoveService = removeService;
+
+        // Sobrescribir removeService
+        removeService = function (id) {
+            // Llamar a la función original
+            originalRemoveService(id);
+
+            // Si no hay servicios, ocultar el panel
+            if (addedServices.length === 0) {
+                const panel = document.getElementById('panelResumen');
+                if (panel) {
+                    panel.style.display = 'none';
+                    panel.classList.add('panel-hidden');
+                }
+            }
+        };
     </script>
 
     <!-- MODAL PARA AMPLIAR IMÁGENES -->
