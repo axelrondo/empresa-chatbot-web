@@ -5576,6 +5576,13 @@
             calculateBaseServiceSubtotal();
         }
 
+        // ==========================================
+        // FUNCIONES DEL COTIZADOR
+        // ==========================================
+
+        // ==========================================
+        // 1. calculateBaseServiceSubtotal
+        // ==========================================
         function calculateBaseServiceSubtotal() {
             const sData = serviceRates[currentSelectedServiceKey];
             if (!sData) return 0;
@@ -5612,12 +5619,18 @@
             return subtotal;
         }
 
+        // ==========================================
+        // 2. onSliderChange
+        // ==========================================
         function onSliderChange() {
             const slider = document.getElementById('m2Slider');
             currentM2 = parseInt(slider.value) || 1;
             calculateBaseServiceSubtotal();
         }
 
+        // ==========================================
+        // 3. changeM2Step
+        // ==========================================
         function changeM2Step(delta) {
             const slider = document.getElementById('m2Slider');
             let val = (parseInt(slider.value) || 1) + delta;
@@ -5629,94 +5642,357 @@
         }
 
         // ==========================================
-        // FUNCIONES DE EXTRAS - VERIFICACIÓN
+        // 4. addCurrentMainService (MODIFICADO)
         // ==========================================
+        function addCurrentMainService() {
+            const sData = serviceRates[currentSelectedServiceKey];
+            if (!sData) return;
 
-        // 1. toggleExtra - Abre/cierra el panel
+            // 🔴 CASO ESPECIAL: "Limpieza Tanques" (previa cotización)
+            if (currentSelectedServiceKey === 'Tanques') {
+                alert(`⚠️ "Limpieza de Tanques" requiere cotización previa.\nSerás redirigido a WhatsApp para solicitar tu presupuesto personalizado.`);
+                window.open('https://wa.me/59173017175?text=Hola,%20requiero%20una%20cotización%20para%20Limpieza%20de%20Tanques%20de%20Agua', '_blank');
+                return;  // ← Importante: salir sin agregar al cotizador
+            }
+
+            // 🔴 TODOS LOS DEMÁS SERVICIOS (funcionan igual que antes)
+            const subtotal = currentM2 * sData.rate;
+            addedServices.push({
+                id: Date.now() + Math.random(),
+                title: `${sData.name} (${currentM2} m²)`,
+                price: subtotal
+            });
+            renderSummary();
+        }
+
+        // ==========================================
+        // 5. toggleExtra
+        // ==========================================
         function toggleExtra(extraKey) {
             const chk = document.getElementById(`check-${extraKey}`);
             const panel = document.getElementById(`panel-${extraKey}`);
             if (panel) {
                 if (chk && chk.checked) {
                     panel.classList.remove('hidden');
-                    setTimeout(() => updateExtraValue(extraKey), 50);
+                    setTimeout(() => {
+                        updateExtraValue(extraKey);
+                    }, 50);
                 } else {
                     panel.classList.add('hidden');
                 }
             }
         }
 
-        // 2. updateExtraValue - Actualiza el label del slider
+        // ==========================================
+        // 6. updateExtraValue
+        // ==========================================
         function updateExtraValue(extraKey) {
             const rng = document.getElementById(`range-${extraKey}`);
             const lbl = document.getElementById(`label-${extraKey}`);
-            if (!rng || !lbl) {
-                console.warn('⚠️ Slider o label no encontrado para:', extraKey);
-                return;
-            }
+            if (!rng || !lbl) return;
 
             const qty = parseInt(rng.value) || 1;
             const config = extraPrices[extraKey];
-            if (!config) {
-                console.warn('⚠️ Config no encontrada para:', extraKey);
-                lbl.innerText = '⚠️ Configuración no disponible';
-                return;
-            }
+            if (!config) return;
 
-            let unitPrice = 0;
+            let unitPrice = config.pricePerUnit || 0;
             let total = 0;
-            let moneda = 'Bs';
 
-            // 🔴 CASO 1: Tiene opciones (radio buttons)
+            // Si tiene opciones (radio buttons)
             if (config.opciones) {
                 const selectedRadio = document.querySelector(`input[name="tipo-${extraKey}"]:checked`);
                 if (selectedRadio) {
                     unitPrice = parseFloat(selectedRadio.value);
-                    // 🔴 VERIFICAR QUE EL PRECIO SEA VÁLIDO
-                    if (isNaN(unitPrice) || unitPrice === 0) {
-                        console.warn('⚠️ Precio inválido para:', extraKey, 'Valor:', selectedRadio.value);
-                        lbl.innerText = `⚠️ Precio inválido`;
-                        return;
-                    }
-                } else {
-                    // Si no hay seleccionado, usar el primer radio
-                    const firstRadio = document.querySelector(`input[name="tipo-${extraKey}"]`);
-                    if (firstRadio) {
-                        firstRadio.checked = true;
-                        unitPrice = parseFloat(firstRadio.value) || 0;
-                        console.log('🔄 Usando primer radio para:', extraKey);
-                    } else {
-                        lbl.innerText = `⚠️ Sin opciones disponibles`;
-                        return;
-                    }
                 }
-
                 total = qty * unitPrice;
-                moneda = config.opciones[0]?.moneda || 'Bs';
-                const labelText = config.opciones.find(o => o.value == unitPrice)?.label || '';
+                const moneda = config.opciones[0]?.moneda || 'Bs';
                 lbl.innerText = `${qty} unid. (${total} ${moneda})`;
-                console.log('📝 Label actualizado:', lbl.innerText);
                 return;
             }
 
-            // 🔴 CASO 2: Tiene descuento
+            // Si tiene descuento
             if (config.descuento && qty > config.descuento.limite) {
                 unitPrice = config.descuento.precio;
-                console.log('💰 Descuento aplicado:', unitPrice);
-            } else {
-                unitPrice = config.pricePerUnit || 0;
-            }
-
-            // 🔴 VERIFICAR QUE EL PRECIO SEA VÁLIDO
-            if (isNaN(unitPrice) || unitPrice === 0) {
-                console.warn('⚠️ Precio unitario inválido para:', extraKey, 'Valor:', unitPrice);
-                lbl.innerText = `⚠️ Precio no disponible`;
-                return;
             }
 
             total = qty * unitPrice;
             lbl.innerText = `${qty} unidades (Bs ${total})`;
-            console.log('📝 Label actualizado:', lbl.innerText);
+        }
+
+        // ==========================================
+        // 7. changeExtraQty
+        // ==========================================
+        function changeExtraQty(extraKey, delta) {
+            const rng = document.getElementById(`range-${extraKey}`);
+            if (!rng) return;
+
+            let val = parseInt(rng.value) + delta;
+            const min = parseInt(rng.min) || 1;
+            const max = parseInt(rng.max) || 100;
+
+            if (val < min) val = min;
+            if (val > max) val = max;
+
+            rng.value = val;
+            updateExtraValue(extraKey);
+        }
+
+        // ==========================================
+        // 8. addSingleExtra
+        // ==========================================
+        function addSingleExtra(extraKey) {
+            const config = extraPrices[extraKey];
+            if (!config) return;
+
+            let cost = 0;
+            let label = config.name;
+            let qty = 1;
+
+            // Si tiene opciones (radio buttons)
+            if (config.opciones) {
+                const selectedRadio = document.querySelector(`input[name="tipo-${extraKey}"]:checked`);
+                if (selectedRadio) {
+                    const price = parseFloat(selectedRadio.value);
+                    const rng = document.getElementById(`range-${extraKey}`);
+                    qty = rng ? parseInt(rng.value) || 1 : 1;
+                    cost = qty * price;
+                    const labelText = config.opciones.find(o => o.value == price)?.label || '';
+                    label = `${config.name} - ${labelText} (${qty} ${qty > 1 ? 'unidades' : 'unidad'})`;
+                } else {
+                    alert('⚠️ Selecciona una opción primero.');
+                    return;
+                }
+            }
+            // Si es previa cotización
+            else if (config.type === 'previa') {
+                alert(`⚠️ "${config.name}" requiere cotización previa.`);
+                window.open(`https://wa.me/${config.whatsapp || '59173017175'}?text=Hola,%20requiero%20una%20cotización%20para%20${encodeURIComponent(config.name)}`, '_blank');
+                return;
+            }
+            // Si es precio fijo
+            else if (config.fixedPrice) {
+                cost = config.fixedPrice;
+                label = config.name;
+            }
+            // Si es por unidad (con slider)
+            else {
+                const rng = document.getElementById(`range-${extraKey}`);
+                qty = rng ? parseInt(rng.value) || 1 : 1;
+                let unitPrice = config.pricePerUnit || 0;
+
+                // Aplicar descuento si corresponde
+                if (config.descuento && qty > config.descuento.limite) {
+                    unitPrice = config.descuento.precio;
+                }
+                cost = qty * unitPrice;
+                label = `${config.name} (${qty} ${qty > 1 ? 'unidades' : 'unidad'})`;
+            }
+
+            if (cost === 0 && config.type !== 'previa') {
+                alert('⚠️ No se pudo calcular el costo.');
+                return;
+            }
+
+            // Agregar al cotizador
+            addedServices.push({
+                id: Date.now() + Math.random(),
+                title: label,
+                price: cost,
+                type: 'extra'
+            });
+
+            renderSummary();
+            alert(`✅ "${label}" agregado al cotizador por Bs ${cost}`);
+
+            // Desmarcar el checkbox y cerrar el panel
+            const chk = document.getElementById(`check-${extraKey}`);
+            if (chk) chk.checked = false;
+            const panel = document.getElementById(`panel-${extraKey}`);
+            if (panel) panel.classList.add('hidden');
+        }
+
+        // ==========================================
+        // 9. addSelectedExtrasOnly
+        // ==========================================
+        function addSelectedExtrasOnly() {
+            let addedCount = 0;
+            let detalles = [];
+            let totalExtras = 0;
+
+            Object.keys(extraPrices).forEach(key => {
+                const chk = document.getElementById(`check-${key}`);
+                if (chk && chk.checked) {
+                    const config = extraPrices[key];
+                    let cost = 0;
+                    let label = config.name;
+
+                    // PRECIO FIJO
+                    if (config.type === 'fijo' || config.fixedPrice) {
+                        cost = config.fixedPrice || config.pricePerUnit || 0;
+                        label = config.name;
+                        if (cost > 0) {
+                            addedServices.push({
+                                id: Date.now() + Math.random(),
+                                title: label,
+                                price: cost,
+                                type: 'fijo'
+                            });
+                            detalles.push(`• ${label}: ${cost} Bs`);
+                            addedCount++;
+                            totalExtras += cost;
+                        }
+                        return;
+                    }
+
+                    // PREVIA COTIZACIÓN
+                    if (config.type === 'previa') {
+                        alert(`⚠️ "${config.name}" requiere cotización previa.\nSerás redirigido a WhatsApp para solicitar tu presupuesto personalizado.`);
+                        window.open(`https://wa.me/${config.whatsapp || '59173017175'}?text=Hola,%20requiero%20una%20cotización%20para%20${encodeURIComponent(config.name)}`, '_blank');
+                        return;
+                    }
+
+                    // OPCIONES CON RADIO
+                    if (config.opciones) {
+                        const selectedRadio = document.querySelector(`input[name="tipo-${key}"]:checked`);
+                        if (selectedRadio) {
+                            const value = parseFloat(selectedRadio.value);
+                            const labelText = config.opciones?.find(o => o.value == value)?.label || '';
+                            const rng = document.getElementById(`range-${key}`);
+                            const qty = rng ? parseInt(rng.value) || 1 : 1;
+                            cost = qty * value;
+                            label = `${config.name} - ${labelText} (${qty} ${qty > 1 ? 'unidades' : 'unidad'})`;
+
+                            addedServices.push({
+                                id: Date.now() + Math.random(),
+                                title: label,
+                                price: cost,
+                                type: 'opcion',
+                                cantidad: qty,
+                                precioUnitario: value
+                            });
+                            detalles.push(`• ${label}: ${cost} Bs`);
+                            addedCount++;
+                            totalExtras += cost;
+                        }
+                        return;
+                    }
+
+                    // POR UNIDAD (con slider)
+                    if (config.pricePerUnit !== undefined) {
+                        const rng = document.getElementById(`range-${key}`);
+                        const qty = rng ? parseInt(rng.value) || 1 : 1;
+                        let unitPrice = config.pricePerUnit;
+
+                        if (config.descuento && qty > config.descuento.limite) {
+                            unitPrice = config.descuento.precio;
+                        }
+
+                        cost = qty * unitPrice;
+                        label = `${config.name} (${qty} ${qty > 1 ? 'unidades' : 'unidad'})`;
+
+                        addedServices.push({
+                            id: Date.now() + Math.random(),
+                            title: label,
+                            price: cost,
+                            type: 'unidad',
+                            cantidad: qty,
+                            precioUnitario: unitPrice
+                        });
+                        detalles.push(`• ${label}: ${cost} Bs`);
+                        addedCount++;
+                        totalExtras += cost;
+                    }
+                }
+            });
+
+            if (addedCount === 0) {
+                alert("⚠️ Por favor, selecciona al menos un servicio de la lista.");
+                return;
+            }
+
+            // Resetear checkboxes y paneles
+            Object.keys(extraPrices).forEach(key => {
+                const chk = document.getElementById(`check-${key}`);
+                if (chk) chk.checked = false;
+                const panel = document.getElementById(`panel-${key}`);
+                if (panel) panel.classList.add('hidden');
+                const rng = document.getElementById(`range-${key}`);
+                if (rng) {
+                    rng.value = 1;
+                    updateExtraValue(key);
+                }
+            });
+
+            renderSummary();
+            alert(`✅ ${addedCount} servicio(s) agregado(s) al cotizador.\n\n${detalles.join('\n')}\n\n💰 Total parcial: Bs ${totalExtras}`);
+        }
+
+        // ==========================================
+        // 10. removeService
+        // ==========================================
+        function removeService(id) {
+            addedServices = addedServices.filter(item => item.id !== id);
+            renderSummary();
+        }
+
+        // ==========================================
+        // 11. renderSummary
+        // ==========================================
+        function renderSummary() {
+            const container = document.getElementById('servicesBreakdown');
+            const totalDisplay = document.getElementById('summaryTotal');
+            if (!container || !totalDisplay) return;
+            if (addedServices.length === 0) {
+                container.innerHTML = '<p class="text-xs text-gray-400 italic text-center py-4">No has agregado ningún servicio.</p>';
+                totalDisplay.innerText = 'Bs 0';
+                return;
+            }
+            container.innerHTML = '';
+            let sum = 0;
+            addedServices.forEach(item => {
+                sum += item.price;
+                const row = document.createElement('div');
+                row.className = "flex justify-between items-center bg-slate-800 p-2.5 rounded-lg mb-2 text-xs border border-slate-700";
+                row.innerHTML = `
+            <span class="font-medium text-gray-200 truncate max-w-[170px]">${item.title}</span>
+            <div class="flex items-center gap-2">
+                <span class="font-bold text-emerald-400">Bs ${item.price}</span>
+                <button onclick="removeService(${item.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fa-solid fa-trash"></i></button>
+            </div>
+        `;
+                container.appendChild(row);
+            });
+            totalDisplay.innerText = `Bs ${sum}`;
+        }
+
+        // ==========================================
+        // 12. sendToWhatsApp
+        // ==========================================
+        function sendToWhatsApp() {
+            if (addedServices.length === 0) {
+                alert("Por favor, agrega al menos un servicio a la cotización.");
+                return;
+            }
+            let text = "¡Hola LIM-BOLIVIA! Deseo reservar el siguiente detalle de cotización:\n\n";
+            let total = 0;
+            addedServices.forEach((s, i) => {
+                text += `${i + 1}. ${s.title} - Bs ${s.price}\n`;
+                total += s.price;
+            });
+            text += `\n*Total Estimado: Bs ${total}*`;
+            window.open(`https://wa.me/${"59171506930"}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // ==========================================
+        // 13. talkQuote
+        // ==========================================
+        function talkQuote() {
+            if (addedServices.length === 0) {
+                hablarTexto("Aún no ha agregado servicios a su resumen de cotización.");
+                return;
+            }
+            let total = addedServices.reduce((acc, curr) => acc + curr.price, 0);
+            hablarTexto(`Su cotización actual tiene un total estimado de ${total} Bolivianos.`);
         }
 
         // 3. changeExtraQty - Cambia la cantidad con los botones + y -
