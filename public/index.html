@@ -4841,13 +4841,7 @@
         </button>
     </div>
 
-    <div class="ai-widget-container border-none">
-        <img id="aiFloatingAvatar" src="/img/asistente.png" alt="Asistente IA" class="ai-avatar-preview"
-            onerror="this.onerror=null; this.src='https://via.placeholder.com/65?text=IA';" />
-        <button id="aiTriggerBtn" onclick="toggleChat()" class="ai-glowing-btn">
-            <span><i class="fa-solid fa-robot text-emerald-300 text-lg"></i> Hablar con IA</span>
-        </button>
-    </div>
+    
 
     <!-- ========================================== -->
     <!-- MODALES DE SUPABASE                        -->
@@ -6705,19 +6699,29 @@
         // CHATBOT - FUNCIÓN PARA ABRIR/CERRAR CHAT
         // ==========================================
 
+        // ==========================================
+        // CHATBOT - FUNCIÓN PARA ABRIR/CERRAR CHAT
+        // ==========================================
+
         function toggleChat() {
             desbloquearAudioMobile();
             const chatBox = document.getElementById('chatBox');
             const triggerBtn = document.getElementById('aiTriggerBtn');
             const floatingAvatar = document.getElementById('aiFloatingAvatar');
+            const widgetContainer = document.querySelector('.ai-widget-container');
+
             if (!chatBox) return;
 
             const estaOculto = chatBox.classList.contains('hidden');
 
             if (estaOculto) {
+                // ABRIR CHAT
                 chatBox.classList.remove('hidden');
+
+                // ✅ OCULTAR EL BOTÓN Y EL AVATAR
                 if (triggerBtn) triggerBtn.classList.add('hidden');
                 if (floatingAvatar) floatingAvatar.classList.add('hidden');
+                if (widgetContainer) widgetContainer.classList.add('hidden');
 
                 const chatMessages = document.getElementById('chatMessages');
                 const mensajeBienvenida = "¡Hola! Bienvenido a Lim Bolivia. ¿En qué te puedo ayudar hoy?";
@@ -6731,10 +6735,15 @@
                     saludoInicialDado = true;
                 }
             } else {
+                // CERRAR CHAT
                 chatBox.classList.add('hidden');
+
+                // ✅ MOSTRAR EL BOTÓN Y EL AVATAR DE NUEVO
                 if (triggerBtn) triggerBtn.classList.remove('hidden');
                 if (floatingAvatar) floatingAvatar.classList.remove('hidden');
+                if (widgetContainer) widgetContainer.classList.remove('hidden');
 
+                // Detener la voz al cerrar
                 if ('speechSynthesis' in window) window.speechSynthesis.cancel();
             }
         }
