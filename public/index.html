@@ -701,7 +701,7 @@
         }
 
         /* ========================================== */
-        /* CARRUSEL DE PUBLICIDAD - ANCHO COMPLETO    */
+        /* CARRUSEL DE PUBLICIDAD - MÁS ALTO          */
         /* ========================================== */
 
         #sidebarPublicidad {
@@ -724,14 +724,14 @@
         /* Ajuste para móviles */
         @media (max-width: 640px) {
             #sidebarPublicidad .relative {
-                padding-bottom: 60% !important;
-                min-height: 150px !important;
+                padding-bottom: 80% !important;
+                min-height: 200px !important;
             }
 
             #sidebarPublicidad button {
-                width: 28px !important;
-                height: 28px !important;
-                font-size: 10px !important;
+                width: 32px !important;
+                height: 32px !important;
+                font-size: 12px !important;
             }
 
             #sidebarPublicidad .pub-indicador {
@@ -746,6 +746,14 @@
             #sidebarPublicidad .badge {
                 font-size: 7px !important;
                 padding: 2px 8px !important;
+            }
+        }
+
+        /* Para tablets */
+        @media (min-width: 641px) and (max-width: 1024px) {
+            #sidebarPublicidad .relative {
+                padding-bottom: 90% !important;
+                min-height: 240px !important;
             }
         }
     </style>
@@ -5179,13 +5187,13 @@
                     </div>
                 </div>
                 <!-- ========================================== -->
-                <!-- CARRUSEL DE PUBLICIDAD (ANCHO COMPLETO)    -->
+                <!-- CARRUSEL DE PUBLICIDAD (MÁS ALTO)          -->
                 <!-- ========================================== -->
                 <div id="sidebarPublicidad"
                     class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
 
-                    <!-- CONTENEDOR DEL CARRUSEL -->
-                    <div class="relative w-full" style="padding-bottom: 75%; min-height: 200px;">
+                    <!-- CONTENEDOR DEL CARRUSEL (más alto) -->
+                    <div class="relative w-full" style="padding-bottom: 100%; min-height: 280px;">
 
                         <!-- CONTENEDOR INTERNO (absoluto para ocupar todo) -->
                         <div class="absolute inset-0 overflow-hidden">
@@ -5197,40 +5205,40 @@
                                 <!-- IMAGEN 1 -->
                                 <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-slate-100">
                                     <img src="/img/publicidad1.png" alt="Publicidad 1"
-                                        class="w-full h-full object-cover"
-                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/600x400/003366/FFFFFF?text=Publicidad+1';">
+                                        class="w-full h-full object-contain"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/600x600/003366/FFFFFF?text=Publicidad+1';">
                                 </div>
 
                                 <!-- IMAGEN 2 -->
                                 <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-slate-100">
                                     <img src="/img/publicidad2.png" alt="Publicidad 2"
-                                        class="w-full h-full object-cover"
-                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/600x400/002244/FFFFFF?text=Publicidad+2';">
+                                        class="w-full h-full object-contain"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/600x600/002244/FFFFFF?text=Publicidad+2';">
                                 </div>
 
                                 <!-- IMAGEN 3 -->
                                 <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-slate-100">
                                     <img src="/img/publicidad3.png" alt="Publicidad 3"
-                                        class="w-full h-full object-cover"
-                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/600x400/003366/FFFFFF?text=Publicidad+3';">
+                                        class="w-full h-full object-contain"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/600x600/003366/FFFFFF?text=Publicidad+3';">
                                 </div>
                             </div>
 
                             <!-- BOTÓN ANTERIOR -->
                             <button onclick="cambiarPublicidad(-1)"
-                                class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-9 h-9 rounded-full flex items-center justify-center transition z-10 shadow-lg hover:scale-110 text-sm">
+                                class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-10 h-10 rounded-full flex items-center justify-center transition z-10 shadow-lg hover:scale-110 text-base">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </button>
 
                             <!-- BOTÓN SIGUIENTE -->
                             <button onclick="cambiarPublicidad(1)"
-                                class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-9 h-9 rounded-full flex items-center justify-center transition z-10 shadow-lg hover:scale-110 text-sm">
+                                class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-10 h-10 rounded-full flex items-center justify-center transition z-10 shadow-lg hover:scale-110 text-base">
                                 <i class="fa-solid fa-chevron-right"></i>
                             </button>
 
                             <!-- INDICADORES (puntos) -->
                             <div id="publicidadIndicadores"
-                                class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                                class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-3 z-10">
                                 <span
                                     class="pub-indicador w-3 h-3 rounded-full bg-white/80 cursor-pointer transition-all duration-300 shadow-md"
                                     data-index="0" onclick="irAPublicidad(0)"></span>
