@@ -699,6 +699,81 @@
                 padding: 10px 0 !important;
             }
         }
+
+        /* ========================================== */
+        /* CARRUSEL DE PUBLICIDAD                     */
+        /* ========================================== */
+
+        #sidebarPublicidad {
+            transition: box-shadow 0.3s ease;
+        }
+
+        #sidebarPublicidad:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .pub-indicador {
+            transition: all 0.3s ease;
+        }
+
+        .pub-indicador:hover {
+            transform: scale(1.3);
+        }
+
+        /* Efecto de brillo al pasar el mouse */
+        #sidebarPublicidad .relative {
+            position: relative;
+        }
+
+        #sidebarPublicidad::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: skewX(-25deg);
+            pointer-events: none;
+            z-index: 5;
+            animation: none;
+        }
+
+        #sidebarPublicidad:hover::after {
+            animation: shinePublicidad 1.5s ease-in-out;
+        }
+
+        @keyframes shinePublicidad {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 200%;
+            }
+        }
+
+        /* Ajuste para móviles */
+        @media (max-width: 640px) {
+            #sidebarPublicidad .relative {
+                height: 140px !important;
+            }
+
+            #sidebarPublicidad button {
+                width: 28px !important;
+                height: 28px !important;
+                font-size: 11px !important;
+            }
+
+            #sidebarPublicidad .pub-indicador {
+                width: 8px !important;
+                height: 8px !important;
+            }
+
+            #sidebarPublicidad .pub-indicador.w-4 {
+                width: 14px !important;
+            }
+        }
     </style>
 </head>
 
@@ -5129,6 +5204,63 @@
                         </div>
                     </div>
                 </div>
+                <!-- ========================================== -->
+                <!-- CARRUSEL DE PUBLICIDAD                     -->
+                <!-- ========================================== -->
+                <div id="sidebarPublicidad"
+                    class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden relative">
+
+                    <!-- CONTENEDOR DEL CARRUSEL -->
+                    <div class="relative overflow-hidden" style="height: 180px;">
+                        <!-- IMÁGENES -->
+                        <div id="publicidadSlider" class="flex transition-transform duration-500 ease-in-out h-full">
+                            <div class="w-full flex-shrink-0 h-full">
+                                <img src="/img/publicidad1.png" alt="Publicidad 1" class="w-full h-full object-cover"
+                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x180/003366/FFFFFF?text=Publicidad+1';">
+                            </div>
+                            <div class="w-full flex-shrink-0 h-full">
+                                <img src="/img/publicidad2.png" alt="Publicidad 2" class="w-full h-full object-cover"
+                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x180/002244/FFFFFF?text=Publicidad+2';">
+                            </div>
+                            <div class="w-full flex-shrink-0 h-full">
+                                <img src="/img/publicidad3.png" alt="Publicidad 3" class="w-full h-full object-cover"
+                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x180/003366/FFFFFF?text=Publicidad+3';">
+                            </div>
+                        </div>
+
+                        <!-- BOTÓN ANTERIOR -->
+                        <button onclick="cambiarPublicidad(-1)"
+                            class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center transition z-10 text-sm shadow-lg hover:scale-110">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+
+                        <!-- BOTÓN SIGUIENTE -->
+                        <button onclick="cambiarPublicidad(1)"
+                            class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center transition z-10 text-sm shadow-lg hover:scale-110">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+
+                        <!-- INDICADORES (puntos) -->
+                        <div id="publicidadIndicadores"
+                            class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                            <span
+                                class="pub-indicador w-2.5 h-2.5 rounded-full bg-white/70 cursor-pointer transition-all duration-300"
+                                data-index="0" onclick="irAPublicidad(0)"></span>
+                            <span
+                                class="pub-indicador w-2.5 h-2.5 rounded-full bg-white/40 cursor-pointer transition-all duration-300"
+                                data-index="1" onclick="irAPublicidad(1)"></span>
+                            <span
+                                class="pub-indicador w-2.5 h-2.5 rounded-full bg-white/40 cursor-pointer transition-all duration-300"
+                                data-index="2" onclick="irAPublicidad(2)"></span>
+                        </div>
+
+                        <!-- BADGE "PUBLICIDAD" -->
+                        <span
+                            class="absolute top-2 right-3 bg-amber-500/90 text-white text-[8px] font-black uppercase px-2 py-0.5 rounded-full z-10 shadow-lg">
+                            <i class="fa-regular fa-circle-play mr-1"></i> Publicidad
+                        </span>
+                    </div>
+                </div>
 
             </aside>
 
@@ -7568,6 +7700,77 @@
                     panel.classList.add('panel-hidden');
                 }
             }
+        };
+
+        // ==========================================
+        // CARRUSEL DE PUBLICIDAD
+        // ==========================================
+
+        let publicidadActual = 0;
+        const totalPublicidades = 3;
+        let publicidadIntervalo = null;
+
+        function actualizarPublicidad() {
+            const slider = document.getElementById('publicidadSlider');
+            const indicadores = document.querySelectorAll('.pub-indicador');
+
+            if (!slider) return;
+
+            // Mover el slider
+            slider.style.transform = `translateX(-${publicidadActual * 100}%)`;
+
+            // Actualizar indicadores
+            indicadores.forEach((ind, idx) => {
+                if (idx === publicidadActual) {
+                    ind.classList.remove('bg-white/40');
+                    ind.classList.add('bg-white/90', 'w-4');
+                } else {
+                    ind.classList.add('bg-white/40');
+                    ind.classList.remove('bg-white/90', 'w-4');
+                }
+            });
+        }
+
+        function cambiarPublicidad(direccion) {
+            publicidadActual = (publicidadActual + direccion + totalPublicidades) % totalPublicidades;
+            actualizarPublicidad();
+            reiniciarIntervaloPublicidad();
+        }
+
+        function irAPublicidad(index) {
+            publicidadActual = index;
+            actualizarPublicidad();
+            reiniciarIntervaloPublicidad();
+        }
+
+        function reiniciarIntervaloPublicidad() {
+            if (publicidadIntervalo) {
+                clearInterval(publicidadIntervalo);
+                publicidadIntervalo = null;
+            }
+            // Iniciar auto-reproducción cada 5 segundos
+            publicidadIntervalo = setInterval(() => {
+                cambiarPublicidad(1);
+            }, 5000);
+        }
+
+        // Inicializar carrusel cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function () {
+            actualizarPublicidad();
+            reiniciarIntervaloPublicidad();
+        });
+
+        // También reiniciar cuando se cambie de vista
+        const originalShowViewPublicidad = window.showView;
+        window.showView = function (viewId) {
+            if (originalShowViewPublicidad) {
+                originalShowViewPublicidad(viewId);
+            }
+            // Reiniciar indicadores al cambiar de vista (por si acaso)
+            setTimeout(() => {
+                actualizarPublicidad();
+                reiniciarIntervaloPublicidad();
+            }, 100);
         };
     </script>
 
