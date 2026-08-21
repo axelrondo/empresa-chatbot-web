@@ -626,6 +626,79 @@
             }
 
         }
+
+        /* ========================================== */
+        /* EFECTO DE BARRIDO DE LUZ (VENTANA LIMPIA) */
+        /* ========================================== */
+
+        /* Barrido rápido */
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) skewX(-15deg);
+            }
+
+            100% {
+                transform: translateX(200%) skewX(-15deg);
+            }
+        }
+
+        /* Barrido lento (reflejo suave) */
+        @keyframes shine-slow {
+            0% {
+                transform: translateX(-100%) skewX(-10deg);
+            }
+
+            100% {
+                transform: translateX(200%) skewX(-10deg);
+            }
+        }
+
+        .animate-shine {
+            animation: shine 3.5s ease-in-out infinite;
+        }
+
+        .animate-shine-slow {
+            animation: shine-slow 6s ease-in-out infinite;
+        }
+
+        /* Efecto de brillo al hacer hover en la tarjeta */
+        #sidebarAsesoria:hover .animate-shine {
+            animation-duration: 1.8s;
+        }
+
+        #sidebarAsesoria:hover .animate-shine-slow {
+            animation-duration: 3s;
+        }
+
+        /* Transición suave al hover */
+        #sidebarAsesoria {
+            transition: box-shadow 0.5s ease, transform 0.3s ease;
+        }
+
+        #sidebarAsesoria:hover {
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.2), 0 0 40px rgba(251, 191, 36, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Ajuste para móviles */
+        @media (max-width: 640px) {
+            #sidebarAsesoria {
+                padding: 16px !important;
+            }
+
+            #sidebarAsesoria h4 {
+                font-size: 12px !important;
+            }
+
+            #sidebarAsesoria .text-xs {
+                font-size: 11px !important;
+            }
+
+            #sidebarAsesoria a {
+                font-size: 10px !important;
+                padding: 10px 0 !important;
+            }
+        }
     </style>
 </head>
 
@@ -4964,15 +5037,88 @@
                     </ul>
                 </div>
 
-                <!-- ASESORÍA -->
-                <div id="sidebarAsesoria" class="bg-[#003366] text-white p-6 rounded-2xl shadow-md space-y-3">
-                    <h4 class="font-bold uppercase text-amber-300 text-sm">¿Necesita Asesoría?</h4>
-                    <p class="text-xs text-slate-200 leading-relaxed">Coordine una visita técnica de evaluación sin
-                        costo en sus instalaciones.</p>
-                    <a href="https://wa.me/59171506930" target="_blank"
-                        class="block text-center bg-amber-500 hover:bg-amber-600 text-slate-900 font-black text-xs py-2.5 rounded-lg uppercase tracking-wider transition">
-                        Contactar Asesor
-                    </a>
+                <!-- ========================================== -->
+                <!-- ASESORÍA - CON EFECTO DE BARRIDO DE LUZ    -->
+                <!-- ========================================== -->
+                <div id="sidebarAsesoria"
+                    class="bg-[#003366] text-white p-6 rounded-2xl shadow-md space-y-3 relative overflow-hidden border border-blue-400/20">
+
+                    <!-- EFECTO DE BARRIDO DE LUZ (como vidrio limpio) -->
+                    <div class="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
+                        <!-- Barrido principal -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent 
+                    -translate-x-full animate-shine">
+                        </div>
+                        <!-- Barrido secundario (más lento) -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent 
+                    -translate-x-full animate-shine-slow">
+                        </div>
+                        <!-- Reflejo brillante en la esquina superior -->
+                        <div
+                            class="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-xl">
+                        </div>
+                        <div
+                            class="absolute -bottom-10 -left-10 w-24 h-24 bg-gradient-to-tl from-amber-300/5 to-transparent rounded-full blur-xl">
+                        </div>
+                    </div>
+
+                    <!-- CONTENIDO (por encima del efecto) -->
+                    <div class="relative z-10 space-y-3">
+
+                        <!-- TÍTULO CON ICONO -->
+                        <div class="flex items-center gap-2">
+                            <div
+                                class="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center border border-amber-400/30">
+                                <i class="fa-solid fa-headset text-amber-300 text-sm"></i>
+                            </div>
+                            <h4 class="font-bold uppercase text-amber-300 text-sm tracking-wide">
+                                ¿Necesita Asesoría?
+                            </h4>
+                        </div>
+
+                        <!-- DESCRIPCIÓN -->
+                        <p class="text-xs text-slate-200 leading-relaxed">
+                            Coordine una <strong class="text-amber-300 font-bold">visita técnica de evaluación</strong>
+                            sin costo en sus instalaciones.
+                        </p>
+
+                        <!-- BOTÓN WHATSAPP (con efecto de barrido propio) -->
+                        <a href="https://wa.me/59173017175?text=Hola%20LIM-BOLIVIA%2C%20necesito%20una%20cotización%20gratuita%20a%20domicilio%20y%2Fo%20asesoramiento%20para%20mis%20instalaciones."
+                            target="_blank"
+                            class="block text-center bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-black text-xs py-3 rounded-lg uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-green-500/30 relative overflow-hidden group">
+
+                            <!-- Efecto de barrido en el botón -->
+                            <span
+                                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
+
+                            <span class="relative z-10 flex items-center justify-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-lg"></i>
+                                Contactar Asesor por WhatsApp
+                            </span>
+                        </a>
+
+                        <!-- ENLACE A FACEBOOK (con diseño atractivo) -->
+                        <div class="pt-3 border-t border-blue-400/20">
+                            <a href="https://www.facebook.com/limbolivia?ref=embed_page" target="_blank"
+                                class="flex items-center justify-center gap-2 text-slate-300 hover:text-white transition-colors duration-300 group text-xs">
+
+                                <!-- Icono con círculo -->
+                                <span
+                                    class="w-7 h-7 rounded-full bg-blue-600/30 flex items-center justify-center group-hover:bg-blue-600/50 transition-colors duration-300 border border-blue-500/20 group-hover:border-blue-400/40">
+                                    <i class="fa-brands fa-facebook-f text-blue-400 group-hover:text-white text-sm"></i>
+                                </span>
+
+                                <span
+                                    class="font-medium group-hover:underline underline-offset-2 decoration-amber-400/50">
+                                    Síguenos en Facebook
+                                </span>
+
+                                <!-- Flecha sutil -->
+                                <i
+                                    class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-amber-300 transition-colors"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
             </aside>
