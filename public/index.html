@@ -7767,46 +7767,97 @@
             }
         };
 
+
+
+    </script>
+    <!-- ========================================== -->
+    <!-- CARRUSEL DE PUBLICIDAD - CÓDIGO INDEPENDIENTE -->
+    <!-- ========================================== -->
+    <script>
         // ==========================================
         // CARRUSEL DE PUBLICIDAD
         // ==========================================
 
-        let publicidadActual = 0;
-        const totalPublicidades = 3;
+        (function () {
+            // Variables del carrusel
+            let publicidadActual = 0;
+            const totalPublicidades = 3;
+            let slider = null;
+            let indicadores = null;
 
-        function actualizarPublicidad() {
-            const slider = document.getElementById('publicidadSlider');
-            const indicadores = document.querySelectorAll('.pub-indicador');
-
-            if (!slider) return;
-
-            slider.style.transform = `translateX(-${publicidadActual * 100}%)`;
-
-            indicadores.forEach((ind, idx) => {
-                if (idx === publicidadActual) {
-                    ind.classList.remove('bg-white/40');
-                    ind.classList.add('bg-white/90', 'w-6');
-                } else {
-                    ind.classList.add('bg-white/40');
-                    ind.classList.remove('bg-white/90', 'w-6');
+            // Función para actualizar el carrusel
+            function actualizarPublicidad() {
+                if (!slider) {
+                    slider = document.getElementById('publicidadSlider');
+                    indicadores = document.querySelectorAll('.pub-indicador');
                 }
-            });
-        }
 
-        function cambiarPublicidad(direccion) {
-            publicidadActual = (publicidadActual + direccion + totalPublicidades) % totalPublicidades;
-            actualizarPublicidad();
-        }
+                if (!slider || !indicadores.length) return;
 
-        function irAPublicidad(index) {
-            publicidadActual = index;
-            actualizarPublicidad();
-        }
+                // Mover el slider
+                slider.style.transform = 'translateX(-' + (publicidadActual * 100) + '%)';
 
-        document.addEventListener('DOMContentLoaded', function () {
-            actualizarPublicidad();
-        });
+                // Actualizar indicadores
+                indicadores.forEach(function (ind, idx) {
+                    if (idx === publicidadActual) {
+                        ind.classList.remove('bg-white/40');
+                        ind.classList.add('bg-white/90', 'w-6');
+                    } else {
+                        ind.classList.add('bg-white/40');
+                        ind.classList.remove('bg-white/90', 'w-6');
+                    }
+                });
+            }
 
+            // Función para cambiar de imagen
+            window.cambiarPublicidad = function (direccion) {
+                publicidadActual = (publicidadActual + direccion + totalPublicidades) % totalPublicidades;
+                actualizarPublicidad();
+            };
+
+            // Función para ir a una imagen específica
+            window.irAPublicidad = function (index) {
+                publicidadActual = index;
+                actualizarPublicidad();
+            };
+
+            // Inicializar cuando el DOM esté listo
+            function initCarrusel() {
+                slider = document.getElementById('publicidadSlider');
+                indicadores = document.querySelectorAll('.pub-indicador');
+
+                if (!slider) {
+                    // Si no existe el carrusel, no hacemos nada
+                    return;
+                }
+
+                actualizarPublicidad();
+                console.log('✅ Carrusel de publicidad inicializado');
+            }
+
+            // Esperar a que el DOM cargue
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initCarrusel);
+            } else {
+                // El DOM ya está cargado
+                setTimeout(initCarrusel, 100);
+            }
+
+            // También reiniciar cuando cambie la vista (por si acaso)
+            if (window.showView) {
+                const originalShowView = window.showView;
+                window.showView = function (viewId) {
+                    originalShowView(viewId);
+                    setTimeout(function () {
+                        if (document.getElementById('publicidadSlider')) {
+                            actualizarPublicidad();
+                        }
+                    }, 200);
+                };
+            }
+
+            console.log('✅ Script de carrusel de publicidad cargado');
+        })();
     </script>
 
     <!-- MODAL PARA AMPLIAR IMÁGENES -->
