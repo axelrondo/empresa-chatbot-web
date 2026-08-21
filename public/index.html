@@ -810,21 +810,6 @@
                 min-height: 200px !important;
             }
         }
-
-        /* ========================================== */
-        /* SIDEBAR - ANCHO COMPLETO                   */
-        /* ========================================== */
-
-        #sidebarContainer {
-            width: 100% !important;
-            max-width: 100% !important;
-            display: block !important;
-        }
-
-        #sidebarContainer>* {
-            width: 100% !important;
-            max-width: 100% !important;
-        }
     </style>
 </head>
 
@@ -5096,9 +5081,8 @@
 
             </div>
 
-            <!-- COLUMNA DERECHA: SIDEBAR -->
-            <aside class="space-y-6 w-full max-w-full" id="sidebarContainer"
-                style="width:100% !important; max-width:100% !important;">
+            <!-- COLUMNA DERECHA: SIDEBAR          -->
+            <aside class="space-y-6" id="sidebarContainer">
 
                 <!-- PANEL AZUL - RESUMEN DEL COTIZADOR (FLOTANTE) -->
                 <div id="panelResumen"
