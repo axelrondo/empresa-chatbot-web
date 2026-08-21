@@ -759,48 +759,29 @@
         }
 
         /* ========================================== */
-        /* CARRUSEL - ANCHO COMPLETO FORZADO          */
+        /* CARRUSEL DE PUBLICIDAD - ANCHO COMPLETO    */
         /* ========================================== */
-
-        #sidebarPublicidad,
-        #sidebarPublicidad * {
-            box-sizing: border-box !important;
-        }
 
         #sidebarPublicidad {
             width: 100% !important;
             max-width: 100% !important;
-            display: block !important;
-            margin: 0 !important;
-            padding: 0 !important;
+            transition: box-shadow 0.3s ease;
+        }
+
+        #sidebarPublicidad:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
 
         #sidebarPublicidad .relative {
             width: 100% !important;
-            max-width: 100% !important;
-            display: block !important;
         }
 
-        #sidebarPublicidad .absolute {
-            width: 100% !important;
-            max-width: 100% !important;
+        .pub-indicador {
+            transition: all 0.3s ease;
         }
 
-        #sidebarPublicidad .flex {
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-
-        #sidebarPublicidad .flex-shrink-0 {
-            width: 100% !important;
-            max-width: 100% !important;
-            flex-shrink: 0 !important;
-        }
-
-        #sidebarPublicidad img {
-            width: 100% !important;
-            max-width: 100% !important;
-            height: 100% !important;
+        .pub-indicador:hover {
+            transform: scale(1.3);
         }
 
         /* Ajuste para móviles */
@@ -808,6 +789,34 @@
             #sidebarPublicidad .relative {
                 padding-bottom: 80% !important;
                 min-height: 200px !important;
+            }
+
+            #sidebarPublicidad button {
+                width: 32px !important;
+                height: 32px !important;
+                font-size: 12px !important;
+            }
+
+            #sidebarPublicidad .pub-indicador {
+                width: 8px !important;
+                height: 8px !important;
+            }
+
+            #sidebarPublicidad .pub-indicador.w-6 {
+                width: 14px !important;
+            }
+
+            #sidebarPublicidad .badge {
+                font-size: 7px !important;
+                padding: 2px 8px !important;
+            }
+        }
+
+        /* Para tablets */
+        @media (min-width: 641px) and (max-width: 1024px) {
+            #sidebarPublicidad .relative {
+                padding-bottom: 90% !important;
+                min-height: 240px !important;
             }
         }
     </style>
