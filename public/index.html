@@ -5177,6 +5177,9 @@
                 <!-- ========================================== -->
                 <!-- FACEBOOK PAGE EMBED - CON SCROLL           -->
                 <!-- ========================================== -->
+                <!-- ========================================== -->
+                <!-- FACEBOOK PAGE EMBED - CON SCROLL           -->
+                <!-- ========================================== -->
                 <div id="sidebarFacebook"
                     class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
                     <div class="p-3 border-b border-slate-200 bg-slate-50/80 flex items-center justify-between">
@@ -5193,7 +5196,7 @@
                     </div>
 
                     <!-- CONTENEDOR DEL EMBED CON SCROLL -->
-                    <div class="relative" style="height: 400px; overflow-y: auto; background: #f0f2f5;">
+                    <div class="relative" style="height: 420px; overflow-y: auto; background: #f0f2f5;">
 
                         <!-- CARGANDO (spinner) -->
                         <div id="fbLoading" class="absolute inset-0 flex items-center justify-center bg-white/80 z-10">
@@ -5205,8 +5208,8 @@
 
                         <!-- EMBED DE FACEBOOK -->
                         <div id="fbEmbedContainer" class="w-full p-2">
-                            <div class="fb-page" data-href="https://www.facebook.com/limbolivia/" data-tabs="timeline"
-                                data-width="100%" data-height="380" data-small-header="false"
+                            <div class="fb-page" data-href="https://www.facebook.com/limbolivia" data-tabs="timeline"
+                                data-width="500" data-height="380" data-small-header="false"
                                 data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
                             </div>
                         </div>
@@ -5215,7 +5218,7 @@
                     <!-- PIE DEL EMBED -->
                     <div class="p-2 bg-slate-50/80 border-t border-slate-200 flex items-center justify-between">
                         <span class="text-[9px] text-slate-400">Síguenos para más contenido</span>
-                        <a href="https://www.facebook.com/limbolivia/" target="_blank"
+                        <a href="https://www.facebook.com/limbolivia" target="_blank"
                             class="text-[#1877f2] text-xs font-bold hover:underline flex items-center gap-1">
                             Ver más <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                         </a>
@@ -7707,7 +7710,7 @@
 
                 // Si el SDK de Facebook ya está cargado
                 if (typeof FB !== 'undefined') {
-                    FB.XFBML.parse();
+                    FB.XFBML.parse(container);
                     if (loading) loading.style.display = 'none';
                     console.log('✅ Facebook Embed cargado correctamente');
                     return;
@@ -7715,21 +7718,48 @@
 
                 // Esperar a que el SDK cargue
                 let intentos = 0;
-                const maxIntentos = 20;
+                const maxIntentos = 30;
 
                 const checkSDK = setInterval(function () {
                     intentos++;
                     if (typeof FB !== 'undefined') {
                         clearInterval(checkSDK);
-                        FB.XFBML.parse();
+                        FB.XFBML.parse(container);
                         if (loading) loading.style.display = 'none';
-                        console.log('✅ Facebook Embed cargado correctamente');
+                        console.log('✅ Facebook Embed cargado correctamente (intento ' + intentos + ')');
                     } else if (intentos >= maxIntentos) {
                         clearInterval(checkSDK);
-                        if (loading) loading.innerHTML = '<div class="text-center text-slate-400"><i class="fa-solid fa-exclamation-triangle text-2xl"></i><p class="text-xs mt-2">No se pudo cargar el contenido de Facebook</p></div>';
+                        if (loading) {
+                            loading.innerHTML = `
+                            <div class="text-center text-slate-400 p-4">
+                                <i class="fa-solid fa-facebook text-3xl text-[#1877f2]"></i>
+                                <p class="text-xs mt-2">Conéctate con nosotros en Facebook</p>
+                                <a href="https://www.facebook.com/limbolivia" target="_blank" 
+                                   class="text-[#1877f2] text-sm font-bold hover:underline mt-2 inline-block">
+                                    Ir a Facebook →
+                                </a>
+                            </div>
+                        `;
+                        }
                         console.warn('⚠️ No se pudo cargar el SDK de Facebook');
                     }
                 }, 500);
+
+                // Timeout por si el SDK nunca carga (15 segundos)
+                setTimeout(function () {
+                    if (loading && loading.style.display !== 'none') {
+                        loading.innerHTML = `
+                        <div class="text-center text-slate-400 p-4">
+                            <i class="fa-solid fa-facebook text-3xl text-[#1877f2]"></i>
+                            <p class="text-xs mt-2">Conéctate con nosotros en Facebook</p>
+                            <a href="https://www.facebook.com/limbolivia" target="_blank" 
+                               class="text-[#1877f2] text-sm font-bold hover:underline mt-2 inline-block">
+                                Ir a Facebook →
+                            </a>
+                        </div>
+                    `;
+                    }
+                }, 15000);
             }
 
             // Ejecutar cuando el DOM esté listo
@@ -7745,14 +7775,13 @@
                 window.showView = function (viewId) {
                     originalShowView(viewId);
                     setTimeout(function () {
-                        if (document.getElementById('fbEmbedContainer')) {
-                            if (typeof FB !== 'undefined') {
-                                FB.XFBML.parse();
-                                const loading = document.getElementById('fbLoading');
-                                if (loading) loading.style.display = 'none';
-                            }
+                        const container = document.getElementById('fbEmbedContainer');
+                        if (container && typeof FB !== 'undefined') {
+                            FB.XFBML.parse(container);
+                            const loading = document.getElementById('fbLoading');
+                            if (loading) loading.style.display = 'none';
                         }
-                    }, 500);
+                    }, 600);
                 };
             }
         })();
