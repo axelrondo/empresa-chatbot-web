@@ -811,40 +811,23 @@
         }
 
         /* ========================================== */
-        /* BORDE AZUL PARA FACEBOOK                   */
+        /* BORDE AZUL INTENSO PARA FACEBOOK           */
         /* ========================================== */
 
         #sidebarFacebook {
-            border: 3px solid #1877f2 !important;
+            border: 4px solid #003366 !important;
+            /* Azul oscuro corporativo */
             border-radius: 16px !important;
-            box-shadow: 0 4px 20px rgba(24, 119, 242, 0.15) !important;
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 6px 30px rgba(0, 51, 102, 0.4) !important;
+            /* Sombra más fuerte */
+            transition: all 0.3s ease !important;
+            background: #ffffff !important;
         }
 
         #sidebarFacebook:hover {
-            box-shadow: 0 8px 30px rgba(24, 119, 242, 0.25) !important;
-            transform: translateY(-2px);
-        }
-
-        /* Opción: Borde degradado azul */
-        #sidebarFacebook {
-            border: 3px solid transparent !important;
-            background-clip: padding-box !important;
-            position: relative;
-        }
-
-        #sidebarFacebook::before {
-            content: '';
-            position: absolute;
-            inset: -3px;
-            border-radius: 16px;
-            padding: 3px;
-            background: linear-gradient(135deg, #1877f2, #0d65d9, #1877f2);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-            z-index: 1;
+            box-shadow: 0 10px 45px rgba(0, 51, 102, 0.55) !important;
+            transform: translateY(-3px);
+            border-color: #002244 !important;
         }
     </style>
 </head>
