@@ -727,20 +727,26 @@
             background: #0d65d9;
         }
 
-        /* Ocultar scroll en Firefox */
         #sidebarFacebook .relative {
             scrollbar-width: thin;
             scrollbar-color: #1877f2 #e5e7eb;
         }
 
+        /* Forzar el ancho del embed */
+        .fb-page {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        .fb-page iframe {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
         /* Ajuste para móviles */
         @media (max-width: 640px) {
             #sidebarFacebook .relative {
-                height: 320px !important;
-            }
-
-            #sidebarFacebook .fb-page {
-                width: 100% !important;
+                height: 340px !important;
             }
         }
     </style>
