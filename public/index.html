@@ -701,11 +701,12 @@
         }
 
         /* ========================================== */
-        /* CARRUSEL DE PUBLICIDAD (SIN AUTO-REPRODUCCIÓN) */
+        /* CARRUSEL DE PUBLICIDAD - ANCHO COMPLETO    */
         /* ========================================== */
 
         #sidebarPublicidad {
             transition: box-shadow 0.3s ease;
+            width: 100%;
         }
 
         #sidebarPublicidad:hover {
@@ -723,16 +724,14 @@
         /* Ajuste para móviles */
         @media (max-width: 640px) {
             #sidebarPublicidad .relative {
+                padding-bottom: 60% !important;
                 min-height: 150px !important;
             }
 
-            #sidebarPublicidad img {
-                max-height: 250px !important;
-            }
-
             #sidebarPublicidad button {
-                width: 28px !height: 28px !important;
-                font-size: 11px !important;
+                width: 28px !important;
+                height: 28px !important;
+                font-size: 10px !important;
             }
 
             #sidebarPublicidad .pub-indicador {
@@ -740,8 +739,13 @@
                 height: 8px !important;
             }
 
-            #sidebarPublicidad .pub-indicador.w-4 {
+            #sidebarPublicidad .pub-indicador.w-6 {
                 width: 14px !important;
+            }
+
+            #sidebarPublicidad .badge {
+                font-size: 7px !important;
+                padding: 2px 8px !important;
             }
         }
     </style>
@@ -5175,63 +5179,75 @@
                     </div>
                 </div>
                 <!-- ========================================== -->
-                <!-- CARRUSEL DE PUBLICIDAD (SIN AUTO-REPRODUCCIÓN) -->
+                <!-- CARRUSEL DE PUBLICIDAD (ANCHO COMPLETO)    -->
                 <!-- ========================================== -->
                 <div id="sidebarPublicidad"
-                    class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden relative">
+                    class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
 
                     <!-- CONTENEDOR DEL CARRUSEL -->
-                    <div class="relative overflow-hidden" style="height: auto; min-height: 200px;">
-                        <!-- IMÁGENES (con tamaño original) -->
-                        <div id="publicidadSlider" class="flex transition-transform duration-500 ease-in-out">
-                            <div class="w-full flex-shrink-0 flex items-center justify-center bg-slate-50">
-                                <img src="/img/publicidad1.png" alt="Publicidad 1"
-                                    class="max-w-full max-h-[350px] object-contain"
-                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/003366/FFFFFF?text=Publicidad+1';">
+                    <div class="relative w-full" style="padding-bottom: 75%; min-height: 200px;">
+
+                        <!-- CONTENEDOR INTERNO (absoluto para ocupar todo) -->
+                        <div class="absolute inset-0 overflow-hidden">
+
+                            <!-- SLIDER -->
+                            <div id="publicidadSlider"
+                                class="flex transition-transform duration-500 ease-in-out h-full w-full">
+
+                                <!-- IMAGEN 1 -->
+                                <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-slate-100">
+                                    <img src="/img/publicidad1.png" alt="Publicidad 1"
+                                        class="w-full h-full object-cover"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/600x400/003366/FFFFFF?text=Publicidad+1';">
+                                </div>
+
+                                <!-- IMAGEN 2 -->
+                                <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-slate-100">
+                                    <img src="/img/publicidad2.png" alt="Publicidad 2"
+                                        class="w-full h-full object-cover"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/600x400/002244/FFFFFF?text=Publicidad+2';">
+                                </div>
+
+                                <!-- IMAGEN 3 -->
+                                <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-slate-100">
+                                    <img src="/img/publicidad3.png" alt="Publicidad 3"
+                                        class="w-full h-full object-cover"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/600x400/003366/FFFFFF?text=Publicidad+3';">
+                                </div>
                             </div>
-                            <div class="w-full flex-shrink-0 flex items-center justify-center bg-slate-50">
-                                <img src="/img/publicidad2.png" alt="Publicidad 2"
-                                    class="max-w-full max-h-[350px] object-contain"
-                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/002244/FFFFFF?text=Publicidad+2';">
+
+                            <!-- BOTÓN ANTERIOR -->
+                            <button onclick="cambiarPublicidad(-1)"
+                                class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-9 h-9 rounded-full flex items-center justify-center transition z-10 shadow-lg hover:scale-110 text-sm">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </button>
+
+                            <!-- BOTÓN SIGUIENTE -->
+                            <button onclick="cambiarPublicidad(1)"
+                                class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-9 h-9 rounded-full flex items-center justify-center transition z-10 shadow-lg hover:scale-110 text-sm">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+
+                            <!-- INDICADORES (puntos) -->
+                            <div id="publicidadIndicadores"
+                                class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                                <span
+                                    class="pub-indicador w-3 h-3 rounded-full bg-white/80 cursor-pointer transition-all duration-300 shadow-md"
+                                    data-index="0" onclick="irAPublicidad(0)"></span>
+                                <span
+                                    class="pub-indicador w-3 h-3 rounded-full bg-white/40 cursor-pointer transition-all duration-300 shadow-md"
+                                    data-index="1" onclick="irAPublicidad(1)"></span>
+                                <span
+                                    class="pub-indicador w-3 h-3 rounded-full bg-white/40 cursor-pointer transition-all duration-300 shadow-md"
+                                    data-index="2" onclick="irAPublicidad(2)"></span>
                             </div>
-                            <div class="w-full flex-shrink-0 flex items-center justify-center bg-slate-50">
-                                <img src="/img/publicidad3.png" alt="Publicidad 3"
-                                    class="max-w-full max-h-[350px] object-contain"
-                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/003366/FFFFFF?text=Publicidad+3';">
-                            </div>
+
+                            <!-- BADGE "PUBLICIDAD" -->
+                            <span
+                                class="absolute top-3 right-3 bg-amber-500/90 text-white text-[9px] font-black uppercase px-2.5 py-1 rounded-full z-10 shadow-lg backdrop-blur-sm">
+                                <i class="fa-regular fa-circle-play mr-1.5"></i> Publicidad
+                            </span>
                         </div>
-
-                        <!-- BOTÓN ANTERIOR -->
-                        <button onclick="cambiarPublicidad(-1)"
-                            class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center transition z-10 text-sm shadow-lg hover:scale-110">
-                            <i class="fa-solid fa-chevron-left"></i>
-                        </button>
-
-                        <!-- BOTÓN SIGUIENTE -->
-                        <button onclick="cambiarPublicidad(1)"
-                            class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center transition z-10 text-sm shadow-lg hover:scale-110">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </button>
-
-                        <!-- INDICADORES (puntos) -->
-                        <div id="publicidadIndicadores"
-                            class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                            <span
-                                class="pub-indicador w-2.5 h-2.5 rounded-full bg-white/70 cursor-pointer transition-all duration-300"
-                                data-index="0" onclick="irAPublicidad(0)"></span>
-                            <span
-                                class="pub-indicador w-2.5 h-2.5 rounded-full bg-white/40 cursor-pointer transition-all duration-300"
-                                data-index="1" onclick="irAPublicidad(1)"></span>
-                            <span
-                                class="pub-indicador w-2.5 h-2.5 rounded-full bg-white/40 cursor-pointer transition-all duration-300"
-                                data-index="2" onclick="irAPublicidad(2)"></span>
-                        </div>
-
-                        <!-- BADGE "PUBLICIDAD" -->
-                        <span
-                            class="absolute top-2 right-3 bg-amber-500/90 text-white text-[8px] font-black uppercase px-2 py-0.5 rounded-full z-10 shadow-lg">
-                            <i class="fa-regular fa-circle-play mr-1"></i> Publicidad
-                        </span>
                     </div>
                 </div>
 
@@ -7676,7 +7692,7 @@
         };
 
         // ==========================================
-        // CARRUSEL DE PUBLICIDAD (SIN AUTO-REPRODUCCIÓN)
+        // CARRUSEL DE PUBLICIDAD
         // ==========================================
 
         let publicidadActual = 0;
@@ -7688,17 +7704,15 @@
 
             if (!slider) return;
 
-            // Mover el slider
             slider.style.transform = `translateX(-${publicidadActual * 100}%)`;
 
-            // Actualizar indicadores
             indicadores.forEach((ind, idx) => {
                 if (idx === publicidadActual) {
                     ind.classList.remove('bg-white/40');
-                    ind.classList.add('bg-white/90', 'w-4');
+                    ind.classList.add('bg-white/90', 'w-6');
                 } else {
                     ind.classList.add('bg-white/40');
-                    ind.classList.remove('bg-white/90', 'w-4');
+                    ind.classList.remove('bg-white/90', 'w-6');
                 }
             });
         }
@@ -7713,7 +7727,6 @@
             actualizarPublicidad();
         }
 
-        // Inicializar carrusel cuando el DOM esté listo
         document.addEventListener('DOMContentLoaded', function () {
             actualizarPublicidad();
         });
