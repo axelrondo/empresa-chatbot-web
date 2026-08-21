@@ -749,6 +749,66 @@
                 height: 340px !important;
             }
         }
+
+        /* ========================================== */
+        /* MODAL DE CONTACTO - PESTAÑAS               */
+        /* ========================================== */
+
+        #modalContacto .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* Estilo de pestañas */
+        #tabCotizacion.active,
+        #tabTrabajo.active {
+            border-bottom-color: #dc2626 !important;
+            color: #003366 !important;
+            background: white !important;
+        }
+
+        #tabCotizacion:not(.active),
+        #tabTrabajo:not(.active) {
+            border-bottom-color: transparent !important;
+            color: #94a3b8 !important;
+            background: transparent !important;
+        }
+
+        #tabCotizacion:not(.active):hover,
+        #tabTrabajo:not(.active):hover {
+            color: #003366 !important;
+            background: #f1f5f9 !important;
+        }
+
+        /* Scrollbar personalizado */
+        #modalContacto .overflow-y-auto::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #modalContacto .overflow-y-auto::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 4px;
+        }
+
+        #modalContacto .overflow-y-auto::-webkit-scrollbar-thumb {
+            background: #003366;
+            border-radius: 4px;
+        }
+
+        #modalContacto .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+            background: #dc2626;
+        }
     </style>
 </head>
 
@@ -934,12 +994,10 @@
                     </ul>
                 </div>
 
-                <button onclick="showView('view-cotizador')"
-                    class="text-amber-300 hover:text-white transition flex items-center gap-1.5 px-2 py-1 cursor-pointer"><i
-                        class="fa-solid fa-calculator"></i> Cotizador</button>
-                <a href="https://www.facebook.com/limbolivia?ref=embed_page" target="_blank"
-                    class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1"><i
-                        class="fa-solid fa-envelope"></i> Contáctese</a>
+                <button onclick="abrirModalContacto()"
+                    class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
+                    <i class="fa-solid fa-envelope"></i> Contáctese
+                </button>
             </div>
         </nav>
     </header>
@@ -5238,6 +5296,331 @@
         </div>
     </main>
 
+    <!-- ========================================== -->
+    <!-- MODAL DE CONTACTO - COTIZACIÓN Y TRABAJO   -->
+    <!-- ========================================== -->
+    <div id="modalContacto"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100000] flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden animate-fade-in">
+
+            <!-- HEADER CON LOGO -->
+            <div
+                class="bg-gradient-to-r from-[#003366] to-[#001845] p-4 flex items-center gap-4 border-b-4 border-red-600">
+                <img src="/img/logo1.png" alt="LIM-BOLIVIA" class="h-14 w-auto object-contain"
+                    onerror="this.onerror=null; this.src='https://via.placeholder.com/60x60/003366/FFFFFF?text=LIM';">
+                <div>
+                    <h2 class="text-white font-black text-lg uppercase tracking-wider">LIM-BOLIVIA</h2>
+                    <p class="text-amber-400 text-xs font-bold">Limpieza es nuestro lema</p>
+                </div>
+                <button onclick="cerrarModalContacto()"
+                    class="ml-auto text-white/70 hover:text-white text-2xl transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- PESTAÑAS -->
+            <div class="flex border-b border-slate-200 bg-slate-50">
+                <button id="tabCotizacion" onclick="cambiarPestana('cotizacion')"
+                    class="flex-1 py-3 px-4 text-center font-bold text-sm transition-all duration-300 border-b-4 border-red-600 text-[#003366] bg-white">
+                    <i class="fa-solid fa-file-invoice text-red-600 mr-2"></i> Cotización Gratuita
+                </button>
+                <button id="tabTrabajo" onclick="cambiarPestana('trabajo')"
+                    class="flex-1 py-3 px-4 text-center font-bold text-sm transition-all duration-300 border-b-4 border-transparent text-slate-500 hover:text-[#003366]">
+                    <i class="fa-solid fa-users text-blue-600 mr-2"></i> Trabaja con Nosotros
+                </button>
+            </div>
+
+            <!-- CONTENIDO -->
+            <div class="overflow-y-auto p-6" style="max-height: calc(90vh - 180px);">
+
+                <!-- ================================================== -->
+                <!-- PESTAÑA 1: COTIZACIÓN GRATUITA                     -->
+                <!-- ================================================== -->
+                <div id="contenidoCotizacion" class="space-y-4">
+                    <div class="bg-blue-50 border-l-4 border-red-600 p-3 rounded-r-lg">
+                        <p class="text-sm text-slate-700 flex items-center gap-2">
+                            <i class="fa-solid fa-phone-volume text-red-600 animate-pulse"></i>
+                            <span>Completa el formulario y recibe una <strong>cotización gratuita a
+                                    domicilio</strong></span>
+                        </p>
+                    </div>
+
+                    <form id="formCotizacion" onsubmit="enviarCotizacion(event)" class="space-y-3">
+                        <!-- Nombre -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                <i class="fa-regular fa-user text-red-600 mr-1"></i> Nombre Completo *
+                            </label>
+                            <input type="text" id="cotNombre" required
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent transition"
+                                placeholder="Ej: Juan Pérez">
+                        </div>
+
+                        <!-- Celular -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                <i class="fa-solid fa-phone text-red-600 mr-1"></i> Celular / Teléfono *
+                            </label>
+                            <input type="tel" id="cotCelular" required
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent transition"
+                                placeholder="Ej: 73017175">
+                        </div>
+
+                        <!-- Ciudad -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                <i class="fa-solid fa-location-dot text-red-600 mr-1"></i> Ciudad *
+                            </label>
+                            <select id="cotCiudad" required
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent transition">
+                                <option value="">Selecciona tu ciudad</option>
+                                <option value="La Paz">La Paz</option>
+                                <option value="El Alto">El Alto</option>
+                                <option value="Santa Cruz">Santa Cruz</option>
+                                <option value="Cochabamba">Cochabamba</option>
+                                <option value="Sucre">Sucre</option>
+                                <option value="Potosi">Potosí</option>
+                                <option value="Oruro">Oruro</option>
+                                <option value="Tarija">Tarija</option>
+                                <option value="Trinidad">Trinidad</option>
+                                <option value="Cobija">Cobija</option>
+                                <option value="Otra">Otra (especificar)</option>
+                            </select>
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                <i class="fa-regular fa-envelope text-red-600 mr-1"></i> Email
+                            </label>
+                            <input type="email" id="cotEmail"
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent transition"
+                                placeholder="correo@ejemplo.com">
+                        </div>
+
+                        <!-- Dirección -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                <i class="fa-solid fa-house text-red-600 mr-1"></i> Dirección
+                            </label>
+                            <input type="text" id="cotDireccion"
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent transition"
+                                placeholder="Calle, número, zona">
+                        </div>
+
+                        <!-- Servicio que necesita -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                <i class="fa-solid fa-broom text-red-600 mr-1"></i> Servicio que necesita
+                            </label>
+                            <select id="cotServicio"
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent transition">
+                                <option value="Limpieza de Alfombras">Limpieza de Alfombras</option>
+                                <option value="Limpieza de Cortinas y Persianas">Limpieza de Cortinas y Persianas
+                                </option>
+                                <option value="Limpieza de Vidrios">Limpieza de Vidrios</option>
+                                <option value="Limpieza de Sillones y Living">Limpieza de Sillones y Living</option>
+                                <option value="Limpieza de Colchones">Limpieza de Colchones</option>
+                                <option value="Limpieza de Vehículos">Limpieza de Vehículos</option>
+                                <option value="Lustrado de Pisos">Lustrado de Pisos</option>
+                                <option value="Sanitizado de Baños y Cocinas">Sanitizado de Baños y Cocinas</option>
+                                <option value="Extracción de Agua (Emergencia)">Extracción de Agua (Emergencia)</option>
+                                <option value="Fumigado">Fumigado</option>
+                                <option value="Mantenimiento General">Mantenimiento General</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <!-- Mensaje -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                <i class="fa-regular fa-message text-red-600 mr-1"></i> Mensaje adicional
+                            </label>
+                            <textarea id="cotMensaje" rows="2"
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent transition"
+                                placeholder="Cuéntanos más sobre lo que necesitas..."></textarea>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full bg-gradient-to-r from-[#003366] to-[#001845] hover:from-red-700 hover:to-red-800 text-white font-bold py-3 rounded-lg transition text-sm uppercase tracking-wider shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Enviar Cotización
+                        </button>
+                    </form>
+
+                    <p class="text-[9px] text-slate-400 text-center mt-2">
+                        <i class="fa-regular fa-lock text-emerald-600"></i> Tus datos están seguros con nosotros
+                    </p>
+                </div>
+
+                <!-- ================================================== -->
+                <!-- PESTAÑA 2: TRABAJA CON NOSOTROS                   -->
+                <!-- ================================================== -->
+                <div id="contenidoTrabajo" class="space-y-4 hidden">
+                    <div class="bg-red-50 border-l-4 border-[#003366] p-3 rounded-r-lg">
+                        <p class="text-sm text-slate-700 flex items-center gap-2">
+                            <i class="fa-solid fa-briefcase text-[#003366] animate-pulse"></i>
+                            <span>Únete a nuestro equipo de <strong>profesionales de limpieza</strong></span>
+                        </p>
+                    </div>
+
+                    <form id="formTrabajo" onsubmit="enviarTrabajo(event)" class="space-y-3">
+                        <!-- Nombre -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                <i class="fa-regular fa-user text-[#003366] mr-1"></i> Nombre Completo *
+                            </label>
+                            <input type="text" id="trabNombre" required
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent transition"
+                                placeholder="Ej: María López">
+                        </div>
+
+                        <!-- Celular -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                <i class="fa-solid fa-phone text-[#003366] mr-1"></i> Celular / Teléfono *
+                            </label>
+                            <input type="tel" id="trabCelular" required
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent transition"
+                                placeholder="Ej: 71506930">
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                <i class="fa-regular fa-envelope text-[#003366] mr-1"></i> Email *
+                            </label>
+                            <input type="email" id="trabEmail" required
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent transition"
+                                placeholder="correo@ejemplo.com">
+                        </div>
+
+                        <!-- Ciudad -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                <i class="fa-solid fa-location-dot text-[#003366] mr-1"></i> Ciudad *
+                            </label>
+                            <select id="trabCiudad" required
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent transition">
+                                <option value="">Selecciona tu ciudad</option>
+                                <option value="La Paz">La Paz</option>
+                                <option value="El Alto">El Alto</option>
+                                <option value="Santa Cruz">Santa Cruz</option>
+                                <option value="Cochabamba">Cochabamba</option>
+                                <option value="Sucre">Sucre</option>
+                                <option value="Potosi">Potosí</option>
+                                <option value="Oruro">Oruro</option>
+                                <option value="Tarija">Tarija</option>
+                                <option value="Trinidad">Trinidad</option>
+                                <option value="Cobija">Cobija</option>
+                                <option value="Otra">Otra</option>
+                            </select>
+                        </div>
+
+                        <!-- Cargo al que postula -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                <i class="fa-solid fa-briefcase text-[#003366] mr-1"></i> Cargo al que postula *
+                            </label>
+                            <select id="trabCargo" required
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent transition">
+                                <option value="">Selecciona un cargo</option>
+                                <option value="Supervisor de Limpieza">Supervisor de Limpieza</option>
+                                <option value="Personal de Planta (Limpieza)">Personal de Planta (Limpieza)</option>
+                                <option value="Técnico en Limpieza Especializada">Técnico en Limpieza Especializada
+                                </option>
+                                <option value="Operador de Maquinaria">Operador de Maquinaria</option>
+                                <option value="Administrativo">Administrativo</option>
+                                <option value="Contador">Contador</option>
+                                <option value="Asistente de Ventas">Asistente de Ventas</option>
+                                <option value="Logística y Almacén">Logística y Almacén</option>
+                                <option value="Coordinador de Proyectos">Coordinador de Proyectos</option>
+                                <option value="Otro">Otro (especificar)</option>
+                            </select>
+                        </div>
+
+                        <!-- Años de experiencia -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                <i class="fa-regular fa-clock text-[#003366] mr-1"></i> Años de experiencia *
+                            </label>
+                            <select id="trabExperiencia" required
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent transition">
+                                <option value="0-1">Menos de 1 año</option>
+                                <option value="1-2">1 - 2 años</option>
+                                <option value="3-5">3 - 5 años</option>
+                                <option value="6-10">6 - 10 años</option>
+                                <option value="10+">Más de 10 años</option>
+                            </select>
+                        </div>
+
+                        <!-- Último lugar de trabajo -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                <i class="fa-solid fa-building text-[#003366] mr-1"></i> Último lugar de trabajo
+                            </label>
+                            <input type="text" id="trabLugar"
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent transition"
+                                placeholder="Empresa donde trabajó anteriormente">
+                        </div>
+
+                        <!-- Tiempo trabajado en último empleo -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                <i class="fa-regular fa-calendar text-[#003366] mr-1"></i> Tiempo en último empleo
+                            </label>
+                            <select id="trabTiempo"
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent transition">
+                                <option value="0-6">Menos de 6 meses</option>
+                                <option value="6-12">6 meses - 1 año</option>
+                                <option value="1-2">1 - 2 años</option>
+                                <option value="3-5">3 - 5 años</option>
+                                <option value="5+">Más de 5 años</option>
+                            </select>
+                        </div>
+
+                        <!-- Perfil académico -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                <i class="fa-solid fa-graduation-cap text-[#003366] mr-1"></i> Perfil académico
+                            </label>
+                            <select id="trabAcademico"
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent transition">
+                                <option value="Primaria">Primaria completa</option>
+                                <option value="Secundaria">Secundaria completa</option>
+                                <option value="Técnico">Técnico medio / superior</option>
+                                <option value="Universitario">Universitario (pregrado)</option>
+                                <option value="Licenciatura">Licenciatura / Ingeniería</option>
+                                <option value="Posgrado">Posgrado / Maestría</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <!-- Habilidades / Comentarios -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                                <i class="fa-regular fa-comment text-[#003366] mr-1"></i> Habilidades o comentarios
+                            </label>
+                            <textarea id="trabComentarios" rows="2"
+                                class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent transition"
+                                placeholder="Cuéntanos sobre tus habilidades, certificaciones, disponibilidad..."></textarea>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-3 rounded-lg transition text-sm uppercase tracking-wider shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Enviar Postulación
+                        </button>
+                    </form>
+
+                    <p class="text-[9px] text-slate-400 text-center mt-2">
+                        <i class="fa-regular fa-lock text-emerald-600"></i> Tus datos serán tratados con
+                        confidencialidad
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer class="bg-[#001845] text-white text-center py-6 mt-12 border-t border-slate-800">
         <p class="text-xs text-slate-400">&copy; 2026 LIM-BOLIVIA - Todos los derechos reservados.</p>
@@ -7791,6 +8174,137 @@
                 };
             }
         })();
+
+        // ==========================================
+        // MODAL DE CONTACTO - FUNCIONES
+        // ==========================================
+
+        function abrirModalContacto() {
+            const modal = document.getElementById('modalContacto');
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                // Resetear pestañas
+                cambiarPestana('cotizacion');
+            }
+        }
+
+        function cerrarModalContacto() {
+            const modal = document.getElementById('modalContacto');
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function cambiarPestana(tab) {
+            // Pestañas
+            const tabCot = document.getElementById('tabCotizacion');
+            const tabTra = document.getElementById('tabTrabajo');
+            // Contenidos
+            const contCot = document.getElementById('contenidoCotizacion');
+            const contTra = document.getElementById('contenidoTrabajo');
+
+            if (tab === 'cotizacion') {
+                tabCot.classList.add('active');
+                tabTra.classList.remove('active');
+                contCot.classList.remove('hidden');
+                contTra.classList.add('hidden');
+            } else {
+                tabTra.classList.add('active');
+                tabCot.classList.remove('active');
+                contTra.classList.remove('hidden');
+                contCot.classList.add('hidden');
+            }
+        }
+
+        // ==========================================
+        // ENVIAR COTIZACIÓN (WhatsApp)
+        // ==========================================
+
+        function enviarCotizacion(e) {
+            e.preventDefault();
+
+            const nombre = document.getElementById('cotNombre').value.trim();
+            const celular = document.getElementById('cotCelular').value.trim();
+            const ciudad = document.getElementById('cotCiudad').value;
+            const email = document.getElementById('cotEmail').value.trim();
+            const direccion = document.getElementById('cotDireccion').value.trim();
+            const servicio = document.getElementById('cotServicio').value;
+            const mensaje = document.getElementById('cotMensaje').value.trim();
+
+            if (!nombre || !celular || !ciudad) {
+                alert('⚠️ Por favor, completa los campos obligatorios.');
+                return;
+            }
+
+            const texto = `📋 *COTIZACIÓN GRATUITA - LIM-BOLIVIA*%0A%0A` +
+                `👤 *Nombre:* ${nombre}%0A` +
+                `📱 *Celular:* ${celular}%0A` +
+                `📍 *Ciudad:* ${ciudad}%0A` +
+                `✉️ *Email:* ${email || 'No especificado'}%0A` +
+                `🏠 *Dirección:* ${direccion || 'No especificada'}%0A` +
+                `🧹 *Servicio:* ${servicio}%0A` +
+                `💬 *Mensaje:* ${mensaje || 'Sin mensaje adicional'}%0A%0A` +
+                `🔹 *Solicito cotización gratuita a domicilio*%0A` +
+                `🏢 *LIM-BOLIVIA - Limpieza es nuestro lema*`;
+
+            window.open(`https://wa.me/59173017175?text=${texto}`, '_blank');
+        }
+
+        // ==========================================
+        // ENVIAR POSTULACIÓN (WhatsApp)
+        // ==========================================
+
+        function enviarTrabajo(e) {
+            e.preventDefault();
+
+            const nombre = document.getElementById('trabNombre').value.trim();
+            const celular = document.getElementById('trabCelular').value.trim();
+            const email = document.getElementById('trabEmail').value.trim();
+            const ciudad = document.getElementById('trabCiudad').value;
+            const cargo = document.getElementById('trabCargo').value;
+            const experiencia = document.getElementById('trabExperiencia').value;
+            const lugar = document.getElementById('trabLugar').value.trim();
+            const tiempo = document.getElementById('trabTiempo').value;
+            const academico = document.getElementById('trabAcademico').value;
+            const comentarios = document.getElementById('trabComentarios').value.trim();
+
+            if (!nombre || !celular || !email || !ciudad || !cargo || !experiencia) {
+                alert('⚠️ Por favor, completa los campos obligatorios.');
+                return;
+            }
+
+            const texto = `📋 *POSTULACIÓN - TRABAJA CON NOSOTROS*%0A%0A` +
+                `👤 *Nombre:* ${nombre}%0A` +
+                `📱 *Celular:* ${celular}%0A` +
+                `✉️ *Email:* ${email}%0A` +
+                `📍 *Ciudad:* ${ciudad}%0A` +
+                `💼 *Cargo al que postula:* ${cargo}%0A` +
+                `⏳ *Años de experiencia:* ${experiencia} años%0A` +
+                `🏢 *Último lugar de trabajo:* ${lugar || 'No especificado'}%0A` +
+                `📅 *Tiempo en último empleo:* ${tiempo || 'No especificado'}%0A` +
+                `🎓 *Perfil académico:* ${academico}%0A` +
+                `💬 *Habilidades/Comentarios:* ${comentarios || 'Sin comentarios adicionales'}%0A%0A` +
+                `🔹 *Postulación a LIM-BOLIVIA*%0A` +
+                `🏢 *LIM-BOLIVIA - Limpieza es nuestro lema*`;
+
+            window.open(`https://wa.me/59173017175?text=${texto}`, '_blank');
+        }
+
+        // Cerrar modal con Escape
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                cerrarModalContacto();
+            }
+        });
+
+        // Cerrar al hacer clic fuera del modal
+        document.getElementById('modalContacto')?.addEventListener('click', function (e) {
+            if (e.target === this) {
+                cerrarModalContacto();
+            }
+        });
     </script>
 
 </body>
