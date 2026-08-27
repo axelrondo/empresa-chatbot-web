@@ -48,12 +48,38 @@ app.get('*', (req, res) => {
 });
 
 // ==========================================
-// ✅ INICIAR SERVIDOR - UNA SOLA VEZ
+// ✅ INICIAR SERVIDOR CON MANEJO DE ERRORES
 // ==========================================
-app.listen(PORT, '0.0.0.0', () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`=================================`);
   console.log(`🚀 Servidor ejecutándose en el puerto ${PORT}`);
   console.log(`📁 Sirviendo archivos desde: ${path.join(__dirname, '../public')}`);
   console.log(`🌐 URL local: http://localhost:${PORT}`);
   console.log(`=================================`);
+});
+
+// ✅ MANEJAR ERROR DE PUERTO EN USO
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`❌ El puerto ${PORT} ya está en uso.`);
+    console.log(`🔄 Intentando usar el puerto ${PORT + 1}...`);
+    
+    // Intentar con el siguiente puerto
+    const newPort = PORT + 1;
+    const newServer = app.listen(newPort, '0.0.0.0', () => {
+      console.log(`=================================`);
+      console.log(`🚀 Servidor ejecutándose en el puerto ${newPort}`);
+      console.log(`📁 Sirviendo archivos desde: ${path.join(__dirname, '../public')}`);
+      console.log(`🌐 URL local: http://localhost:${newPort}`);
+      console.log(`=================================`);
+    });
+    
+    newServer.on('error', (err2) => {
+      console.error(`❌ Error también en el puerto ${newPort}:`, err2);
+      process.exit(1);
+    });
+  } else {
+    console.error('❌ Error al iniciar el servidor:', err);
+    process.exit(1);
+  }
 });
