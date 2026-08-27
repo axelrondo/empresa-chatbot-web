@@ -43,3 +43,12 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Servidor ejecutándose en el puerto ${PORT}`);
   console.log(`=================================`);
 });
+
+// server/index.js - Línea final
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`=================================`);
+  console.log(`🚀 Servidor ejecutándose en el puerto ${PORT}`);
+  console.log(`📁 Sirviendo archivos desde: ${path.join(__dirname, '../public')}`);
+  console.log(`🌐 URL local: http://localhost:${PORT}`);
+  console.log(`=================================`);
+});
