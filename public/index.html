@@ -7291,23 +7291,53 @@
         // ESCUCHAR COTIZACIÓN CON INSTRUCCIONES COMPLETAS
         // ==========================================
 
-        // ==========================================
-        // ESCUCHAR COTIZACIÓN - VERSIÓN CORTA
-        // ==========================================
-
         function talkQuote() {
             if (addedServices.length === 0) {
-                hablarTexto("Aún no ha agregado servicios a su resumen de cotización.");
+                hablarTexto("Aún no ha agregado servicios a su resumen de cotización. Por favor, seleccione un servicio y agregue la cantidad en metros cuadrados.");
                 return;
             }
 
+            // Calcular total
             let total = addedServices.reduce((acc, curr) => acc + curr.price, 0);
 
-            let mensaje = `Su cotización actual tiene un total estimado de ${total} Bolivianos. `;
-            mensaje += `Para confirmar el servicio, presione el botón "AÑADIR DATOS" para ingresar sus datos personales, fecha y hora preferida. `;
-            mensaje += `Luego, presione "RESERVAR POR WHATSAPP" para enviar su solicitud a un operador de LIM-BOLIVIA. `;
-            mensaje += `¡Gracias por preferirnos!`;
+            // Contar cuántos servicios tiene
+            let cantidadServicios = addedServices.length;
 
+            // Construir el mensaje completo
+            let mensaje = "";
+
+            // 1. Saludar e informar el total
+            mensaje += `Su cotización actual tiene un total estimado de ${total} Bolivianos. `;
+
+            // 2. Informar cuántos servicios tiene
+            if (cantidadServicios === 1) {
+                mensaje += `Tiene 1 servicio agregado. `;
+            } else {
+                mensaje += `Tiene ${cantidadServicios} servicios agregados. `;
+            }
+
+            // 3. Leer los servicios (máximo 3 para no hacer muy largo)
+            if (cantidadServicios <= 3) {
+                mensaje += `Los servicios son: `;
+                addedServices.forEach((s, i) => {
+                    mensaje += `${i + 1}. ${s.title}, con un costo de ${s.price} Bolivianos. `;
+                });
+            } else {
+                mensaje += `Para escuchar el detalle completo, revise el panel de resumen. `;
+            }
+
+            // 4. 🔥 INSTRUCCIONES COMPLETAS PARA EL CLIENTE
+            mensaje += `Para confirmar su servicio, siga estos pasos: `;
+            mensaje += `Primero, presione el botón "AÑADIR DATOS" que está en la parte superior del panel. `;
+            mensaje += `Allí podrá ingresar su nombre completo, número de celular, dirección, y elegir la fecha y hora preferida para el servicio. `;
+            mensaje += `Una vez que haya completado sus datos, presione el botón "GUARDAR DATOS". `;
+            mensaje += `Finalmente, presione el botón "RESERVAR POR WHATSAPP" que está en la parte inferior del panel. `;
+            mensaje += `Esto enviará su cotización completa junto con sus datos a un operador de LIM-BOLIVIA, quien se pondrá en contacto con usted para confirmar el servicio. `;
+
+            // 5. Despedida
+            mensaje += `Gracias por confiar en LIM-BOLIVIA. Limpieza es nuestro lema.`;
+
+            // Hablar el mensaje completo
             hablarTexto(mensaje);
         }
 
