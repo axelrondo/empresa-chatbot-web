@@ -7788,20 +7788,7 @@
             totalDisplay.innerText = `Bs ${sum}`;
         }
 
-        function sendToWhatsApp() {
-            if (addedServices.length === 0) {
-                alert("Por favor, agrega al menos un servicio a la cotización.");
-                return;
-            }
-            let text = "¡Hola LIM-BOLIVIA! Deseo reservar el siguiente detalle de cotización:\n\n";
-            let total = 0;
-            addedServices.forEach((s, i) => {
-                text += `${i + 1}. ${s.title} - Bs ${s.price}\n`;
-                total += s.price;
-            });
-            text += `\n*Total Estimado: Bs ${total}*`;
-            window.open(`https://wa.me/${"59171506930"}?text=${encodeURIComponent(text)}`, '_blank');
-        }
+        
 
         function talkQuote() {
             if (addedServices.length === 0) {
