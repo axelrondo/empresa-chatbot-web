@@ -7832,14 +7832,7 @@
 
 
 
-        function talkQuote() {
-            if (addedServices.length === 0) {
-                hablarTexto("Aún no ha agregado servicios a su resumen de cotización.");
-                return;
-            }
-            let total = addedServices.reduce((acc, curr) => acc + curr.price, 0);
-            hablarTexto(`Su cotización actual tiene un total estimado de ${total} Bolivianos.`);
-        }
+       
 
         // ==========================================
         // 5. FUNCIONES DEL CHATBOT (CORREGIDO CON HISTORIAL)
