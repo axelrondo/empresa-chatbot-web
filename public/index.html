@@ -5253,10 +5253,15 @@
 
                     <!-- ENCABEZADO CON BOTÓN MINIMIZAR Y CERRAR -->
                     <div class="flex justify-between items-center border-b border-slate-700 pb-2 mb-2 shrink-0">
-                        <div>
+                        <div class="flex items-center gap-2">
                             <span
                                 class="text-[10px] uppercase font-bold tracking-widest text-emerald-400">Resumen</span>
                             <h3 class="text-sm font-bold text-white">Servicios</h3>
+                            <!-- NUEVO BOTÓN: AÑADIR DATOS -->
+                            <button onclick="abrirModalDatos()"
+                                class="bg-emerald-600 hover:bg-emerald-700 text-white text-[8px] font-bold px-2 py-1 rounded-lg transition shadow-sm ml-1 flex items-center gap-1">
+                                <i class="fa-solid fa-pen-to-square text-[8px]"></i> Añadir Datos
+                            </button>
                         </div>
                         <div class="flex items-center gap-1">
                             <button id="panelToggleBtn" onclick="togglePanelMinimize()"
@@ -5270,6 +5275,16 @@
                                 <i class="fa-solid fa-xmark"></i>
                             </button>
                         </div>
+                    </div>
+
+                    <!-- INDICADOR DE DATOS DEL CLIENTE -->
+                    <div id="datosClienteIndicator"
+                        class="hidden mb-2 px-2 py-1 bg-emerald-900/50 border border-emerald-700/50 rounded-lg flex items-center gap-2 text-[10px] text-emerald-300">
+                        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                        <span>Datos del cliente agregados</span>
+                        <button onclick="limpiarDatosCliente()" class="text-emerald-400 hover:text-red-400 ml-auto">
+                            <i class="fa-solid fa-xmark text-[10px]"></i>
+                        </button>
                     </div>
 
                     <!-- CONTENIDO DEL PANEL (scrollable) -->
@@ -7154,22 +7169,50 @@
             totalDisplay.innerText = `Bs ${sum}`;
         }
 
-        // ==========================================
-        // 12. sendToWhatsApp
-        // ==========================================
         function sendToWhatsApp() {
             if (addedServices.length === 0) {
                 alert("Por favor, agrega al menos un servicio a la cotización.");
                 return;
             }
+
             let text = "¡Hola LIM-BOLIVIA! Deseo reservar el siguiente detalle de cotización:\n\n";
             let total = 0;
+
+            // Servicios agregados
             addedServices.forEach((s, i) => {
                 text += `${i + 1}. ${s.title} - Bs ${s.price}\n`;
                 total += s.price;
             });
-            text += `\n*Total Estimado: Bs ${total}*`;
-            window.open(`https://wa.me/${"59171506930"}?text=${encodeURIComponent(text)}`, '_blank');
+
+            text += `\n*Total Estimado: Bs ${total}*\n\n`;
+
+            // ==========================================
+            // 🔥 DATOS DEL CLIENTE (SI EXISTEN) 🔥
+            // ==========================================
+            if (datosCliente.nombre) {
+                text += `📋 *DATOS DEL CLIENTE:*\n`;
+                text += `👤 *Nombre:* ${datosCliente.nombre}\n`;
+                text += `📱 *Celular:* ${datosCliente.celular}\n`;
+                if (datosCliente.direccion && datosCliente.direccion !== 'No especificada') {
+                    text += `📍 *Dirección:* ${datosCliente.direccion}\n`;
+                }
+                if (datosCliente.fecha && datosCliente.fecha !== 'No especificada') {
+                    text += `📅 *Fecha preferida:* ${datosCliente.fecha}\n`;
+                }
+                if (datosCliente.hora && datosCliente.hora !== 'No especificada') {
+                    text += `🕐 *Hora preferida:* ${datosCliente.hora}\n`;
+                }
+                if (datosCliente.mensaje && datosCliente.mensaje !== 'Sin mensaje adicional') {
+                    text += `💬 *Mensaje:* ${datosCliente.mensaje}\n`;
+                }
+                text += `\n`;
+            }
+
+            text += `🔹 *Solicito cotización y reserva*`;
+
+            // Número de WhatsApp (puedes cambiarlo)
+            const numeroWhatsApp = "59171506930";
+            window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(text)}`, '_blank');
         }
 
         // ==========================================
@@ -8470,7 +8513,208 @@
                 cerrarModalContacto();
             }
         });
+
+        // ==========================================
+        // DATOS DEL CLIENTE PARA COTIZACIÓN
+        // ==========================================
+
+        let datosCliente = {
+            nombre: '',
+            celular: '',
+            direccion: '',
+            hora: '',
+            fecha: '',
+            mensaje: ''
+        };
+
+        // ABRIR MODAL DE DATOS
+        function abrirModalDatos() {
+            const modal = document.getElementById('modalDatosCliente');
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+
+                // Si ya hay datos guardados, precargarlos
+                if (datosCliente.nombre) {
+                    document.getElementById('clienteNombre').value = datosCliente.nombre || '';
+                    document.getElementById('clienteCelular').value = datosCliente.celular || '';
+                    document.getElementById('clienteDireccion').value = datosCliente.direccion || '';
+                    document.getElementById('clienteHora').value = datosCliente.hora || '';
+                    document.getElementById('clienteFecha').value = datosCliente.fecha || '';
+                    document.getElementById('clienteMensaje').value = datosCliente.mensaje || '';
+                }
+            }
+        }
+
+        // CERRAR MODAL DE DATOS
+        function cerrarModalDatos() {
+            const modal = document.getElementById('modalDatosCliente');
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // GUARDAR DATOS DEL CLIENTE
+        function guardarDatosCliente(e) {
+            e.preventDefault();
+
+            const nombre = document.getElementById('clienteNombre').value.trim();
+            const celular = document.getElementById('clienteCelular').value.trim();
+            const direccion = document.getElementById('clienteDireccion').value.trim();
+            const hora = document.getElementById('clienteHora').value;
+            const fecha = document.getElementById('clienteFecha').value;
+            const mensaje = document.getElementById('clienteMensaje').value.trim();
+
+            if (!nombre || !celular) {
+                alert('⚠️ Por favor, completa el nombre y número de celular.');
+                return;
+            }
+
+            // Guardar datos
+            datosCliente = {
+                nombre: nombre,
+                celular: celular,
+                direccion: direccion || 'No especificada',
+                hora: hora || 'No especificada',
+                fecha: fecha || 'No especificada',
+                mensaje: mensaje || 'Sin mensaje adicional'
+            };
+
+            // Mostrar indicador en el panel
+            const indicator = document.getElementById('datosClienteIndicator');
+            if (indicator) {
+                indicator.classList.remove('hidden');
+                // Actualizar el texto del indicador con el nombre
+                const span = indicator.querySelector('span');
+                if (span) span.textContent = `Cliente: ${nombre}`;
+            }
+
+            cerrarModalDatos();
+            alert(`✅ ¡Datos guardados correctamente!\n\n👤 ${nombre}\n📱 ${celular}`);
+        }
+
+        // LIMPIAR DATOS DEL CLIENTE
+        function limpiarDatosCliente() {
+            if (!confirm('¿Estás seguro de que quieres eliminar los datos del cliente?')) return;
+
+            datosCliente = {
+                nombre: '',
+                celular: '',
+                direccion: '',
+                hora: '',
+                fecha: '',
+                mensaje: ''
+            };
+
+            const indicator = document.getElementById('datosClienteIndicator');
+            if (indicator) indicator.classList.add('hidden');
+        }
     </script>
+
+    <!-- ========================================== -->
+    <!-- MODAL DE DATOS DEL CLIENTE PARA COTIZACIÓN -->
+    <!-- ========================================== -->
+    <div id="modalDatosCliente"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100000] flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-hidden animate-fade-in">
+
+            <!-- HEADER -->
+            <div
+                class="bg-gradient-to-r from-emerald-700 to-emerald-900 p-4 flex items-center gap-4 border-b-4 border-amber-400">
+                <div class="bg-amber-400/20 p-2 rounded-full">
+                    <i class="fa-solid fa-user-pen text-amber-300 text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-white font-black text-lg uppercase tracking-wider">Tus Datos</h2>
+                    <p class="text-emerald-200 text-xs font-medium">Para personalizar tu cotización</p>
+                </div>
+                <button onclick="cerrarModalDatos()" class="ml-auto text-white/70 hover:text-white text-2xl transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- CONTENIDO -->
+            <div class="p-6 space-y-4">
+                <p class="text-xs text-slate-500 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-info text-emerald-600"></i>
+                    <span>Estos datos se añadirán automáticamente a tu mensaje de WhatsApp</span>
+                </p>
+
+                <form id="formDatosCliente" onsubmit="guardarDatosCliente(event)" class="space-y-4">
+                    <!-- Nombre -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            <i class="fa-regular fa-user text-emerald-600 mr-1"></i> Nombre Completo *
+                        </label>
+                        <input type="text" id="clienteNombre" required
+                            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+                            placeholder="Ej: Juan Pérez">
+                    </div>
+
+                    <!-- Celular -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            <i class="fa-solid fa-phone text-emerald-600 mr-1"></i> Número de Celular *
+                        </label>
+                        <input type="tel" id="clienteCelular" required
+                            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+                            placeholder="Ej: 73017175">
+                    </div>
+
+                    <!-- Dirección -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            <i class="fa-solid fa-location-dot text-emerald-600 mr-1"></i> Dirección
+                        </label>
+                        <input type="text" id="clienteDireccion"
+                            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+                            placeholder="Calle, número, zona (opcional)">
+                    </div>
+
+                    <!-- Hora preferida -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            <i class="fa-regular fa-clock text-emerald-600 mr-1"></i> Hora preferida
+                        </label>
+                        <input type="time" id="clienteHora"
+                            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition">
+                    </div>
+
+                    <!-- Fecha preferida -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            <i class="fa-regular fa-calendar text-emerald-600 mr-1"></i> Fecha preferida
+                        </label>
+                        <input type="date" id="clienteFecha"
+                            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition">
+                    </div>
+
+                    <!-- Mensaje adicional -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            <i class="fa-regular fa-message text-emerald-600 mr-1"></i> Mensaje adicional
+                        </label>
+                        <textarea id="clienteMensaje" rows="2"
+                            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+                            placeholder="Algún detalle que quieras añadir..."></textarea>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="flex gap-3 pt-2">
+                        <button type="button" onclick="cerrarModalDatos()"
+                            class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 rounded-lg transition text-sm">
+                            Cancelar
+                        </button>
+                        <button type="submit"
+                            class="flex-1 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold py-2.5 rounded-lg transition text-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-check"></i> Guardar Datos
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 </body>
 
