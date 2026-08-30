@@ -5097,149 +5097,301 @@
                 <!-- ================================ -->
                 <div id="sec-18"
                     class="view-section hidden bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-slate-200/80 space-y-8 animate-fade-in">
-                    <div class="border-b border-slate-200 pb-5 space-y-2">
+
+                    <!-- ENCABEZADO MEJORADO -->
+                    <div
+                        class="relative overflow-hidden bg-gradient-to-r from-[#003366] to-[#001845] rounded-2xl p-8 md:p-10 border-b-4 border-amber-400">
+                        <!-- Decoración de fondo -->
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-amber-400/5 rounded-full blur-3xl"></div>
+                        <div class="absolute bottom-0 left-0 w-64 h-64 bg-emerald-400/5 rounded-full blur-3xl"></div>
+
                         <div
-                            class="inline-flex items-center gap-2 bg-amber-100 text-amber-800 text-xs font-black uppercase px-3 py-1 rounded-full border border-amber-200">
-                            <i class="fa-solid fa-house-chimney text-amber-600"></i> Limpiezas Técnicas en Hogares
+                            class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                            <div class="space-y-3">
+                                <div
+                                    class="inline-flex items-center gap-2 bg-amber-400/20 text-amber-300 text-xs font-black uppercase px-4 py-1.5 rounded-full border border-amber-400/30 backdrop-blur-sm">
+                                    <i class="fa-solid fa-house-chimney text-amber-400"></i>
+                                    <span>Limpiezas Técnicas en Hogares</span>
+                                    <span class="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse"></span>
+                                </div>
+                                <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">
+                                    Servicios Residenciales
+                                    <span class="block text-amber-400/80 text-lg md:text-xl font-medium mt-1">Limpiezas
+                                        Técnicas Especializadas</span>
+                                </h2>
+                                <p class="text-blue-200/80 text-sm max-w-2xl leading-relaxed">
+                                    Ofrecemos soluciones integrales de desinfección y mantenimiento especializado para
+                                    departamentos, casas y residencias.
+                                    <span class="text-amber-300 font-semibold">Garantizamos espacios pulcros y libres de
+                                        alérgenos.</span>
+                                </p>
+                            </div>
+                            <!-- Icono decorativo -->
+                            <div
+                                class="hidden lg:flex items-center justify-center w-20 h-20 rounded-full bg-amber-400/10 border-2 border-amber-400/30 backdrop-blur-sm">
+                                <i class="fa-solid fa-spray-can-sparkles text-amber-400 text-3xl"></i>
+                            </div>
                         </div>
-                        <h2 class="text-2xl md:text-3xl font-black text-[#003366] uppercase tracking-wide">18. SERVICIOS
-                            RESIDENCIALES (LIMPIEZAS TÉCNICAS)</h2>
-                        <p class="text-sm text-gray-600 leading-relaxed font-medium">Ofrecemos soluciones integrales de
-                            desinfección y mantenimiento especializado para departamentos, casas y residencias.
-                            Garantizamos espacios pulcros y libres de alérgenos.</p>
                     </div>
-                    <div class="space-y-3">
+
+                    <!-- GALERÍA MEJORADA CON CLICK PARA AMPLIAR -->
+                    <div class="space-y-4">
                         <div class="flex items-center justify-between">
-                            <h3 class="text-lg font-black text-[#003366] uppercase flex items-center gap-2"><i
-                                    class="fa-solid fa-camera-retro text-amber-500"></i> Galería de Operativos
-                                Residenciales</h3>
+                            <div>
+                                <h3 class="text-xl font-black text-[#003366] uppercase flex items-center gap-3">
+                                    <span class="w-1 h-8 bg-amber-500 rounded-full"></span>
+                                    Galería de Operativos Residenciales
+                                </h3>
+                                <p class="text-xs text-slate-500 mt-1 ml-4">Haz clic en cualquier imagen para ampliarla
+                                </p>
+                            </div>
                             <span
-                                class="text-[10px] bg-slate-100 text-slate-600 font-bold px-2.5 py-1 rounded-full border border-slate-200">Trabajos
-                                Reales</span>
+                                class="text-[10px] bg-emerald-100 text-emerald-700 font-bold px-3 py-1 rounded-full border border-emerald-200 flex items-center gap-1">
+                                <i class="fa-regular fa-circle-check"></i> Trabajos Reales
+                            </span>
                         </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div
-                                class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
-                                <img src="/img/residencial.png" alt="Servicio Residencial 1"
-                                    class="w-full h-40 object-cover group-hover:scale-105 transition duration-300"
-                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/003366/FFFFFF?text=residencial.png';" />
-                                <p
-                                    class="p-2.5 text-xs font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">
-                                    Higienización de Espacios</p>
+
+                        <!-- Grid de imágenes con efecto HOVER mejorado -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+                            <!-- Imagen 1: Higienización de Espacios -->
+                            <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 bg-white border border-slate-200 cursor-pointer"
+                                onclick="abrirImagen('/img/limpieza.png', 'Higienización de Espacios - Limpieza Profunda Residencial')">
+                                <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+                                    <img src="/img/limpieza.png" alt="Higienización de Espacios"
+                                        class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/600x450/003366/FFFFFF?text=Higienizacion+de+Espacios';">
+                                </div>
+                                <!-- Overlay con gradiente y texto -->
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-[#003366]/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-5">
+                                    <div
+                                        class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                        <span
+                                            class="inline-block bg-amber-400/90 text-slate-900 text-[9px] font-black uppercase px-2 py-0.5 rounded-full mb-2">⭐
+                                            Destacado</span>
+                                        <h4 class="text-white font-bold text-base">Higienización de Espacios</h4>
+                                        <p class="text-white/80 text-xs mt-1">Limpieza profunda y desinfección de
+                                            ambientes</p>
+                                        <span class="inline-block mt-2 text-amber-300 text-xs font-medium"><i
+                                                class="fa-solid fa-expand mr-1"></i> Ver más</span>
+                                    </div>
+                                </div>
+                                <!-- Ícono de ampliar -->
+                                <div
+                                    class="absolute top-3 right-3 w-8 h-8 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <i class="fa-solid fa-magnifying-glass-plus text-white text-xs"></i>
+                                </div>
                             </div>
-                            <div
-                                class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
-                                <img src="/img/residencial1.png" alt="Servicio Residencial 2"
-                                    class="w-full h-40 object-cover group-hover:scale-105 transition duration-300"
-                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/003366/FFFFFF?text=residencial1.png';" />
-                                <p
-                                    class="p-2.5 text-xs font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">
-                                    Limpieza Técnica Residencial</p>
+
+                            <!-- Imagen 2: Limpieza Técnica Residencial -->
+                            <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 bg-white border border-slate-200 cursor-pointer"
+                                onclick="abrirImagen('/img/residencial1.png', 'Limpieza Técnica Residencial')">
+                                <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+                                    <img src="/img/residencial1.png" alt="Limpieza Técnica Residencial"
+                                        class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/600x450/003366/FFFFFF?text=Limpieza+Tecnica';">
+                                </div>
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-[#003366]/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-5">
+                                    <div
+                                        class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                        <span
+                                            class="inline-block bg-blue-400/90 text-slate-900 text-[9px] font-black uppercase px-2 py-0.5 rounded-full mb-2">🔧
+                                            Especializado</span>
+                                        <h4 class="text-white font-bold text-base">Limpieza Técnica Residencial</h4>
+                                        <p class="text-white/80 text-xs mt-1">Equipos profesionales y productos
+                                            especializados</p>
+                                        <span class="inline-block mt-2 text-amber-300 text-xs font-medium"><i
+                                                class="fa-solid fa-expand mr-1"></i> Ver más</span>
+                                    </div>
+                                </div>
+                                <div
+                                    class="absolute top-3 right-3 w-8 h-8 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <i class="fa-solid fa-magnifying-glass-plus text-white text-xs"></i>
+                                </div>
                             </div>
-                            <div
-                                class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition group">
-                                <img src="/img/residencial2.png" alt="Servicio Residencial 3"
-                                    class="w-full h-40 object-cover group-hover:scale-105 transition duration-300"
-                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/003366/FFFFFF?text=residencial2.png';" />
-                                <p
-                                    class="p-2.5 text-xs font-bold text-center text-slate-700 bg-slate-50 border-t border-slate-100">
-                                    Mantenimiento de Interiores</p>
+
+                            <!-- Imagen 3: Mantenimiento de Interiores -->
+                            <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 bg-white border border-slate-200 cursor-pointer"
+                                onclick="abrirImagen('/img/residencial2.png', 'Mantenimiento de Interiores')">
+                                <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+                                    <img src="/img/residencial2.png" alt="Mantenimiento de Interiores"
+                                        class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/600x450/003366/FFFFFF?text=Mantenimiento+Interiores';">
+                                </div>
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-[#003366]/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-5">
+                                    <div
+                                        class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                        <span
+                                            class="inline-block bg-emerald-400/90 text-slate-900 text-[9px] font-black uppercase px-2 py-0.5 rounded-full mb-2">🔄
+                                            Mantenimiento</span>
+                                        <h4 class="text-white font-bold text-base">Mantenimiento de Interiores</h4>
+                                        <p class="text-white/80 text-xs mt-1">Conservación y cuidado de tus espacios</p>
+                                        <span class="inline-block mt-2 text-amber-300 text-xs font-medium"><i
+                                                class="fa-solid fa-expand mr-1"></i> Ver más</span>
+                                    </div>
+                                </div>
+                                <div
+                                    class="absolute top-3 right-3 w-8 h-8 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <i class="fa-solid fa-magnifying-glass-plus text-white text-xs"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-slate-50 p-6 md:p-8 rounded-2xl border border-slate-200 space-y-6 shadow-inner">
-                        <div class="text-center space-y-2 border-b border-slate-200 pb-4"><span
-                                class="text-xs font-bold text-emerald-600 uppercase tracking-widest bg-emerald-100 px-3 py-1 rounded-full border border-emerald-200">Nuestra
-                                Diferencia Competitiva</span>
-                            <h3 class="text-2xl md:text-3xl font-black text-[#003366] uppercase tracking-tight">¿POR QUÉ
-                                ESCOGERNOS?</h3>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <!-- DIFERENCIALES COMPETITIVOS MEJORADOS -->
+                    <div
+                        class="bg-gradient-to-br from-slate-50 to-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-lg">
+                        <div class="text-center space-y-3 border-b border-slate-200 pb-6">
                             <div
-                                class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-l-4 border-emerald-600">
-                                <div class="flex items-center gap-3">
+                                class="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-100 to-emerald-50 px-4 py-1.5 rounded-full border border-emerald-200">
+                                <span class="text-emerald-600 text-lg">🏆</span>
+                                <span class="text-xs font-bold text-emerald-700 uppercase tracking-widest">Nuestra
+                                    Diferencia Competitiva</span>
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-black text-[#003366] uppercase tracking-tight">
+                                ¿Por qué elegir <span class="text-amber-500">LIM-BOLIVIA</span> para tu hogar?
+                            </h3>
+                            <p class="text-sm text-slate-500 max-w-2xl mx-auto">Te damos la tranquilidad que necesitas
+                                con servicios profesionales y confiables</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+                            <!-- Tarjeta 1 -->
+                            <div
+                                class="group bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-emerald-300">
+                                <div class="flex items-center gap-4 mb-3">
                                     <div
-                                        class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-lg font-bold shrink-0">
+                                        class="w-12 h-12 rounded-xl bg-emerald-100 group-hover:bg-emerald-600 text-emerald-600 group-hover:text-white flex items-center justify-center text-xl transition-colors duration-300 shadow-sm group-hover:shadow-lg">
                                         <i class="fa-solid fa-face-smile"></i>
                                     </div>
                                     <h4 class="font-bold text-[#003366] text-base">Despreocúpese</h4>
                                 </div>
-                                <p class="text-xs text-gray-600 leading-relaxed pl-13">Permitimos que nuestros clientes
+                                <p class="text-sm text-slate-600 leading-relaxed pl-16">Permitimos que nuestros clientes
                                     concentren todas sus fuerzas en el objetivo principal de su actividad.</p>
                             </div>
+
+                            <!-- Tarjeta 2 -->
                             <div
-                                class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-l-4 border-blue-600">
-                                <div class="flex items-center gap-3">
+                                class="group bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-300">
+                                <div class="flex items-center gap-4 mb-3">
                                     <div
-                                        class="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center text-lg font-bold shrink-0">
+                                        class="w-12 h-12 rounded-xl bg-blue-100 group-hover:bg-blue-600 text-blue-600 group-hover:text-white flex items-center justify-center text-xl transition-colors duration-300 shadow-sm group-hover:shadow-lg">
                                         <i class="fa-solid fa-layer-group"></i>
                                     </div>
-                                    <h4 class="font-bold text-[#003366] text-base">Un amplio abanico de servicios</h4>
+                                    <h4 class="font-bold text-[#003366] text-base">Amplio abanico de servicios</h4>
                                 </div>
-                                <p class="text-xs text-gray-600 leading-relaxed pl-13">Las posibilidades que ofrecen a
+                                <p class="text-sm text-slate-600 leading-relaxed pl-16">Las posibilidades que ofrecen a
                                     nuestros clientes el amplio abanico de servicios ofrecidos, dotan a LIM BOLIVIA de
                                     un elevado valor añadido.</p>
                             </div>
+
+                            <!-- Tarjeta 3 -->
                             <div
-                                class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-l-4 border-amber-500">
-                                <div class="flex items-center gap-3">
+                                class="group bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-amber-300">
+                                <div class="flex items-center gap-4 mb-3">
                                     <div
-                                        class="w-10 h-10 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-lg font-bold shrink-0">
+                                        class="w-12 h-12 rounded-xl bg-amber-100 group-hover:bg-amber-600 text-amber-600 group-hover:text-white flex items-center justify-center text-xl transition-colors duration-300 shadow-sm group-hover:shadow-lg">
                                         <i class="fa-solid fa-calendar-check"></i>
                                     </div>
                                     <h4 class="font-bold text-[#003366] text-base">Desde 1999</h4>
                                 </div>
-                                <p class="text-xs text-gray-600 leading-relaxed pl-13">Contamos con una amplia
+                                <p class="text-sm text-slate-600 leading-relaxed pl-16">Contamos con una amplia
                                     trayectoria y sólida experiencia en el sector de la limpieza profesional en Bolivia
                                     desde el año 1999.</p>
                             </div>
+
+                            <!-- Tarjeta 4 -->
                             <div
-                                class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-l-4 border-emerald-600">
-                                <div class="flex items-center gap-3">
+                                class="group bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-emerald-300">
+                                <div class="flex items-center gap-4 mb-3">
                                     <div
-                                        class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-lg font-bold shrink-0">
+                                        class="w-12 h-12 rounded-xl bg-emerald-100 group-hover:bg-emerald-600 text-emerald-600 group-hover:text-white flex items-center justify-center text-xl transition-colors duration-300 shadow-sm group-hover:shadow-lg">
                                         <i class="fa-solid fa-microscope"></i>
                                     </div>
                                     <h4 class="font-bold text-[#003366] text-base">Especializados en limpieza técnica
                                     </h4>
                                 </div>
-                                <p class="text-xs text-gray-600 leading-relaxed pl-13">Elevado grado de especialización
+                                <p class="text-sm text-slate-600 leading-relaxed pl-16">Elevado grado de especialización
                                     en limpiezas técnicas. Productos y métodos de limpieza avanzados.</p>
                             </div>
+
+                            <!-- Tarjeta 5 -->
                             <div
-                                class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-l-4 border-red-600">
-                                <div class="flex items-center gap-3">
+                                class="group bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-red-300">
+                                <div class="flex items-center gap-4 mb-3">
                                     <div
-                                        class="w-10 h-10 rounded-lg bg-red-100 text-red-600 flex items-center justify-center text-lg font-bold shrink-0">
+                                        class="w-12 h-12 rounded-xl bg-red-100 group-hover:bg-red-600 text-red-600 group-hover:text-white flex items-center justify-center text-xl transition-colors duration-300 shadow-sm group-hover:shadow-lg">
                                         <i class="fa-solid fa-clock"></i>
                                     </div>
-                                    <h4 class="font-bold text-[#003366] text-base">Servicio durante las 24 horas</h4>
+                                    <h4 class="font-bold text-[#003366] text-base">Servicio 24 horas</h4>
                                 </div>
-                                <p class="text-xs text-gray-600 leading-relaxed pl-13">Disponemos de teléfono de
+                                <p class="text-sm text-slate-600 leading-relaxed pl-16">Disponemos de teléfono de
                                     atención permanente las 24 horas del día para responder con inmediatez.</p>
                             </div>
+
+                            <!-- Tarjeta 6 -->
                             <div
-                                class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2 border-l-4 border-orange-500">
-                                <div class="flex items-center gap-3">
+                                class="group bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-orange-300">
+                                <div class="flex items-center gap-4 mb-3">
                                     <div
-                                        class="w-10 h-10 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center text-lg font-bold shrink-0">
+                                        class="w-12 h-12 rounded-xl bg-orange-100 group-hover:bg-orange-600 text-orange-600 group-hover:text-white flex items-center justify-center text-xl transition-colors duration-300 shadow-sm group-hover:shadow-lg">
                                         <i class="fa-solid fa-bolt-lightning"></i>
                                     </div>
                                     <h4 class="font-bold text-[#003366] text-base">Elevada capacidad de reacción</h4>
                                 </div>
-                                <p class="text-xs text-gray-600 leading-relaxed pl-13">Elevada capacidad de reacción
+                                <p class="text-sm text-slate-600 leading-relaxed pl-16">Elevada capacidad de reacción
                                     ante cualquier tipo de necesidad urgente de nuestros clientes.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="pt-2 flex flex-col sm:flex-row gap-3">
-                        <button onclick="showView('view-cotizador')"
-                            class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow text-xs uppercase tracking-wider cursor-pointer"><i
-                                class="fa-solid fa-calculator"></i> Cotizar Servicio Residencial</button>
-                        <a href="https://wa.me/59179684700?text=Hola,%20quisiera%20cotizar%20un%20servicio%20de%20Limpieza%20Residencial"
-                            target="_blank"
-                            class="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2 transition shadow text-xs uppercase tracking-wider"><i
-                                class="fa-brands fa-whatsapp text-base"></i> Consultar por WhatsApp</a>
+
+                    <!-- LLAMADA A LA ACCIÓN MEJORADA -->
+                    <div
+                        class="relative overflow-hidden bg-gradient-to-r from-emerald-600 to-emerald-800 rounded-2xl p-8 md:p-10 text-center border border-emerald-500/30 shadow-xl">
+                        <!-- Decoración -->
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-amber-400/10 rounded-full blur-3xl"></div>
+                        <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
+
+                        <div class="relative z-10">
+                            <div
+                                class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/20 mb-4">
+                                <i class="fa-solid fa-phone-volume text-white animate-pulse"></i>
+                                <span class="text-white/80 text-xs font-bold uppercase tracking-widest">Atención
+                                    Personalizada</span>
+                            </div>
+
+                            <h3 class="text-2xl md:text-3xl font-black text-white mb-3">
+                                ¿Listo para transformar tu hogar?
+                            </h3>
+                            <p class="text-emerald-100/80 text-sm max-w-2xl mx-auto mb-6">
+                                Contáctanos ahora y recibe una <strong class="text-amber-300">cotización
+                                    gratuita</strong> sin compromiso.
+                                Nuestros especialistas están listos para atenderte.
+                            </p>
+
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                                <!-- SOLO BOTÓN WHATSAPP -->
+                                <a href="https://wa.me/59179684700?text=Hola,%20quisiera%20cotizar%20un%20servicio%20de%20Limpieza%20Residencial%20para%20mi%20hogar"
+                                    target="_blank"
+                                    class="inline-flex items-center justify-center gap-3 bg-white hover:bg-emerald-50 text-[#003366] font-black py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl text-sm uppercase tracking-wider group">
+                                    <span
+                                        class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white text-lg group-hover:scale-110 transition-transform duration-300">
+                                        <i class="fa-brands fa-whatsapp"></i>
+                                    </span>
+                                    <span>Consultar por WhatsApp</span>
+                                    <i
+                                        class="fa-solid fa-arrow-right text-emerald-600 group-hover:translate-x-1 transition-transform"></i>
+                                </a>
+                            </div>
+
+                            <p class="text-emerald-200/60 text-[10px] mt-4 flex items-center justify-center gap-2">
+                                <i class="fa-regular fa-clock"></i>
+                                <span>Respuesta en menos de 5 minutos • Atención 24/7</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
 
