@@ -912,56 +912,96 @@
                             class="fa-solid fa-chevron-down text-[10px]"></i></button>
                     <ul
                         class="dropdown-content absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-md py-2 w-80 z-50 mt-0 border border-slate-200 max-h-96 overflow-y-auto">
+
+                        <!-- ✅ NUEVO: 1. LAVADO DE ALFOMBRAS (opción destacada) -->
+                        <li><a href="javascript:void(0)" onclick="showView('sec-alfombras')"
+                                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-emerald-600 border-b border-emerald-200">
+                                <i class="fa-solid fa-rug text-emerald-500 mr-2"></i> 1. LAVADO DE ALFOMBRAS
+                            </a></li>
+
+                        <!-- 2. D. ASPIRADO -->
                         <li><a href="javascript:void(0)" onclick="showView('sec-1')"
-                                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">1.
-                                D. ASPIRADO</a></li>
-                        <li><a href="javascript:void(0)" onclick="showView('sec-2')"
                                 class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">2.
-                                E. APLICACIÓN PROTECTOR DE ALFOMBRAS</a></li>
-                        <li><a href="javascript:void(0)" onclick="showView('sec-3')"
+                                D. ASPIRADO</a></li>
+
+                        <!-- 3. E. APLICACIÓN PROTECTOR DE ALFOMBRAS -->
+                        <li><a href="javascript:void(0)" onclick="showView('sec-2')"
                                 class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">3.
-                                I. PERSIANAS VERTICALES</a></li>
-                        <li><a href="javascript:void(0)" onclick="showView('sec-4')"
+                                E. APLICACIÓN PROTECTOR DE ALFOMBRAS</a></li>
+
+                        <!-- 4. I. PERSIANAS VERTICALES -->
+                        <li><a href="javascript:void(0)" onclick="showView('sec-3')"
                                 class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">4.
-                                J., K., L. PERSIANAS HORIZONTALES Y RIELES</a></li>
-                        <li><a href="javascript:void(0)" onclick="showView('sec-5')"
+                                I. PERSIANAS VERTICALES</a></li>
+
+                        <!-- 5. J., K., L. PERSIANAS HORIZONTALES Y RIELES -->
+                        <li><a href="javascript:void(0)" onclick="showView('sec-4')"
                                 class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">5.
-                                LL. LIMPIEZA DE VIDRIOS Y ALTURA</a></li>
-                        <li><a href="javascript:void(0)" onclick="showView('sec-6')"
+                                J., K., L. PERSIANAS HORIZONTALES Y RIELES</a></li>
+
+                        <!-- 6. LL. LIMPIEZA DE VIDRIOS Y ALTURA -->
+                        <li><a href="javascript:void(0)" onclick="showView('sec-5')"
                                 class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">6.
-                                M. LIMPIEZA INTERIOR DE VEHÍCULOS</a></li>
-                        <li><a href="javascript:void(0)" onclick="showView('sec-7')"
+                                LL. LIMPIEZA DE VIDRIOS Y ALTURA</a></li>
+
+                        <!-- 7. M. LIMPIEZA INTERIOR DE VEHÍCULOS -->
+                        <li><a href="javascript:void(0)" onclick="showView('sec-6')"
                                 class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">7.
-                                N. LIMPIEZA DE JUEGO DE LIVING – SILLONES</a></li>
-                        <li><a href="javascript:void(0)" onclick="showView('sec-8')"
+                                M. LIMPIEZA INTERIOR DE VEHÍCULOS</a></li>
+
+                        <!-- 8. N. LIMPIEZA DE JUEGO DE LIVING – SILLONES -->
+                        <li><a href="javascript:void(0)" onclick="showView('sec-7')"
                                 class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">8.
-                                Ñ. ABRILLANTADO DE MUEBLES</a></li>
-                        <li><a href="javascript:void(0)" onclick="showView('sec-9')"
+                                N. LIMPIEZA DE JUEGO DE LIVING – SILLONES</a></li>
+
+                        <!-- 9. Ñ. ABRILLANTADO DE MUEBLES -->
+                        <li><a href="javascript:void(0)" onclick="showView('sec-8')"
                                 class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">9.
-                                S. SANITIZADO DE BAÑOS</a></li>
-                        <li><a href="javascript:void(0)" onclick="showView('sec-10')"
+                                Ñ. ABRILLANTADO DE MUEBLES</a></li>
+
+                        <!-- 10. S. SANITIZADO DE BAÑOS -->
+                        <li><a href="javascript:void(0)" onclick="showView('sec-9')"
                                 class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">10.
-                                T. SANITIZADO DE COCINAS</a></li>
-                        <li><a href="javascript:void(0)" onclick="showView('sec-11')"
+                                S. SANITIZADO DE BAÑOS</a></li>
+
+                        <!-- 11. T. SANITIZADO DE COCINAS -->
+                        <li><a href="javascript:void(0)" onclick="showView('sec-10')"
                                 class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">11.
-                                U. APLICACIÓN DE DESBACTERICIDAS - SANITIZANTES</a></li>
-                        <li><a href="javascript:void(0)" onclick="showView('sec-12')"
+                                T. SANITIZADO DE COCINAS</a></li>
+
+                        <!-- 12. U. APLICACIÓN DE DESBACTERICIDAS - SANITIZANTES -->
+                        <li><a href="javascript:void(0)" onclick="showView('sec-11')"
                                 class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">12.
-                                V. FUMIGADO</a></li>
-                        <li><a href="javascript:void(0)" onclick="showView('sec-13')"
+                                U. APLICACIÓN DE DESBACTERICIDAS - SANITIZANTES</a></li>
+
+                        <!-- 13. V. FUMIGADO -->
+                        <li><a href="javascript:void(0)" onclick="showView('sec-12')"
                                 class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">13.
-                                W. EXTRACCIÓN DE AGUAS EN INUNDACIONES</a></li>
-                        <li><a href="javascript:void(0)" onclick="showView('sec-14')"
+                                V. FUMIGADO</a></li>
+
+                        <!-- 14. W. EXTRACCIÓN DE AGUAS EN INUNDACIONES -->
+                        <li><a href="javascript:void(0)" onclick="showView('sec-13')"
                                 class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">14.
-                                X. Y. MANTENIMIENTO Y REPARACIÓN DE EQUIPOS</a></li>
-                        <li><a href="javascript:void(0)" onclick="showView('sec-15')"
+                                W. EXTRACCIÓN DE AGUAS EN INUNDACIONES</a></li>
+
+                        <!-- 15. X. Y. MANTENIMIENTO Y REPARACIÓN DE EQUIPOS -->
+                        <li><a href="javascript:void(0)" onclick="showView('sec-14')"
                                 class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">15.
-                                O. LUSTRADO DE PISOS FRÍOS</a></li>
-                        <li><a href="javascript:void(0)" onclick="showView('sec-16')"
+                                X. Y. MANTENIMIENTO Y REPARACIÓN DE EQUIPOS</a></li>
+
+                        <!-- 16. O. LUSTRADO DE PISOS FRÍOS -->
+                        <li><a href="javascript:void(0)" onclick="showView('sec-15')"
                                 class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">16.
-                                Z. LIMPIEZA DE ROPA Y AFINES</a></li>
-                        <li><a href="javascript:void(0)" onclick="showView('sec-17')"
+                                O. LUSTRADO DE PISOS FRÍOS</a></li>
+
+                        <!-- 17. Z. LIMPIEZA DE ROPA Y AFINES -->
+                        <li><a href="javascript:void(0)" onclick="showView('sec-16')"
                                 class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366]">17.
+                                Z. LIMPIEZA DE ROPA Y AFINES</a></li>
+
+                        <!-- 18. OTROS SERVICIOS ESPECIALIZADOS -->
+                        <li><a href="javascript:void(0)" onclick="showView('sec-17')"
+                                class="block px-4 py-2 hover:bg-emerald-600 hover:text-white transition text-xs font-bold text-[#003366] border-t border-slate-200 mt-1 pt-2">18.
                                 OTROS SERVICIOS ESPECIALIZADOS</a></li>
 
                     </ul>
@@ -4021,6 +4061,344 @@
                 <!-- ================================ -->
                 <!-- SEC-1 a SEC-18 (placeholder)      -->
                 <!-- ================================ -->
+
+
+
+                <!-- ================================ -->
+                <!-- SEC-ALFOMBRAS: LAVADO DE ALFOMBRAS -->
+                <!-- ================================ -->
+                <div id="sec-alfombras"
+                    class="view-section hidden bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-slate-200/80 space-y-6 animate-fade-in">
+
+                    <!-- ENCABEZADO -->
+                    <div class="border-b border-slate-200 pb-4 flex justify-between items-center flex-wrap gap-2">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span
+                                    class="bg-emerald-100 text-emerald-700 text-[10px] font-black uppercase px-2 py-0.5 rounded-full border border-emerald-200">
+                                    <i class="fa-solid fa-star text-emerald-500 mr-1"></i> Servicio Destacado
+                                </span>
+                            </div>
+                            <h2
+                                class="text-2xl font-black text-[#003366] uppercase tracking-wide drop-shadow-sm flex items-center gap-2">
+                                <i class="fa-solid fa-rug text-emerald-500"></i> LAVADO DE ALFOMBRAS
+                            </h2>
+                            <p class="text-xs font-semibold text-slate-600 mt-1">Sistemas y métodos de lavado
+                                profesional para todo tipo de alfombras y tapizados.</p>
+                        </div>
+                        <span
+                            class="px-3.5 py-1.5 bg-emerald-50/80 text-emerald-700 text-xs font-black rounded-full border border-emerald-200 shadow-sm tracking-wide">
+                            <i class="fa-regular fa-clock mr-1"></i> Secado Rápido
+                        </span>
+                    </div>
+
+                    <!-- DESCRIPCIÓN COMPLETA -->
+                    <div
+                        class="bg-gradient-to-br from-slate-50 to-white rounded-xl border border-slate-200 p-6 md:p-8 space-y-6 shadow-sm">
+
+                        <!-- Título de la descripción -->
+                        <div class="flex items-center gap-3 border-b border-slate-200 pb-3">
+                            <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center">
+                                <i class="fa-solid fa-circle-info text-emerald-600 text-lg"></i>
+                            </div>
+                            <h3 class="text-lg font-black text-[#003366] uppercase">Sistemas y Métodos de Lavado de
+                                Alfombras</h3>
+                        </div>
+
+                        <!-- Contenido de la descripción -->
+                        <div class="grid md:grid-cols-2 gap-6">
+
+                            <!-- Columna 1: Sistema de Espuma Seca -->
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-1 h-8 bg-emerald-500 rounded-full"></span>
+                                    <h4 class="font-bold text-emerald-700 text-sm uppercase tracking-wide">Sistema de
+                                        Espuma Seca (Champuneado)</h4>
+                                </div>
+                                <ul class="space-y-3 text-sm text-slate-600">
+                                    <li class="flex items-start gap-3">
+                                        <span
+                                            class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                                            <i class="fa-solid fa-check text-emerald-600 text-[10px]"></i>
+                                        </span>
+                                        <span>Consiste en evitar el contacto directo del agua con la alfombra o
+                                            tapizados, esto se consigue con la utilización de un champoo especial, único
+                                            en sus características, el cual actúa directamente sobre la alfombra tanto
+                                            superficial como internamente.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span
+                                            class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                                            <i class="fa-solid fa-check text-emerald-600 text-[10px]"></i>
+                                        </span>
+                                        <span>Mediante máquinas especializadas las cuales transforman en espuma el
+                                            producto de limpieza, se procede a la limpieza más profunda.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span
+                                            class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                                            <i class="fa-solid fa-check text-emerald-600 text-[10px]"></i>
+                                        </span>
+                                        <span><strong class="text-slate-700">Elimina tiempos de secado y
+                                                humedad:</strong> No tiene que esperar a la primavera para limpiar sus
+                                            alfombras o tapizados, con este sistema puede mantenerlos como nuevos todo
+                                            el año.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span
+                                            class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                                            <i class="fa-solid fa-check text-emerald-600 text-[10px]"></i>
+                                        </span>
+                                        <span><strong class="text-slate-700">Limpieza menos agresiva:</strong> Este
+                                            sistema al evitar el contacto directo del agua con la alfombra o tapizados
+                                            impide el deterioro del tejido, lo que supone una mejora en la resistencia
+                                            de la superficie sobre la cual se encuentra ésta (parquet, otros), otorgando
+                                            mayor durabilidad a sus bienes.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span
+                                            class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                                            <i class="fa-solid fa-check text-emerald-600 text-[10px]"></i>
+                                        </span>
+                                        <span><strong class="text-slate-700">Limpieza inodora:</strong> El sistema
+                                            champuneado al actuar directamente sobre la alfombra o tapizado, evita la
+                                            producción de malos olores días después del proceso de limpieza.</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Columna 2: Sistema de Agua a Presión -->
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-1 h-8 bg-blue-500 rounded-full"></span>
+                                    <h4 class="font-bold text-blue-700 text-sm uppercase tracking-wide">Sistema de Agua
+                                        a Presión (Enjuague)</h4>
+                                </div>
+                                <ul class="space-y-3 text-sm text-slate-600">
+                                    <li class="flex items-start gap-3">
+                                        <span
+                                            class="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center shrink-0 mt-0.5">
+                                            <i class="fa-solid fa-check text-blue-600 text-[10px]"></i>
+                                        </span>
+                                        <span>Consiste en la utilización de bastante agua al realizar el enjuague de la
+                                            alfombra, mediante hidrolavadoras industriales.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span
+                                            class="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center shrink-0 mt-0.5">
+                                            <i class="fa-solid fa-check text-blue-600 text-[10px]"></i>
+                                        </span>
+                                        <span>Este es el método tradicional usado comúnmente.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span
+                                            class="w-5 h-5 rounded-full bg-amber-100 flex items-center justify-center shrink-0 mt-0.5">
+                                            <i class="fa-solid fa-triangle-exclamation text-amber-600 text-[10px]"></i>
+                                        </span>
+                                        <span><strong class="text-slate-700">Este sistema no es malo, pero solo se
+                                                recomienda en casos especiales.</strong> Mediante máquinas de gran poder
+                                            de succión, tres motores trabajando en conjunto, <strong
+                                                class="text-[#003366]">LIM BOLIVIA</strong> también garantiza este
+                                            sistema.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span
+                                            class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                                            <i class="fa-solid fa-check text-emerald-600 text-[10px]"></i>
+                                        </span>
+                                        <span><strong class="text-slate-700">Limpieza inodora:</strong> Posterior al
+                                            lavado, se aplica fungicidas y bactericidas los cuales también pueden evitar
+                                            la producción de malos olores, horas después del proceso de limpieza.</span>
+                                    </li>
+                                </ul>
+
+                                <!-- Beneficios/Resultados -->
+                                <div class="mt-4 p-4 bg-emerald-50/60 rounded-xl border border-emerald-200">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <i class="fa-solid fa-medal text-emerald-600"></i>
+                                        <span
+                                            class="text-xs font-bold text-emerald-700 uppercase tracking-wide">Beneficios/Resultados
+                                            de Limpieza</span>
+                                    </div>
+                                    <ul class="space-y-1 text-xs text-slate-600">
+                                        <li class="flex items-center gap-2"><span
+                                                class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Eliminación de
+                                            ácaros y alérgenos</li>
+                                        <li class="flex items-center gap-2"><span
+                                                class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Prolonga la vida
+                                            útil de la alfombra</li>
+                                        <li class="flex items-center gap-2"><span
+                                                class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Deja un aroma
+                                            fresco y limpio</li>
+                                        <li class="flex items-center gap-2"><span
+                                                class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Secado rápido en
+                                            pocas horas</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TABLA DE PRECIOS -->
+                    <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-md">
+                        <table class="w-full text-left border-collapse text-sm table-alt">
+                            <thead>
+                                <tr class="bg-[#003366] text-white font-bold tracking-wider uppercase text-xs">
+                                    <th class="p-3.5 border-b border-slate-300">Tipo de Alfombra / Servicio</th>
+                                    <th class="p-3.5 border-b border-slate-300">Características / Condición</th>
+                                    <th class="p-3.5 border-b border-slate-300">Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200 text-slate-700">
+                                <!-- ALFOMBRA FIJA -->
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="p-3.5 font-bold text-slate-900" rowspan="4">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa-solid fa-rug text-emerald-500"></i>
+                                            <span>Alfombra Fija</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-3.5 font-medium text-slate-700">Alto tráfico / Pelo corto</td>
+                                    <td class="p-3.5 text-[#003366] font-extrabold text-base">8.50 Bs.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="p-3.5 font-medium text-slate-700">Pelo alto / Tapiz</td>
+                                    <td class="p-3.5 text-[#003366] font-extrabold text-base">7.50 Bs.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="p-3.5 font-medium text-slate-700">Tapizón</td>
+                                    <td class="p-3.5 text-[#003366] font-extrabold text-base">7.00 Bs.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="p-3.5 font-medium text-slate-700">Precio Referencial (menor a 25 m²)</td>
+                                    <td class="p-3.5 text-[#003366] font-extrabold text-base">220.00 Bs.</td>
+                                </tr>
+
+                                <!-- ALFOMBRA SUELTA -->
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="p-3.5 font-bold text-slate-900" rowspan="2">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa-solid fa-scroll text-emerald-500"></i>
+                                            <span>Alfombra Suelta</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-3.5 font-medium text-slate-700">Por m² (lavado en planta)</td>
+                                    <td class="p-3.5 text-[#003366] font-extrabold text-base">Previa cotización</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="p-3.5 font-medium text-slate-700">Recogida y entrega a domicilio</td>
+                                    <td class="p-3.5 text-[#003366] font-extrabold text-base">Previa cotización</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- NOTA ADICIONAL -->
+                    <div class="bg-amber-50/80 p-4 rounded-xl border border-amber-200 flex items-start gap-3 shadow-sm">
+                        <span class="text-amber-500 text-xl">💡</span>
+                        <div>
+                            <p class="text-xs text-slate-700 font-medium">
+                                <strong class="text-amber-700">Nota:</strong> Los precios son referenciales y pueden
+                                variar según el estado, tamaño y tipo de alfombra.
+                                Se realiza una <strong class="text-[#003366]">cotización previa sin compromiso</strong>.
+                            </p>
+                            <p class="text-[10px] text-slate-500 mt-1">
+                                <i class="fa-regular fa-circle-check text-emerald-500 mr-1"></i>
+                                Para más información, contáctenos por WhatsApp.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- GALERÍA DE IMÁGENES -->
+                    <div class="space-y-3 pt-2">
+                        <h4
+                            class="font-extrabold text-[#003366] text-xs uppercase tracking-wider flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#003366] shadow-sm"></span> Catálogo de Galería
+                        </h4>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                            <!-- Imagen 1: Alfombra fija -->
+                            <div class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300 bg-white border border-slate-200 cursor-pointer"
+                                onclick="abrirImagen('/img/alfombra_fija.png', 'Lavado de Alfombra Fija - LIMBOLIVIA')">
+                                <img src="/img/alfombra_fija.png" alt="Lavado de Alfombra Fija"
+                                    class="w-full h-40 object-cover group-hover:scale-110 transition duration-500"
+                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/003366/FFFFFF?text=Alfombra+Fija';">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                                    <span class="text-white text-[10px] font-bold">Alfombra Fija</span>
+                                </div>
+                                <div
+                                    class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2">
+                                    <p class="text-white text-[9px] font-bold uppercase tracking-wide">Alfombra Fija</p>
+                                </div>
+                            </div>
+
+                            <!-- Imagen 2: Alfombra suelta -->
+                            <div class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300 bg-white border border-slate-200 cursor-pointer"
+                                onclick="abrirImagen('/img/alfombrafija.png', 'Lavado de Alfombra Suelta - LIMBOLIVIA')">
+                                <img src="/img/alfombrafija.png" alt="Lavado de Alfombra Suelta"
+                                    class="w-full h-40 object-cover group-hover:scale-110 transition duration-500"
+                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/003366/FFFFFF?text=Alfombra+Suelta';">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                                    <span class="text-white text-[10px] font-bold">Alfombra Suelta</span>
+                                </div>
+                                <div
+                                    class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2">
+                                    <p class="text-white text-[9px] font-bold uppercase tracking-wide">Alfombra Suelta
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Imagen 3: Tapizado -->
+                            <div class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300 bg-white border border-slate-200 cursor-pointer"
+                                onclick="abrirImagen('/img/tapizado.png', 'Lavado de Tapizados - LIMBOLIVIA')">
+                                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=85"
+                                    alt="Lavado de Tapizados"
+                                    class="w-full h-40 object-cover group-hover:scale-110 transition duration-500"
+                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/003366/FFFFFF?text=Tapizados';">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                                    <span class="text-white text-[10px] font-bold">Tapizados</span>
+                                </div>
+                                <div
+                                    class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2">
+                                    <p class="text-white text-[9px] font-bold uppercase tracking-wide">Tapizados</p>
+                                </div>
+                            </div>
+
+                            <!-- Imagen 4: Maquinaria -->
+                            <div class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300 bg-white border border-slate-200 cursor-pointer"
+                                onclick="abrirImagen('/img/maquinaria-alfombras.png', 'Maquinaria Profesional para Alfombras - LIMBOLIVIA')">
+                                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&q=85"
+                                    alt="Maquinaria para Alfombras"
+                                    class="w-full h-40 object-cover group-hover:scale-110 transition duration-500"
+                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/003366/FFFFFF?text=Maquinaria';">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                                    <span class="text-white text-[10px] font-bold">Maquinaria Profesional</span>
+                                </div>
+                                <div
+                                    class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2">
+                                    <p class="text-white text-[9px] font-bold uppercase tracking-wide">Maquinaria
+                                        Profesional</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+
+                    <!-- BOTÓN DE ACCIÓN -->
+                    <div class="pt-4 flex flex-col sm:flex-row gap-3">
+                        <a href="https://wa.me/59171506930?text=Hola,%20quisiera%20una%20cotización%20para%20el%20Lavado%20de%20Alfombras%20en%20LIM-BOLIVIA"
+                            target="_blank"
+                            class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow text-xs uppercase tracking-wider">
+                            <i class="fa-brands fa-whatsapp text-base"></i> Cotizar por WhatsApp
+                        </a>
+                        <button onclick="showView('view-cotizador')"
+                            class="flex-1 bg-[#003366] hover:bg-[#002244] text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow text-xs uppercase tracking-wider">
+                            <i class="fa-solid fa-calculator"></i> Ir al Cotizador
+                        </button>
+                    </div>
+                </div>
 
                 <!-- ================================ -->
                 <!-- SEC-1: D. ASPIRADO                -->
