@@ -4384,7 +4384,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>   
+                    </div>
 
                     <!-- BOTÓN DE ACCIÓN -->
                     <div class="pt-4 flex flex-col sm:flex-row gap-3">
@@ -4393,9 +4393,9 @@
                             class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow text-xs uppercase tracking-wider">
                             <i class="fa-brands fa-whatsapp text-base"></i> Cotizar por WhatsApp
                         </a>
-                        <button onclick="showView('view-cotizador')"
+                        <button onclick="irAlChatbot()"
                             class="flex-1 bg-[#003366] hover:bg-[#002244] text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow text-xs uppercase tracking-wider">
-                            <i class="fa-solid fa-calculator"></i> Ir al Cotizador
+                            <i class="fa-solid fa-robot text-emerald-300"></i> Cotizar en Línea
                         </button>
                     </div>
                 </div>
@@ -9425,6 +9425,34 @@
 
             const indicator = document.getElementById('datosClienteIndicator');
             if (indicator) indicator.classList.add('hidden');
+        }
+
+        // ==========================================
+        // REDIRIGIR AL CHATBOT (ASISTENTE IA)
+        // ==========================================
+
+        function irAlChatbot() {
+            // 1. Cambiar a la vista de Inicio
+            showView('view-inicio');
+
+            // 2. Esperar un momento para que se cargue la vista
+            setTimeout(function () {
+                // 3. Abrir el chatbot
+                toggleChat();
+
+                // 4. Enviar un mensaje de bienvenida al chat
+                setTimeout(function () {
+                    const mensajeBienvenida = "Hola, vengo de la sección de Lavado de Alfombras. Me gustaría obtener más información y una cotización.";
+
+                    // Simular que el usuario escribe el mensaje
+                    const input = document.getElementById('userInput');
+                    if (input) {
+                        input.value = mensajeBienvenida;
+                        // Enviar el mensaje automáticamente
+                        sendMessage();
+                    }
+                }, 800);
+            }, 500);
         }
     </script>
 
