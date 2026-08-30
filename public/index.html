@@ -7169,12 +7169,17 @@
             totalDisplay.innerText = `Bs ${sum}`;
         }
 
+        // ==========================================
+        // ENVIAR COTIZACIÓN POR WHATSAPP CON DATOS DEL CLIENTE
+        // ==========================================
+
         function sendToWhatsApp() {
             if (addedServices.length === 0) {
                 alert("Por favor, agrega al menos un servicio a la cotización.");
                 return;
             }
 
+            // 🔥 CONSTRUIR MENSAJE CON LOS SERVICIOS
             let text = "¡Hola LIM-BOLIVIA! Deseo reservar el siguiente detalle de cotización:\n\n";
             let total = 0;
 
@@ -7187,32 +7192,99 @@
             text += `\n*Total Estimado: Bs ${total}*\n\n`;
 
             // ==========================================
-            // 🔥 DATOS DEL CLIENTE (SI EXISTEN) 🔥
+            // 🔥 AGREGAR DATOS DEL CLIENTE SI EXISTEN 🔥
             // ==========================================
-            if (datosCliente.nombre) {
+            if (datosCliente && datosCliente.nombre && datosCliente.nombre !== '') {
                 text += `📋 *DATOS DEL CLIENTE:*\n`;
                 text += `👤 *Nombre:* ${datosCliente.nombre}\n`;
                 text += `📱 *Celular:* ${datosCliente.celular}\n`;
-                if (datosCliente.direccion && datosCliente.direccion !== 'No especificada') {
+
+                if (datosCliente.direccion && datosCliente.direccion !== 'No especificada' && datosCliente.direccion !== '') {
                     text += `📍 *Dirección:* ${datosCliente.direccion}\n`;
                 }
-                if (datosCliente.fecha && datosCliente.fecha !== 'No especificada') {
-                    text += `📅 *Fecha preferida:* ${datosCliente.fecha}\n`;
+
+                if (datosCliente.fecha && datosCliente.fecha !== 'No especificada' && datosCliente.fecha !== '') {
+                    const fechaFormateada = formatearFecha(datosCliente.fecha);
+                    text += `📅 *Fecha preferida:* ${fechaFormateada}\n`;
                 }
-                if (datosCliente.hora && datosCliente.hora !== 'No especificada') {
+
+                if (datosCliente.hora && datosCliente.hora !== 'No especificada' && datosCliente.hora !== '') {
                     text += `🕐 *Hora preferida:* ${datosCliente.hora}\n`;
                 }
-                if (datosCliente.mensaje && datosCliente.mensaje !== 'Sin mensaje adicional') {
+
+                if (datosCliente.mensaje && datosCliente.mensaje !== 'Sin mensaje adicional' && datosCliente.mensaje !== '') {
                     text += `💬 *Mensaje:* ${datosCliente.mensaje}\n`;
                 }
+
                 text += `\n`;
+            } else {
+                text += `⚠️ *Recuerda agregar tus datos personales para una mejor atención.*\n\n`;
             }
 
             text += `🔹 *Solicito cotización y reserva*`;
 
-            // Número de WhatsApp (puedes cambiarlo)
             const numeroWhatsApp = "59171506930";
             window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // ==========================================
+        // FUNCIÓN AUXILIAR PARA FORMATEAR FECHA
+        // ==========================================
+
+        function formatearFecha(fecha) {
+            if (!fecha) return fecha;
+            try {
+                const partes = fecha.split('-');
+                if (partes.length === 3) {
+                    const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+                    const mes = parseInt(partes[1]) - 1;
+                    return `${parseInt(partes[2])} de ${meses[mes]} de ${partes[0]}`;
+                }
+                return fecha;
+            } catch (e) {
+                return fecha;
+            }
+        }
+
+        // ==========================================
+        // FUNCIÓN AUXILIAR PARA FORMATEAR FECHA
+        // ==========================================
+
+        function formatearFecha(fecha) {
+            if (!fecha) return fecha;
+            try {
+                const partes = fecha.split('-');
+                if (partes.length === 3) {
+                    const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+                    const mes = parseInt(partes[1]) - 1;
+                    return `${parseInt(partes[2])} de ${meses[mes]} de ${partes[0]}`;
+                }
+                return fecha;
+            } catch (e) {
+                return fecha;
+            }
+        }
+
+        // ==========================================
+        // FUNCIÓN AUXILIAR PARA FORMATEAR FECHA
+        // ==========================================
+
+        function formatearFecha(fecha) {
+            if (!fecha) return fecha;
+            try {
+                const partes = fecha.split('-');
+                if (partes.length === 3) {
+                    const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+                    const mes = parseInt(partes[1]) - 1;
+                    return `${parseInt(partes[2])} de ${meses[mes]} de ${partes[0]}`;
+                }
+                return fecha;
+            } catch (e) {
+                return fecha;
+            }
         }
 
         // ==========================================
