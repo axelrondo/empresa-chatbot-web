@@ -8619,9 +8619,9 @@
         class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100000] flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-hidden animate-fade-in">
 
-            <!-- HEADER -->
+            <!-- HEADER FIJO (no se mueve) -->
             <div
-                class="bg-gradient-to-r from-emerald-700 to-emerald-900 p-4 flex items-center gap-4 border-b-4 border-amber-400">
+                class="bg-gradient-to-r from-emerald-700 to-emerald-900 p-4 flex items-center gap-4 border-b-4 border-amber-400 shrink-0">
                 <div class="bg-amber-400/20 p-2 rounded-full">
                     <i class="fa-solid fa-user-pen text-amber-300 text-xl"></i>
                 </div>
@@ -8634,9 +8634,10 @@
                 </button>
             </div>
 
-            <!-- CONTENIDO -->
-            <div class="p-6 space-y-4">
-                <p class="text-xs text-slate-500 flex items-center gap-2">
+            <!-- CONTENIDO CON SCROLL -->
+            <div class="overflow-y-auto p-6 space-y-4" style="max-height: calc(90vh - 140px);">
+
+                <p class="text-xs text-slate-500 flex items-center gap-2 bg-slate-50 p-2 rounded-lg">
                     <i class="fa-solid fa-circle-info text-emerald-600"></i>
                     <span>Estos datos se añadirán automáticamente a tu mensaje de WhatsApp</span>
                 </p>
@@ -8672,15 +8673,6 @@
                             placeholder="Calle, número, zona (opcional)">
                     </div>
 
-                    <!-- Hora preferida -->
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                            <i class="fa-regular fa-clock text-emerald-600 mr-1"></i> Hora preferida
-                        </label>
-                        <input type="time" id="clienteHora"
-                            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition">
-                    </div>
-
                     <!-- Fecha preferida -->
                     <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
@@ -8690,18 +8682,27 @@
                             class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition">
                     </div>
 
+                    <!-- Hora preferida -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            <i class="fa-regular fa-clock text-emerald-600 mr-1"></i> Hora preferida
+                        </label>
+                        <input type="time" id="clienteHora"
+                            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition">
+                    </div>
+
                     <!-- Mensaje adicional -->
                     <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                             <i class="fa-regular fa-message text-emerald-600 mr-1"></i> Mensaje adicional
                         </label>
-                        <textarea id="clienteMensaje" rows="2"
-                            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+                        <textarea id="clienteMensaje" rows="3"
+                            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition resize-y"
                             placeholder="Algún detalle que quieras añadir..."></textarea>
                     </div>
 
-                    <!-- Botones -->
-                    <div class="flex gap-3 pt-2">
+                    <!-- Botones (fijos al final) -->
+                    <div class="flex gap-3 pt-2 sticky bottom-0 bg-white pb-2">
                         <button type="button" onclick="cerrarModalDatos()"
                             class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 rounded-lg transition text-sm">
                             Cancelar
