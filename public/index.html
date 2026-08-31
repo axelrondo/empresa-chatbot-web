@@ -6015,7 +6015,6 @@
                     </div>
 
                     <!-- CONTENIDO DEL PANEL (scrollable) -->
-                    <!-- CONTENIDO DEL PANEL (scrollable) -->
                     <div id="panelContent" class="flex-1 overflow-hidden">
                         <div id="servicesBreakdown" class="max-h-[35vh] overflow-y-auto pr-1 space-y-1 mt-2">
                             <p class="text-xs text-gray-400 italic text-center py-4">No has agregado ningún servicio.
@@ -6029,20 +6028,10 @@
                             </div>
 
                             <!-- ========================================== -->
-                            <!-- 🔥 BOTONES DE ENVÍO                        -->
+                            <!-- 🔥 BOTÓN PRINCIPAL: SOLICITAR LLAMADA       -->
                             <!-- ========================================== -->
-
-                            <!-- 1️⃣ WHATSAPP (PRIMERA OPCIÓN) -->
-                            <button onclick="sendToWhatsApp()"
-                                class="w-full bg-green-600 hover:bg-green-500 active:bg-green-700 text-white font-bold py-2.5 px-3 rounded-lg flex items-center justify-center gap-2 transition shadow-md text-xs uppercase tracking-wider">
-                                <i class="fa-brands fa-whatsapp text-base"></i>
-                                Reservar por WhatsApp
-                                <span class="text-[8px] bg-white/20 px-2 py-0.5 rounded-full">Recomendado</span>
-                            </button>
-
-                            <!-- 2️⃣ SOLICITAR LLAMADA (SEGUNDA OPCIÓN) -->
                             <button onclick="solicitarLlamada()"
-                                class="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold py-2.5 px-3 rounded-lg flex items-center justify-center gap-2 transition shadow-lg shadow-emerald-500/30 text-xs uppercase tracking-wider">
+                                class="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold py-3 px-3 rounded-lg flex items-center justify-center gap-2 transition shadow-lg shadow-emerald-500/30 text-xs uppercase tracking-wider animate-pulse">
                                 <i class="fa-solid fa-phone-volume text-base"></i>
                                 Solicitar Llamada
                                 <span class="text-[8px] bg-emerald-400/30 px-2 py-0.5 rounded-full">Gratis</span>
@@ -9492,118 +9481,109 @@
         }
 
         // ==========================================
-        // SOLICITAR LLAMADA - ENVÍO POR CORREO
-        // ==========================================
+// SOLICITAR LLAMADA - ENVÍO POR CORREO
+// ==========================================
 
-        function solicitarLlamada() {
-            // Verificar que haya servicios
-            if (addedServices.length === 0) {
-                alert("⚠️ Por favor, agrega al menos un servicio a la cotización.");
-                return;
-            }
+function solicitarLlamada() {
+    // Verificar que haya servicios
+    if (addedServices.length === 0) {
+        alert("⚠️ Por favor, agrega al menos un servicio a la cotización.");
+        return;
+    }
 
-            // Verificar que el cliente haya ingresado sus datos
-            if (!datosCliente || !datosCliente.nombre || datosCliente.nombre === '') {
-                alert("⚠️ Por favor, primero presiona 'Añadir Datos' y completa tus datos personales.");
-                return;
-            }
+    // Verificar que el cliente haya ingresado sus datos
+    if (!datosCliente || !datosCliente.nombre || datosCliente.nombre === '') {
+        alert("⚠️ Por favor, primero presiona 'Añadir Datos' y completa tus datos personales.");
+        return;
+    }
 
-            // Mostrar mensaje de "enviando..."
-            const btn = event?.target || document.querySelector('[onclick="solicitarLlamada()"]');
-            const textoOriginal = btn?.innerHTML || '';
-            if (btn) {
-                btn.innerHTML = `
+    // Mostrar mensaje de "enviando..."
+    const btn = event?.target || document.querySelector('[onclick="solicitarLlamada()"]');
+    const textoOriginal = btn?.innerHTML || '';
+    if (btn) {
+        btn.innerHTML = `
             <i class="fa-solid fa-spinner fa-spin text-base"></i> 
             Enviando solicitud...
         `;
-                btn.disabled = true;
-            }
+        btn.disabled = true;
+    }
 
-            // Construir el mensaje del correo
-            let mensaje = "📋 *NUEVA SOLICITUD DE SERVICIO - LIM-BOLIVIA*\n\n";
-            mensaje += "━".repeat(40) + "\n\n";
+    // Construir el mensaje del correo
+    let mensaje = "📋 *NUEVA SOLICITUD DE SERVICIO - LIM-BOLIVIA*\n\n";
+    mensaje += "━".repeat(40) + "\n\n";
+    
+    // Datos del cliente
+    mensaje += "👤 *DATOS DEL CLIENTE*\n";
+    mensaje += "━".repeat(30) + "\n";
+    mensaje += `📌 *Nombre:* ${datosCliente.nombre}\n`;
+    mensaje += `📱 *Celular:* ${datosCliente.celular}\n`;
+    
+    if (datosCliente.direccion && datosCliente.direccion !== 'No especificada' && datosCliente.direccion !== '') {
+        mensaje += `📍 *Dirección:* ${datosCliente.direccion}\n`;
+    }
+    if (datosCliente.fecha && datosCliente.fecha !== 'No especificada' && datosCliente.fecha !== '') {
+        mensaje += `📅 *Fecha preferida:* ${formatearFecha(datosCliente.fecha)}\n`;
+    }
+    if (datosCliente.hora && datosCliente.hora !== 'No especificada' && datosCliente.hora !== '') {
+        mensaje += `🕐 *Hora preferida:* ${datosCliente.hora}\n`;
+    }
+    if (datosCliente.mensaje && datosCliente.mensaje !== 'Sin mensaje adicional' && datosCliente.mensaje !== '') {
+        mensaje += `💬 *Mensaje:* ${datosCliente.mensaje}\n`;
+    }
+    
+    mensaje += "\n";
+    
+    // Servicios solicitados
+    mensaje += "🧹 *SERVICIOS SOLICITADOS*\n";
+    mensaje += "━".repeat(30) + "\n";
+    
+    let total = 0;
+    addedServices.forEach((s, i) => {
+        mensaje += `${i + 1}. ${s.title}\n`;
+        mensaje += `   💰 Bs ${s.price}\n`;
+        total += s.price;
+    });
+    
+    mensaje += "\n";
+    mensaje += "━".repeat(30) + "\n";
+    mensaje += `💰 *TOTAL ESTIMADO: Bs ${total}*\n\n`;
+    
+    // Fecha y hora de la solicitud
+    const ahora = new Date();
+    mensaje += `📅 *Solicitado:* ${ahora.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} a las ${ahora.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}\n\n`;
+    
+    mensaje += "━".repeat(40) + "\n";
+    mensaje += "🔹 *El cliente solicita ser contactado a la brevedad.*\n";
+    mensaje += "🏢 *LIM-BOLIVIA - División Limpieza*\n";
+    mensaje += "📱 *Teléfono:* 71506930\n";
+    mensaje += "🌐 *Web:* www.limbolivia.com\n";
+    mensaje += '"Limpieza es nuestro lema"';
 
-            // Datos del cliente
-            mensaje += "👤 *DATOS DEL CLIENTE*\n";
-            mensaje += "━".repeat(30) + "\n";
-            mensaje += `📌 *Nombre:* ${datosCliente.nombre}\n`;
-            mensaje += `📱 *Celular:* ${datosCliente.celular}\n`;
+    // Enviar por correo electrónico
+    const email = "bolivialineservicios@hotmail.com";
+    const asunto = `NUEVA SOLICITUD - ${datosCliente.nombre} - ${new Date().toLocaleDateString()}`;
+    
+    // Crear el enlace mailto
+    const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(mensaje)}`;
+    
+    // Abrir el cliente de correo
+    window.open(mailtoLink, '_blank');
 
-            if (datosCliente.direccion && datosCliente.direccion !== 'No especificada' && datosCliente.direccion !== '') {
-                mensaje += `📍 *Dirección:* ${datosCliente.direccion}\n`;
-            }
-            if (datosCliente.fecha && datosCliente.fecha !== 'No especificada' && datosCliente.fecha !== '') {
-                mensaje += `📅 *Fecha preferida:* ${formatearFecha(datosCliente.fecha)}\n`;
-            }
-            if (datosCliente.hora && datosCliente.hora !== 'No especificada' && datosCliente.hora !== '') {
-                mensaje += `🕐 *Hora preferida:* ${datosCliente.hora}\n`;
-            }
-            if (datosCliente.mensaje && datosCliente.mensaje !== 'Sin mensaje adicional' && datosCliente.mensaje !== '') {
-                mensaje += `💬 *Mensaje:* ${datosCliente.mensaje}\n`;
-            }
-
-            mensaje += "\n";
-
-            // Servicios solicitados
-            mensaje += "🧹 *SERVICIOS SOLICITADOS*\n";
-            mensaje += "━".repeat(30) + "\n";
-
-            let total = 0;
-            addedServices.forEach((s, i) => {
-                mensaje += `${i + 1}. ${s.title}\n`;
-                mensaje += `   💰 Bs ${s.price}\n`;
-                total += s.price;
-            });
-
-            mensaje += "\n";
-            mensaje += "━".repeat(30) + "\n";
-            mensaje += `💰 *TOTAL ESTIMADO: Bs ${total}*\n\n`;
-
-            // Fecha y hora de la solicitud
-            const ahora = new Date();
-            mensaje += `📅 *Solicitado:* ${ahora.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} a las ${ahora.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}\n\n`;
-
-            mensaje += "━".repeat(40) + "\n";
-            mensaje += "🔹 *El cliente solicita ser contactado a la brevedad.*\n";
-            mensaje += "🏢 *LIM-BOLIVIA - División Limpieza*\n";
-            mensaje += "📱 *Teléfono:* 71506930\n";
-            mensaje += "🌐 *Web:* www.limbolivia.com\n";
-            mensaje += '"Limpieza es nuestro lema"';
-
-            // Enviar por correo electrónico
-            const email = "bolivialineservicios@hotmail.com";
-            const asunto = `NUEVA SOLICITUD - ${datosCliente.nombre} - ${new Date().toLocaleDateString()}`;
-
-            // Crear el enlace mailto
-            const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(mensaje)}`;
-
-            // Abrir el cliente de correo
-            window.open(mailtoLink, '_blank');
-
-            // Restaurar el botón después de 2 segundos
-            setTimeout(() => {
-                if (btn) {
-                    btn.innerHTML = `
+    // Restaurar el botón después de 2 segundos
+    setTimeout(() => {
+        if (btn) {
+            btn.innerHTML = `
                 <i class="fa-solid fa-phone-volume text-base"></i> 
                 Solicitar Llamada
                 <span class="text-[8px] bg-emerald-400/30 px-2 py-0.5 rounded-full">Gratis</span>
             `;
-                    btn.disabled = false;
-                }
-            }, 2000);
-
-            // Mostrar mensaje de confirmación
-            alert(`✅ ¡Solicitud enviada!\n\n👤 ${datosCliente.nombre}\n📱 ${datosCliente.celular}\n\n📧 Se ha enviado un correo a nuestros operadores.\n📞 En breve nos comunicaremos contigo para confirmar el servicio.`);
+            btn.disabled = false;
         }
+    }, 2000);
 
-        function guardarYEnviar() {
-            // Primero guardar los datos
-            guardarDatosCliente(event);
-            // Luego enviar la solicitud
-            setTimeout(() => {
-                solicitarLlamada();
-            }, 300);
-        }
+    // Mostrar mensaje de confirmación
+    alert(`✅ ¡Solicitud enviada!\n\n👤 ${datosCliente.nombre}\n📱 ${datosCliente.celular}\n\n📧 Se ha enviado un correo a nuestros operadores.\n📞 En breve nos comunicaremos contigo para confirmar el servicio.`);
+}
     </script>
 
     <!-- ========================================== -->
@@ -9704,24 +9684,6 @@
                         <button type="submit"
                             class="flex-1 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold py-2.5 rounded-lg transition text-sm flex items-center justify-center gap-2">
                             <i class="fa-solid fa-check"></i> Guardar Datos
-                        </button>
-                    </div>
-
-
-                    <!-- En el modal de datos, después del botón "Guardar Datos" -->
-                    <div class="flex gap-3 pt-2 sticky bottom-0 bg-white pb-2">
-                        <button type="button" onclick="cerrarModalDatos()"
-                            class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 rounded-lg transition text-sm">
-                            Cancelar
-                        </button>
-                        <button type="submit"
-                            class="flex-1 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold py-2.5 rounded-lg transition text-sm flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-check"></i> Guardar Datos
-                        </button>
-                        <!-- ✅ NUEVO BOTÓN: Guardar y Solicitar Llamada -->
-                        <button type="button" onclick="guardarYEnviar()"
-                            class="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2.5 rounded-lg transition text-sm flex items-center justify-center gap-2 animate-pulse">
-                            <i class="fa-solid fa-phone-volume"></i> Guardar y Solicitar Llamada
                         </button>
                     </div>
                 </form>
