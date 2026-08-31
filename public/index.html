@@ -15,10 +15,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
     </script>
 
-    <!-- ✅ NUEVO: Librería para generar QR -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js">
-    </script>
-
     <style>
         .view-section {
             transition: all 0.3s ease-in-out;
@@ -864,9 +860,7 @@
         }
     </style>
 
-
-
-
+    
 
 
 
@@ -5990,9 +5984,9 @@
                             <span
                                 class="text-[10px] uppercase font-bold tracking-widest text-emerald-400">Resumen</span>
                             <h3 class="text-sm font-bold text-white">Servicios</h3>
-                            <!-- BOTÓN AÑADIR DATOS - AZUL/CELESTE -->
+                            <!-- BOTÓN AÑADIR DATOS - AZUL CON DESTELLO -->
                             <button onclick="abrirModalDatos()"
-                                class="bg-blue-600 hover:bg-blue-700 text-white text-[8px] font-bold px-2 py-1 rounded-lg transition shadow-sm ml-1 flex items-center gap-1">
+                                class="bg-blue-600 hover:bg-blue-700 text-white text-[8px] font-bold px-2 py-1 rounded-lg transition shadow-md shadow-blue-500/30 ml-1 flex items-center gap-1 border-2 border-blue-400/50">
                                 <i class="fa-solid fa-pen-to-square text-[8px]"></i> Añadir Datos
                             </button>
                         </div>
@@ -6020,58 +6014,29 @@
                         </button>
                     </div>
 
-                    <!-- ========================================== -->
-                    <!-- CONTENIDO DEL PANEL                        -->
-                    <!-- ========================================== -->
+                    <!-- CONTENIDO DEL PANEL (scrollable) -->
                     <div id="panelContent" class="flex-1 overflow-hidden">
                         <div id="servicesBreakdown" class="max-h-[35vh] overflow-y-auto pr-1 space-y-1 mt-2">
                             <p class="text-xs text-gray-400 italic text-center py-4">No has agregado ningún servicio.
                             </p>
                         </div>
 
-                        <!-- ========================================== -->
-                        <!-- 🔥 PANEL DE OPCIONES DE ENVÍO              -->
-                        <!-- ========================================== -->
                         <div class="border-t border-slate-700 pt-3 mt-2 space-y-2">
                             <div class="flex justify-between items-baseline">
                                 <span class="text-[10px] text-gray-400 uppercase font-semibold">Total estimado</span>
                                 <div id="summaryTotal" class="text-2xl font-black text-amber-400">Bs 0</div>
                             </div>
 
-                            <!-- 📱 OPCIÓN 1: QR para celular (RECOMENDADA) -->
-                            <button onclick="generarQR()"
-                                class="w-full bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-bold py-2 px-3 rounded-lg flex items-center justify-center gap-2 transition shadow-md text-xs">
-                                <i class="fa-solid fa-qrcode text-base"></i> Enviar al Celular (QR)
-                            </button>
-
-                            <!-- 💬 OPCIÓN 2: WhatsApp Web (actual) -->
                             <button onclick="sendToWhatsApp()"
                                 class="w-full bg-green-600 hover:bg-green-500 active:bg-green-700 text-white font-bold py-2 px-3 rounded-lg flex items-center justify-center gap-2 transition shadow-md text-xs">
-                                <i class="fa-brands fa-whatsapp text-base"></i> WhatsApp Web
+                                <i class="fa-brands fa-whatsapp text-base"></i> Reservar por WhatsApp
                             </button>
 
-                            <!-- 📧 OPCIÓN 3: Correo electrónico -->
-                            <button onclick="enviarPorEmail()"
-                                class="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold py-2 px-3 rounded-lg flex items-center justify-center gap-2 transition shadow-md text-xs">
-                                <i class="fa-regular fa-envelope text-base"></i> Enviar por Email
-                            </button>
-
-                            <!-- 📄 OPCIÓN 4: Descargar PDF -->
-                            <button onclick="descargarCotizacion()"
-                                class="w-full bg-red-600 hover:bg-red-700 active:bg-red-800 text-white font-bold py-2 px-3 rounded-lg flex items-center justify-center gap-2 transition shadow-md text-xs">
-                                <i class="fa-solid fa-file-pdf text-base"></i> Descargar PDF
-                            </button>
-
-                            <!-- 🔊 OPCIÓN 5: Escuchar Cotización -->
                             <button onclick="talkQuote()"
                                 class="w-full bg-slate-800 hover:bg-slate-700 text-emerald-400 font-bold py-1.5 px-3 rounded-lg flex items-center justify-center gap-2 transition border border-slate-700 text-[10px]">
                                 <i class="fa-solid fa-volume-high"></i> Escuchar Cotización
                             </button>
                         </div>
-                        <!-- ========================================== -->
-                        <!-- FIN PANEL DE OPCIONES DE ENVÍO             -->
-                        <!-- ========================================== -->
-
                     </div>
                 </div>
 
@@ -9493,293 +9458,6 @@
                     }
                 }, 800);
             }, 500);
-        }
-
-        // ==========================================
-        // FUNCIONES PARA EL PANEL DE RESUMEN
-        // ==========================================
-
-        // 1. QR para WhatsApp
-        function generarQR() {
-            if (addedServices.length === 0) {
-                alert("⚠️ Por favor, agrega al menos un servicio a la cotización.");
-                return;
-            }
-
-            // Construir el mensaje para WhatsApp
-            let text = "¡Hola LIM-BOLIVIA! Deseo reservar el siguiente detalle de cotización:\n\n";
-            let total = 0;
-            addedServices.forEach((s, i) => {
-                text += `${i + 1}. ${s.title} - Bs ${s.price}\n`;
-                total += s.price;
-            });
-            text += `\n*Total Estimado: Bs ${total}*\n\n`;
-
-            // Agregar datos del cliente si existen
-            if (datosCliente && datosCliente.nombre && datosCliente.nombre !== '') {
-                text += `📋 *DATOS DEL CLIENTE:*\n`;
-                text += `👤 *Nombre:* ${datosCliente.nombre}\n`;
-                text += `📱 *Celular:* ${datosCliente.celular}\n`;
-                if (datosCliente.direccion && datosCliente.direccion !== 'No especificada' && datosCliente.direccion !== '') {
-                    text += `📍 *Dirección:* ${datosCliente.direccion}\n`;
-                }
-                if (datosCliente.fecha && datosCliente.fecha !== 'No especificada' && datosCliente.fecha !== '') {
-                    text += `📅 *Fecha preferida:* ${formatearFecha(datosCliente.fecha)}\n`;
-                }
-                if (datosCliente.hora && datosCliente.hora !== 'No especificada' && datosCliente.hora !== '') {
-                    text += `🕐 *Hora preferida:* ${datosCliente.hora}\n`;
-                }
-                if (datosCliente.mensaje && datosCliente.mensaje !== 'Sin mensaje adicional' && datosCliente.mensaje !== '') {
-                    text += `💬 *Mensaje:* ${datosCliente.mensaje}\n`;
-                }
-                text += `\n`;
-            }
-
-            text += `🔹 *Solicito cotización y reserva*`;
-
-            // Crear el enlace de WhatsApp
-            const numeroWhatsApp = "59171506930";
-            const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(text)}`;
-
-            // Crear el modal del QR
-            crearModalQR(url);
-        }
-
-        // 2. Crear el modal del QR
-        function crearModalQR(url) {
-            // Eliminar modal existente si hay
-            const existingModal = document.getElementById('qrModalContainer');
-            if (existingModal) {
-                existingModal.remove();
-            }
-
-            const modalHTML = `
-        <div id="qrModalContainer" 
-             class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100000] flex items-center justify-center p-4" 
-             onclick="if(event.target===this) cerrarQR()">
-            <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 animate-fade-in">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="font-black text-[#003366] text-lg uppercase flex items-center gap-2">
-                        <i class="fa-solid fa-qrcode text-purple-600"></i> Escanea con tu celular
-                    </h3>
-                    <button onclick="cerrarQR()" class="text-slate-400 hover:text-slate-600 text-2xl transition">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <p class="text-xs text-slate-500 text-center mb-4">
-                    <i class="fa-solid fa-camera text-purple-500 mr-1"></i>
-                    Abre WhatsApp en tu celular y escanea este código
-                </p>
-                <div id="qrCodeDisplay" class="flex justify-center bg-white p-4 rounded-xl border-2 border-dashed border-purple-200"></div>
-                <div class="mt-4 p-3 bg-emerald-50 rounded-lg border border-emerald-200">
-                    <p class="text-xs text-slate-600 text-center">
-                        <i class="fa-regular fa-circle-check text-emerald-500 mr-1"></i>
-                        La cotización se enviará automáticamente al abrir el enlace
-                    </p>
-                </div>
-                <button onclick="copiarEnlace()" 
-                    class="w-full mt-3 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded-lg transition text-xs uppercase tracking-wider">
-                    <i class="fa-regular fa-copy mr-2"></i> Copiar enlace para enviar
-                </button>
-            </div>
-        </div>
-    `;
-
-            document.body.insertAdjacentHTML('beforeend', modalHTML);
-            document.body.style.overflow = 'hidden';
-
-            // Generar el QR
-            const qrDisplay = document.getElementById('qrCodeDisplay');
-            if (typeof QRCode !== 'undefined') {
-                new QRCode(qrDisplay, {
-                    text: url,
-                    width: 220,
-                    height: 220,
-                    colorDark: "#003366",
-                    colorLight: "#ffffff",
-                    correctLevel: QRCode.CorrectLevel.H
-                });
-            } else {
-                qrDisplay.innerHTML = `
-            <p class="text-xs text-slate-500 text-center">⚠️ Cargando generador de QR...</p>
-            <a href="${url}" target="_blank" class="text-blue-600 underline text-xs">Abrir enlace directamente</a>
-        `;
-            }
-
-            // Guardar la URL para copiar
-            document.getElementById('qrModalContainer').dataset.url = url;
-        }
-
-        // 3. Cerrar QR
-        function cerrarQR() {
-            const modal = document.getElementById('qrModalContainer');
-            if (modal) {
-                modal.remove();
-                document.body.style.overflow = 'auto';
-            }
-        }
-
-        // 4. Copiar enlace
-        function copiarEnlace() {
-            const modal = document.getElementById('qrModalContainer');
-            if (modal && modal.dataset.url) {
-                const url = modal.dataset.url;
-                if (navigator.clipboard) {
-                    navigator.clipboard.writeText(url).then(() => {
-                        alert('✅ Enlace copiado al portapapeles. Pégaselo a tu celular o compártelo.');
-                    }).catch(() => {
-                        copiarEnlaceFallback(url);
-                    });
-                } else {
-                    copiarEnlaceFallback(url);
-                }
-            }
-        }
-
-        function copiarEnlaceFallback(url) {
-            const textarea = document.createElement('textarea');
-            textarea.value = url;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-            alert('✅ Enlace copiado al portapapeles.');
-        }
-
-        // 5. Enviar por Email
-        function enviarPorEmail() {
-            if (addedServices.length === 0) {
-                alert("⚠️ Por favor, agrega al menos un servicio.");
-                return;
-            }
-
-            let texto = "📋 *COTIZACIÓN LIM-BOLIVIA*\n\n";
-            let total = 0;
-            addedServices.forEach((s, i) => {
-                texto += `${i + 1}. ${s.title} - Bs ${s.price}\n`;
-                total += s.price;
-            });
-            texto += `\n💰 *Total Estimado: Bs ${total}*\n\n`;
-            texto += "📱 Para confirmar, contáctenos por WhatsApp: 71506930\n";
-            texto += "🌐 www.limbolivia.com";
-
-            window.location.href = `mailto:ventas@limbolivia.com?subject=Cotización LIM-BOLIVIA - ${new Date().toLocaleDateString()}&body=${encodeURIComponent(texto)}`;
-        }
-
-        // 6. Descargar PDF
-        function descargarCotizacion() {
-            if (addedServices.length === 0) {
-                alert("⚠️ Por favor, agrega al menos un servicio.");
-                return;
-            }
-
-            let html = `
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>Cotización LIM-BOLIVIA</title>
-            <style>
-                body { font-family: Arial, sans-serif; padding: 40px; max-width: 800px; margin: auto; }
-                .header { text-align: center; border-bottom: 3px solid #003366; padding-bottom: 20px; margin-bottom: 30px; }
-                .header h1 { color: #003366; font-size: 28px; margin: 0; }
-                .header p { color: #666; font-size: 14px; margin: 5px 0; }
-                .header .fecha { color: #999; font-size: 12px; }
-                .servicios { margin: 30px 0; }
-                .servicios table { width: 100%; border-collapse: collapse; }
-                .servicios th { background: #003366; color: white; padding: 12px; text-align: left; font-size: 14px; }
-                .servicios td { padding: 12px; border-bottom: 1px solid #e5e7eb; font-size: 13px; }
-                .servicios tr:hover { background: #f8fafc; }
-                .total { text-align: right; font-size: 22px; font-weight: bold; color: #003366; margin-top: 30px; padding-top: 20px; border-top: 2px solid #003366; }
-                .footer { text-align: center; margin-top: 40px; color: #999; font-size: 12px; border-top: 1px solid #e5e7eb; padding-top: 20px; }
-                .footer .whatsapp { color: #25D366; font-weight: bold; }
-                .datos-cliente { background: #f0fdf4; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #10b981; }
-                .datos-cliente h3 { color: #003366; margin: 0 0 10px 0; font-size: 14px; }
-                .datos-cliente p { margin: 3px 0; font-size: 13px; }
-    `;
-
-            // Agregar datos del cliente si existen
-            if (datosCliente && datosCliente.nombre && datosCliente.nombre !== '') {
-                html += `
-            .datos-cliente { background: #f0fdf4; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #10b981; }
-            .datos-cliente h3 { color: #003366; margin: 0 0 10px 0; font-size: 14px; }
-            .datos-cliente p { margin: 3px 0; font-size: 13px; }
-        `;
-            }
-
-            html += `
-            </style>
-        </head>
-        <body>
-            <div class="header">
-                <h1>🏢 LIM-BOLIVIA</h1>
-                <p>División Limpieza - Cotización</p>
-                <p class="fecha">📅 ${new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-            </div>
-    `;
-
-            // Datos del cliente
-            if (datosCliente && datosCliente.nombre && datosCliente.nombre !== '') {
-                html += `
-            <div class="datos-cliente">
-                <h3>📋 DATOS DEL CLIENTE</h3>
-                <p><strong>👤 Nombre:</strong> ${datosCliente.nombre}</p>
-                <p><strong>📱 Celular:</strong> ${datosCliente.celular}</p>
-                ${datosCliente.direccion && datosCliente.direccion !== 'No especificada' && datosCliente.direccion !== '' ? `<p><strong>📍 Dirección:</strong> ${datosCliente.direccion}</p>` : ''}
-                ${datosCliente.fecha && datosCliente.fecha !== 'No especificada' && datosCliente.fecha !== '' ? `<p><strong>📅 Fecha preferida:</strong> ${formatearFecha(datosCliente.fecha)}</p>` : ''}
-                ${datosCliente.hora && datosCliente.hora !== 'No especificada' && datosCliente.hora !== '' ? `<p><strong>🕐 Hora preferida:</strong> ${datosCliente.hora}</p>` : ''}
-                ${datosCliente.mensaje && datosCliente.mensaje !== 'Sin mensaje adicional' && datosCliente.mensaje !== '' ? `<p><strong>💬 Mensaje:</strong> ${datosCliente.mensaje}</p>` : ''}
-            </div>
-        `;
-            }
-
-            html += `
-            <div class="servicios">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width:50px;">#</th>
-                            <th>Servicio</th>
-                            <th style="width:120px; text-align:right;">Total (Bs)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-    `;
-
-            let total = 0;
-            addedServices.forEach((s, i) => {
-                html += `<tr>
-                    <td>${i + 1}</td>
-                    <td>${s.title}</td>
-                    <td style="text-align:right; font-weight:bold;">${s.price}</td>
-                </tr>`;
-                total += s.price;
-            });
-
-            html += `
-                    </tbody>
-                </table>
-                <div class="total">💰 Total Estimado: Bs ${total}</div>
-            </div>
-            <div class="footer">
-                <p><strong>LIM-BOLIVIA</strong> - División Limpieza</p>
-                <p>La Paz - Bolivia</p>
-                <p>📱 <span class="whatsapp">WhatsApp: 71506930</span></p>
-                <p>🌐 www.limbolivia.com</p>
-                <p style="margin-top:10px; font-size:10px; color:#ccc;">"Limpieza es nuestro lema"</p>
-            </div>
-        </body>
-        </html>
-    `;
-
-            const blob = new Blob([html], { type: 'application/pdf' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `Cotizacion_LIMBOLIVIA_${new Date().toISOString().slice(0, 10)}.pdf`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
         }
     </script>
 
