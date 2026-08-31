@@ -860,7 +860,7 @@
         }
     </style>
 
-    
+
 
 
 
@@ -6027,11 +6027,40 @@
                                 <div id="summaryTotal" class="text-2xl font-black text-amber-400">Bs 0</div>
                             </div>
 
+                            <!-- ========================================== -->
+                            <!-- 🔥 BOTONES DE ENVÍO                        -->
+                            <!-- ========================================== -->
+
+                            <!-- 1️⃣ WHATSAPP -->
                             <button onclick="sendToWhatsApp()"
-                                class="w-full bg-green-600 hover:bg-green-500 active:bg-green-700 text-white font-bold py-2 px-3 rounded-lg flex items-center justify-center gap-2 transition shadow-md text-xs">
-                                <i class="fa-brands fa-whatsapp text-base"></i> Reservar por WhatsApp
+                                class="w-full bg-green-600 hover:bg-green-500 active:bg-green-700 text-white font-bold py-2.5 px-3 rounded-lg flex items-center justify-center gap-2 transition shadow-md text-xs uppercase tracking-wider">
+                                <i class="fa-brands fa-whatsapp text-base"></i>
+                                Reservar por WhatsApp
                             </button>
 
+                            <!-- 2️⃣ TELEGRAM (NUEVO) -->
+                            <button onclick="solicitarLlamadaTelegram()"
+                                class="w-full bg-[#0088cc] hover:bg-[#0077b3] active:bg-[#006699] text-white font-bold py-2.5 px-3 rounded-lg flex items-center justify-center gap-2 transition shadow-md shadow-blue-500/20 text-xs uppercase tracking-wider">
+                                <i class="fa-brands fa-telegram text-base"></i>
+                                Solicitar por Telegram
+                                <span class="text-[8px] bg-white/20 px-2 py-0.5 rounded-full">Seguro</span>
+                            </button>
+
+                            <!-- Mensaje informativo -->
+                            <div class="text-center px-2">
+                                <p class="text-[8px] text-slate-400 leading-relaxed">
+                                    <i class="fa-regular fa-circle-check text-blue-400 mr-1"></i>
+                                    Recibirás confirmación en tu celular. ¡Sin necesidad de abrir apps!
+                                </p>
+                            </div>
+
+                            <!-- 📋 Copiar Cotización -->
+                            <button onclick="copiarCotizacion()"
+                                class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-1.5 px-3 rounded-lg flex items-center justify-center gap-2 transition border border-slate-700 text-[10px]">
+                                <i class="fa-regular fa-copy text-xs"></i> Copiar Cotización
+                            </button>
+
+                            <!-- 🔊 Escuchar Cotización -->
                             <button onclick="talkQuote()"
                                 class="w-full bg-slate-800 hover:bg-slate-700 text-emerald-400 font-bold py-1.5 px-3 rounded-lg flex items-center justify-center gap-2 transition border border-slate-700 text-[10px]">
                                 <i class="fa-solid fa-volume-high"></i> Escuchar Cotización
@@ -9458,6 +9487,133 @@
                     }
                 }, 800);
             }, 500);
+        }
+
+        // ==========================================
+        // SOLICITAR LLAMADA POR TELEGRAM
+        // ==========================================
+
+        // ⚠️ CONFIGURACIÓN - CAMBIA ESTOS VALORES ⚠️
+        // Estos son los datos que obtendrás de @BotFather
+        const TELEGRAM_TOKEN = "TU_TOKEN_AQUI";  // Ej: "123456789:ABCdefGhIJKlmNoPQRsTUVwxyz"
+        const TELEGRAM_CHAT_ID = "6351244184";  // ← TU CHAT_ID;  // Ej: "123456789"
+
+        function solicitarLlamadaTelegram() {
+            // 1️⃣ Verificar servicios
+            if (addedServices.length === 0) {
+                alert("⚠️ Por favor, agrega al menos un servicio a la cotización.");
+                return;
+            }
+
+            // 2️⃣ Verificar datos del cliente
+            if (!datosCliente || !datosCliente.nombre || datosCliente.nombre === '') {
+                alert("⚠️ Por favor, primero presiona 'Añadir Datos' y completa tus datos personales.");
+                return;
+            }
+
+            // 3️⃣ Guardar referencia al botón y mostrar "enviando..."
+            const btn = document.querySelector('[onclick="solicitarLlamadaTelegram()"]');
+            if (btn) {
+                btn.innerHTML = `
+            <i class="fa-solid fa-spinner fa-spin text-base"></i> 
+            Enviando solicitud...
+        `;
+                btn.disabled = true;
+            }
+
+            // 4️⃣ Construir mensaje para Telegram
+            let mensaje = "📋 *NUEVA SOLICITUD DE SERVICIO - LIM-BOLIVIA*\n\n";
+
+            // Datos del cliente
+            mensaje += "👤 *DATOS DEL CLIENTE*\n";
+            mensaje += "─".repeat(30) + "\n";
+            mensaje += `📌 *Nombre:* ${datosCliente.nombre}\n`;
+            mensaje += `📱 *Celular:* ${datosCliente.celular}\n`;
+
+            if (datosCliente.direccion && datosCliente.direccion !== 'No especificada' && datosCliente.direccion !== '') {
+                mensaje += `📍 *Dirección:* ${datosCliente.direccion}\n`;
+            }
+            if (datosCliente.fecha && datosCliente.fecha !== 'No especificada' && datosCliente.fecha !== '') {
+                mensaje += `📅 *Fecha preferida:* ${formatearFecha(datosCliente.fecha)}\n`;
+            }
+            if (datosCliente.hora && datosCliente.hora !== 'No especificada' && datosCliente.hora !== '') {
+                mensaje += `🕐 *Hora preferida:* ${datosCliente.hora}\n`;
+            }
+            if (datosCliente.mensaje && datosCliente.mensaje !== 'Sin mensaje adicional' && datosCliente.mensaje !== '') {
+                mensaje += `💬 *Mensaje:* ${datosCliente.mensaje}\n`;
+            }
+
+            mensaje += "\n";
+
+            // Servicios solicitados
+            mensaje += "🧹 *SERVICIOS SOLICITADOS*\n";
+            mensaje += "─".repeat(30) + "\n";
+            let total = 0;
+            addedServices.forEach((s, i) => {
+                mensaje += `${i + 1}. ${s.title}\n`;
+                mensaje += `   💰 Bs ${s.price}\n`;
+                total += s.price;
+            });
+
+            mensaje += "\n";
+            mensaje += "─".repeat(30) + "\n";
+            mensaje += `💰 *TOTAL ESTIMADO: Bs ${total}*\n\n`;
+
+            // Fecha y hora
+            const ahora = new Date();
+            mensaje += `📅 *Solicitado:* ${ahora.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} a las ${ahora.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}\n\n`;
+
+            mensaje += "🔹 *El cliente solicita ser contactado a la brevedad.*\n";
+            mensaje += "🏢 *LIM-BOLIVIA - División Limpieza*\n";
+            mensaje += "📱 *Teléfono:* 71506930\n";
+            mensaje += "🌐 *Web:* www.limbolivia.com\n";
+            mensaje += '"Limpieza es nuestro lema"';
+
+            // 5️⃣ Enviar a Telegram
+            fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: mensaje,
+                    parse_mode: 'Markdown'
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Restaurar el botón
+                    if (btn) {
+                        btn.innerHTML = `
+                <i class="fa-brands fa-telegram text-base"></i> 
+                Solicitar por Telegram
+                <span class="text-[8px] bg-white/20 px-2 py-0.5 rounded-full">Seguro</span>
+            `;
+                        btn.disabled = false;
+                    }
+
+                    if (data.ok) {
+                        // Mostrar mensaje de éxito
+                        alert(`✅ ¡Solicitud enviada!\n\n👤 ${datosCliente.nombre}\n📱 ${datosCliente.celular}\n\n📲 Hemos recibido tu solicitud.\n📞 En breve nos comunicaremos contigo.`);
+                    } else {
+                        console.error('Error Telegram:', data);
+                        alert('❌ Error al enviar la solicitud. Por favor, intenta de nuevo o usa WhatsApp.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error conexión:', error);
+                    // Restaurar el botón
+                    if (btn) {
+                        btn.innerHTML = `
+                <i class="fa-brands fa-telegram text-base"></i> 
+                Solicitar por Telegram
+                <span class="text-[8px] bg-white/20 px-2 py-0.5 rounded-full">Seguro</span>
+            `;
+                        btn.disabled = false;
+                    }
+                    alert('❌ Error de conexión. Por favor, intenta de nuevo.');
+                });
         }
     </script>
 
