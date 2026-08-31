@@ -9499,121 +9499,53 @@
         const TELEGRAM_CHAT_ID = "6351244184";  // ← TU CHAT_ID;  // Ej: "123456789"
 
 
-        function solicitarLlamadaTelegram() {
-            // 1️⃣ Verificar servicios
+        // ==========================================
+        // COPIAR COTIZACIÓN AL PORTAPAPELES
+        // ==========================================
+
+        function copiarCotizacion() {
             if (addedServices.length === 0) {
                 alert("⚠️ Por favor, agrega al menos un servicio a la cotización.");
                 return;
             }
 
-            // 2️⃣ Verificar datos del cliente
-            if (!datosCliente || !datosCliente.nombre || datosCliente.nombre === '') {
-                alert("⚠️ Por favor, primero presiona 'Añadir Datos' y completa tus datos personales.");
-                return;
-            }
-
-            // 3️⃣ Guardar referencia al botón
-            const btn = document.querySelector('[onclick="solicitarLlamadaTelegram()"]');
-            if (btn) {
-                btn.innerHTML = `
-            <i class="fa-solid fa-spinner fa-spin text-base"></i> 
-            Enviando solicitud...
-        `;
-                btn.disabled = true;
-            }
-
-            // 4️⃣ Construir mensaje
-            let mensaje = "📋 *NUEVA SOLICITUD DE SERVICIO - LIM-BOLIVIA*\n\n";
-
-            mensaje += "👤 *DATOS DEL CLIENTE*\n";
-            mensaje += "──────────────────────────────\n";
-            mensaje += `📌 *Nombre:* ${datosCliente.nombre}\n`;
-            mensaje += `📱 *Celular:* ${datosCliente.celular}\n`;
-
-            if (datosCliente.direccion && datosCliente.direccion !== 'No especificada' && datosCliente.direccion !== '') {
-                mensaje += `📍 *Dirección:* ${datosCliente.direccion}\n`;
-            }
-            if (datosCliente.fecha && datosCliente.fecha !== 'No especificada' && datosCliente.fecha !== '') {
-                mensaje += `📅 *Fecha preferida:* ${formatearFecha(datosCliente.fecha)}\n`;
-            }
-            if (datosCliente.hora && datosCliente.hora !== 'No especificada' && datosCliente.hora !== '') {
-                mensaje += `🕐 *Hora preferida:* ${datosCliente.hora}\n`;
-            }
-            if (datosCliente.mensaje && datosCliente.mensaje !== 'Sin mensaje adicional' && datosCliente.mensaje !== '') {
-                mensaje += `💬 *Mensaje:* ${datosCliente.mensaje}\n`;
-            }
-
-            mensaje += "\n";
-
-            mensaje += "🧹 *SERVICIOS SOLICITADOS*\n";
-            mensaje += "──────────────────────────────\n";
+            let text = "📋 COTIZACIÓN LIM-BOLIVIA\n\n";
             let total = 0;
             addedServices.forEach((s, i) => {
-                mensaje += `${i + 1}. ${s.title}\n`;
-                mensaje += `   💰 Bs ${s.price}\n`;
+                text += `${i + 1}. ${s.title} - Bs ${s.price}\n`;
                 total += s.price;
             });
+            text += `\n💰 Total Estimado: Bs ${total}\n\n`;
 
-            mensaje += "\n";
-            mensaje += "──────────────────────────────\n";
-            mensaje += `💰 *TOTAL ESTIMADO: Bs ${total}*\n\n`;
+            if (datosCliente && datosCliente.nombre && datosCliente.nombre !== '') {
+                text += `👤 Cliente: ${datosCliente.nombre}\n`;
+                text += `📱 Celular: ${datosCliente.celular}\n`;
+            }
 
-            const ahora = new Date();
-            mensaje += `📅 *Solicitado:* ${ahora.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} a las ${ahora.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}\n\n`;
+            text += `\n📱 WhatsApp: 71506930\n`;
+            text += `"Limpieza es nuestro lema"`;
 
-            mensaje += "🔹 *El cliente solicita ser contactado a la brevedad.*\n";
-            mensaje += "🏢 *LIM-BOLIVIA - División Limpieza*\n";
-            mensaje += "📱 *Teléfono:* 71506930\n";
-            mensaje += '"Limpieza es nuestro lema"';
-
-            // 5️⃣ Enviar a Telegram usando un proxy CORS
-            const TELEGRAM_TOKEN = "8923526190:AAFfMLvsJF78mNpypqJt4AR_2bCZFPfkqkw";
-            const TELEGRAM_CHAT_ID = "6351244184";
-
-            // ✅ USAR PROXY PARA EVITAR CORS
-            const url = `https://cors-anywhere.herokuapp.com/https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
-
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    chat_id: TELEGRAM_CHAT_ID,
-                    text: mensaje,
-                    parse_mode: 'Markdown'
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (btn) {
-                        btn.innerHTML = `
-                <i class="fa-brands fa-telegram text-base"></i> 
-                Solicitar por Telegram
-                <span class="text-[8px] bg-white/20 px-2 py-0.5 rounded-full">Seguro</span>
-            `;
-                        btn.disabled = false;
-                    }
-
-                    if (data.ok) {
-                        alert(`✅ ¡Solicitud enviada!\n\n👤 ${datosCliente.nombre}\n📱 ${datosCliente.celular}\n\n📲 Hemos recibido tu solicitud.\n📞 En breve nos comunicaremos contigo.`);
-                    } else {
-                        console.error('Error Telegram:', data);
-                        alert('❌ Error al enviar la solicitud. Por favor, intenta de nuevo o usa WhatsApp.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error conexión:', error);
-                    if (btn) {
-                        btn.innerHTML = `
-                <i class="fa-brands fa-telegram text-base"></i> 
-                Solicitar por Telegram
-                <span class="text-[8px] bg-white/20 px-2 py-0.5 rounded-full">Seguro</span>
-            `;
-                        btn.disabled = false;
-                    }
-                    alert('❌ Error de conexión. Por favor, intenta de nuevo o usa WhatsApp.');
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('✅ Cotización copiada al portapapeles');
+                }).catch(() => {
+                    copiarFallback(text);
                 });
+            } else {
+                copiarFallback(text);
+            }
+        }
+
+        function copiarFallback(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('✅ Cotización copiada al portapapeles');
         }
     </script>
 
@@ -9721,6 +9653,16 @@
             </div>
         </div>
     </div>
+    <!-- Formulario oculto para enviar solicitud -->
+    <form id="formSolicitud" action="https://formsubmit.co/bolivialineservicios@hotmail.com" method="POST"
+        style="display:none;">
+        <input type="hidden" name="_subject" id="solicitudAsunto" value="Nueva Solicitud LIM-BOLIVIA">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://www.limbolivia.com/">
+        <textarea name="message" id="solicitudMensaje"></textarea>
+        <button type="submit" id="btnEnviarSolicitud"></button>
+    </form>
 
 </body>
 
