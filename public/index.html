@@ -6054,7 +6054,7 @@
                                 </p>
                             </div>
 
-                        
+
 
                             <!-- 🔊 Escuchar Cotización -->
                             <button onclick="talkQuote()"
@@ -9542,6 +9542,119 @@
             document.execCommand('copy');
             document.body.removeChild(textarea);
             alert('✅ Cotización copiada al portapapeles');
+        }
+
+        // ==========================================
+        // SOLICITAR LLAMADA POR TELEGRAM (VÍA FORMULARIO)
+        // ==========================================
+
+        function solicitarLlamadaTelegram() {
+            // 1️⃣ Verificar que haya servicios
+            if (addedServices.length === 0) {
+                alert("⚠️ Por favor, agrega al menos un servicio a la cotización.");
+                return;
+            }
+
+            // 2️⃣ Verificar que el cliente haya ingresado sus datos
+            if (!datosCliente || !datosCliente.nombre || datosCliente.nombre === '') {
+                alert("⚠️ Por favor, primero presiona 'Añadir Datos' y completa tus datos personales.");
+                return;
+            }
+
+            // 3️⃣ Mostrar "enviando..." en el botón
+            const btn = document.querySelector('[onclick="solicitarLlamadaTelegram()"]');
+            if (btn) {
+                btn.innerHTML = `
+            <i class="fa-solid fa-spinner fa-spin text-base"></i> 
+            Enviando solicitud...
+        `;
+                btn.disabled = true;
+            }
+
+            // 4️⃣ Construir el mensaje
+            let mensaje = "📋 NUEVA SOLICITUD DE SERVICIO - LIM-BOLIVIA\n\n";
+
+            // Datos del cliente
+            mensaje += "👤 DATOS DEL CLIENTE\n";
+            mensaje += "──────────────────────────────\n";
+            mensaje += `📌 Nombre: ${datosCliente.nombre}\n`;
+            mensaje += `📱 Celular: ${datosCliente.celular}\n`;
+
+            if (datosCliente.direccion && datosCliente.direccion !== 'No especificada' && datosCliente.direccion !== '') {
+                mensaje += `📍 Dirección: ${datosCliente.direccion}\n`;
+            }
+            if (datosCliente.fecha && datosCliente.fecha !== 'No especificada' && datosCliente.fecha !== '') {
+                mensaje += `📅 Fecha preferida: ${formatearFecha(datosCliente.fecha)}\n`;
+            }
+            if (datosCliente.hora && datosCliente.hora !== 'No especificada' && datosCliente.hora !== '') {
+                mensaje += `🕐 Hora preferida: ${datosCliente.hora}\n`;
+            }
+            if (datosCliente.mensaje && datosCliente.mensaje !== 'Sin mensaje adicional' && datosCliente.mensaje !== '') {
+                mensaje += `💬 Mensaje: ${datosCliente.mensaje}\n`;
+            }
+
+            mensaje += "\n";
+
+            // Servicios solicitados
+            mensaje += "🧹 SERVICIOS SOLICITADOS\n";
+            mensaje += "──────────────────────────────\n";
+            let total = 0;
+            addedServices.forEach((s, i) => {
+                mensaje += `${i + 1}. ${s.title}\n`;
+                mensaje += `   💰 Bs ${s.price}\n`;
+                total += s.price;
+            });
+
+            mensaje += "\n";
+            mensaje += "──────────────────────────────\n";
+            mensaje += `💰 TOTAL ESTIMADO: Bs ${total}\n\n`;
+
+            // Fecha y hora
+            const ahora = new Date();
+            mensaje += `📅 Solicitado: ${ahora.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} a las ${ahora.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}\n\n`;
+
+            mensaje += "🔹 El cliente solicita ser contactado a la brevedad.\n";
+            mensaje += "🏢 LIM-BOLIVIA - División Limpieza\n";
+            mensaje += "📱 Teléfono: 71506930\n";
+            mensaje += '"Limpieza es nuestro lema"';
+
+            // 5️⃣ ENVIAR POR FORMULARIO (FormSubmit)
+            const form = document.getElementById('formSolicitud');
+            const mensajeInput = document.getElementById('solicitudMensaje');
+            const asuntoInput = document.getElementById('solicitudAsunto');
+            const btnEnviar = document.getElementById('btnEnviarSolicitud');
+
+            if (form && mensajeInput && asuntoInput && btnEnviar) {
+                mensajeInput.value = mensaje;
+                asuntoInput.value = `NUEVA SOLICITUD - ${datosCliente.nombre} - ${new Date().toLocaleDateString()}`;
+                btnEnviar.click();
+
+                setTimeout(() => {
+                    alert(`✅ ¡Solicitud enviada!\n\n👤 ${datosCliente.nombre}\n📱 ${datosCliente.celular}\n\n📲 Hemos recibido tu solicitud.\n📞 En breve nos comunicaremos contigo.`);
+                }, 500);
+            } else {
+                // Fallback: mailto
+                const email = "bolivialineservicios@hotmail.com";
+                const asunto = `NUEVA SOLICITUD - ${datosCliente.nombre} - ${new Date().toLocaleDateString()}`;
+                const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(mensaje)}`;
+                window.open(mailtoLink, '_blank');
+
+                setTimeout(() => {
+                    alert(`✅ ¡Solicitud enviada!\n\n👤 ${datosCliente.nombre}\n📱 ${datosCliente.celular}\n\n📞 En breve nos comunicaremos contigo.`);
+                }, 500);
+            }
+
+            // 6️⃣ Restaurar el botón
+            setTimeout(() => {
+                if (btn) {
+                    btn.innerHTML = `
+                <i class="fa-brands fa-telegram text-base"></i> 
+                Solicitar por Telegram
+                <span class="text-[8px] bg-white/20 px-2 py-0.5 rounded-full">Seguro</span>
+            `;
+                    btn.disabled = false;
+                }
+            }, 3000);
         }
     </script>
 
