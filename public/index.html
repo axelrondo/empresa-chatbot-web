@@ -1094,6 +1094,14 @@
                     class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
                     <i class="fa-solid fa-envelope"></i> Contáctese
                 </button>
+
+                <button onclick="abrirModalTodosServicios()"
+                    class="hover:text-amber-300 transition flex items-center gap-1.5 px-2 py-1 cursor-pointer">
+                    <i class="fa-solid fa-grid-2"></i> Todos Nuestros Servicios
+                </button>
+
+
+
             </div>
         </nav>
     </header>
@@ -9654,6 +9662,166 @@
                 }
             }, 3000);
         }
+
+
+        // ==========================================
+        // CARRUSEL - TODOS NUESTROS SERVICIOS
+        // ==========================================
+
+        // 📋 LISTA DE IMÁGENES (b1.png hasta b49.png + banner10.png)
+        const imagenesServicios = [
+            '/img/banner10.png',  // Banner principal
+            '/img/b1.png',
+            '/img/b2.png',
+            '/img/b3.png',
+            '/img/b4.png',
+            '/img/b5.png',
+            '/img/b6.png',
+            '/img/b7.png',
+            '/img/b8.png',
+            '/img/b9.png',
+            '/img/b10.png',
+            '/img/b11.png',
+            '/img/b12.png',
+            '/img/b13.png',
+            '/img/b14.png',
+            '/img/b15.png',
+            '/img/b16.png',
+            '/img/b17.png',
+            '/img/b18.png',
+            '/img/b19.png',
+            '/img/b20.png',
+            '/img/b21.png',
+            '/img/b22.png',
+            '/img/b23.png',
+            '/img/b24.png',
+            '/img/b25.png',
+            '/img/b26.png',
+            '/img/b27.png',
+            '/img/b28.png',
+            '/img/b29.png',
+            '/img/b30.png',
+            '/img/b31.png',
+            '/img/b32.png',
+            '/img/b33.png',
+            '/img/b34.png',
+            '/img/b35.png',
+            '/img/b36.png',
+            '/img/b37.png',
+            '/img/b38.png',
+            '/img/b39.png',
+            '/img/b40.png',
+            '/img/b41.png',
+            '/img/b42.png',
+            '/img/b43.png',
+            '/img/b44.png',
+            '/img/b45.png',
+            '/img/b46.png',
+            '/img/b47.png',
+            '/img/b48.png',
+            '/img/b49.png'
+        ];
+
+        let carruselActual = 0;
+        let carruselIntervalo = null;
+
+        // ABRIR MODAL
+        function abrirModalTodosServicios() {
+            const modal = document.getElementById('modalTodosServicios');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+
+                // Resetear al inicio
+                carruselActual = 0;
+                actualizarCarrusel();
+
+                // Iniciar auto-reproducción (cada 4 segundos)
+                if (carruselIntervalo) clearInterval(carruselIntervalo);
+                carruselIntervalo = setInterval(carruselSiguiente, 4000);
+            }
+        }
+
+        // CERRAR MODAL
+        function cerrarModalTodosServicios() {
+            const modal = document.getElementById('modalTodosServicios');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                if (carruselIntervalo) {
+                    clearInterval(carruselIntervalo);
+                    carruselIntervalo = null;
+                }
+            }
+        }
+
+        // ACTUALIZAR CARRUSEL
+        function actualizarCarrusel() {
+            const img = document.getElementById('carruselImagen');
+            const contador = document.getElementById('carruselContador');
+            const indicadores = document.getElementById('carruselIndicadores');
+
+            if (!img) return;
+
+            // Actualizar imagen
+            const src = imagenesServicios[carruselActual] || '/img/banner10.png';
+            img.src = src;
+
+            // Actualizar contador
+            if (contador) {
+                contador.textContent = `${carruselActual + 1} / ${imagenesServicios.length}`;
+            }
+
+            // Actualizar indicadores (puntos)
+            if (indicadores) {
+                indicadores.innerHTML = '';
+                const total = Math.min(imagenesServicios.length, 50); // Máximo 50 puntos
+                for (let i = 0; i < total; i++) {
+                    const dot = document.createElement('span');
+                    dot.className = `w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${i === carruselActual ? 'bg-amber-400 w-4' : 'bg-white/30 hover:bg-white/60'
+                        }`;
+                    dot.onclick = () => {
+                        carruselActual = i;
+                        actualizarCarrusel();
+                        // Reiniciar auto-reproducción
+                        if (carruselIntervalo) {
+                            clearInterval(carruselIntervalo);
+                            carruselIntervalo = setInterval(carruselSiguiente, 4000);
+                        }
+                    };
+                    indicadores.appendChild(dot);
+                }
+            }
+        }
+
+        // SIGUIENTE
+        function carruselSiguiente() {
+            carruselActual = (carruselActual + 1) % imagenesServicios.length;
+            actualizarCarrusel();
+        }
+
+        // ANTERIOR
+        function carruselAnterior() {
+            carruselActual = (carruselActual - 1 + imagenesServicios.length) % imagenesServicios.length;
+            actualizarCarrusel();
+        }
+
+        // Cerrar con tecla ESC
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                cerrarModalTodosServicios();
+            }
+        });
+
+        // Cerrar al hacer clic fuera del modal
+        document.addEventListener('click', function (e) {
+            const modal = document.getElementById('modalTodosServicios');
+            if (modal && !modal.classList.contains('hidden') && e.target === modal) {
+                cerrarModalTodosServicios();
+            }
+        });
     </script>
 
     <!-- ========================================== -->
@@ -9770,6 +9938,79 @@
         <textarea name="message" id="solicitudMensaje"></textarea>
         <button type="submit" id="btnEnviarSolicitud"></button>
     </form>
+
+    <!-- ========================================== -->
+    <!-- MODAL: TODOS NUESTROS SERVICIOS (CARRUSEL) -->
+    <!-- ========================================== -->
+    <div id="modalTodosServicios"
+        class="fixed inset-0 bg-black/90 backdrop-blur-md z-[100000] hidden flex items-center justify-center p-4">
+        <div class="relative w-full max-w-6xl max-h-[90vh] bg-white rounded-2xl overflow-hidden shadow-2xl">
+
+            <!-- HEADER -->
+            <div
+                class="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/60 to-transparent p-4 flex justify-between items-start">
+                <div>
+                    <span
+                        class="inline-block bg-amber-400/90 text-slate-900 text-[10px] font-black uppercase px-3 py-1 rounded-full">
+                        <i class="fa-regular fa-images mr-1"></i> Galería
+                    </span>
+                    <h3 class="text-white font-bold text-lg mt-1 drop-shadow-lg">Todos Nuestros Servicios</h3>
+                </div>
+                <button onclick="cerrarModalTodosServicios()"
+                    class="text-white/80 hover:text-white text-3xl transition bg-black/30 hover:bg-black/50 rounded-full w-10 h-10 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- CONTENEDOR DEL CARRUSEL -->
+            <div class="relative w-full h-[80vh] bg-slate-900 overflow-hidden">
+
+                <!-- BANNER PRINCIPAL (ocupa todo el espacio) -->
+                <div id="carruselContainer" class="w-full h-full relative">
+                    <img id="carruselImagen" src="/img/banner10.png" alt="Todos Nuestros Servicios"
+                        class="w-full h-full object-contain bg-slate-900"
+                        onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x800/003366/FFFFFF?text=Servicio+No+Disponible';">
+
+                    <!-- CONTADOR -->
+                    <div id="carruselContador"
+                        class="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 bg-black/60 text-white text-xs font-bold px-4 py-1.5 rounded-full border border-white/20">
+                        1 / 50
+                    </div>
+                </div>
+
+                <!-- FLECHA IZQUIERDA -->
+                <button onclick="carruselAnterior()"
+                    class="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/80 text-white w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg">
+                    <i class="fa-solid fa-chevron-left text-2xl"></i>
+                </button>
+
+                <!-- FLECHA DERECHA -->
+                <button onclick="carruselSiguiente()"
+                    class="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/80 text-white w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg">
+                    <i class="fa-solid fa-chevron-right text-2xl"></i>
+                </button>
+
+                <!-- INDICADORES (puntos) -->
+                <div id="carruselIndicadores" class="absolute bottom-14 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+                    <!-- Se generarán con JavaScript -->
+                </div>
+            </div>
+
+            <!-- PIE DEL MODAL -->
+            <div
+                class="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/70 to-transparent p-4 flex justify-between items-center">
+                <span class="text-white/60 text-[10px]">
+                    <i class="fa-regular fa-circle-check text-emerald-400 mr-1"></i>
+                    Haz clic en las flechas para navegar
+                </span>
+                <a href="https://wa.me/59171506930?text=Hola,%20quisiera%20más%20información%20sobre%20los%20servicios%20de%20LIM-BOLIVIA"
+                    target="_blank"
+                    class="bg-green-600 hover:bg-green-500 text-white text-xs font-bold px-4 py-2 rounded-lg flex items-center gap-2 transition shadow-lg">
+                    <i class="fa-brands fa-whatsapp"></i> Consultar
+                </a>
+            </div>
+        </div>
+    </div>
 
 </body>
 
