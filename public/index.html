@@ -9733,13 +9733,7 @@
                 modal.style.display = 'flex';
                 document.body.style.overflow = 'hidden';
 
-                // Resetear al inicio
-                carruselActual = 0;
-                actualizarCarrusel();
 
-                // Iniciar auto-reproducción (cada 4 segundos)
-                if (carruselIntervalo) clearInterval(carruselIntervalo);
-                carruselIntervalo = setInterval(carruselSiguiente, 4000);
             }
         }
 
@@ -9796,7 +9790,7 @@
             }
         }
 
-        // SIGUIENTE
+        // SIGUIENTE (sin auto-play)
         function carruselSiguiente() {
             carruselActual = (carruselActual + 1) % imagenesServicios.length;
             actualizarCarrusel();
@@ -9808,20 +9802,44 @@
             actualizarCarrusel();
         }
 
-        // Cerrar con tecla ESC
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') {
-                cerrarModalTodosServicios();
-            }
-        });
+        // ACTUALIZAR CARRUSEL (con puntos más pequeños)
+        function actualizarCarrusel() {
+            const img = document.getElementById('carruselImagen');
+            const contador = document.getElementById('carruselContador');
+            const indicadores = document.getElementById('carruselIndicadores');
 
-        // Cerrar al hacer clic fuera del modal
-        document.addEventListener('click', function (e) {
-            const modal = document.getElementById('modalTodosServicios');
-            if (modal && !modal.classList.contains('hidden') && e.target === modal) {
-                cerrarModalTodosServicios();
+            if (!img) return;
+
+            // Actualizar imagen
+            const src = imagenesServicios[carruselActual] || '/img/banner10.png';
+            img.src = src;
+
+            // Actualizar contador
+            if (contador) {
+                contador.textContent = `${carruselActual + 1} / ${imagenesServicios.length}`;
             }
-        });
+
+            // Actualizar indicadores (puntos) - solo mostrar máximo 20 puntos para no saturar
+            if (indicadores) {
+                indicadores.innerHTML = '';
+                const total = Math.min(imagenesServicios.length, 20);
+                for (let i = 0; i < total; i++) {
+                    const dot = document.createElement('span');
+                    dot.className = `w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${i === carruselActual ? 'bg-amber-400 w-4' : 'bg-white/30 hover:bg-white/60'
+                        }`;
+                    // Si hay más de 20 imágenes, mostrar puntos con indicación
+                    if (i === total - 1 && imagenesServicios.length > 20) {
+                        dot.className += ' relative';
+                        dot.title = `+${imagenesServicios.length - 20} más`;
+                    }
+                    dot.onclick = () => {
+                        carruselActual = i;
+                        actualizarCarrusel();
+                    };
+                    indicadores.appendChild(dot);
+                }
+            }
+        }
     </script>
 
     <!-- ========================================== -->
@@ -9943,69 +9961,74 @@
     <!-- MODAL: TODOS NUESTROS SERVICIOS (CARRUSEL) -->
     <!-- ========================================== -->
     <div id="modalTodosServicios"
-        class="fixed inset-0 bg-black/90 backdrop-blur-md z-[100000] hidden flex items-center justify-center p-4">
-        <div class="relative w-full max-w-6xl max-h-[90vh] bg-white rounded-2xl overflow-hidden shadow-2xl">
+        class="fixed inset-0 bg-black/95 backdrop-blur-md z-[100000] hidden flex items-center justify-center p-2 md:p-4">
+        <div
+            class="relative w-full max-w-7xl max-h-[95vh] bg-slate-900 rounded-2xl overflow-hidden shadow-2xl border border-white/10">
 
             <!-- HEADER -->
             <div
-                class="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/60 to-transparent p-4 flex justify-between items-start">
+                class="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/80 to-transparent p-4 flex justify-between items-start">
                 <div>
                     <span
                         class="inline-block bg-amber-400/90 text-slate-900 text-[10px] font-black uppercase px-3 py-1 rounded-full">
                         <i class="fa-regular fa-images mr-1"></i> Galería
                     </span>
-                    <h3 class="text-white font-bold text-lg mt-1 drop-shadow-lg">Todos Nuestros Servicios</h3>
+                    <h3 class="text-white font-bold text-lg md:text-xl mt-1 drop-shadow-lg">Todos Nuestros Servicios
+                    </h3>
                 </div>
                 <button onclick="cerrarModalTodosServicios()"
-                    class="text-white/80 hover:text-white text-3xl transition bg-black/30 hover:bg-black/50 rounded-full w-10 h-10 flex items-center justify-center">
+                    class="text-white/80 hover:text-white text-3xl transition bg-black/50 hover:bg-black/70 rounded-full w-10 h-10 flex items-center justify-center border border-white/20">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
-            <!-- CONTENEDOR DEL CARRUSEL -->
-            <div class="relative w-full h-[80vh] bg-slate-900 overflow-hidden">
+            <!-- CONTENEDOR DEL CARRUSEL (MÁS GRANDE) -->
+            <div class="relative w-full h-[82vh] md:h-[85vh] bg-slate-900 overflow-hidden">
 
-                <!-- BANNER PRINCIPAL (ocupa todo el espacio) -->
-                <div id="carruselContainer" class="w-full h-full relative">
+                <!-- IMAGEN PRINCIPAL (OCUPA TODO EL ESPACIO) -->
+                <div id="carruselContainer" class="w-full h-full flex items-center justify-center bg-slate-900">
                     <img id="carruselImagen" src="/img/banner10.png" alt="Todos Nuestros Servicios"
-                        class="w-full h-full object-contain bg-slate-900"
-                        onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x800/003366/FFFFFF?text=Servicio+No+Disponible';">
+                        class="w-full h-full object-contain p-2 md:p-4"
+                        onerror="this.onerror=null; this.src='https://via.placeholder.com/1600x900/003366/FFFFFF?text=Servicio+No+Disponible';">
 
                     <!-- CONTADOR -->
                     <div id="carruselContador"
-                        class="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 bg-black/60 text-white text-xs font-bold px-4 py-1.5 rounded-full border border-white/20">
+                        class="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 bg-black/70 text-white text-xs font-bold px-4 py-1.5 rounded-full border border-white/20">
                         1 / 50
                     </div>
                 </div>
 
-                <!-- FLECHA IZQUIERDA -->
+                <!-- FLECHA IZQUIERDA (más grande) -->
                 <button onclick="carruselAnterior()"
-                    class="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/80 text-white w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg">
-                    <i class="fa-solid fa-chevron-left text-2xl"></i>
+                    class="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black/60 hover:bg-black/90 text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-2xl border border-white/10">
+                    <i class="fa-solid fa-chevron-left text-2xl md:text-3xl"></i>
                 </button>
 
-                <!-- FLECHA DERECHA -->
+                <!-- FLECHA DERECHA (más grande) -->
                 <button onclick="carruselSiguiente()"
-                    class="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/80 text-white w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg">
-                    <i class="fa-solid fa-chevron-right text-2xl"></i>
+                    class="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black/60 hover:bg-black/90 text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-2xl border border-white/10">
+                    <i class="fa-solid fa-chevron-right text-2xl md:text-3xl"></i>
                 </button>
 
                 <!-- INDICADORES (puntos) -->
-                <div id="carruselIndicadores" class="absolute bottom-14 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+                <div id="carruselIndicadores"
+                    class="absolute bottom-14 left-1/2 -translate-x-1/2 z-10 flex gap-2 flex-wrap justify-center max-w-[80%]">
                     <!-- Se generarán con JavaScript -->
                 </div>
             </div>
 
             <!-- PIE DEL MODAL -->
             <div
-                class="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/70 to-transparent p-4 flex justify-between items-center">
-                <span class="text-white/60 text-[10px]">
-                    <i class="fa-regular fa-circle-check text-emerald-400 mr-1"></i>
-                    Haz clic en las flechas para navegar
+                class="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/80 to-transparent p-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+                <span class="text-white/60 text-[10px] flex items-center gap-2">
+                    <i class="fa-regular fa-circle-check text-emerald-400"></i>
+                    <span>Haz clic en las flechas ◄ ► para navegar</span>
+                    <span class="hidden sm:inline text-white/30">|</span>
+                    <span class="text-white/40 text-[9px]">50 imágenes disponibles</span>
                 </span>
                 <a href="https://wa.me/59171506930?text=Hola,%20quisiera%20más%20información%20sobre%20los%20servicios%20de%20LIM-BOLIVIA"
                     target="_blank"
-                    class="bg-green-600 hover:bg-green-500 text-white text-xs font-bold px-4 py-2 rounded-lg flex items-center gap-2 transition shadow-lg">
+                    class="bg-green-600 hover:bg-green-500 text-white text-xs font-bold px-4 py-2 rounded-lg flex items-center gap-2 transition shadow-lg shrink-0">
                     <i class="fa-brands fa-whatsapp"></i> Consultar
                 </a>
             </div>
