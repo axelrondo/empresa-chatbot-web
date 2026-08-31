@@ -6015,6 +6015,7 @@
                     </div>
 
                     <!-- CONTENIDO DEL PANEL (scrollable) -->
+                    <!-- CONTENIDO DEL PANEL (scrollable) -->
                     <div id="panelContent" class="flex-1 overflow-hidden">
                         <div id="servicesBreakdown" class="max-h-[35vh] overflow-y-auto pr-1 space-y-1 mt-2">
                             <p class="text-xs text-gray-400 italic text-center py-4">No has agregado ningún servicio.
@@ -6028,10 +6029,20 @@
                             </div>
 
                             <!-- ========================================== -->
-                            <!-- 🔥 BOTÓN PRINCIPAL: SOLICITAR LLAMADA       -->
+                            <!-- 🔥 BOTONES DE ENVÍO                        -->
                             <!-- ========================================== -->
+
+                            <!-- 1️⃣ WHATSAPP (PRIMERA OPCIÓN) -->
+                            <button onclick="sendToWhatsApp()"
+                                class="w-full bg-green-600 hover:bg-green-500 active:bg-green-700 text-white font-bold py-2.5 px-3 rounded-lg flex items-center justify-center gap-2 transition shadow-md text-xs uppercase tracking-wider">
+                                <i class="fa-brands fa-whatsapp text-base"></i>
+                                Reservar por WhatsApp
+                                <span class="text-[8px] bg-white/20 px-2 py-0.5 rounded-full">Recomendado</span>
+                            </button>
+
+                            <!-- 2️⃣ SOLICITAR LLAMADA (SEGUNDA OPCIÓN) -->
                             <button onclick="solicitarLlamada()"
-                                class="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold py-3 px-3 rounded-lg flex items-center justify-center gap-2 transition shadow-lg shadow-emerald-500/30 text-xs uppercase tracking-wider animate-pulse">
+                                class="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold py-2.5 px-3 rounded-lg flex items-center justify-center gap-2 transition shadow-lg shadow-emerald-500/30 text-xs uppercase tracking-wider">
                                 <i class="fa-solid fa-phone-volume text-base"></i>
                                 Solicitar Llamada
                                 <span class="text-[8px] bg-emerald-400/30 px-2 py-0.5 rounded-full">Gratis</span>
