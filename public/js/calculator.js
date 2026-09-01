@@ -361,7 +361,7 @@ function sendToWhatsApp() {
   message += `\n💰 *TOTAL ESTIMADO: Bs ${grandTotal}*\n\n`;
   message += "Quedo a la espera de su confirmación. ¡Muchas gracias!";
 
-  const phoneNumber = "59171506930";
+  const phoneNumber = "59173017175";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
   
   window.open(whatsappUrl, '_blank');

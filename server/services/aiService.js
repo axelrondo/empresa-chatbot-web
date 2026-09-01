@@ -29,7 +29,7 @@ export async function askGemini(userQuery, chatHistory = []) {
             console.log('✅ Archivo cargado correctamente');
         } else {
             console.warn('⚠️ Archivo no encontrado, usando texto por defecto');
-            infoEmpresa = 'Lim Bolivia: Empresa de limpieza profesional en La Paz y El Alto, Bolivia. WhatsApp: 71506930.';
+            infoEmpresa = 'Lim Bolivia: Empresa de limpieza profesional en La Paz y El Alto, Bolivia. WhatsApp: 73017175.';
         }
 
         const systemPrompt = `${infoEmpresa}
