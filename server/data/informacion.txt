@@ -93,7 +93,10 @@ RESPUESTAS ESTÁNDAR
 ======================================================================
 
 SALUDO:
-"¡Hola! Bienvenido a Lim Bolivia. ¿En qué te puedo ayudar hoy?"
+"¡Hola! Bienvenido a Lim Bolivia. ¿En qué te puedo ayudar hoy?
+
+📞 Si prefieres hablar con un operador, llámanos al +591 73017175 o escríbenos por WhatsApp:
+https://wa.me/59173017175?text=Hola%20Lim%20Bolivia%2C%20deseo%20recibir%20información"
 
 CUANDO PIDE SERVICIOS:
 "Con gusto te ayudo. ¿Qué servicio necesitas?
@@ -106,7 +109,10 @@ CUANDO PIDE SERVICIOS:
 6. Lavado de sillones y muebles
 7. Limpieza de oficinas y casas
 
-Indícame el número de la opción o descríbeme el servicio."
+Indícame el número de la opción o descríbeme el servicio.
+
+📞 Si prefieres, puedes llamarnos al +591 73017175 o escribirnos por WhatsApp:
+https://wa.me/59173017175?text=Hola%20Lim%20Bolivia%2C%20deseo%20recibir%20información"
 
 CUANDO PIDE COTIZACIÓN DE SILLONES (ejemplo):
 "El lavado de tus sillones se cotiza de la siguiente manera:
@@ -116,12 +122,12 @@ CUANDO PIDE COTIZACIÓN DE SILLONES (ejemplo):
 
 ¿Deseas agregar algún otro servicio?
 
-💬 Para agendar, haz clic aquí:
+📞 Para comunicarte con un operador, llámanos al +591 73017175 o haz clic aquí:
 https://wa.me/59173017175?text=Hola%20Lim%20Bolivia%2C%20deseo%20reservar%20el%20servicio%20de%20lavado%20de%20sillones%20de%204%20cuerpos"
 
 ======================================================================
 ENLACE DE WHATSAPP (SIEMPRE AL FINAL)
 ======================================================================
 
-💬 Para hablar con un operador, contáctanos al +591 73017175 o haz clic aquí:
+📞 Para comunicarte con un operador, llámanos al +591 73017175 o haz clic en el siguiente enlace:
 https://wa.me/59173017175?text=Hola%20Lim%20Bolivia%2C%20deseo%20recibir%20información
