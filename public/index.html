@@ -2083,7 +2083,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- 18. PROTECTOR DE ALFOMBRAS -->
+                                    <!-- 18. PROTECTOR DE ALFOMBRAS - CON TEXTO AZUL -->
                                     <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2 mb-3">
                                         <div class="flex items-center justify-between">
                                             <label
@@ -2098,7 +2098,9 @@
                                                 <i class="fa-solid fa-plus mr-1"></i> Agregar
                                             </button>
                                         </div>
-                                        <p class="text-[10px] text-gray-400 pl-7">* Facilita la remoción de manchas</p>
+                                        <!-- ✅ TEXTO CAMBIADO A AZUL -->
+                                        <p class="text-[10px] text-blue-600 font-medium pl-7">* Facilita la remoción de
+                                            manchas</p>
                                         <div id="panel-protector"
                                             class="hidden pt-3 border-t border-gray-200 space-y-3">
                                             <div class="flex justify-between items-center">
@@ -2307,7 +2309,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- 23. EXTRACCIÓN DE AGUAS (PREVIA COTIZACIÓN) -->
+                                    <!-- 23. EXTRACCIÓN DE AGUAS (PREVIA COTIZACIÓN) - CON TEXTO AZUL -->
                                     <div class="border rounded-xl p-4 bg-gray-50/50 space-y-2">
                                         <div class="flex items-center justify-between">
                                             <label
@@ -2321,8 +2323,9 @@
                                                 class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Previa
                                                 Cotización</span>
                                         </div>
-                                        <p class="text-[10px] text-gray-400 pl-7">* Con motobomba (agua >50 cm) o
-                                            aspiradoras (agua <50 cm)</p>
+                                        <!-- ✅ TEXTO CAMBIADO A AZUL -->
+                                        <p class="text-[10px] text-blue-600 font-medium pl-7">* Con motobomba (agua >50
+                                            cm) o aspiradoras (agua <50 cm)</p>
                                                 <div id="panel-extraccionAgua"
                                                     class="hidden pt-3 border-t border-gray-200">
                                                     <a href="https://wa.me/59173017175?text=Hola,%20requiero%20una%20cotización%20para%20Extracción%20de%20Aguas"
@@ -8854,6 +8857,12 @@
                 .replace(/`/g, '')
                 .replace(/LIM-BOLIVIA/gi, "Lim Bolivia")
                 .replace(/<[^>]*>?/gm, '')
+                // ✅ NUEVO: Convertir números de teléfono a formato legible por voz
+                .replace(/\+?\s*591\s*730\s*17175/g, "setenta y tres cero diez y siete diez y siete cinco")
+                .replace(/\+?\s*591\s*715\s*06930/g, "setenta y uno cinco cero seis nueve tres cero")
+                .replace(/73017175/g, "setenta y tres cero diez y siete diez y siete cinco")
+                .replace(/71506930/g, "setenta y uno cinco cero seis nueve tres cero")
+                .replace(/79684700/g, "setenta y nueve seis ocho cuatro siete cero cero")
                 .trim();
 
             if (!textoLimpio) return;
