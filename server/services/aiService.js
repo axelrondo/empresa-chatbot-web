@@ -8,8 +8,31 @@ const __dirname = path.dirname(__filename);
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-// 🔴 MODELO DISPONIBLE EN TU CUENTA
 const MODELO = 'openai/gpt-oss-120b';
+
+// ==========================================
+// FUNCIÓN PARA CORREGIR ENLACES DE WHATSAPP
+// ==========================================
+function corregirEnlacesWhatsApp(texto) {
+    if (!texto) return texto;
+    const waLinkRegex = /https:\/\/wa\.me\/(\d+)\?text=([^\s"')]+)/g;
+    return texto.replace(waLinkRegex, (match, numero, textoEnlace) => {
+        let textoDecodificado;
+        try {
+            textoDecodificado = decodeURIComponent(textoEnlace);
+        } catch (e) {
+            textoDecodificado = textoEnlace;
+        }
+        textoDecodificado = textoDecodificado
+            .replace(/\s+/g, ' ')
+            .replace(/[\r\n]+/g, ' ')
+            .replace(/%/g, ' por ciento')
+            .replace(/&/g, ' y ')
+            .trim();
+        const textoCodificado = encodeURIComponent(textoDecodificado);
+        return `https://wa.me/${numero}?text=${textoCodificado}`;
+    });
+}
 
 export async function askGemini(userQuery, chatHistory = []) {
     console.log('📨 askGemini llamado');
@@ -32,13 +55,16 @@ export async function askGemini(userQuery, chatHistory = []) {
             infoEmpresa = 'Lim Bolivia: Empresa de limpieza profesional en La Paz y El Alto, Bolivia. WhatsApp: 73017175.';
         }
 
+        // ==========================================
+        // 🔥 PROMPT CORREGIDO (SIN CONTRADICCIONES)
+        // ==========================================
         const systemPrompt = `${infoEmpresa}
 
 REGLAS DE MEMORIA Y ATENCIÓN:
 - Mantén SIEMPRE la continuidad de la conversación y el contexto de las cotizaciones previas.
 - Si el usuario responde con datos adicionales, NO los saludes de nuevo como un chat nuevo.
 - Usa los datos del historial y da la cotización final acumulada de inmediato.
-- Solo ofrece WhatsApp si el usuario pide agendar o confirmar el servicio.`;
+- El archivo de instrucciones de arriba contiene TODAS las reglas sobre el enlace de WhatsApp. Síguelas al pie de la letra.`;
 
         // 2. Formatear historial
         const formattedHistory = (chatHistory || []).map(msg => ({
@@ -67,8 +93,8 @@ REGLAS DE MEMORIA Y ATENCIÓN:
             }
         }
 
-        // 5. Últimos 8 mensajes
-        const recentHistory = cleanHistory.slice(-8);
+        // 5. Últimos 10 mensajes (subí de 8 a 10 para más contexto)
+        const recentHistory = cleanHistory.slice(-10);
 
         // 6. Construir mensajes
         const messages = [
@@ -78,21 +104,29 @@ REGLAS DE MEMORIA Y ATENCIÓN:
         ];
 
         console.log('📤 Enviando a Groq con modelo:', MODELO);
-        console.log('📤 Mensajes:', JSON.stringify(messages, null, 2));
 
-        // 7. ✅ LLAMADA CORRECTA A GROQ
+        // 7. LLAMADA A GROQ (con parámetros mejorados)
         const chatCompletion = await groq.chat.completions.create({
             messages: messages,
-            model: MODELO,  // ← openai/gpt-oss-120b
-            temperature: 0.4,
-            max_tokens: 500,
-            // 🔴 IMPORTANTE: Para modelos OpenAI en Groq, puede necesitar estos parámetros
-            top_p: 1,
+            model: MODELO,
+            temperature: 0.3,        // ← Bajé de 0.4 a 0.3 (más determinista)
+            max_tokens: 800,         // ← Subí de 500 a 800 (respuestas completas)
+            top_p: 0.9,              // ← Bajé de 1 a 0.9 (más enfocado)
+            presence_penalty: 0.3,   // ← NUEVO: evita repetir el saludo
+            frequency_penalty: 0.2,  // ← NUEVO: evita repetir frases
             stream: false
         });
 
-        const response = chatCompletion.choices[0]?.message?.content;
-        console.log('✅ Respuesta de Groq:', response?.substring(0, 200));
+        let response = chatCompletion.choices[0]?.message?.content;
+        console.log('✅ Respuesta original:', response?.substring(0, 200));
+
+        // ==========================================
+        // 🔥 CORREGIR ENLACES DE WHATSAPP
+        // ==========================================
+        if (response) {
+            response = corregirEnlacesWhatsApp(response);
+            console.log('✅ Respuesta corregida:', response?.substring(0, 300));
+        }
 
         return response || '¡Hola! ¿En qué puedo ayudarte hoy?';
 
@@ -100,9 +134,7 @@ REGLAS DE MEMORIA Y ATENCIÓN:
         console.error('❌ ERROR EN askGemini:');
         console.error('Mensaje:', error?.message);
         console.error('Stack:', error?.stack);
-        console.error('Error completo:', error);
 
-        // 🔴 Mensajes de error específicos
         if (error?.message?.includes('API key')) {
             return "❌ Error: La API Key no es válida. Contacta al administrador.";
         } else if (error?.message?.includes('model')) {
