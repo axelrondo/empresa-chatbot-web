@@ -11,43 +11,6 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 // 🔴 MODELO DISPONIBLE EN TU CUENTA
 const MODELO = 'openai/gpt-oss-120b';
 
-// ==========================================
-// 🔥 FUNCIÓN PARA CORREGIR ENLACES DE WHATSAPP
-// ==========================================
-function corregirEnlacesWhatsApp(texto) {
-    if (!texto) return texto;
-
-    // Patrón que detecta enlaces de wa.me con cualquier número
-    const waLinkRegex = /https:\/\/wa\.me\/(\d+)\?text=([^\s"')]+)/g;
-
-    return texto.replace(waLinkRegex, (match, numero, textoEnlace) => {
-        // 1. Decodificar por si ya venía parcialmente codificado
-        let textoDecodificado;
-        try {
-            textoDecodificado = decodeURIComponent(textoEnlace);
-        } catch (e) {
-            textoDecodificado = textoEnlace;
-        }
-
-        // 2. Limpiar caracteres problemáticos para WhatsApp
-        textoDecodificado = textoDecodificado
-            .replace(/\s+/g, ' ')           // Múltiples espacios → uno
-            .replace(/[\r\n]+/g, ' ')       // Saltos de línea → espacio
-            .replace(/%/g, ' por ciento')   // % problemático
-            .replace(/&/g, ' y ')           // & problemático
-            .trim();
-
-        // 3. Re-codificar CORRECTAMENTE para URL
-        const textoCodificado = encodeURIComponent(textoDecodificado);
-
-        // 4. Devolver el enlace corregido
-        return `https://wa.me/${numero}?text=${textoCodificado}`;
-    });
-}
-
-// ==========================================
-// FUNCIÓN PRINCIPAL
-// ==========================================
 export async function askGemini(userQuery, chatHistory = []) {
     console.log('📨 askGemini llamado');
     console.log('📝 Mensaje:', userQuery);
@@ -69,23 +32,13 @@ export async function askGemini(userQuery, chatHistory = []) {
             infoEmpresa = 'Lim Bolivia: Empresa de limpieza profesional en La Paz y El Alto, Bolivia. WhatsApp: 73017175.';
         }
 
-        // ==========================================
-        // 🔥 PROMPT MEJORADO CON REGLA DE ENLACE
-        // ==========================================
         const systemPrompt = `${infoEmpresa}
 
 REGLAS DE MEMORIA Y ATENCIÓN:
 - Mantén SIEMPRE la continuidad de la conversación y el contexto de las cotizaciones previas.
 - Si el usuario responde con datos adicionales, NO los saludes de nuevo como un chat nuevo.
 - Usa los datos del historial y da la cotización final acumulada de inmediato.
-- Solo ofrece WhatsApp si el usuario pide agendar o confirmar el servicio.
-
-REGLA CRÍTICA PARA EL ENLACE DE WHATSAPP:
-- Cuando incluyas un enlace de WhatsApp, SIEMPRE usa esta plantilla EXACTA:
-  https://wa.me/59173017175?text=Hola Lim Bolivia, deseo reservar el siguiente servicio
-- NO escribas el enlace con espacios ni saltos de línea. Solo escribe la frase completa en una línea.
-- El backend se encargará de codificar el enlace automáticamente.
-- NUNCA uses %20, %0A ni ningún otro código manualmente.`;
+- Solo ofrece WhatsApp si el usuario pide agendar o confirmar el servicio.`;
 
         // 2. Formatear historial
         const formattedHistory = (chatHistory || []).map(msg => ({
@@ -125,28 +78,21 @@ REGLA CRÍTICA PARA EL ENLACE DE WHATSAPP:
         ];
 
         console.log('📤 Enviando a Groq con modelo:', MODELO);
+        console.log('📤 Mensajes:', JSON.stringify(messages, null, 2));
 
-        // 7. ✅ LLAMADA A GROQ
+        // 7. ✅ LLAMADA CORRECTA A GROQ
         const chatCompletion = await groq.chat.completions.create({
             messages: messages,
-            model: MODELO,
+            model: MODELO,  // ← openai/gpt-oss-120b
             temperature: 0.4,
             max_tokens: 500,
+            // 🔴 IMPORTANTE: Para modelos OpenAI en Groq, puede necesitar estos parámetros
             top_p: 1,
             stream: false
         });
 
-        let response = chatCompletion.choices[0]?.message?.content;
-        console.log('✅ Respuesta original:', response?.substring(0, 200));
-
-        // ==========================================
-        // 🔥 AQUÍ ESTÁ LA CORRECCIÓN CLAVE 🔥
-        // ==========================================
-        // Corregir enlaces de WhatsApp antes de devolver
-        if (response) {
-            response = corregirEnlacesWhatsApp(response);
-            console.log('✅ Respuesta corregida:', response?.substring(0, 300));
-        }
+        const response = chatCompletion.choices[0]?.message?.content;
+        console.log('✅ Respuesta de Groq:', response?.substring(0, 200));
 
         return response || '¡Hola! ¿En qué puedo ayudarte hoy?';
 
@@ -154,6 +100,7 @@ REGLA CRÍTICA PARA EL ENLACE DE WHATSAPP:
         console.error('❌ ERROR EN askGemini:');
         console.error('Mensaje:', error?.message);
         console.error('Stack:', error?.stack);
+        console.error('Error completo:', error);
 
         // 🔴 Mensajes de error específicos
         if (error?.message?.includes('API key')) {
