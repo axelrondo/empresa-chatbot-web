@@ -126,8 +126,55 @@ CUANDO PIDE COTIZACIÓN DE SILLONES (ejemplo):
 https://wa.me/59173017175?text=Hola%20Lim%20Bolivia%2C%20deseo%20reservar%20el%20servicio%20de%20lavado%20de%20sillones%20de%204%20cuerpos"
 
 ======================================================================
-ENLACE DE WHATSAPP (SIEMPRE AL FINAL)
+ENLACE DE WHATSAPP (SIEMPRE AL FINAL CON DETALLE COMPLETO)
 ======================================================================
 
-📞 Para comunicarte con un operador, llámanos al +591 73017175 o haz clic en el siguiente enlace:
-https://wa.me/59173017175?text=Hola%20Lim%20Bolivia%2C%20deseo%20recibir%20información
+📌 REGLA DE ORO: EL ENLACE DEBE INCLUIR EL DETALLE COMPLETO
+Cada vez que entregues una cotización o el cliente confirme, el enlace de WhatsApp DEBE contener:
+
+1. El tipo de servicio
+2. Las medidas o cantidades (m², número de ventanas, unidades, etc.)
+3. El precio unitario
+4. El cálculo completo
+5. El total
+
+📌 ESTRUCTURA DEL MENSAJE:
+El texto del enlace debe empezar con:
+"Hola Lim Bolivia, deseo reservar el siguiente servicio:"
+
+Luego incluir el detalle línea por línea:
+- Servicio: [nombre del servicio]
+- Cantidad: [m² o unidades]
+- Precio unitario: [precio] bolivianos
+- Cálculo: [cantidad] x [precio] = [subtotal] bolivianos
+
+Finalizar con:
+- Total estimado: [total] bolivianos
+
+📌 EJEMPLO 1 - VIDRIOS (con m²):
+https://wa.me/59173017175?text=Hola%20Lim%20Bolivia%2C%20deseo%20reservar%20el%20siguiente%20servicio%3A%0A%0A-%20Limpieza%20de%20Vidrios%0A-%20Cantidad%3A%2020%20ventanas%20(30%20m2)%0A-%20Precio%20unitario%3A%208.50%20bolivianos%20por%20m2%0A-%20C%C3%A1lculo%3A%2030%20m2%20x%208.50%20%3D%20255%20bolivianos%0A%0A-%20Total%20estimado%3A%20255%20bolivianos
+
+📌 EJEMPLO 2 - SILLONES (con unidades):
+https://wa.me/59173017175?text=Hola%20Lim%20Bolivia%2C%20deseo%20reservar%20el%20siguiente%20servicio%3A%0A%0A-%20Lavado%20de%20Sillones%0A-%20Cantidad%3A%204%20cuerpos%20robustos%0A-%20Precio%20unitario%3A%2075%20bolivianos%20por%20cuerpo%0A-%20C%C3%A1lculo%3A%204%20x%2075%20%3D%20300%20bolivianos%0A%0A-%20Total%20estimado%3A%20300%20bolivianos
+
+📌 EJEMPLO 3 - BAÑOS (con tipo y medidas):
+https://wa.me/59173017175?text=Hola%20Lim%20Bolivia%2C%20deseo%20reservar%20el%20siguiente%20servicio%3A%0A%0A-%20Sanitizado%20de%20Ba%C3%B1os%0A-%20Tipo%3A%20Ba%C3%B1o%20mediano%20con%20tina%20(2.50%20x%203.00%20m)%0A-%20Precio%3A%20220%20bolivianos%0A-%20Cantidad%3A%201%20ba%C3%B1o%0A%0A-%20Total%20estimado%3A%20220%20bolivianos
+
+📌 CÓDIGOS URL NECESARIOS:
+- Espacio: %20
+- Salto de línea: %0A
+- Dos puntos: %3A
+- Coma: %2C
+- Guión: %2D
+- Paréntesis abrir: %28
+- Paréntesis cerrar: %29
+
+📌 REGLA FINAL:
+NUNCA envíes un enlace con solo el total. SIEMPRE incluye:
+- Qué servicio
+- Cuánto (m², unidades, etc.)
+- Precio unitario
+- Cálculo
+- Total
+
+El cliente debe ver TODO el detalle en WhatsApp.

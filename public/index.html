@@ -9144,6 +9144,20 @@
         // ==========================================
 
         function startListening() {
+            // 🔇 PRIMERO: Detener cualquier voz del chatbot que esté sonando
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                console.log('🔇 Voz del chatbot detenida para escuchar al cliente');
+            }
+
+            // 🔇 TAMBIÉN: Detener audio de Edge TTS si está reproduciéndose
+            if (typeof audioActual !== 'undefined' && audioActual) {
+                audioActual.pause();
+                audioActual.currentTime = 0;
+                audioActual = null;
+                console.log('🔇 Audio Edge TTS detenido');
+            }
+
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             if (!SpeechRecognition) {
                 alert("Tu navegador no soporta reconocimiento de voz.");
@@ -9152,10 +9166,19 @@
 
             const recognition = new SpeechRecognition();
             recognition.lang = 'es-ES';
+            recognition.continuous = false;
+            recognition.interimResults = false;
 
             recognition.onstart = function () {
                 const input = document.getElementById('userInput');
-                if (input) input.placeholder = "🎤 Escuchando...";
+                if (input) input.placeholder = "🎤 Escuchando... (habla ahora)";
+
+                // Cambiar el color del botón de micrófono
+                const micBtn = document.querySelector('[onclick="startListening()"]');
+                if (micBtn) {
+                    micBtn.classList.add('bg-red-600', 'animate-pulse');
+                    micBtn.classList.remove('bg-slate-700');
+                }
             };
 
             recognition.onresult = function (event) {
@@ -9165,12 +9188,40 @@
                     input.value = transcript;
                     input.placeholder = "Escribe tu mensaje...";
                 }
+
+                // Restaurar botón de micrófono
+                const micBtn = document.querySelector('[onclick="startListening()"]');
+                if (micBtn) {
+                    micBtn.classList.remove('bg-red-600', 'animate-pulse');
+                    micBtn.classList.add('bg-slate-700');
+                }
+
                 sendMessage();
             };
 
-            recognition.onerror = function () {
+            recognition.onerror = function (event) {
+                console.error('Error de reconocimiento de voz:', event.error);
                 const input = document.getElementById('userInput');
                 if (input) input.placeholder = "Escribe tu mensaje...";
+
+                // Restaurar botón de micrófono
+                const micBtn = document.querySelector('[onclick="startListening()"]');
+                if (micBtn) {
+                    micBtn.classList.remove('bg-red-600', 'animate-pulse');
+                    micBtn.classList.add('bg-slate-700');
+                }
+            };
+
+            recognition.onend = function () {
+                const input = document.getElementById('userInput');
+                if (input) input.placeholder = "Escribe tu mensaje...";
+
+                // Restaurar botón de micrófono
+                const micBtn = document.querySelector('[onclick="startListening()"]');
+                if (micBtn) {
+                    micBtn.classList.remove('bg-red-600', 'animate-pulse');
+                    micBtn.classList.add('bg-slate-700');
+                }
             };
 
             recognition.start();
@@ -10212,7 +10263,22 @@
                 }
             }
         }
-    </script>
+
+        removeService = function (id) {
+            // Llamar a la función original
+            originalRemoveService(id);
+
+            // Si no hay servicios, ocultar el panel
+            if (addedServices.length === 0) {
+                const panel = document.getElementById('panelResumen');
+                if (panel) {
+                    panel.style.display = 'none';
+                    panel.classList.add('panel-hidden');
+                }
+            }
+        };
+    </script> 
+    
 
     <!-- ========================================== -->
     <!-- MODAL DE DATOS DEL CLIENTE PARA COTIZACIÓN -->
