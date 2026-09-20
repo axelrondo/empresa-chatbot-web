@@ -9145,13 +9145,14 @@
         // ==========================================
 
         function startListening() {
-            // 🔇 PRIMERO: Detener cualquier voz del chatbot que esté sonando
+            // 🔇 1. DETENER CUALQUIER VOZ DEL CHATBOT QUE ESTÉ SONANDO
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-                console.log('🔇 Voz del chatbot detenida para escuchar al cliente');
+                console.log('🔇 Voz del chatbot detenida');
             }
 
-            // 🔇 TAMBIÉN: Detener audio de Edge TTS si está reproduciéndose
+            // 🔇 2. DETENER AUDIO DE EDGE TTS SI ESTÁ REPRODUCIÉNDOSE
+            // Asegúrate de que 'audioActual' esté declarada globalmente
             if (typeof audioActual !== 'undefined' && audioActual) {
                 audioActual.pause();
                 audioActual.currentTime = 0;
@@ -9159,6 +9160,7 @@
                 console.log('🔇 Audio Edge TTS detenido');
             }
 
+            // 🎤 3. INICIAR RECONOCIMIENTO DE VOZ
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             if (!SpeechRecognition) {
                 alert("Tu navegador no soporta reconocimiento de voz.");
@@ -9167,14 +9169,14 @@
 
             const recognition = new SpeechRecognition();
             recognition.lang = 'es-ES';
-            recognition.continuous = false;
-            recognition.interimResults = false;
+            recognition.continuous = false; // Solo una frase
+            recognition.interimResults = false; // Solo resultados finales
 
+            // Al iniciar
             recognition.onstart = function () {
                 const input = document.getElementById('userInput');
                 if (input) input.placeholder = "🎤 Escuchando... (habla ahora)";
 
-                // Cambiar el color del botón de micrófono
                 const micBtn = document.querySelector('[onclick="startListening()"]');
                 if (micBtn) {
                     micBtn.classList.add('bg-red-600', 'animate-pulse');
@@ -9182,8 +9184,11 @@
                 }
             };
 
+            // 🎯 CUANDO SE RECONOCE LO QUE DIJISTE
             recognition.onresult = function (event) {
                 const transcript = event.results[0][0].transcript;
+                console.log('📝 Texto reconocido:', transcript);
+
                 const input = document.getElementById('userInput');
                 if (input) {
                     input.value = transcript;
@@ -9197,27 +9202,36 @@
                     micBtn.classList.add('bg-slate-700');
                 }
 
-                sendMessage();
+                // ✅ ENVIAR MENSAJE AUTOMÁTICAMENTE
+                // Usamos un pequeño setTimeout para asegurarnos de que el input se actualizó
+                setTimeout(() => {
+                    sendMessage();
+                }, 100);
             };
 
+            // Manejo de errores
             recognition.onerror = function (event) {
                 console.error('Error de reconocimiento de voz:', event.error);
                 const input = document.getElementById('userInput');
                 if (input) input.placeholder = "Escribe tu mensaje...";
 
-                // Restaurar botón de micrófono
                 const micBtn = document.querySelector('[onclick="startListening()"]');
                 if (micBtn) {
                     micBtn.classList.remove('bg-red-600', 'animate-pulse');
                     micBtn.classList.add('bg-slate-700');
                 }
+
+                // Si el error es 'no-speech' o 'aborted', no mostramos alerta
+                if (event.error !== 'no-speech' && event.error !== 'aborted') {
+                    alert('No se pudo reconocer tu voz. Intenta de nuevo.');
+                }
             };
 
+            // Al terminar
             recognition.onend = function () {
                 const input = document.getElementById('userInput');
                 if (input) input.placeholder = "Escribe tu mensaje...";
 
-                // Restaurar botón de micrófono
                 const micBtn = document.querySelector('[onclick="startListening()"]');
                 if (micBtn) {
                     micBtn.classList.remove('bg-red-600', 'animate-pulse');
@@ -9225,6 +9239,7 @@
                 }
             };
 
+            // 🚀 INICIAR RECONOCIMIENTO
             recognition.start();
         }
 
@@ -9572,7 +9587,7 @@
     <script>
 
 
-         
+
         // ==========================================
         // CONTROL DEL EMBED DE FACEBOOK
         // ==========================================
@@ -10281,8 +10296,8 @@
                 }
             }
         };
-    </script> 
-    
+    </script>
+
 
     <!-- ========================================== -->
     <!-- MODAL DE DATOS DEL CLIENTE PARA COTIZACIÓN -->
