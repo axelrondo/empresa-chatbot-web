@@ -1538,23 +1538,42 @@
                                 </div>
                             </div>
 
-                            <!-- TARJETA DINÁMICA DE DETALLE -->
+                            <!-- TARJETA DINÁMICA DE DETALLE - PREMIUM -->
                             <div id="serviceDetailCard"
-                                class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-4 transition-all">
-                                <img id="serviceImage" src="/img/banner1.png" alt="Servicio"
-                                    class="w-full sm:w-40 h-28 object-cover rounded-lg shadow shrink-0"
-                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/160x112?text=Servicio';">
-                                <div>
-                                    <h4 id="serviceTitle" class="font-bold text-slate-800 text-base mb-1">Lavado
-                                        Profesional de Alfombra Fija</h4>
-                                    <p id="serviceDescription" class="text-xs text-gray-600 leading-relaxed mb-2">
+                                class="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-emerald-50/30 border-2 border-emerald-200/50 rounded-2xl p-5 flex flex-col sm:flex-row items-center gap-5 transition-all duration-500 shadow-lg hover:shadow-xl">
+
+                                <!-- Decoración -->
+                                <div
+                                    class="absolute -top-10 -right-10 w-32 h-32 bg-emerald-200/20 rounded-full blur-3xl">
+                                </div>
+                                <div
+                                    class="absolute -bottom-10 -left-10 w-32 h-32 bg-amber-200/20 rounded-full blur-3xl">
+                                </div>
+
+                                <!-- Imagen -->
+                                <div class="relative z-10 shrink-0">
+                                    <img id="serviceImage" src="/img/banner1.png" alt="Servicio"
+                                        class="w-full sm:w-40 h-28 object-cover rounded-xl shadow-lg border-2 border-white"
+                                        onerror="this.onerror=null; this.src='https://via.placeholder.com/160x112?text=Servicio';">
+                                    <span
+                                        class="absolute -bottom-2 -right-2 bg-emerald-600 text-white text-[9px] font-black uppercase px-2 py-1 rounded-lg shadow-lg">
+                                        <i class="fa-solid fa-star text-amber-300 mr-1"></i> TOP
+                                    </span>
+                                </div>
+
+                                <!-- Contenido -->
+                                <div class="relative z-10 flex-1">
+                                    <h4 id="serviceTitle"
+                                        class="font-black text-[#003366] text-lg mb-1.5 leading-tight">
+                                        Lavado Profesional de Alfombra Fija
+                                    </h4>
+                                    <p id="serviceDescription" class="text-xs text-slate-600 leading-relaxed mb-3">
                                         Seleccione la superficie en metros cuadrados y adicione extras si lo requiere.
                                     </p>
                                     <div
-                                        class="text-[11px] bg-emerald-100 text-emerald-900 font-semibold px-2.5 py-1 rounded-md inline-block border border-emerald-200">
-                                        <i class="fa-solid fa-gears text-emerald-700 mr-1"></i> <span
-                                            id="serviceMachine">Maquinaria: Inyectora / Extractora Profesional de Alta
-                                            Presión</span>
+                                        class="inline-flex items-center gap-2 text-[10px] bg-gradient-to-r from-emerald-100 to-emerald-50 text-emerald-800 font-bold px-3 py-1.5 rounded-full border border-emerald-200 shadow-sm">
+                                        <i class="fa-solid fa-gears text-emerald-600"></i>
+                                        <span id="serviceMachine">Maquinaria: Inyectora / Extractora Profesional</span>
                                     </div>
                                 </div>
                             </div>
