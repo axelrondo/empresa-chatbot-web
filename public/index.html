@@ -9103,10 +9103,10 @@
 
 
         // ==========================================
-        // 6. CARRUSEL - VERSIÓN CORREGIDA
+        // 6. CARRUSEL - VERSIÓN LIMPIA
         // ==========================================
 
-        // ✅ slideImages definido ANTES de cualquier función
+        // ✅ Imágenes (edítalas si quieres cambiar los banners)
         var slideImages = [
             '/img/banner11.jpg',
             '/img/banner2.jpg',
@@ -9117,7 +9117,7 @@
         var currentSlide = 0;
         var carruselInterval = null;
 
-        // ✅ Todas las funciones definidas en orden
+        // ✅ Mostrar slide actual
         function updateSlide() {
             var img = document.getElementById('mainSliderImg');
             if (!img) return;
@@ -9126,6 +9126,7 @@
             updateIndicators();
         }
 
+        // ✅ Actualizar los puntitos
         function updateIndicators() {
             var container = document.getElementById('slideIndicatorsContainer');
             if (!container) return;
@@ -9143,6 +9144,7 @@
             });
         }
 
+        // ✅ Siguiente / Anterior
         function nextSlide() {
             if (!slideImages || slideImages.length === 0) return;
             currentSlide = (currentSlide + 1) % slideImages.length;
@@ -9155,45 +9157,28 @@
             updateSlide();
         }
 
+        // ✅ Iniciar carrusel (SOLO UNA VEZ)
         function iniciarCarrusel() {
-            // Verificar que la imagen principal exista
             var img = document.getElementById('mainSliderImg');
             if (!img) {
                 console.warn('⚠️ No se encontró mainSliderImg');
                 return;
             }
-
-            // Verificar que haya imágenes
             if (!slideImages || slideImages.length === 0) {
                 console.warn('⚠️ No hay imágenes en slideImages');
                 return;
             }
 
-            // Mostrar primera imagen
             updateSlide();
 
-            // Auto-play cada 5 segundos
+            // 🔥 Auto-play cada 5 segundos (SOLO UNA VEZ)
             if (carruselInterval) clearInterval(carruselInterval);
             carruselInterval = setInterval(nextSlide, 5000);
 
             console.log('✅ Carrusel iniciado con ' + slideImages.length + ' imágenes');
         }
 
-        // ✅ Exponer funciones al ámbito global (para los onclick del HTML)
-        window.nextSlide = nextSlide;
-        window.prevSlide = prevSlide;
-        window.updateSlide = updateSlide;
-        window.iniciarCarrusel = iniciarCarrusel;
-
-        // 🔥 ARRANCAR CARRUSEL (auto-play cada 5 seg)
-        function iniciarCarrusel() {
-            updateSlide();
-            if (carruselInterval) clearInterval(carruselInterval);
-            carruselInterval = setInterval(nextSlide, 5000);
-            console.log('✅ Carrusel iniciado con ' + slideImages.length + ' imágenes');
-        }
-
-        // ✅ Exponer las funciones al ámbito global para los onclick del HTML
+        // ✅ Exponer al ámbito global para los onclick del HTML
         window.nextSlide = nextSlide;
         window.prevSlide = prevSlide;
         window.updateSlide = updateSlide;
