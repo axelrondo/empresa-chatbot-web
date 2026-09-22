@@ -9103,8 +9103,10 @@
 
 
         // ==========================================
-        // 6. CARRUSEL
+        // 6. CARRUSEL - VERSIÓN CORREGIDA
         // ==========================================
+
+        // ✅ slideImages definido ANTES de cualquier función
         var slideImages = [
             '/img/banner11.jpg',
             '/img/banner2.jpg',
@@ -9115,27 +9117,19 @@
         var currentSlide = 0;
         var carruselInterval = null;
 
+        // ✅ Todas las funciones definidas en orden
         function updateSlide() {
             var img = document.getElementById('mainSliderImg');
-            if (img) {
-                img.src = slideImages[currentSlide];
-            }
+            if (!img) return;
+            if (!slideImages || slideImages.length === 0) return;
+            img.src = slideImages[currentSlide];
             updateIndicators();
-        }
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slideImages.length;
-            updateSlide();
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slideImages.length) % slideImages.length;
-            updateSlide();
         }
 
         function updateIndicators() {
             var container = document.getElementById('slideIndicatorsContainer');
             if (!container) return;
+            if (!slideImages || slideImages.length === 0) return;
             container.innerHTML = '';
             slideImages.forEach(function (_, idx) {
                 var dot = document.createElement('div');
@@ -9148,6 +9142,48 @@
                 container.appendChild(dot);
             });
         }
+
+        function nextSlide() {
+            if (!slideImages || slideImages.length === 0) return;
+            currentSlide = (currentSlide + 1) % slideImages.length;
+            updateSlide();
+        }
+
+        function prevSlide() {
+            if (!slideImages || slideImages.length === 0) return;
+            currentSlide = (currentSlide - 1 + slideImages.length) % slideImages.length;
+            updateSlide();
+        }
+
+        function iniciarCarrusel() {
+            // Verificar que la imagen principal exista
+            var img = document.getElementById('mainSliderImg');
+            if (!img) {
+                console.warn('⚠️ No se encontró mainSliderImg');
+                return;
+            }
+
+            // Verificar que haya imágenes
+            if (!slideImages || slideImages.length === 0) {
+                console.warn('⚠️ No hay imágenes en slideImages');
+                return;
+            }
+
+            // Mostrar primera imagen
+            updateSlide();
+
+            // Auto-play cada 5 segundos
+            if (carruselInterval) clearInterval(carruselInterval);
+            carruselInterval = setInterval(nextSlide, 5000);
+
+            console.log('✅ Carrusel iniciado con ' + slideImages.length + ' imágenes');
+        }
+
+        // ✅ Exponer funciones al ámbito global (para los onclick del HTML)
+        window.nextSlide = nextSlide;
+        window.prevSlide = prevSlide;
+        window.updateSlide = updateSlide;
+        window.iniciarCarrusel = iniciarCarrusel;
 
         // 🔥 ARRANCAR CARRUSEL (auto-play cada 5 seg)
         function iniciarCarrusel() {
@@ -9164,19 +9200,28 @@
         window.iniciarCarrusel = iniciarCarrusel;
 
         // ==========================================
-        // 7. INICIALIZACIÓN
+        // 7. INICIALIZACIÓN (BLOQUE ÚNICO)
         // ==========================================
         document.addEventListener('DOMContentLoaded', function () {
             console.log('🚀 WebApp iniciada');
             console.log('📦 Supabase:', supabaseClient ? '✅ Conectado' : '❌ No configurado');
 
-            // Inicializar cotizador
+            // 1️⃣ Inicializar cotizador
             selectServiceTab('Alfombras');
 
-            // Inicializar maquinarias
+            // 2️⃣ Inicializar maquinarias
             cargarMaquinarias('Todas');
 
-            // 🔥 INICIALIZAR CARRUSEL
+            // 3️⃣ Mostrar panel de resumen en inicio
+            actualizarPanelResumen('view-inicio');
+
+            // 4️⃣ Asegurar que el sidebar esté visible
+            const sidebarContainer = document.getElementById('sidebarContainer');
+            if (sidebarContainer) {
+                sidebarContainer.classList.remove('hidden-sidebar');
+            }
+
+            // 5️⃣ 🔥 INICIALIZAR CARRUSEL (con delay para asegurar que el DOM esté listo)
             setTimeout(function () {
                 iniciarCarrusel();
             }, 100);
@@ -9227,17 +9272,7 @@
             }
         };
 
-        // Inicializar al cargar la página
-        document.addEventListener('DOMContentLoaded', function () {
-            // Mostrar panel de resumen en inicio
-            actualizarPanelResumen('view-inicio');
 
-            // Asegurar que el sidebar esté visible
-            const sidebarContainer = document.getElementById('sidebarContainer');
-            if (sidebarContainer) {
-                sidebarContainer.classList.remove('hidden-sidebar');
-            }
-        });
 
         // También controlar cuando se hace clic en "Inicio" desde el menú
         document.querySelectorAll('[onclick="showView(\'view-inicio\')"]').forEach(function (el) {
