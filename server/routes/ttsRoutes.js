@@ -57,7 +57,7 @@ router.post('/', async (req, res) => {
         console.log('📝 Texto:', textoLimpio.substring(0, 100) + '...');
 
         // 🎤 VOZ: cambia aquí si quieres otra voz
-        const VOZ = 'es-BO-MarceloNeural';  // 🇧🇴 Boliviano masculino
+        const VOZ = 'es-MX-DaliaNeural';  // 🇧🇴 Boliviano masculino
 
         const tts = new MsEdgeTTS();
         await tts.setMetadata(VOZ, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);

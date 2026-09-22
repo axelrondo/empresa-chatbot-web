@@ -8958,7 +8958,7 @@
 
 
 
-        
+
 
         // ==========================================
         // CHATBOT - FUNCIÓN PARA ABRIR/CERRAR CHAT
@@ -8968,15 +8968,15 @@
         // CHATBOT - FUNCIÓN PARA ABRIR/CERRAR CHAT
         // ==========================================
 
-        
+
 
         // ==========================================
         // CHATBOT - ENVIAR MENSAJE (CON HISTORIAL)
         // ==========================================
 
-        
 
-        
+
+
 
         // ==========================================
         // CHATBOT - ANIMACIÓN DE "ESCRIBIENDO..."
@@ -9003,13 +9003,13 @@
         // CHATBOT - RECONOCIMIENTO DE VOZ (MICRÓFONO)
         // ==========================================
 
-        
+
 
         // ==========================================
         // CHATBOT - TEXTO A VOZ (HABLAR)
         // ==========================================
 
-       
+
 
         // ❌ ESTO FALTA EN TU CÓDIGO (está después de cargarVoces)
 
@@ -9042,7 +9042,7 @@
         document.addEventListener('touchstart', desbloquearAudioMobile, { once: true });
         document.addEventListener('click', desbloquearAudioMobile, { once: true });
 
-       
+
 
         // 🔄 FALLBACK - Web Speech API (voz navegador)
         function hablarTextoFallback(texto) {
@@ -9150,16 +9150,19 @@
             console.log('📦 Supabase:', supabaseClient ? '✅ Conectado' : '❌ No configurado');
             selectServiceTab('Alfombras');
             cargarMaquinarias('Todas');
-        });
 
-        document.addEventListener('click', function (e) {
-            var dropdowns = document.querySelectorAll('.dropdown');
-            dropdowns.forEach(function (dd) {
-                if (!dd.contains(e.target)) {
-                    var content = dd.querySelector('.dropdown-content');
-                    if (content) content.classList.add('hidden');
+            // 🔥 INICIALIZAR CARRUSEL
+            if (typeof updateSlide === 'function') {
+                updateSlide();
+                console.log('✅ Carrusel inicializado con ' + slideImages.length + ' imágenes');
+            }
+
+            // 🔥 AUTO-PLAY cada 5 segundos
+            setInterval(function () {
+                if (typeof nextSlide === 'function') {
+                    nextSlide();
                 }
-            });
+            }, 5000);
         });
 
         console.log('✅ JavaScript cargado');
