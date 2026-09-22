@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import chatRoutes from './routes/chatRoutes.js';
+import ttsRoutes from './routes/ttsRoutes.js';   // ✅ Import ARRIBA
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 // RUTAS DE LA API
 // ==========================================
 app.use('/api/chat', chatRoutes);
+app.use('/api/tts', ttsRoutes);                    // ✅ Ruta registrada ANTES del listen
 
 // ==========================================
 // ENDPOINT DE VERIFICACIÓN DE ESTADO
@@ -64,7 +66,6 @@ server.on('error', (err) => {
     console.error(`❌ El puerto ${PORT} ya está en uso.`);
     console.log(`🔄 Intentando usar el puerto ${PORT + 1}...`);
 
-    // Intentar con el siguiente puerto
     const newPort = PORT + 1;
     const newServer = app.listen(newPort, '0.0.0.0', () => {
       console.log(`=================================`);
@@ -83,9 +84,3 @@ server.on('error', (err) => {
     process.exit(1);
   }
 });
-
-// Después de tus imports existentes
-import ttsRoutes from './routes/ttsRoutes.js';
-
-// Después de las otras rutas (chatRoutes, etc.)
-app.use('/api/tts', ttsRoutes);

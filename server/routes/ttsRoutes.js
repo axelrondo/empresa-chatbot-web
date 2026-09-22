@@ -1,15 +1,13 @@
 import express from 'express';
-import Groq from 'groq-sdk';
+import { MsEdgeTTS, OUTPUT_FORMAT } from 'msedge-tts';
 
 const router = express.Router();
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 // ==========================================
 // LIMPIAR TEXTO PARA TTS
 // ==========================================
 function limpiarTextoParaTTS(texto) {
     if (!texto) return '';
-
     return texto
         .replace(/https?:\/\/[^\s]+/g, '')
         .replace(/\*\*/g, '')
@@ -25,8 +23,8 @@ function limpiarTextoParaTTS(texto) {
         .replace(/[\u{2700}-\u{27BF}]/gu, '')
         .replace(/LIM-BOLIVIA/gi, 'Lim Bolivia')
         .replace(/Lim-Bolivia/gi, 'Lim Bolivia')
-        .replace(/\+?\s*591\s*730\s*17175/g, 'setenta y tres cero diez y siete diez y siete cinco')
-        .replace(/73017175/g, 'setenta y tres cero diez y siete diez y siete cinco')
+        .replace(/\+?\s*591\s*730\s*17175/g, 'setenta y tres, cero diez y siete, diez y siete cinco')
+        .replace(/73017175/g, 'setenta y tres, cero diez y siete, diez y siete cinco')
         .replace(/&/g, ' y ')
         .replace(/%/g, ' por ciento ')
         .replace(/\//g, ' ')
@@ -35,7 +33,7 @@ function limpiarTextoParaTTS(texto) {
 }
 
 // ==========================================
-// ENDPOINT: POST /api/tts
+// ENDPOINT: POST /api/tts (Microsoft Edge TTS)
 // ==========================================
 router.post('/', async (req, res) => {
     try {
@@ -55,20 +53,24 @@ router.post('/', async (req, res) => {
             textoLimpio = textoLimpio.substring(0, 5000);
         }
 
-        console.log('🎙️ TTS: Generando audio...');
+        console.log('🎙️ Edge TTS: Generando audio...');
         console.log('📝 Texto:', textoLimpio.substring(0, 100) + '...');
 
-        // ✅ LLAMADA CORREGIDA A GROQ TTS
-        const response = await groq.audio.speech.create({
-            model: 'canopylabs/orpheus-v1-english',  // 🔥 MODELO VIGENTE
-            voice: 'tara',                            // 🔥 VOZ VIGENTE
-            input: textoLimpio,
-            response_format: 'mp3'
-        });
+        // 🎤 VOZ: cambia aquí si quieres otra voz
+        const VOZ = 'es-BO-SofiaNeural';  // 🇧🇴 Boliviana femenina
 
-        const buffer = Buffer.from(await response.arrayBuffer());
+        const tts = new MsEdgeTTS();
+        await tts.setMetadata(VOZ, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
 
-        console.log('✅ TTS: Audio generado (' + buffer.length + ' bytes)');
+        const { audioStream } = await tts.toStream(textoLimpio);
+
+        const chunks = [];
+        for await (const chunk of audioStream) {
+            chunks.push(chunk);
+        }
+        const buffer = Buffer.concat(chunks);
+
+        console.log('✅ Edge TTS: Audio generado (' + buffer.length + ' bytes)');
 
         res.set({
             'Content-Type': 'audio/mpeg',
@@ -80,13 +82,6 @@ router.post('/', async (req, res) => {
     } catch (error) {
         console.error('❌ ERROR EN TTS:');
         console.error('Mensaje:', error?.message);
-
-        if (error?.message?.includes('rate limit') || error?.message?.includes('quota')) {
-            return res.status(429).json({
-                error: 'Límite alcanzado',
-                fallback: true
-            });
-        }
 
         res.status(500).json({
             error: 'Error al generar audio',

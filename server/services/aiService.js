@@ -1,3 +1,8 @@
+// ✅ PRIMERO: Cargar dotenv para que process.env tenga las variables
+import dotenv from 'dotenv';
+dotenv.config();
+
+// Ahora sí, los demás imports
 import Groq from 'groq-sdk';
 import fs from 'fs';
 import path from 'path';
@@ -5,6 +10,14 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// ✅ Verificar que la API key esté disponible
+if (!process.env.GROQ_API_KEY) {
+    console.error('❌ GROQ_API_KEY no está definida en el entorno');
+    console.error('💡 Verifica tu archivo .env en la raíz del proyecto');
+} else {
+    console.log('✅ GROQ_API_KEY cargada correctamente');
+}
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
@@ -55,9 +68,6 @@ export async function askGemini(userQuery, chatHistory = []) {
             infoEmpresa = 'Lim Bolivia: Empresa de limpieza profesional en La Paz y El Alto, Bolivia. WhatsApp: 73017175.';
         }
 
-        // ==========================================
-        // 🔥 PROMPT CORREGIDO (SIN CONTRADICCIONES)
-        // ==========================================
         const systemPrompt = `${infoEmpresa}
 
 REGLAS DE MEMORIA Y ATENCIÓN:
@@ -93,7 +103,7 @@ REGLAS DE MEMORIA Y ATENCIÓN:
             }
         }
 
-        // 5. Últimos 10 mensajes (subí de 8 a 10 para más contexto)
+        // 5. Últimos 10 mensajes
         const recentHistory = cleanHistory.slice(-10);
 
         // 6. Construir mensajes
@@ -105,24 +115,21 @@ REGLAS DE MEMORIA Y ATENCIÓN:
 
         console.log('📤 Enviando a Groq con modelo:', MODELO);
 
-        // 7. LLAMADA A GROQ (con parámetros mejorados)
+        // 7. LLAMADA A GROQ
         const chatCompletion = await groq.chat.completions.create({
             messages: messages,
             model: MODELO,
-            temperature: 0.3,        // ← Bajé de 0.4 a 0.3 (más determinista)
-            max_tokens: 800,         // ← Subí de 500 a 800 (respuestas completas)
-            top_p: 0.9,              // ← Bajé de 1 a 0.9 (más enfocado)
-            presence_penalty: 0.3,   // ← NUEVO: evita repetir el saludo
-            frequency_penalty: 0.2,  // ← NUEVO: evita repetir frases
+            temperature: 0.3,
+            max_tokens: 800,
+            top_p: 0.9,
+            presence_penalty: 0.3,
+            frequency_penalty: 0.2,
             stream: false
         });
 
         let response = chatCompletion.choices[0]?.message?.content;
         console.log('✅ Respuesta original:', response?.substring(0, 200));
 
-        // ==========================================
-        // 🔥 CORREGIR ENLACES DE WHATSAPP
-        // ==========================================
         if (response) {
             response = corregirEnlacesWhatsApp(response);
             console.log('✅ Respuesta corregida:', response?.substring(0, 300));
