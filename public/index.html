@@ -8958,16 +8958,7 @@
 
 
 
-        // ==========================================
-        // 5. FUNCIONES DEL CHATBOT (CORREGIDO CON HISTORIAL)
-        // ==========================================
-
-        // 🔴 VARIABLE PARA EL HISTORIAL DE CONVERSACIÓN
-        let chatHistory = [];
-        let saludoInicialDado = false;
-        let vozSeleccionada = null;
-        let audioDesbloqueado = false;
-        let audioActual = null;   // ← AGREGAR ESTA LÍNEA SI NO EXISTE
+        
 
         // ==========================================
         // CHATBOT - FUNCIÓN PARA ABRIR/CERRAR CHAT
@@ -8977,147 +8968,15 @@
         // CHATBOT - FUNCIÓN PARA ABRIR/CERRAR CHAT
         // ==========================================
 
-        function toggleChat() {
-            desbloquearAudioMobile();
-            const chatBox = document.getElementById('chatBox');
-            const triggerBtn = document.getElementById('aiTriggerBtn');
-            const floatingAvatar = document.getElementById('aiFloatingAvatar');
-            const widgetContainer = document.querySelector('.ai-widget-container');
-
-            if (!chatBox) return;
-
-            const estaOculto = chatBox.classList.contains('hidden');
-
-            if (estaOculto) {
-                // ABRIR CHAT
-                chatBox.classList.remove('hidden');
-
-                // ✅ OCULTAR EL BOTÓN Y EL AVATAR
-                if (triggerBtn) triggerBtn.classList.add('hidden');
-                if (floatingAvatar) floatingAvatar.classList.add('hidden');
-                if (widgetContainer) widgetContainer.classList.add('hidden');
-
-                const chatMessages = document.getElementById('chatMessages');
-                const mensajeBienvenida = "¡Hola! Bienvenido a Lim Bolivia. ¿En qué te puedo ayudar hoy?";
-
-                if (chatMessages && chatMessages.children.length === 0) {
-                    appendMessage('bot', mensajeBienvenida);
-                }
-
-                if (!saludoInicialDado) {
-                    hablarTexto(mensajeBienvenida);
-                    saludoInicialDado = true;
-                }
-            } else {
-                // CERRAR CHAT
-                chatBox.classList.add('hidden');
-
-                // ✅ MOSTRAR EL BOTÓN Y EL AVATAR DE NUEVO
-                if (triggerBtn) triggerBtn.classList.remove('hidden');
-                if (floatingAvatar) floatingAvatar.classList.remove('hidden');
-                if (widgetContainer) widgetContainer.classList.remove('hidden');
-
-                // Detener la voz al cerrar
-                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-            }
-        }
+        
 
         // ==========================================
         // CHATBOT - ENVIAR MENSAJE (CON HISTORIAL)
         // ==========================================
 
-        async function sendMessage() {
-            const input = document.getElementById('userInput');
-            if (!input) return;
+        
 
-            const message = input.value.trim();
-            if (!message) return;
-
-            // 1. Mostrar mensaje del usuario
-            appendMessage('user', message);
-            input.value = '';
-
-            // 2. Mostrar animación de "Escribiendo..."
-            const loadingId = appendLoading();
-
-            try {
-                // ✅ ENVIAR MENSAJE + HISTORIAL al backend
-                const response = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        message: message,
-                        history: chatHistory   // ← IMPORTANTE: enviar historial
-                    })
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    const reply = data.reply || data.message || "Entendido.";
-
-                    // 3. Quitar animación de "Escribiendo..."
-                    removeLoading(loadingId);
-
-                    // 4. Mostrar respuesta del bot
-                    appendMessage('bot', reply);
-
-                    // 5. ✅ GUARDAR EL HISTORIAL COMPLETO
-                    chatHistory.push({ role: "user", content: message });
-                    chatHistory.push({ role: "assistant", content: reply });
-
-                    // 6. Hablar la respuesta (voz)
-                    hablarTexto(reply);
-
-                } else {
-                    removeLoading(loadingId);
-                    const errorMsg = "No puedo conectarme con el servidor en este momento.";
-                    appendMessage('bot', errorMsg);
-                    hablarTexto(errorMsg);
-                }
-
-            } catch (err) {
-                console.error("Error backend:", err);
-                removeLoading(loadingId);
-                const errorMsg = "¡Hola! Disculpa, tuve un pequeño parpadeo en mi conexión. ¿Me podrías repetir tu consulta?";
-                appendMessage('bot', errorMsg);
-                hablarTexto(errorMsg);
-            }
-        }
-
-        // ==========================================
-        // CHATBOT - MOSTRAR MENSAJE EN EL CHAT
-        // ==========================================
-
-        function appendMessage(sender, text) {
-            const chatMessages = document.getElementById('chatMessages');
-            if (!chatMessages) return;
-
-            const msgDiv = document.createElement('div');
-
-            if (sender === 'user') {
-                msgDiv.className = "bg-emerald-600 text-white p-2.5 rounded-xl ml-auto max-w-[85%] animate-fade-in whitespace-pre-line";
-                msgDiv.textContent = text;
-            } else {
-                msgDiv.className = "bg-slate-800 text-gray-200 p-2.5 rounded-xl border border-slate-700 max-w-[85%] animate-fade-in whitespace-pre-line leading-relaxed";
-
-                let formattedText = text.replace(/\*\*/g, '');
-                const urlPattern = /(https?:\/\/[^\s<]+)/g;
-
-                formattedText = formattedText.replace(urlPattern, function (url) {
-                    if (url.includes('wa.me')) {
-                        return `<br><a href="${url}" target="_blank" class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition shadow-md my-2 no-underline"><i class="fa-brands fa-whatsapp text-base"></i> Confirmar Reserva por WhatsApp</a>`;
-                    }
-                    return `<br><a href="${url}" target="_blank" class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1 rounded-lg text-xs transition shadow-sm my-1 no-underline"><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Abrir enlace</a>`;
-                });
-
-                // Reemplazar saltos de línea por <br>
-                formattedText = formattedText.replace(/\n/g, '<br>');
-                msgDiv.innerHTML = formattedText;
-            }
-
-            chatMessages.appendChild(msgDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
+        
 
         // ==========================================
         // CHATBOT - ANIMACIÓN DE "ESCRIBIENDO..."
@@ -9144,116 +9003,13 @@
         // CHATBOT - RECONOCIMIENTO DE VOZ (MICRÓFONO)
         // ==========================================
 
-        function startListening() {
-            // 🔇 1. DETENER CUALQUIER VOZ DEL CHATBOT QUE ESTÉ SONANDO
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                console.log('🔇 Voz del chatbot detenida');
-            }
-
-            // 🔇 2. DETENER AUDIO DE EDGE TTS SI ESTÁ REPRODUCIÉNDOSE
-            // Asegúrate de que 'audioActual' esté declarada globalmente
-            if (typeof audioActual !== 'undefined' && audioActual) {
-                audioActual.pause();
-                audioActual.currentTime = 0;
-                audioActual = null;
-                console.log('🔇 Audio Edge TTS detenido');
-            }
-
-            // 🎤 3. INICIAR RECONOCIMIENTO DE VOZ
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) {
-                alert("Tu navegador no soporta reconocimiento de voz.");
-                return;
-            }
-
-            const recognition = new SpeechRecognition();
-            recognition.lang = 'es-ES';
-            recognition.continuous = false; // Solo una frase
-            recognition.interimResults = false; // Solo resultados finales
-
-            // Al iniciar
-            recognition.onstart = function () {
-                const input = document.getElementById('userInput');
-                if (input) input.placeholder = "🎤 Escuchando... (habla ahora)";
-
-                const micBtn = document.querySelector('[onclick="startListening()"]');
-                if (micBtn) {
-                    micBtn.classList.add('bg-red-600', 'animate-pulse');
-                    micBtn.classList.remove('bg-slate-700');
-                }
-            };
-
-            // 🎯 CUANDO SE RECONOCE LO QUE DIJISTE
-            recognition.onresult = function (event) {
-                const transcript = event.results[0][0].transcript;
-                console.log('📝 Texto reconocido:', transcript);
-
-                const input = document.getElementById('userInput');
-                if (input) {
-                    input.value = transcript;
-                    input.placeholder = "Escribe tu mensaje...";
-                }
-
-                // Restaurar botón de micrófono
-                const micBtn = document.querySelector('[onclick="startListening()"]');
-                if (micBtn) {
-                    micBtn.classList.remove('bg-red-600', 'animate-pulse');
-                    micBtn.classList.add('bg-slate-700');
-                }
-
-                // ✅ ENVIAR MENSAJE AUTOMÁTICAMENTE
-                // Usamos un pequeño setTimeout para asegurarnos de que el input se actualizó
-                setTimeout(() => {
-                    sendMessage();
-                }, 100);
-            };
-
-            // Manejo de errores
-            recognition.onerror = function (event) {
-                console.error('Error de reconocimiento de voz:', event.error);
-                const input = document.getElementById('userInput');
-                if (input) input.placeholder = "Escribe tu mensaje...";
-
-                const micBtn = document.querySelector('[onclick="startListening()"]');
-                if (micBtn) {
-                    micBtn.classList.remove('bg-red-600', 'animate-pulse');
-                    micBtn.classList.add('bg-slate-700');
-                }
-
-                // Si el error es 'no-speech' o 'aborted', no mostramos alerta
-                if (event.error !== 'no-speech' && event.error !== 'aborted') {
-                    alert('No se pudo reconocer tu voz. Intenta de nuevo.');
-                }
-            };
-
-            // Al terminar
-            recognition.onend = function () {
-                const input = document.getElementById('userInput');
-                if (input) input.placeholder = "Escribe tu mensaje...";
-
-                const micBtn = document.querySelector('[onclick="startListening()"]');
-                if (micBtn) {
-                    micBtn.classList.remove('bg-red-600', 'animate-pulse');
-                    micBtn.classList.add('bg-slate-700');
-                }
-            };
-
-            // 🚀 INICIAR RECONOCIMIENTO
-            recognition.start();
-        }
+        
 
         // ==========================================
         // CHATBOT - TEXTO A VOZ (HABLAR)
         // ==========================================
 
-        function cargarVoces() {
-            if (!('speechSynthesis' in window)) return;
-            const voces = window.speechSynthesis.getVoices();
-            if (voces.length > 0) {
-                vozSeleccionada = voces.find(v => v.lang.includes('es-MX') || v.lang.includes('es-ES') || v.lang.startsWith('es')) || voces[0];
-            }
-        }
+       
 
         // ❌ ESTO FALTA EN TU CÓDIGO (está después de cargarVoces)
 
@@ -9263,46 +9019,85 @@
         }
 
         function desbloquearAudioMobile() {
-            if (audioDesbloqueado || !('speechSynthesis' in window)) return;
-            const silencio = new SpeechSynthesisUtterance('');
-            silencio.volume = 0;
-            window.speechSynthesis.speak(silencio);
+            if (audioDesbloqueado) return;
+
+            // Desbloquear Web Speech
+            if ('speechSynthesis' in window) {
+                const silencio = new SpeechSynthesisUtterance('');
+                silencio.volume = 0;
+                window.speechSynthesis.speak(silencio);
+            }
+
+            // Desbloquear Audio HTML5 (Groq TTS)
+            try {
+                const audioTest = new Audio();
+                audioTest.volume = 0;
+                audioTest.play().catch(() => { });
+            } catch (e) { }
+
             audioDesbloqueado = true;
+            console.log('🔓 Audio desbloqueado');
         }
 
         document.addEventListener('touchstart', desbloquearAudioMobile, { once: true });
         document.addEventListener('click', desbloquearAudioMobile, { once: true });
 
-        function hablarTexto(texto) {
-            if (!('speechSynthesis' in window)) return;
+       
+
+        // 🔄 FALLBACK - Web Speech API (voz navegador)
+        function hablarTextoFallback(texto) {
+            if (!('speechSynthesis' in window)) {
+                console.warn('⚠️ Web Speech API no soportada');
+                return;
+            }
+
             window.speechSynthesis.cancel();
 
-            let textoLimpio = texto
-                .replace(/https?:\/\/[^\s]+/g, '')
-                .replace(/\*\*/g, '')
-                .replace(/\*/g, '')
-                .replace(/#/g, '')
-                .replace(/`/g, '')
-                .replace(/LIM-BOLIVIA/gi, "Lim Bolivia")
-                .replace(/<[^>]*>?/gm, '')
-                // ✅ NUEVO: Convertir números de teléfono a formato legible por voz
-                .replace(/\+?\s*591\s*730\s*17175/g, "setenta y tres cero diez y siete diez y siete cinco")
-                .replace(/\+?\s*591\s*715\s*06930/g, "setenta y uno cinco cero seis nueve tres cero")
-                .replace(/73017175/g, "setenta y tres cero diez y siete diez y siete cinco")
-                .replace(/71506930/g, "setenta y uno cinco cero seis nueve tres cero")
-                .replace(/79684700/g, "setenta y nueve seis ocho cuatro siete cero cero")
-                .trim();
-
-            if (!textoLimpio) return;
-
-            const utterance = new SpeechSynthesisUtterance(textoLimpio);
+            const utterance = new SpeechSynthesisUtterance(texto);
             if (!vozSeleccionada) cargarVoces();
             if (vozSeleccionada) utterance.voice = vozSeleccionada;
 
             utterance.lang = 'es-ES';
             utterance.rate = 1.0;
+            utterance.pitch = 1.0;
+            utterance.volume = 1.0;
 
             window.speechSynthesis.speak(utterance);
+            console.log('🔄 Usando Web Speech API (fallback)');
+        }
+
+        // Detener todo audio (Groq TTS + Web Speech)
+        function detenerTodoAudio() {
+            if (audioActual) {
+                try {
+                    audioActual.pause();
+                    audioActual.currentTime = 0;
+                } catch (e) { }
+                audioActual = null;
+            }
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+        }
+
+        // Limpiar texto para TTS
+        function limpiarTextoParaTTS(texto) {
+            if (!texto) return '';
+            return texto
+                .replace(/https?:\/\/[^\s]+/g, '')
+                .replace(/\*\*/g, '')
+                .replace(/\*/g, '')
+                .replace(/#/g, '')
+                .replace(/`/g, '')
+                .replace(/<[^>]*>?/gm, '')
+                .replace(/LIM-BOLIVIA/gi, 'Lim Bolivia')
+                .replace(/Lim-Bolivia/gi, 'Lim Bolivia')
+                .replace(/\+?\s*591\s*730\s*17175/g, 'setenta y tres cero diez y siete diez y siete cinco')
+                .replace(/73017175/g, 'setenta y tres cero diez y siete diez y siete cinco')
+                .replace(/&/g, ' y ')
+                .replace(/%/g, ' por ciento ')
+                .replace(/\s+/g, ' ')
+                .trim();
         }
 
 
@@ -10296,6 +10091,353 @@
                 }
             }
         };
+
+        // ==========================================
+        // CHATBOT - GROQ TTS + FALLBACK
+        // ==========================================
+
+        // Variables globales
+        let chatHistory = [];
+        let audioActual = null;
+        let vozSeleccionada = null;
+        let audioDesbloqueado = false;
+        let saludoInicialDado = false;
+
+        // Toggle Chat
+        function toggleChat() {
+            desbloquearAudioMobile();
+            const chatBox = document.getElementById('chatBox');
+            const triggerBtn = document.getElementById('aiTriggerBtn');
+            const floatingAvatar = document.getElementById('aiFloatingAvatar');
+            const widgetContainer = document.querySelector('.ai-widget-container');
+
+            if (!chatBox) return;
+            const estaOculto = chatBox.classList.contains('hidden');
+
+            if (estaOculto) {
+                chatBox.classList.remove('hidden');
+                if (triggerBtn) triggerBtn.classList.add('hidden');
+                if (floatingAvatar) floatingAvatar.classList.add('hidden');
+                if (widgetContainer) widgetContainer.classList.add('hidden');
+
+                const chatMessages = document.getElementById('chatMessages');
+                const mensajeBienvenida = "¡Hola! Bienvenido a Lim Bolivia. ¿En qué te puedo ayudar hoy?";
+
+                if (chatMessages && chatMessages.children.length === 0) {
+                    appendMessage('bot', mensajeBienvenida);
+                }
+
+                if (!saludoInicialDado) {
+                    hablarTexto(mensajeBienvenida);
+                    saludoInicialDado = true;
+                }
+            } else {
+                chatBox.classList.add('hidden');
+                if (triggerBtn) triggerBtn.classList.remove('hidden');
+                if (floatingAvatar) floatingAvatar.classList.remove('hidden');
+                if (widgetContainer) widgetContainer.classList.remove('hidden');
+                detenerTodoAudio();
+            }
+        }
+
+        // Enviar mensaje
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            appendMessage('user', message);
+            input.value = '';
+
+            const loadingId = appendLoading();
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: message,
+                        history: chatHistory
+                    })
+                });
+
+                const data = await response.json();
+                removeLoading(loadingId);
+
+                if (data && data.reply) {
+                    appendMessage('bot', data.reply);
+                    chatHistory.push({ role: "user", content: message });
+                    chatHistory.push({ role: "assistant", content: data.reply });
+                } else {
+                    throw new Error("Respuesta no válida del servidor");
+                }
+            } catch (error) {
+                console.error("Error en Chatbot:", error);
+                removeLoading(loadingId);
+                appendMessage('bot', "¡Hola! Disculpa, tuve un pequeño parpadeo en mi conexión. ¿Me podrías repetir tu consulta?");
+            }
+        }
+
+        // Mostrar mensaje
+        function appendMessage(sender, text) {
+            const chatMessages = document.getElementById('chatMessages');
+            const msgDiv = document.createElement('div');
+
+            if (sender === 'user') {
+                msgDiv.className = 'bg-emerald-600 text-white p-3 rounded-xl ml-auto max-w-[80%] text-xs shadow-sm';
+                msgDiv.textContent = text;
+            } else {
+                msgDiv.className = 'bg-slate-800 text-gray-100 p-3 rounded-xl mr-auto max-w-[85%] text-xs border border-slate-700 shadow-sm space-y-2';
+
+                let formattedText = text.replace(/\n/g, '<br>');
+                const urlPattern = /(https?:\/\/wa\.me\/[^\s<]+)/g;
+                formattedText = formattedText.replace(urlPattern, function (url) {
+                    return `<a href="${url}" target="_blank" class="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-3 rounded-lg text-xs mt-2 no-underline text-center">📲 Agendar por WhatsApp</a>`;
+                });
+
+                msgDiv.innerHTML = `<div>${formattedText}</div>`;
+
+                // 🔊 Reproducir respuesta por voz
+                hablarTexto(text);
+            }
+
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Animación escribiendo
+        function appendLoading() {
+            const chatMessages = document.getElementById('chatMessages');
+            const id = 'loading-' + Date.now();
+            const loadingDiv = document.createElement('div');
+            loadingDiv.id = id;
+            loadingDiv.className = 'bg-slate-800 text-emerald-400 p-3 rounded-xl mr-auto text-xs flex items-center gap-2';
+            loadingDiv.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Escribiendo...</span>`;
+            chatMessages.appendChild(loadingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return id;
+        }
+
+        function removeLoading(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        // 🎙️ Reconocimiento de voz
+        function startListening() {
+            detenerTodoAudio();
+
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert("Tu navegador no soporta reconocimiento de voz.");
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'es-BO';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            recognition.onstart = function () {
+                const micBtn = document.querySelector('[onclick="startListening()"]');
+                if (micBtn) {
+                    micBtn.classList.add('bg-red-600', 'animate-pulse');
+                    micBtn.classList.remove('bg-slate-700');
+                }
+                const input = document.getElementById('userInput');
+                if (input) input.placeholder = "🎤 Escuchando...";
+            };
+
+            recognition.onresult = function (event) {
+                const transcript = event.results[0][0].transcript;
+                console.log('📝 Texto reconocido:', transcript);
+
+                const input = document.getElementById('userInput');
+                if (input) {
+                    input.value = transcript;
+                    input.placeholder = "Escribe tu mensaje...";
+                }
+
+                const micBtn = document.querySelector('[onclick="startListening()"]');
+                if (micBtn) {
+                    micBtn.classList.remove('bg-red-600', 'animate-pulse');
+                    micBtn.classList.add('bg-slate-700');
+                }
+
+                setTimeout(() => sendMessage(), 100);
+            };
+
+            recognition.onerror = function (event) {
+                console.error('Error de micrófono:', event.error);
+                const micBtn = document.querySelector('[onclick="startListening()"]');
+                if (micBtn) {
+                    micBtn.classList.remove('bg-red-600', 'animate-pulse');
+                    micBtn.classList.add('bg-slate-700');
+                }
+                const input = document.getElementById('userInput');
+                if (input) input.placeholder = "Escribe tu mensaje...";
+            };
+
+            recognition.onend = function () {
+                const micBtn = document.querySelector('[onclick="startListening()"]');
+                if (micBtn) {
+                    micBtn.classList.remove('bg-red-600', 'animate-pulse');
+                    micBtn.classList.add('bg-slate-700');
+                }
+                const input = document.getElementById('userInput');
+                if (input) input.placeholder = "Escribe tu mensaje...";
+            };
+
+            recognition.start();
+        }
+
+        // 🔊 HABLAR TEXTO - GROQ TTS + FALLBACK
+        async function hablarTexto(texto) {
+            if (!texto || texto.trim() === '') return;
+            detenerTodoAudio();
+
+            const textoLimpio = limpiarTexto(texto);
+            if (!textoLimpio) return;
+
+            console.log('🔊 Hablando:', textoLimpio.substring(0, 80) + '...');
+
+            try {
+                const response = await fetch('/api/tts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: textoLimpio })
+                });
+
+                if (!response.ok) {
+                    console.warn('⚠️ Groq TTS no disponible, usando fallback');
+                    hablarTextoFallback(textoLimpio);
+                    return;
+                }
+
+                const audioBlob = await response.blob();
+                const audioUrl = URL.createObjectURL(audioBlob);
+
+                audioActual = new Audio(audioUrl);
+                audioActual.volume = 1.0;
+
+                await audioActual.play();
+
+                audioActual.onended = () => {
+                    URL.revokeObjectURL(audioUrl);
+                    audioActual = null;
+                    console.log('✅ Audio Groq terminado');
+                };
+
+                audioActual.onerror = () => {
+                    URL.revokeObjectURL(audioUrl);
+                    audioActual = null;
+                    console.warn('⚠️ Error reproduciendo Groq TTS');
+                    hablarTextoFallback(textoLimpio);
+                };
+            } catch (error) {
+                console.warn('⚠️ Error con Groq TTS:', error.message);
+                hablarTextoFallback(textoLimpio);
+            }
+        }
+
+        // 🔄 Fallback Web Speech API
+        function hablarTextoFallback(texto) {
+            if (!('speechSynthesis' in window)) {
+                console.warn('⚠️ Web Speech API no soportada');
+                return;
+            }
+
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(texto);
+
+            if (!vozSeleccionada) cargarVoces();
+            if (vozSeleccionada) utterance.voice = vozSeleccionada;
+
+            utterance.lang = 'es-ES';
+            utterance.rate = 1.0;
+            utterance.pitch = 1.0;
+            utterance.volume = 1.0;
+
+            window.speechSynthesis.speak(utterance);
+            console.log('🔄 Usando Web Speech API (fallback)');
+        }
+
+        // Detener todo audio
+        function detenerTodoAudio() {
+            if (audioActual) {
+                try {
+                    audioActual.pause();
+                    audioActual.currentTime = 0;
+                } catch (e) { }
+                audioActual = null;
+            }
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+        }
+
+        // Limpiar texto
+        function limpiarTexto(texto) {
+            if (!texto) return '';
+            return texto
+                .replace(/https?:\/\/[^\s]+/g, '')
+                .replace(/\*\*/g, '')
+                .replace(/\*/g, '')
+                .replace(/#/g, '')
+                .replace(/`/g, '')
+                .replace(/<[^>]*>?/gm, '')
+                .replace(/LIM-BOLIVIA/gi, 'Lim Bolivia')
+                .replace(/Lim-Bolivia/gi, 'Lim Bolivia')
+                .replace(/\+?\s*591\s*730\s*17175/g, 'setenta y tres cero diez y siete diez y siete cinco')
+                .replace(/73017175/g, 'setenta y tres cero diez y siete diez y siete cinco')
+                .replace(/&/g, ' y ')
+                .replace(/%/g, ' por ciento ')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        // Cargar voces
+        function cargarVoces() {
+            if (!('speechSynthesis' in window)) return;
+            const voces = window.speechSynthesis.getVoices();
+            if (voces.length > 0) {
+                vozSeleccionada = voces.find(v =>
+                    v.lang.includes('es-MX') ||
+                    v.lang.includes('es-ES') ||
+                    v.lang.startsWith('es')
+                ) || voces[0];
+                console.log('🎤 Voz seleccionada (fallback):', vozSeleccionada?.name);
+            }
+        }
+
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = cargarVoces;
+            cargarVoces();
+        }
+
+        // Desbloquear audio móvil
+        function desbloquearAudioMobile() {
+            if (audioDesbloqueado) return;
+            if ('speechSynthesis' in window) {
+                const silencio = new SpeechSynthesisUtterance('');
+                silencio.volume = 0;
+                window.speechSynthesis.speak(silencio);
+            }
+            try {
+                const audioTest = new Audio();
+                audioTest.volume = 0;
+                audioTest.play().catch(() => { });
+            } catch (e) { }
+            audioDesbloqueado = true;
+            console.log('🔓 Audio desbloqueado para móvil');
+        }
+
+        document.addEventListener('touchstart', desbloquearAudioMobile, { once: true });
+        document.addEventListener('click', desbloquearAudioMobile, { once: true });
+
+        console.log('✅ Chatbot cargado - Groq TTS + Fallback activado');
+
+
     </script>
 
 
