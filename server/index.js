@@ -63,7 +63,7 @@ server.on('error', (err) => {
   if (err.code === 'EADDRINUSE') {
     console.error(`❌ El puerto ${PORT} ya está en uso.`);
     console.log(`🔄 Intentando usar el puerto ${PORT + 1}...`);
-    
+
     // Intentar con el siguiente puerto
     const newPort = PORT + 1;
     const newServer = app.listen(newPort, '0.0.0.0', () => {
@@ -73,7 +73,7 @@ server.on('error', (err) => {
       console.log(`🌐 URL local: http://localhost:${newPort}`);
       console.log(`=================================`);
     });
-    
+
     newServer.on('error', (err2) => {
       console.error(`❌ Error también en el puerto ${newPort}:`, err2);
       process.exit(1);
@@ -83,3 +83,9 @@ server.on('error', (err) => {
     process.exit(1);
   }
 });
+
+// Después de tus imports existentes
+import ttsRoutes from './routes/ttsRoutes.js';
+
+// Después de las otras rutas (chatRoutes, etc.)
+app.use('/api/tts', ttsRoutes);
