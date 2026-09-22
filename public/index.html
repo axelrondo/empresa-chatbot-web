@@ -10674,6 +10674,95 @@
         </div>
     </div>
 
+    <!-- ========================================== -->
+    <!-- 🚀 SCRIPT DE EMERGENCIA PARA EL CARRUSEL   -->
+    <!-- Se ejecuta AL FINAL, cuando todo ya cargó  -->
+    <!-- ========================================== -->
+    <script>
+        (function () {
+            'use strict';
+
+            console.log('🚀 Iniciando script de emergencia del carrusel...');
+
+            // ✅ Definir las imágenes
+            var imagenes = [
+                '/img/banner11.jpg',
+                '/img/banner2.jpg',
+                '/img/banner4.png',
+                '/img/banner6.jpg',
+                '/img/banner5.jpg'
+            ];
+            var indiceActual = 0;
+            var intervalo = null;
+
+            // ✅ Función para mostrar imagen
+            function mostrarImagen(idx) {
+                var img = document.getElementById('mainSliderImg');
+                var indicadores = document.getElementById('slideIndicatorsContainer');
+
+                if (!img) {
+                    console.warn('⚠️ No se encontró mainSliderImg');
+                    return;
+                }
+
+                indiceActual = (idx + imagenes.length) % imagenes.length;
+                img.src = imagenes[indiceActual];
+
+                // Actualizar puntitos
+                if (indicadores) {
+                    indicadores.innerHTML = '';
+                    imagenes.forEach(function (_, i) {
+                        var dot = document.createElement('div');
+                        dot.className = 'h-2.5 rounded-full cursor-pointer transition-all duration-300 ' +
+                            (i === indiceActual ? 'bg-amber-400 w-6' : 'bg-white/60 hover:bg-white w-2.5');
+                        dot.onclick = function () {
+                            mostrarImagen(i);
+                            reiniciarAuto();
+                        };
+                        indicadores.appendChild(dot);
+                    });
+                }
+            }
+
+            // ✅ Siguiente imagen
+            function siguiente() {
+                mostrarImagen(indiceActual + 1);
+            }
+
+            // ✅ Anterior imagen
+            function anterior() {
+                mostrarImagen(indiceActual - 1);
+            }
+
+            // ✅ Reiniciar auto-play
+            function reiniciarAuto() {
+                if (intervalo) clearInterval(intervalo);
+                intervalo = setInterval(siguiente, 5000);
+            }
+
+            // ✅ Exponer al ámbito global (para los onclick del HTML)
+            window.nextSlide = siguiente;
+            window.prevSlide = anterior;
+            window.updateSlide = function () { mostrarImagen(indiceActual); };
+            window.iniciarCarrusel = function () {
+                mostrarImagen(0);
+                reiniciarAuto();
+                console.log('✅ Carrusel de emergencia iniciado con ' + imagenes.length + ' imágenes');
+            };
+
+            // ✅ Ejecutar después de que el DOM esté completamente cargado
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function () {
+                    setTimeout(window.iniciarCarrusel, 500);
+                });
+            } else {
+                setTimeout(window.iniciarCarrusel, 500);
+            }
+
+            console.log('✅ Script de emergencia listo');
+        })();
+    </script>
+
 </body>
 
 </html>
