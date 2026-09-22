@@ -9105,24 +9105,33 @@
         // ==========================================
         // 6. CARRUSEL
         // ==========================================
-        var slideImages = ['/img/banner11.jpg', '/img/banner2.jpg', '/img/banner4.png', '/img/banner6.jpg', '/img/banner5.jpg'];
+        var slideImages = [
+            '/img/banner11.jpg',
+            '/img/banner2.jpg',
+            '/img/banner4.png',
+            '/img/banner6.jpg',
+            '/img/banner5.jpg'
+        ];
         var currentSlide = 0;
+        var carruselInterval = null;
 
         function updateSlide() {
             var img = document.getElementById('mainSliderImg');
-            if (img) img.src = slideImages[currentSlide];
+            if (img) {
+                img.src = slideImages[currentSlide];
+            }
             updateIndicators();
         }
 
-        window.nextSlide = function () {
+        function nextSlide() {
             currentSlide = (currentSlide + 1) % slideImages.length;
             updateSlide();
-        };
+        }
 
-        window.prevSlide = function () {
+        function prevSlide() {
             currentSlide = (currentSlide - 1 + slideImages.length) % slideImages.length;
             updateSlide();
-        };
+        }
 
         function updateIndicators() {
             var container = document.getElementById('slideIndicatorsContainer');
@@ -9140,7 +9149,19 @@
             });
         }
 
-        setInterval(window.nextSlide, 5000);
+        // 🔥 ARRANCAR CARRUSEL (auto-play cada 5 seg)
+        function iniciarCarrusel() {
+            updateSlide();
+            if (carruselInterval) clearInterval(carruselInterval);
+            carruselInterval = setInterval(nextSlide, 5000);
+            console.log('✅ Carrusel iniciado con ' + slideImages.length + ' imágenes');
+        }
+
+        // ✅ Exponer las funciones al ámbito global para los onclick del HTML
+        window.nextSlide = nextSlide;
+        window.prevSlide = prevSlide;
+        window.updateSlide = updateSlide;
+        window.iniciarCarrusel = iniciarCarrusel;
 
         // ==========================================
         // 7. INICIALIZACIÓN
@@ -9148,21 +9169,17 @@
         document.addEventListener('DOMContentLoaded', function () {
             console.log('🚀 WebApp iniciada');
             console.log('📦 Supabase:', supabaseClient ? '✅ Conectado' : '❌ No configurado');
+
+            // Inicializar cotizador
             selectServiceTab('Alfombras');
+
+            // Inicializar maquinarias
             cargarMaquinarias('Todas');
 
             // 🔥 INICIALIZAR CARRUSEL
-            if (typeof updateSlide === 'function') {
-                updateSlide();
-                console.log('✅ Carrusel inicializado con ' + slideImages.length + ' imágenes');
-            }
-
-            // 🔥 AUTO-PLAY cada 5 segundos
-            setInterval(function () {
-                if (typeof nextSlide === 'function') {
-                    nextSlide();
-                }
-            }, 5000);
+            setTimeout(function () {
+                iniciarCarrusel();
+            }, 100);
         });
 
         console.log('✅ JavaScript cargado');
