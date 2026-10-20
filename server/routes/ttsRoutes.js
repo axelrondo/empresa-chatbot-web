@@ -1,5 +1,5 @@
 import express from 'express';
-import { EdgeTTS } from '@travisvn/edge-tts';
+import { EdgeTTS } from 'edge-tts-universal';
 
 const router = express.Router();
 
@@ -57,35 +57,25 @@ router.post('/', async (req, res) => {
         console.log('📝 Texto:', textoLimpio.substring(0, 100) + '...');
 
         // =========================================================
-        // 🎤 SELECCIÓN DE VOZ (Descomenta la que más te guste)
+        // 🎤 SELECCIÓN DE VOZ
         // =========================================================
         
         // 🇲🇽 México (Femenina - Natural y suave)
         const VOZ = 'es-MX-DaliaNeural'; 
         
-        // 🇲🇽 México (Masculina)
+        // Otras opciones:
         // const VOZ = 'es-MX-JorgeNeural'; 
-        
-        // 🇦🇷 Argentina (Femenina)
         // const VOZ = 'es-AR-ElenaNeural'; 
-        
-        // 🇦🇷 Argentina (Masculina)
         // const VOZ = 'es-AR-TomasNeural';
-        
-        // 🇪🇸 España (Femenina)
         // const VOZ = 'es-ES-ElviraNeural';
-        
-        // 🇪🇸 España (Masculina)
         // const VOZ = 'es-ES-AlvaroNeural';
-        
-        // 🇨🇴 Colombia (Masculina)
         // const VOZ = 'es-CO-GonzaloNeural';
 
-        // ✅ Usando la nueva librería adaptada al servidor de Microsoft
+        // ✅ Usando la librería universal
         const tts = new EdgeTTS(textoLimpio, VOZ);
         const result = await tts.synthesize();
 
-        // Convertir el audio a un Buffer
+        // Convertir el audio a un Buffer de forma segura
         const buffer = Buffer.from(await result.audio.arrayBuffer());
 
         console.log('✅ Edge TTS: Audio generado (' + buffer.length + ' bytes)');
