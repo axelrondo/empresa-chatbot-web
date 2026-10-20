@@ -56,8 +56,30 @@ router.post('/', async (req, res) => {
         console.log('🎙️ Edge TTS: Generando audio...');
         console.log('📝 Texto:', textoLimpio.substring(0, 100) + '...');
 
-        // 🎤 VOZ: cambia aquí si quieres otra voz
-        const VOZ = 'es-MX-DaliaNeural';  // 🇧🇴 Boliviano masculino
+        // =========================================================
+        // 🎤 SELECCIÓN DE VOZ (Descomenta la que más te guste)
+        // =========================================================
+        
+        // 🇲🇽 México (Femenina - Natural y suave)
+        const VOZ = 'es-MX-DaliaNeural'; 
+        
+        // 🇲🇽 México (Masculina)
+        // const VOZ = 'es-MX-JorgeNeural'; 
+        
+        // 🇦🇷 Argentina (Femenina)
+        // const VOZ = 'es-AR-ElenaNeural'; 
+        
+        // 🇦🇷 Argentina (Masculina)
+        // const VOZ = 'es-AR-TomasNeural';
+        
+        // 🇪🇸 España (Femenina)
+        // const VOZ = 'es-ES-ElviraNeural';
+        
+        // 🇪🇸 España (Masculina)
+        // const VOZ = 'es-ES-AlvaroNeural';
+        
+        // 🇨🇴 Colombia (Masculina)
+        // const VOZ = 'es-CO-GonzaloNeural';
 
         const tts = new MsEdgeTTS();
         await tts.setMetadata(VOZ, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
