@@ -49,8 +49,9 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ error: 'Texto vacío después de limpiar.' });
         }
 
-        if (textoLimpio.length > 5000) {
-            textoLimpio = textoLimpio.substring(0, 5000);
+        // Limitar a 200 caracteres para evitar que el navegador bloquee el audio
+        if (textoLimpio.length > 200) {
+            textoLimpio = textoLimpio.substring(0, 200) + '...';
         }
 
         console.log('🎙️ Edge TTS: Generando audio...');
@@ -60,7 +61,7 @@ router.post('/', async (req, res) => {
         // es-MX-DaliaNeural (México)
         // es-AR-ElenaNeural (Argentina)
         // es-ES-ElviraNeural (España)
-        const VOZ = 'es-MX-DaliaNeural'; 
+        const VOZ = 'es-MX-DaliaNeural';
 
         // ✅ USANDO LA NUEVA LIBRERÍA CON STREAMING
         const communicate = new Communicate(textoLimpio, {
