@@ -1,10 +1,10 @@
 import express from 'express';
-import { Communicate } from 'edge-tts-universal';
+import { MsEdgeTTS, OUTPUT_FORMAT } from 'msedge-tts';
 
 const router = express.Router();
 
 // ==========================================
-// 1. FUNCIÓN PARA LIMPIAR EL TEXTO
+// LIMPIAR TEXTO PARA TTS
 // ==========================================
 function limpiarTextoParaTTS(texto) {
     if (!texto) return '';
@@ -33,7 +33,7 @@ function limpiarTextoParaTTS(texto) {
 }
 
 // ==========================================
-// 2. ENDPOINT POST /api/tts
+// ENDPOINT: POST /api/tts (Microsoft Edge TTS)
 // ==========================================
 router.post('/', async (req, res) => {
     try {
@@ -49,38 +49,26 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ error: 'Texto vacío después de limpiar.' });
         }
 
-        // Limitar a 200 caracteres para evitar que el navegador bloquee el audio
-        if (textoLimpio.length > 200) {
-            textoLimpio = textoLimpio.substring(0, 200) + '...';
+        if (textoLimpio.length > 5000) {
+            textoLimpio = textoLimpio.substring(0, 5000);
         }
 
         console.log('🎙️ Edge TTS: Generando audio...');
         console.log('📝 Texto:', textoLimpio.substring(0, 100) + '...');
 
-        // 🎤 SELECCIÓN DE VOZ (Puedes cambiarla aquí)
-        // es-MX-DaliaNeural (México)
-        // es-AR-ElenaNeural (Argentina)
-        // es-ES-ElviraNeural (España)
-        const VOZ = 'es-MX-DaliaNeural';
+        // 🎤 VOZ: cambia aquí si quieres otra voz
+        const VOZ = 'es-MX-DaliaNeural';  // 🇧🇴 Boliviano masculino
 
-        // ✅ USANDO LA NUEVA LIBRERÍA CON STREAMING
-        const communicate = new Communicate(textoLimpio, {
-            voice: VOZ,
-        });
+        const tts = new MsEdgeTTS();
+        await tts.setMetadata(VOZ, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
 
-        const buffers = [];
-        for await (const chunk of communicate.stream()) {
-            if (chunk.type === 'audio' && chunk.data) {
-                buffers.push(chunk.data);
-            }
+        const { audioStream } = await tts.toStream(textoLimpio);
+
+        const chunks = [];
+        for await (const chunk of audioStream) {
+            chunks.push(chunk);
         }
-
-        // Concatenar todos los trozos de audio en un solo Buffer
-        const buffer = Buffer.concat(buffers);
-
-        if (buffer.length === 0) {
-            throw new Error('No se recibió audio del servicio de Microsoft.');
-        }
+        const buffer = Buffer.concat(chunks);
 
         console.log('✅ Edge TTS: Audio generado (' + buffer.length + ' bytes)');
 

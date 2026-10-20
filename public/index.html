@@ -10332,23 +10332,52 @@
         }
 
         // 🔊 HABLAR TEXTO - GROQ TTS + FALLBACK
-        // ==========================================
-        // 🔊 HABLAR TEXTO - MODO EMERGENCIA (SOLO VOZ DE NAVEGADOR)
-        // ==========================================
-        function hablarTexto(texto) {
+        async function hablarTexto(texto) {
             if (!texto || texto.trim() === '') return;
-
-            // Detener cualquier audio previo
             detenerTodoAudio();
 
-            // Limpiar texto
             const textoLimpio = limpiarTexto(texto);
             if (!textoLimpio) return;
 
-            console.log('🔊 Hablando (Modo Emergencia):', textoLimpio.substring(0, 80) + '...');
+            console.log('🔊 Hablando:', textoLimpio.substring(0, 80) + '...');
 
-            // Llamar directamente al fallback (voz del navegador)
-            hablarTextoFallback(textoLimpio);
+            try {
+                const response = await fetch('/api/tts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: textoLimpio })
+                });
+
+                if (!response.ok) {
+                    console.warn('⚠️ Groq TTS no disponible, usando fallback');
+                    hablarTextoFallback(textoLimpio);
+                    return;
+                }
+
+                const audioBlob = await response.blob();
+                const audioUrl = URL.createObjectURL(audioBlob);
+
+                audioActual = new Audio(audioUrl);
+                audioActual.volume = 1.0;
+
+                await audioActual.play();
+
+                audioActual.onended = () => {
+                    URL.revokeObjectURL(audioUrl);
+                    audioActual = null;
+                    console.log('✅ Audio Groq terminado');
+                };
+
+                audioActual.onerror = () => {
+                    URL.revokeObjectURL(audioUrl);
+                    audioActual = null;
+                    console.warn('⚠️ Error reproduciendo Groq TTS');
+                    hablarTextoFallback(textoLimpio);
+                };
+            } catch (error) {
+                console.warn('⚠️ Error con Groq TTS:', error.message);
+                hablarTextoFallback(textoLimpio);
+            }
         }
 
         // 🔄 Fallback Web Speech API
