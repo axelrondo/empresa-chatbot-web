@@ -10333,60 +10333,22 @@
 
         // 🔊 HABLAR TEXTO - GROQ TTS + FALLBACK
         // ==========================================
-        // 🔊 HABLAR TEXTO - VERSIÓN CORREGIDA (CHAT)
+        // 🔊 HABLAR TEXTO - MODO EMERGENCIA (SOLO VOZ DE NAVEGADOR)
         // ==========================================
-        async function hablarTexto(texto) {
+        function hablarTexto(texto) {
             if (!texto || texto.trim() === '') return;
 
             // Detener cualquier audio previo
             detenerTodoAudio();
 
+            // Limpiar texto
             const textoLimpio = limpiarTexto(texto);
             if (!textoLimpio) return;
 
-            console.log('🔊 Chat intentando hablar:', textoLimpio.substring(0, 80) + '...');
+            console.log('🔊 Hablando (Modo Emergencia):', textoLimpio.substring(0, 80) + '...');
 
-            try {
-                const response = await fetch('/api/tts', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text: textoLimpio })
-                });
-
-                // Si el servidor falla o devuelve error (como el 403 de Microsoft)
-                if (!response.ok) {
-                    console.warn('⚠️ TTS falló, usando fallback de robot');
-                    hablarTextoFallback(textoLimpio);
-                    return;
-                }
-
-                const audioBlob = await response.blob();
-
-                // 🔥 TRUCO PARA MÓVILES: Convertir el audio a Base64
-                const reader = new FileReader();
-                reader.readAsDataURL(audioBlob);
-                reader.onloadend = function () {
-                    const base64data = reader.result;
-                    audioActual = new Audio(base64data);
-                    audioActual.volume = 1.0;
-
-                    // Intentar reproducir
-                    const playPromise = audioActual.play();
-
-                    if (playPromise !== undefined) {
-                        playPromise.then(() => {
-                            console.log('✅ Audio del chat reproducido correctamente');
-                        }).catch(error => {
-                            console.warn('⚠️ Navegador bloqueó el audio. Haz clic en la pantalla primero.', error);
-                            // Solo usar fallback si el navegador bloquea estrictamente
-                            hablarTextoFallback(textoLimpio);
-                        });
-                    }
-                };
-            } catch (error) {
-                console.warn('⚠️ Error de red con TTS:', error.message);
-                hablarTextoFallback(textoLimpio);
-            }
+            // Llamar directamente al fallback (voz del navegador)
+            hablarTextoFallback(textoLimpio);
         }
 
         // 🔄 Fallback Web Speech API
