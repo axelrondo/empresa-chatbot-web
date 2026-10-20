@@ -1,5 +1,5 @@
 import express from 'express';
-import { MsEdgeTTS, OUTPUT_FORMAT } from 'msedge-tts';
+import { EdgeTTS } from '@travisvn/edge-tts';
 
 const router = express.Router();
 
@@ -33,7 +33,7 @@ function limpiarTextoParaTTS(texto) {
 }
 
 // ==========================================
-// ENDPOINT: POST /api/tts (Microsoft Edge TTS)
+// ENDPOINT: POST /api/tts (Edge TTS)
 // ==========================================
 router.post('/', async (req, res) => {
     try {
@@ -81,16 +81,12 @@ router.post('/', async (req, res) => {
         // 🇨🇴 Colombia (Masculina)
         // const VOZ = 'es-CO-GonzaloNeural';
 
-        const tts = new MsEdgeTTS();
-        await tts.setMetadata(VOZ, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
+        // ✅ Usando la nueva librería adaptada al servidor de Microsoft
+        const tts = new EdgeTTS(textoLimpio, VOZ);
+        const result = await tts.synthesize();
 
-        const { audioStream } = await tts.toStream(textoLimpio);
-
-        const chunks = [];    
-        for await (const chunk of audioStream) {
-            chunks.push(chunk);
-        }
-        const buffer = Buffer.concat(chunks);
+        // Convertir el audio a un Buffer
+        const buffer = Buffer.from(await result.audio.arrayBuffer());
 
         console.log('✅ Edge TTS: Audio generado (' + buffer.length + ' bytes)');
 
